@@ -1,136 +1,154 @@
-```html
 <!DOCTYPE html>
+
 <html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EcoGame 🌍</title>
+```
+<title>EcoGame 🌍</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: white;
-            background: linear-gradient(135deg, #061b12, #0b2e1c, #123d25);
-            min-height: 100vh;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+        background: linear-gradient(135deg, #061b12, #0b2e1c, #123d25);
+        min-height: 100vh;
+    }
 
-        header {
-            padding: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.25);
-        }
+    header {
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.25);
+        gap: 15px;
+        flex-wrap: wrap;
+    }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
+    .logo {
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-        .home {
-            background: #2e7d32;
-            padding: 12px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-        }
+    .destra {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
 
-        .home:hover {
-            background: #43a047;
-        }
+    .lingua {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        cursor: pointer;
+    }
 
-        main {
-            width: 90%;
-            max-width: 1100px;
-            margin: 40px auto;
-            text-align: center;
-        }
+    .home {
+        background: #2e7d32;
+        padding: 12px 20px;
+        border-radius: 12px;
+        cursor: pointer;
+    }
 
-        h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+    .home:hover {
+        background: #43a047;
+    }
 
-        .intro {
-            font-size: 18px;
-            color: #c8e6c9;
-            margin-bottom: 40px;
-        }
+    main {
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto;
+        text-align: center;
+    }
 
-        .games {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+    h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
 
-        .game {
-            background: #123b25;
-            border: 1px solid #28633c;
-            border-radius: 22px;
-            padding: 28px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-            transition: 0.25s;
-        }
+    .intro {
+        font-size: 18px;
+        color: #c8e6c9;
+        margin-bottom: 40px;
+    }
 
-        .game:hover {
-            transform: translateY(-7px);
-            background: #16492c;
-        }
+    .games {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
 
-        .number {
-            color: #81c784;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
+    .game {
+        background: #123b25;
+        border: 1px solid #28633c;
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        transition: 0.25s;
+    }
 
-        .icon {
-            font-size: 55px;
-            margin: 10px;
-        }
+    .game:hover {
+        transform: translateY(-7px);
+        background: #16492c;
+    }
 
-        h2 {
-            font-size: 27px;
-            margin: 15px 0;
-        }
+    .number {
+        color: #81c784;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
 
-        .game p {
-            color: #dcedc8;
-            line-height: 1.5;
-            min-height: 75px;
-        }
+    .icon {
+        font-size: 55px;
+        margin: 10px;
+    }
 
-        .play {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: #43a047;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-        }
+    h2 {
+        font-size: 27px;
+        margin: 15px 0;
+    }
 
-        .play:hover {
-            background: #66bb6a;
-        }
+    .game p {
+        color: #dcedc8;
+        line-height: 1.5;
+        min-height: 75px;
+    }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #a5d6a7;
-        }
+    .play {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: #43a047;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 15px;
+    }
 
-    </style>
+    .play:hover {
+        background: #66bb6a;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #a5d6a7;
+    }
+
+</style>
+```
 
 </head>
 
@@ -138,358 +156,434 @@
 
 <header>
 
-    <div class="logo">
-        🌍 EcoGame
+```
+<div class="logo">
+    🌍 EcoGame
+</div>
+
+<div class="destra">
+
+    <select class="lingua" id="lingua" onchange="cambiaLingua()">
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="es">🇪🇸 Español</option>
+    </select>
+
+    <div class="home" onclick="location.href='index.html'">
+        🏠 <span data-testo="home">Home</span>
     </div>
 
-    <div
-        class="home"
-        onclick="location.href='index.html'">
-
-        🏠 Home
-
-    </div>
+</div>
+```
 
 </header>
 
-
 <main>
 
-    <h1>🎮 I tuoi giochi</h1>
+```
+<h1 data-testo="titolo">🎮 I tuoi giochi</h1>
 
-    <p class="intro">
-        Metti alla prova le tue conoscenze
-        sull'ambiente attraverso quiz,
-        giochi e sfide.
-    </p>
+<p class="intro" data-testo="intro">
+    Metti alla prova le tue conoscenze sull'ambiente attraverso quiz,
+    giochi e sfide.
+</p>
 
 
-    <div class="games">
+<div class="games">
 
 
-        <!-- GIOCO 01 -->
+    <div class="game">
 
-        <div class="game">
+        <div class="number">GIOCO 01</div>
 
-            <div class="number">
-                GIOCO 01
-            </div>
+        <div class="icon">♻️</div>
 
-            <div class="icon">
-                ♻️
-            </div>
+        <h2 data-testo="gioco1_titolo">EcoSort</h2>
 
-            <h2>EcoSort</h2>
+        <p data-testo="gioco1">
+            Impara a riconoscere e smistare correttamente i diversi tipi
+            di rifiuti.
+        </p>
 
-            <p>
-                Impara a riconoscere e smistare
-                correttamente i diversi tipi
-                di rifiuti.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='ricicla.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 02 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 02
-            </div>
-
-            <div class="icon">
-                🌳
-            </div>
-
-            <h2>Salva la Foresta</h2>
-
-            <p>
-                Analizza una foresta e prendi
-                decisioni per proteggerne
-                l'equilibrio.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='foresta.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 03 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 03
-            </div>
-
-            <div class="icon">
-                💧
-            </div>
-
-            <h2>Dove finisce l'acqua?</h2>
-
-            <p>
-                Risolvi casi e analizza i dati
-                per capire dove viene sprecata
-                l'acqua.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='acqua.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 04 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 04
-            </div>
-
-            <div class="icon">
-                🦤
-            </div>
-
-            <h2>Animali Estinti</h2>
-
-            <p>
-                Scopri animali ormai estinti,
-                le cause della loro scomparsa
-                e come avremmo potuto proteggerli.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='estinzione.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 05 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 05
-            </div>
-
-            <div class="icon">
-                🐾
-            </div>
-
-            <h2>Species Rescue</h2>
-
-            <p>
-                Proteggi le specie a rischio,
-                scopri le cause dell'estinzione
-                e affronta missioni di conservazione.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='animali.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 06 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 06
-            </div>
-
-            <div class="icon">
-                🧠
-            </div>
-
-            <h2>Memory Biodiversità</h2>
-
-            <p>
-                Trova le coppie e scopri
-                le relazioni tra specie,
-                habitat ed ecosistemi.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='memory.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 07 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 07
-            </div>
-
-            <div class="icon">
-                🐝
-            </div>
-
-            <h2>Eco Bee Runner</h2>
-
-            <p>
-                Aiuta l'ape a superare lattine,
-                bottiglie, carta e altri rifiuti.
-                Quanto lontano riuscirai ad arrivare?
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='runner.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 08 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 08
-            </div>
-
-            <div class="icon">
-                🌍
-            </div>
-
-            <h2>Climate Challenge</h2>
-
-            <p>
-                Affronta 20 sfide sul cambiamento
-                climatico, sull'atmosfera e
-                sul buco dell'ozono.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='climate.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 09 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 09
-            </div>
-
-            <div class="icon">
-                🌊
-            </div>
-
-            <h2>Ocean Rescue</h2>
-
-            <p>
-                Gestisci una riserva marina,
-                proteggi la biodiversità e
-                trova un equilibrio tra ambiente
-                e attività umane.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='oceano.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
-
-        <!-- GIOCO 10 -->
-
-        <div class="game">
-
-            <div class="number">
-                GIOCO 10
-            </div>
-
-            <div class="icon">
-                🍽️
-            </div>
-
-            <h2>Food Impact</h2>
-
-            <p>
-                Costruisci un pasto cercando
-                di bilanciare costo, consumo
-                d'acqua, clima e rifiuti.
-            </p>
-
-            <button
-                class="play"
-                onclick="location.href='alimentazione.html'">
-
-                ▶️ Gioca
-
-            </button>
-
-        </div>
-
+        <button class="play"
+                onclick="location.href='ricicla.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
 
     </div>
 
+
+    <div class="game">
+
+        <div class="number">GIOCO 02</div>
+
+        <div class="icon">🌳</div>
+
+        <h2 data-testo="gioco2_titolo">Salva la Foresta</h2>
+
+        <p data-testo="gioco2">
+            Analizza una foresta e prendi decisioni per proteggerne
+            l'equilibrio.
+        </p>
+
+        <button class="play"
+                onclick="location.href='foresta.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 03</div>
+
+        <div class="icon">💧</div>
+
+        <h2 data-testo="gioco3_titolo">Dove finisce l'acqua?</h2>
+
+        <p data-testo="gioco3">
+            Risolvi casi e analizza i dati per capire dove viene sprecata
+            l'acqua.
+        </p>
+
+        <button class="play"
+                onclick="location.href='acqua.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 04</div>
+
+        <div class="icon">🦤</div>
+
+        <h2 data-testo="gioco4_titolo">Animali Estinti</h2>
+
+        <p data-testo="gioco4">
+            Scopri animali ormai estinti, le cause della loro scomparsa
+            e come avremmo potuto proteggerli.
+        </p>
+
+        <button class="play"
+                onclick="location.href='estinzione.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 05</div>
+
+        <div class="icon">🐾</div>
+
+        <h2 data-testo="gioco5_titolo">Species Rescue</h2>
+
+        <p data-testo="gioco5">
+            Proteggi le specie a rischio, scopri le cause dell'estinzione
+            e affronta missioni di conservazione.
+        </p>
+
+        <button class="play"
+                onclick="location.href='animali.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 06</div>
+
+        <div class="icon">🧠</div>
+
+        <h2 data-testo="gioco6_titolo">Memory Biodiversità</h2>
+
+        <p data-testo="gioco6">
+            Trova le coppie e scopri le relazioni tra specie, habitat
+            ed ecosistemi.
+        </p>
+
+        <button class="play"
+                onclick="location.href='memory.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 07</div>
+
+        <div class="icon">🐝</div>
+
+        <h2 data-testo="gioco7_titolo">Eco Bee Runner</h2>
+
+        <p data-testo="gioco7">
+            Aiuta l'ape a superare lattine, bottiglie, carta e altri
+            rifiuti. Quanto lontano riuscirai ad arrivare?
+        </p>
+
+        <button class="play"
+                onclick="location.href='runner.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 08</div>
+
+        <div class="icon">🌍</div>
+
+        <h2 data-testo="gioco8_titolo">Climate Challenge</h2>
+
+        <p data-testo="gioco8">
+            Affronta 20 sfide sul cambiamento climatico, sull'atmosfera
+            e sul buco dell'ozono.
+        </p>
+
+        <button class="play"
+                onclick="location.href='climate.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 09</div>
+
+        <div class="icon">🌊</div>
+
+        <h2 data-testo="gioco9_titolo">Ocean Rescue</h2>
+
+        <p data-testo="gioco9">
+            Gestisci una riserva marina, proteggi la biodiversità e
+            trova un equilibrio tra ambiente e attività umane.
+        </p>
+
+        <button class="play"
+                onclick="location.href='oceano.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+    <div class="game">
+
+        <div class="number">GIOCO 10</div>
+
+        <div class="icon">🍽️</div>
+
+        <h2 data-testo="gioco10_titolo">Food Impact</h2>
+
+        <p data-testo="gioco10">
+            Costruisci un pasto cercando di bilanciare costo, consumo
+            d'acqua, clima e rifiuti.
+        </p>
+
+        <button class="play"
+                onclick="location.href='alimentazione.html'"
+                data-testo="gioca">
+            ▶️ Gioca
+        </button>
+
+    </div>
+
+
+</div>
+```
+
 </main>
 
-
-<footer>
-
+<footer data-testo="footer">
     🌱 EcoGame — Impara giocando a proteggere il pianeta
-
 </footer>
 
-</body>
+<script>
 
+const traduzioni = {
+
+    it: {
+
+        home: "Home",
+        titolo: "🎮 I tuoi giochi",
+        intro: "Metti alla prova le tue conoscenze sull'ambiente attraverso quiz, giochi e sfide.",
+
+        gioca: "▶️ Gioca",
+
+        gioco1_titolo: "EcoSort",
+        gioco1: "Impara a riconoscere e smistare correttamente i diversi tipi di rifiuti.",
+
+        gioco2_titolo: "Salva la Foresta",
+        gioco2: "Analizza una foresta e prendi decisioni per proteggerne l'equilibrio.",
+
+        gioco3_titolo: "Dove finisce l'acqua?",
+        gioco3: "Risolvi casi e analizza i dati per capire dove viene sprecata l'acqua.",
+
+        gioco4_titolo: "Animali Estinti",
+        gioco4: "Scopri animali ormai estinti, le cause della loro scomparsa e come avremmo potuto proteggerli.",
+
+        gioco5_titolo: "Species Rescue",
+        gioco5: "Proteggi le specie a rischio, scopri le cause dell'estinzione e affronta missioni di conservazione.",
+
+        gioco6_titolo: "Memory Biodiversità",
+        gioco6: "Trova le coppie e scopri le relazioni tra specie, habitat ed ecosistemi.",
+
+        gioco7_titolo: "Eco Bee Runner",
+        gioco7: "Aiuta l'ape a superare lattine, bottiglie, carta e altri rifiuti. Quanto lontano riuscirai ad arrivare?",
+
+        gioco8_titolo: "Climate Challenge",
+        gioco8: "Affronta 20 sfide sul cambiamento climatico, sull'atmosfera e sul buco dell'ozono.",
+
+        gioco9_titolo: "Ocean Rescue",
+        gioco9: "Gestisci una riserva marina, proteggi la biodiversità e trova un equilibrio tra ambiente e attività umane.",
+
+        gioco10_titolo: "Food Impact",
+        gioco10: "Costruisci un pasto cercando di bilanciare costo, consumo d'acqua, clima e rifiuti.",
+
+        footer: "🌱 EcoGame — Impara giocando a proteggere il pianeta"
+    },
+
+
+    en: {
+
+        home: "Home",
+        titolo: "🎮 Your Games",
+        intro: "Test your environmental knowledge through quizzes, games and challenges.",
+
+        gioca: "▶️ Play",
+
+        gioco1_titolo: "EcoSort",
+        gioco1: "Learn to recognize and correctly sort different types of waste.",
+
+        gioco2_titolo: "Save the Forest",
+        gioco2: "Analyze a forest and make decisions to protect its balance.",
+
+        gioco3_titolo: "Where Does the Water Go?",
+        gioco3: "Solve cases and analyze data to understand where water is being wasted.",
+
+        gioco4_titolo: "Extinct Animals",
+        gioco4: "Discover extinct animals, the causes of their disappearance and how they could have been protected.",
+
+        gioco5_titolo: "Species Rescue",
+        gioco5: "Protect endangered species, discover the causes of extinction and complete conservation missions.",
+
+        gioco6_titolo: "Biodiversity Memory",
+        gioco6: "Find the pairs and discover the relationships between species, habitats and ecosystems.",
+
+        gioco7_titolo: "Eco Bee Runner",
+        gioco7: "Help the bee avoid cans, bottles, paper and other waste. How far can you go?",
+
+        gioco8_titolo: "Climate Challenge",
+        gioco8: "Face 20 challenges about climate change, the atmosphere and the ozone hole.",
+
+        gioco9_titolo: "Ocean Rescue",
+        gioco9: "Manage a marine reserve, protect biodiversity and find a balance between the environment and human activities.",
+
+        gioco10_titolo: "Food Impact",
+        gioco10: "Build a meal while balancing cost, water consumption, climate impact and waste.",
+
+        footer: "🌱 EcoGame — Learn by playing to protect the planet"
+    },
+
+
+    es: {
+
+        home: "Inicio",
+        titolo: "🎮 Tus juegos",
+        intro: "Pon a prueba tus conocimientos sobre el medio ambiente con cuestionarios, juegos y desafíos.",
+
+        gioca: "▶️ Jugar",
+
+        gioco1_titolo: "EcoSort",
+        gioco1: "Aprende a reconocer y separar correctamente los diferentes tipos de residuos.",
+
+        gioco2_titolo: "Salva el Bosque",
+        gioco2: "Analiza un bosque y toma decisiones para proteger su equilibrio.",
+
+        gioco3_titolo: "¿Dónde termina el agua?",
+        gioco3: "Resuelve casos y analiza datos para descubrir dónde se desperdicia el agua.",
+
+        gioco4_titolo: "Animales Extintos",
+        gioco4: "Descubre animales extintos, las causas de su desaparición y cómo podríamos haberlos protegido.",
+
+        gioco5_titolo: "Species Rescue",
+        gioco5: "Protege las especies en peligro, descubre las causas de la extinción y completa misiones de conservación.",
+
+        gioco6_titolo: "Memoria de Biodiversidad",
+        gioco6: "Encuentra las parejas y descubre las relaciones entre especies, hábitats y ecosistemas.",
+
+        gioco7_titolo: "Eco Bee Runner",
+        gioco7: "Ayuda a la abeja a evitar latas, botellas, papel y otros residuos. ¿Hasta dónde conseguirás llegar?",
+
+        gioco8_titolo: "Climate Challenge",
+        gioco8: "Supera 20 desafíos sobre el cambio climático, la atmósfera y el agujero de ozono.",
+
+        gioco9_titolo: "Ocean Rescue",
+        gioco9: "Gestiona una reserva marina, protege la biodiversidad y encuentra un equilibrio entre el medio ambiente y las actividades humanas.",
+
+        gioco10_titolo: "Food Impact",
+        gioco10: "Construye una comida equilibrando el coste, el consumo de agua, el clima y los residuos.",
+
+        footer: "🌱 EcoGame — Aprende jugando a proteger el planeta"
+    }
+
+};
+
+
+function cambiaLingua() {
+
+    const lingua = document.getElementById("lingua").value;
+
+    const testi = traduzioni[lingua];
+
+    document.querySelectorAll("[data-testo]").forEach(function(elemento) {
+
+        const chiave = elemento.getAttribute("data-testo");
+
+        if (testi[chiave]) {
+            elemento.innerText = testi[chiave];
+        }
+
+    });
+
+    document.documentElement.lang = lingua;
+
+    localStorage.setItem("linguaEcoGame", lingua);
+}
+
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+document.getElementById("lingua").value =
+    linguaSalvata;
+
+cambiaLingua();
+
+</script>
+
+</body>
 </html>
-```
