@@ -1,205 +1,204 @@
-
+```html
 <!DOCTYPE html>
 
 <html lang="it">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Animali Estinti 🐾</title>
+    <title>Animali Estinti 🐾</title>
 
-<style>
+    <style>
 
-    * {
-        box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #07130d, #10251a, #08110d);
-        color: #e8f5e9;
-        text-align: center;
-        min-height: 100vh;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #07130d, #10251a, #08110d);
+            color: #e8f5e9;
+            text-align: center;
+            min-height: 100vh;
+        }
 
-    header {
-        background: #0b1f13;
-        padding: 30px 20px;
-        border-bottom: 2px solid #2e7d32;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    }
+        header {
+            background: #0b1f13;
+            padding: 30px 20px;
+            border-bottom: 2px solid #2e7d32;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
 
-    header h1 {
-        margin: 5px;
-        font-size: 42px;
-        color: #81c784;
-    }
+        header h1 {
+            margin: 5px;
+            font-size: 42px;
+            color: #81c784;
+        }
 
-    header p {
-        color: #c8e6c9;
-        font-size: 18px;
-    }
+        header p {
+            color: #c8e6c9;
+            font-size: 18px;
+        }
 
-    .game {
-        width: 90%;
-        max-width: 850px;
-        margin: 35px auto;
-        background: #12241a;
-        border: 1px solid #285c35;
-        border-radius: 25px;
-        padding: 35px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
-    }
+        .game {
+            width: 90%;
+            max-width: 850px;
+            margin: 35px auto;
+            background: #12241a;
+            border: 1px solid #285c35;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+        }
 
-    #numero {
-        color: #81c784;
-        font-size: 18px;
-        font-weight: bold;
-    }
+        #numero {
+            color: #81c784;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-    #animale {
-        font-size: 80px;
-        margin: 15px;
-    }
+        #animale {
+            font-size: 80px;
+            margin: 15px;
+        }
 
-    #nomeAnimale {
-        color: #a5d6a7;
-        font-size: 32px;
-        margin: 10px;
-    }
+        #nomeAnimale {
+            color: #a5d6a7;
+            font-size: 32px;
+            margin: 10px;
+        }
 
-    #descrizione {
-        max-width: 700px;
-        margin: 20px auto;
-        line-height: 1.6;
-        color: #d7ead9;
-    }
+        #descrizione {
+            max-width: 700px;
+            margin: 20px auto;
+            line-height: 1.6;
+            color: #d7ead9;
+        }
 
-    .info {
-        background: #0c1911;
-        border-left: 5px solid #43a047;
-        border-radius: 10px;
-        padding: 18px;
-        margin: 20px auto;
-        max-width: 700px;
-        text-align: left;
-        line-height: 1.6;
-    }
+        .info {
+            background: #0c1911;
+            border-left: 5px solid #43a047;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+            line-height: 1.6;
+        }
 
-    .info strong {
-        color: #81c784;
-    }
+        .info strong {
+            color: #81c784;
+        }
 
-    #domanda {
-        font-size: 23px;
-        margin: 30px 10px 20px;
-        color: white;
-    }
+        #domanda {
+            font-size: 23px;
+            margin: 30px 10px 20px;
+            color: white;
+        }
 
-    .risposta {
-        display: block;
-        width: 90%;
-        max-width: 650px;
-        margin: 12px auto;
-        padding: 15px;
-        border: 1px solid #397545;
-        border-radius: 12px;
-        background: #1b3524;
-        color: white;
-        font-size: 17px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+        .risposta {
+            display: block;
+            width: 90%;
+            max-width: 650px;
+            margin: 12px auto;
+            padding: 15px;
+            border: 1px solid #397545;
+            border-radius: 12px;
+            background: #1b3524;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-    .risposta:hover {
-        background: #2e7d32;
-        transform: scale(1.02);
-    }
+        .risposta:hover {
+            background: #2e7d32;
+            transform: scale(1.02);
+        }
 
-    #risultato {
-        font-size: 21px;
-        font-weight: bold;
-        margin: 25px;
-    }
+        #risultato {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 25px;
+        }
 
-    #spiegazione {
-        display: none;
-        background: #0b1710;
-        border-left: 5px solid #66bb6a;
-        padding: 18px;
-        margin: 20px auto;
-        max-width: 700px;
-        text-align: left;
-        line-height: 1.6;
-        color: #d7ead9;
-    }
+        #spiegazione {
+            display: none;
+            background: #0b1710;
+            border-left: 5px solid #66bb6a;
+            padding: 18px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+            line-height: 1.6;
+            color: #d7ead9;
+        }
 
-    #prossima,
-    #ricomincia,
-    #home {
-        border: none;
-        border-radius: 12px;
-        padding: 14px 25px;
-        font-size: 17px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 10px;
-    }
+        #prossima,
+        #ricomincia,
+        #home {
+            border: none;
+            border-radius: 12px;
+            padding: 14px 25px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+        }
 
-    #prossima {
-        background: #1565c0;
-        color: white;
-        display: none;
-    }
+        #prossima {
+            background: #1565c0;
+            color: white;
+            display: none;
+        }
 
-    #prossima:hover {
-        background: #0d47a1;
-    }
+        #prossima:hover {
+            background: #0d47a1;
+        }
 
-    #home {
-        background: #37474f;
-        color: white;
-    }
+        #home {
+            background: #37474f;
+            color: white;
+        }
 
-    #home:hover {
-        background: #263238;
-    }
+        #home:hover {
+            background: #263238;
+        }
 
-    #ricomincia {
-        background: #43a047;
-        color: white;
-    }
+        #ricomincia {
+            background: #43a047;
+            color: white;
+        }
 
-    #ricomincia:hover {
-        background: #1b5e20;
-    }
+        #ricomincia:hover {
+            background: #1b5e20;
+        }
 
-    #finale {
-        display: none;
-    }
+        #finale {
+            display: none;
+        }
 
-    #punteggioFinale {
-        font-size: 35px;
-        color: #81c784;
-        font-weight: bold;
-    }
+        #punteggioFinale {
+            font-size: 35px;
+            color: #81c784;
+            font-weight: bold;
+        }
 
-    #messaggioFinale {
-        font-size: 20px;
-        color: #d7ead9;
-        line-height: 1.6;
-    }
+        #messaggioFinale {
+            font-size: 20px;
+            color: #d7ead9;
+            line-height: 1.6;
+        }
 
-    footer {
-        padding: 25px;
-        color: #81a889;
-    }
+        footer {
+            padding: 25px;
+            color: #81a889;
+        }
 
-</style>
-```
+    </style>
 
 </head>
 
@@ -207,322 +206,917 @@
 
 <header>
 
-```
-<h1>🐾 Animali Estinti</h1>
+    <h1 id="titoloPagina">🐾 Animali Estinti</h1>
 
-<p>
-    Scopri le specie scomparse e le cause della loro estinzione
-</p>
-```
+    <p id="sottotitoloPagina">
+        Scopri le specie scomparse e le cause della loro estinzione
+    </p>
 
 </header>
 
+
 <div class="game" id="gioco">
 
-```
-<div id="numero"></div>
+    <div id="numero"></div>
 
-<div id="animale"></div>
+    <div id="animale"></div>
 
-<h2 id="nomeAnimale"></h2>
+    <h2 id="nomeAnimale"></h2>
 
-<p id="descrizione"></p>
+    <p id="descrizione"></p>
 
-<div class="info" id="informazioni"></div>
+    <div class="info" id="informazioni"></div>
 
-<h3 id="domanda"></h3>
+    <h3 id="domanda"></h3>
 
-<div id="risposte"></div>
+    <div id="risposte"></div>
 
-<div id="risultato"></div>
+    <div id="risultato"></div>
 
-<div id="spiegazione"></div>
+    <div id="spiegazione"></div>
 
-<button id="prossima" onclick="prossimaDomanda()">
-    ➡️ Prossimo animale
-</button>
-```
+    <button id="prossima" onclick="prossimaDomanda()">
+        ➡️ Prossimo animale
+    </button>
 
 </div>
+
 
 <div class="game" id="finale">
 
-```
-<h2>🎉 Missione completata!</h2>
+    <h2 id="titoloFinale">
+        🎉 Missione completata!
+    </h2>
 
-<p>
-    Hai analizzato tutti e 6 gli animali.
-</p>
+    <p id="testoFinale">
+        Hai analizzato tutti e 6 gli animali.
+    </p>
 
-<p id="punteggioFinale"></p>
+    <p id="punteggioFinale"></p>
 
-<p id="messaggioFinale"></p>
+    <p id="messaggioFinale"></p>
 
-<button id="ricomincia" onclick="ricomincia()">
-    🔄 Ricomincia
-</button>
+    <button id="ricomincia" onclick="ricomincia()">
+        🔄 Ricomincia
+    </button>
 
-<button id="home" onclick="location.href='giochi.html'">
-    🏠 Torna ai giochi
-</button>
-```
+    <button id="home" onclick="location.href='giochi.html'">
+        🏠 Torna ai giochi
+    </button>
 
 </div>
 
-<footer>
 
-```
-🌱 Conoscere il passato aiuta a proteggere la biodiversità.
-```
-
+<footer id="footer">
+    🌱 Conoscere il passato aiuta a proteggere la biodiversità.
 </footer>
+
 
 <script>
 
+/* =====================================================
+   LINGUA
+   ===================================================== */
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+let lingua =
+    ["it", "en", "fi"].includes(linguaSalvata)
+        ? linguaSalvata
+        : "it";
+
+
+document.documentElement.lang = lingua;
+
+
+/* =====================================================
+   TESTI GENERALI
+   ===================================================== */
+
+const testi = {
+
+    it: {
+
+        titoloPagina: "🐾 Animali Estinti",
+
+        sottotitoloPagina:
+            "Scopri le specie scomparse e le cause della loro estinzione",
+
+        animale:
+            "ANIMALE",
+
+        di:
+            "DI",
+
+        causa:
+            "💀 Perché si è estinto?",
+
+        protezione:
+            "🛡️ Cosa si sarebbe potuto fare?",
+
+        corretta:
+            "✅ Risposta corretta!",
+
+        sbagliata:
+            "❌ Risposta sbagliata!",
+
+        spiegazione:
+            "📚",
+
+        prossimo:
+            "➡️ Prossimo animale",
+
+        finale:
+            "🎉 Missione completata!",
+
+        finaleTesto:
+            "Hai analizzato tutti e 6 gli animali.",
+
+        ricomincia:
+            "🔄 Ricomincia",
+
+        home:
+            "🏠 Torna ai giochi",
+
+        footer:
+            "🌱 Conoscere il passato aiuta a proteggere la biodiversità.",
+
+        perfetto:
+            "🌟 Perfetto! Conosci molto bene la storia delle specie estinte e le principali cause della loro scomparsa.",
+
+        moltoBene:
+            "🌱 Molto bene! Hai una buona conoscenza delle cause dell'estinzione.",
+
+        buonLavoro:
+            "👍 Buon lavoro! Hai imparato diverse cose, ma puoi approfondire ancora.",
+
+        continua:
+            "📚 Continua a esplorare: conoscere le cause delle estinzioni aiuta a capire come proteggere le specie."
+
+    },
+
+
+    en: {
+
+        titoloPagina: "🐾 Extinct Animals",
+
+        sottotitoloPagina:
+            "Discover extinct species and the causes of their disappearance",
+
+        animale:
+            "ANIMAL",
+
+        di:
+            "OF",
+
+        causa:
+            "💀 Why did it become extinct?",
+
+        protezione:
+            "🛡️ What could have been done?",
+
+        corretta:
+            "✅ Correct answer!",
+
+        sbagliata:
+            "❌ Wrong answer!",
+
+        spiegazione:
+            "📚",
+
+        prossimo:
+            "➡️ Next animal",
+
+        finale:
+            "🎉 Mission completed!",
+
+        finaleTesto:
+            "You have analyzed all 6 animals.",
+
+        ricomincia:
+            "🔄 Restart",
+
+        home:
+            "🏠 Back to games",
+
+        footer:
+            "🌱 Understanding the past helps us protect biodiversity.",
+
+        perfetto:
+            "🌟 Perfect! You know a lot about the history of extinct species and the main causes of their disappearance.",
+
+        moltoBene:
+            "🌱 Very good! You have a good understanding of the causes of extinction.",
+
+        buonLavoro:
+            "👍 Good job! You have learned several things, but there is still more to discover.",
+
+        continua:
+            "📚 Keep exploring: understanding the causes of extinction helps us learn how to protect species."
+
+    },
+
+
+    fi: {
+
+        titoloPagina: "🐾 Sukupuuttoon kuolleet eläimet",
+
+        sottotitoloPagina:
+            "Tutustu sukupuuttoon kuolleisiin lajeihin ja niiden katoamisen syihin",
+
+        animale:
+            "ELÄIN",
+
+        di:
+            " / ",
+
+        causa:
+            "💀 Miksi laji kuoli sukupuuttoon?",
+
+        protezione:
+            "🛡️ Mitä olisi voitu tehdä?",
+
+        corretta:
+            "✅ Oikea vastaus!",
+
+        sbagliata:
+            "❌ Väärä vastaus!",
+
+        spiegazione:
+            "📚",
+
+        prossimo:
+            "➡️ Seuraava eläin",
+
+        finale:
+            "🎉 Tehtävä suoritettu!",
+
+        finaleTesto:
+            "Olet analysoinut kaikki 6 eläintä.",
+
+        ricomincia:
+            "🔄 Aloita uudelleen",
+
+        home:
+            "🏠 Takaisin peleihin",
+
+        footer:
+            "🌱 Menneisyyden tunteminen auttaa suojelemaan luonnon monimuotoisuutta.",
+
+        perfetto:
+            "🌟 Täydellistä! Tunnet hyvin sukupuuttoon kuolleiden lajien historiaa ja niiden katoamisen tärkeimpiä syitä.",
+
+        moltoBene:
+            "🌱 Erittäin hyvä! Tunnet hyvin sukupuuttojen tärkeimpiä syitä.",
+
+        buonLavoro:
+            "👍 Hyvää työtä! Olet oppinut paljon, mutta voit vielä syventää tietojasi.",
+
+        continua:
+            "📚 Jatka tutkimista: sukupuuttojen syiden ymmärtäminen auttaa meitä suojelemaan lajeja."
+
+    }
+
+};
+
+
+/* =====================================================
+   ANIMALI
+   ===================================================== */
 
 const animali = [
 
     {
+
         emoji: "🦣",
-        nome: "Mammut lanoso",
 
-        descrizione:
-            "Il mammut lanoso viveva nelle regioni fredde dell'emisfero settentrionale ed era adattato ai climi glaciali.",
+        nome: {
+            it: "Mammut lanoso",
+            en: "Woolly Mammoth",
+            fi: "Villamammutti"
+        },
 
-        causa:
-            "Le popolazioni diminuirono per una combinazione di cambiamenti climatici e pressione umana. Alcune popolazioni sopravvissero più a lungo in aree isolate.",
+        descrizione: {
+            it: "Il mammut lanoso viveva nelle regioni fredde dell'emisfero settentrionale ed era adattato ai climi glaciali.",
+            en: "The woolly mammoth lived in the cold regions of the Northern Hemisphere and was adapted to glacial climates.",
+            fi: "Villamammutti eli pohjoisen pallonpuoliskon kylmillä alueilla ja oli sopeutunut jääkauden ilmastoon."
+        },
 
-        protezione:
-            "La riduzione della pressione di caccia e la protezione degli habitat avrebbero potuto contribuire a preservare alcune popolazioni.",
+        causa: {
+            it: "Le popolazioni diminuirono per una combinazione di cambiamenti climatici e pressione umana. Alcune popolazioni sopravvissero più a lungo in aree isolate.",
+            en: "Populations declined due to a combination of climate change and human pressure. Some populations survived longer in isolated areas.",
+            fi: "Kannat vähenivät ilmastonmuutoksen ja ihmisen aiheuttaman paineen yhteisvaikutuksesta. Jotkin kannat selviytyivät pidempään eristyneillä alueilla."
+        },
 
-        domanda:
-            "Quale combinazione di fattori è associata alla scomparsa del mammut lanoso?",
+        protezione: {
+            it: "La riduzione della pressione di caccia e la protezione degli habitat avrebbero potuto contribuire a preservare alcune popolazioni.",
+            en: "Reducing hunting pressure and protecting habitats could have helped preserve some populations.",
+            fi: "Metsästyspaineen vähentäminen ja elinympäristöjen suojeleminen olisivat voineet auttaa säilyttämään joitakin kantoja."
+        },
 
-        risposte: [
-            {
-                testo: "Cambiamenti ambientali e pressione umana",
-                corretta: true
-            },
-            {
-                testo: "Solo terremoti",
-                corretta: false
-            },
-            {
-                testo: "Solo malattie moderne",
-                corretta: false
-            },
-            {
-                testo: "La mancanza di acqua potabile causata dall'uomo",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Quale combinazione di fattori è associata alla scomparsa del mammut lanoso?",
+            en: "Which combination of factors is associated with the disappearance of the woolly mammoth?",
+            fi: "Mikä tekijöiden yhdistelmä liittyy villamammutin katoamiseen?"
+        },
 
-        spiegazione:
-            "La scomparsa del mammut lanoso è stata collegata a cambiamenti climatici e, in diverse aree e periodi, alla pressione della caccia umana."
+        risposte: {
+
+            it: [
+                {
+                    testo: "Cambiamenti ambientali e pressione umana",
+                    corretta: true
+                },
+                {
+                    testo: "Solo terremoti",
+                    corretta: false
+                },
+                {
+                    testo: "Solo malattie moderne",
+                    corretta: false
+                },
+                {
+                    testo: "La mancanza di acqua potabile causata dall'uomo",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Environmental changes and human pressure",
+                    corretta: true
+                },
+                {
+                    testo: "Only earthquakes",
+                    corretta: false
+                },
+                {
+                    testo: "Only modern diseases",
+                    corretta: false
+                },
+                {
+                    testo: "Lack of drinking water caused by humans",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Ympäristön muutokset ja ihmisen aiheuttama paine",
+                    corretta: true
+                },
+                {
+                    testo: "Vain maanjäristykset",
+                    corretta: false
+                },
+                {
+                    testo: "Vain nykyajan sairaudet",
+                    corretta: false
+                },
+                {
+                    testo: "Ihmisen aiheuttama juomaveden puute",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "La scomparsa del mammut lanoso è stata collegata a cambiamenti climatici e, in diverse aree e periodi, alla pressione della caccia umana.",
+            en: "The disappearance of the woolly mammoth has been linked to climate change and, in different areas and periods, to human hunting pressure.",
+            fi: "Villamammutin katoaminen on yhdistetty ilmastonmuutokseen ja eri alueilla ja ajanjaksoina myös ihmisen aiheuttamaan metsästyspaineeseen."
+        }
+
     },
 
 
     {
+
         emoji: "🦤",
-        nome: "Dodo",
 
-        descrizione:
-            "Il dodo era un uccello incapace di volare che viveva sull'isola di Mauritius nell'Oceano Indiano.",
+        nome: {
+            it: "Dodo",
+            en: "Dodo",
+            fi: "Dodo"
+        },
 
-        causa:
-            "La sua scomparsa è legata soprattutto all'arrivo degli esseri umani, alla caccia e alla presenza di animali introdotti che predavano uova e giovani.",
+        descrizione: {
+            it: "Il dodo era un uccello incapace di volare che viveva sull'isola di Mauritius nell'Oceano Indiano.",
+            en: "The dodo was a flightless bird that lived on the island of Mauritius in the Indian Ocean.",
+            fi: "Dodo oli lentokyvytön lintu, joka eli Mauritiuksen saarella Intian valtamerellä."
+        },
 
-        protezione:
-            "La protezione dell'habitat e dei siti di nidificazione, insieme al controllo degli animali introdotti, avrebbe potuto ridurre la pressione sulla specie.",
+        causa: {
+            it: "La sua scomparsa è legata soprattutto all'arrivo degli esseri umani, alla caccia e alla presenza di animali introdotti che predavano uova e giovani.",
+            en: "Its disappearance was mainly linked to the arrival of humans, hunting, and introduced animals that preyed on eggs and young birds.",
+            fi: "Sen katoaminen liittyi erityisesti ihmisten saapumiseen, metsästykseen ja alueelle tuotuihin eläimiin, jotka söivät munia ja poikasia."
+        },
 
-        domanda:
-            "Perché il dodo era particolarmente vulnerabile all'arrivo di nuovi predatori?",
+        protezione: {
+            it: "La protezione dell'habitat e dei siti di nidificazione, insieme al controllo degli animali introdotti, avrebbe potuto ridurre la pressione sulla specie.",
+            en: "Protecting habitats and nesting sites, together with controlling introduced animals, could have reduced pressure on the species.",
+            fi: "Elinympäristöjen ja pesimäpaikkojen suojeleminen sekä vieraslajien torjunta olisi voinut vähentää lajiin kohdistunutta painetta."
+        },
 
-        risposte: [
-            {
-                testo: "Perché non poteva volare e nidificava a terra",
-                corretta: true
-            },
-            {
-                testo: "Perché viveva sott'acqua",
-                corretta: false
-            },
-            {
-                testo: "Perché era un animale notturno",
-                corretta: false
-            },
-            {
-                testo: "Perché non poteva mangiare frutta",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Perché il dodo era particolarmente vulnerabile all'arrivo di nuovi predatori?",
+            en: "Why was the dodo particularly vulnerable to the arrival of new predators?",
+            fi: "Miksi dodo oli erityisen haavoittuvainen uusien petoeläinten saapuessa?"
+        },
 
-        spiegazione:
-            "Il dodo non volava e deponeva le uova a terra, caratteristiche che lo rendevano vulnerabile a predatori introdotti nell'isola."
+        risposte: {
+
+            it: [
+                {
+                    testo: "Perché non poteva volare e nidificava a terra",
+                    corretta: true
+                },
+                {
+                    testo: "Perché viveva sott'acqua",
+                    corretta: false
+                },
+                {
+                    testo: "Perché era un animale notturno",
+                    corretta: false
+                },
+                {
+                    testo: "Perché non poteva mangiare frutta",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Because it could not fly and nested on the ground",
+                    corretta: true
+                },
+                {
+                    testo: "Because it lived underwater",
+                    corretta: false
+                },
+                {
+                    testo: "Because it was a nocturnal animal",
+                    corretta: false
+                },
+                {
+                    testo: "Because it could not eat fruit",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Koska se ei osannut lentää ja pesi maassa",
+                    corretta: true
+                },
+                {
+                    testo: "Koska se eli veden alla",
+                    corretta: false
+                },
+                {
+                    testo: "Koska se oli yöeläin",
+                    corretta: false
+                },
+                {
+                    testo: "Koska se ei voinut syödä hedelmiä",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "Il dodo non volava e deponeva le uova a terra, caratteristiche che lo rendevano vulnerabile a predatori introdotti nell'isola.",
+            en: "The dodo could not fly and laid its eggs on the ground, making it vulnerable to predators introduced to the island.",
+            fi: "Dodo ei osannut lentää ja muni maahan, mikä teki siitä haavoittuvan saarelle tuotujen petoeläinten saalistukselle."
+        }
+
     },
 
 
     {
+
         emoji: "🐯",
-        nome: "Tilacino",
 
-        descrizione:
-            "Il tilacino, noto anche come tigre della Tasmania, era un marsupiale carnivoro originario dell'Australia e della Tasmania.",
+        nome: {
+            it: "Tilacino",
+            en: "Thylacine",
+            fi: "Tasmaniantiikeri"
+        },
 
-        causa:
-            "In Tasmania fu perseguitato dagli esseri umani e sottoposto a campagne di abbattimento. Anche la perdita dell'habitat e altri fattori possono aver contribuito al declino.",
+        descrizione: {
+            it: "Il tilacino, noto anche come tigre della Tasmania, era un marsupiale carnivoro originario dell'Australia e della Tasmania.",
+            en: "The thylacine, also known as the Tasmanian tiger, was a carnivorous marsupial native to Australia and Tasmania.",
+            fi: "Tasmaniantiikeri eli tilakiini oli Australiasta ja Tasmaniasta peräisin ollut lihansyöjäpussieläin."
+        },
 
-        protezione:
-            "Una protezione anticipata della specie e la riduzione delle campagne di abbattimento avrebbero potuto aumentare le possibilità di sopravvivenza.",
+        causa: {
+            it: "In Tasmania fu perseguitato dagli esseri umani e sottoposto a campagne di abbattimento. Anche la perdita dell'habitat e altri fattori possono aver contribuito al declino.",
+            en: "In Tasmania it was persecuted by humans and subjected to culling campaigns. Habitat loss and other factors may also have contributed to its decline.",
+            fi: "Tasmaniassa ihmiset vainosivat sitä ja sitä vastaan järjestettiin hävityskampanjoita. Myös elinympäristöjen menetys ja muut tekijät saattoivat vaikuttaa sen vähenemiseen."
+        },
 
-        domanda:
-            "Quale intervento avrebbe potuto contribuire maggiormente alla conservazione del tilacino?",
+        protezione: {
+            it: "Una protezione anticipata della specie e la riduzione delle campagne di abbattimento avrebbero potuto aumentare le possibilità di sopravvivenza.",
+            en: "Earlier protection of the species and reducing culling campaigns could have increased its chances of survival.",
+            fi: "Lajin aikaisempi suojelu ja hävityskampanjoiden vähentäminen olisivat voineet parantaa sen selviytymismahdollisuuksia."
+        },
 
-        risposte: [
-            {
-                testo: "Proteggere la specie e limitare l'abbattimento",
-                corretta: true
-            },
-            {
-                testo: "Aumentare la caccia",
-                corretta: false
-            },
-            {
-                testo: "Distruggere il suo habitat",
-                corretta: false
-            },
-            {
-                testo: "Introdurre nuovi predatori",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Quale intervento avrebbe potuto contribuire maggiormente alla conservazione del tilacino?",
+            en: "Which intervention could have contributed most to the conservation of the thylacine?",
+            fi: "Mikä toimenpide olisi voinut edistää eniten tasmaniantiikerin suojelua?"
+        },
 
-        spiegazione:
-            "La protezione legale e la riduzione della persecuzione avrebbero potuto diminuire una delle principali pressioni esercitate sulla popolazione."
+        risposte: {
+
+            it: [
+                {
+                    testo: "Proteggere la specie e limitare l'abbattimento",
+                    corretta: true
+                },
+                {
+                    testo: "Aumentare la caccia",
+                    corretta: false
+                },
+                {
+                    testo: "Distruggere il suo habitat",
+                    corretta: false
+                },
+                {
+                    testo: "Introdurre nuovi predatori",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Protect the species and limit culling",
+                    corretta: true
+                },
+                {
+                    testo: "Increase hunting",
+                    corretta: false
+                },
+                {
+                    testo: "Destroy its habitat",
+                    corretta: false
+                },
+                {
+                    testo: "Introduce new predators",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Suojella lajia ja rajoittaa tappamista",
+                    corretta: true
+                },
+                {
+                    testo: "Lisätä metsästystä",
+                    corretta: false
+                },
+                {
+                    testo: "Tuhota sen elinympäristö",
+                    corretta: false
+                },
+                {
+                    testo: "Tuoda alueelle uusia petoeläimiä",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "La protezione legale e la riduzione della persecuzione avrebbero potuto diminuire una delle principali pressioni esercitate sulla popolazione.",
+            en: "Legal protection and reducing persecution could have decreased one of the main pressures on the population.",
+            fi: "Lainsäädännöllinen suojelu ja vainon vähentäminen olisivat voineet pienentää yhtä tärkeimmistä kantaan kohdistuneista paineista."
+        }
+
     },
 
 
     {
+
         emoji: "🐦",
-        nome: "Alca impenne",
 
-        descrizione:
-            "L'alca impenne era un grande uccello marino incapace di volare che viveva nell'Atlantico settentrionale.",
+        nome: {
+            it: "Alca impenne",
+            en: "Great Auk",
+            fi: "Isoruokki"
+        },
 
-        causa:
-            "Fu fortemente cacciato per carne, piume e altri materiali. La pressione della caccia contribuì al rapido declino delle popolazioni.",
+        descrizione: {
+            it: "L'alca impenne era un grande uccello marino incapace di volare che viveva nell'Atlantico settentrionale.",
+            en: "The great auk was a large flightless seabird that lived in the North Atlantic.",
+            fi: "Isoruokki oli suuri lentokyvytön merilintu, joka eli Pohjois-Atlantilla."
+        },
 
-        protezione:
-            "La regolamentazione della caccia e la protezione delle colonie riproduttive avrebbero potuto ridurre il rischio di estinzione.",
+        causa: {
+            it: "Fu fortemente cacciato per carne, piume e altri materiali. La pressione della caccia contribuì al rapido declino delle popolazioni.",
+            en: "It was heavily hunted for meat, feathers and other materials. Hunting pressure contributed to the rapid decline of its populations.",
+            fi: "Sitä metsästettiin runsaasti lihan, höyhenten ja muiden materiaalien vuoksi. Metsästyspaine vaikutti kantojen nopeaan vähenemiseen."
+        },
 
-        domanda:
-            "Quale fu una delle principali minacce per l'alca impenne?",
+        protezione: {
+            it: "La regolamentazione della caccia e la protezione delle colonie riproduttive avrebbero potuto ridurre il rischio di estinzione.",
+            en: "Hunting regulations and protection of breeding colonies could have reduced the risk of extinction.",
+            fi: "Metsästyksen sääntely ja lisääntymisyhdyskuntien suojelu olisivat voineet vähentää sukupuuton riskiä."
+        },
 
-        risposte: [
-            {
-                testo: "La caccia da parte degli esseri umani",
-                corretta: true
-            },
-            {
-                testo: "La fotosintesi delle alghe",
-                corretta: false
-            },
-            {
-                testo: "La mancanza di alberi tropicali",
-                corretta: false
-            },
-            {
-                testo: "L'inquinamento luminoso moderno",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Quale fu una delle principali minacce per l'alca impenne?",
+            en: "What was one of the main threats to the great auk?",
+            fi: "Mikä oli yksi isoruokin tärkeimmistä uhkista?"
+        },
 
-        spiegazione:
-            "L'alca impenne fu sottoposta a una forte pressione di caccia e raccolta, che contribuì al suo declino fino all'estinzione."
+        risposte: {
+
+            it: [
+                {
+                    testo: "La caccia da parte degli esseri umani",
+                    corretta: true
+                },
+                {
+                    testo: "La fotosintesi delle alghe",
+                    corretta: false
+                },
+                {
+                    testo: "La mancanza di alberi tropicali",
+                    corretta: false
+                },
+                {
+                    testo: "L'inquinamento luminoso moderno",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Human hunting",
+                    corretta: true
+                },
+                {
+                    testo: "Algae photosynthesis",
+                    corretta: false
+                },
+                {
+                    testo: "Lack of tropical trees",
+                    corretta: false
+                },
+                {
+                    testo: "Modern light pollution",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Ihmisten harjoittama metsästys",
+                    corretta: true
+                },
+                {
+                    testo: "Levien fotosynteesi",
+                    corretta: false
+                },
+                {
+                    testo: "Trooppisten puiden puute",
+                    corretta: false
+                },
+                {
+                    testo: "Nykyajan valosaaste",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "L'alca impenne fu sottoposta a una forte pressione di caccia e raccolta, che contribuì al suo declino fino all'estinzione.",
+            en: "The great auk was subjected to intense hunting and collection pressure, contributing to its decline and eventual extinction.",
+            fi: "Isoruokki joutui voimakkaan metsästyksen ja keräilyn kohteeksi, mikä vaikutti sen vähenemiseen ja lopulta sukupuuttoon."
+        }
+
     },
 
 
     {
+
         emoji: "🐸",
-        nome: "Rana dorata del Costa Rica",
 
-        descrizione:
-            "La rana dorata del Costa Rica era una piccola rana conosciuta per il caratteristico colore arancione-dorato. È considerata estinta.",
+        nome: {
+            it: "Rana dorata del Costa Rica",
+            en: "Golden Toad of Costa Rica",
+            fi: "Costa Rican kultakonna"
+        },
 
-        causa:
-            "Il suo declino è stato associato a cambiamenti climatici, alterazioni dell'habitat e alla diffusione di malattie fungine tra gli anfibi.",
+        descrizione: {
+            it: "La rana dorata del Costa Rica era una piccola rana conosciuta per il caratteristico colore arancione-dorato. È considerata estinta.",
+            en: "The golden toad of Costa Rica was a small frog known for its distinctive golden-orange color. It is considered extinct.",
+            fi: "Costa Rican kultakonna oli pieni sammakko, joka tunnettiin tunnusomaisesta kullanoranssista väristään. Sen katsotaan kuolleen sukupuuttoon."
+        },
 
-        protezione:
-            "Il monitoraggio delle popolazioni, la protezione dell'habitat e la ricerca sulle malattie degli anfibi sono strumenti importanti per prevenire perdite simili.",
+        causa: {
+            it: "Il suo declino è stato associato a cambiamenti climatici, alterazioni dell'habitat e alla diffusione di malattie fungine tra gli anfibi.",
+            en: "Its decline has been associated with climate change, habitat changes and the spread of fungal diseases among amphibians.",
+            fi: "Sen väheneminen on yhdistetty ilmastonmuutokseen, elinympäristöjen muutoksiin ja sammakkoeläinten sienitautien leviämiseen."
+        },
 
-        domanda:
-            "Quale problema ha contribuito al declino di molte popolazioni di anfibi, compresa la rana dorata?",
+        protezione: {
+            it: "Il monitoraggio delle popolazioni, la protezione dell'habitat e la ricerca sulle malattie degli anfibi sono strumenti importanti per prevenire perdite simili.",
+            en: "Population monitoring, habitat protection and research into amphibian diseases are important tools for preventing similar losses.",
+            fi: "Kantojen seuranta, elinympäristöjen suojelu ja sammakkoeläinten sairauksien tutkiminen ovat tärkeitä keinoja vastaavien menetysten ehkäisemiseksi."
+        },
 
-        risposte: [
-            {
-                testo: "Malattie fungine e cambiamenti ambientali",
-                corretta: true
-            },
-            {
-                testo: "La pesca industriale",
-                corretta: false
-            },
-            {
-                testo: "La caccia alle balene",
-                corretta: false
-            },
-            {
-                testo: "L'eccesso di neve",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Quale problema ha contribuito al declino di molte popolazioni di anfibi, compresa la rana dorata?",
+            en: "Which problem contributed to the decline of many amphibian populations, including the golden toad?",
+            fi: "Mikä ongelma vaikutti monien sammakkoeläinkantojen, myös kultakonnan, vähenemiseen?"
+        },
 
-        spiegazione:
-            "La perdita di habitat, i cambiamenti ambientali e malattie come la chytridiomicosi hanno contribuito al declino di numerosi anfibi."
+        risposte: {
+
+            it: [
+                {
+                    testo: "Malattie fungine e cambiamenti ambientali",
+                    corretta: true
+                },
+                {
+                    testo: "La pesca industriale",
+                    corretta: false
+                },
+                {
+                    testo: "La caccia alle balene",
+                    corretta: false
+                },
+                {
+                    testo: "L'eccesso di neve",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Fungal diseases and environmental changes",
+                    corretta: true
+                },
+                {
+                    testo: "Industrial fishing",
+                    corretta: false
+                },
+                {
+                    testo: "Whaling",
+                    corretta: false
+                },
+                {
+                    testo: "Excessive snowfall",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Sienitaudit ja ympäristön muutokset",
+                    corretta: true
+                },
+                {
+                    testo: "Teollinen kalastus",
+                    corretta: false
+                },
+                {
+                    testo: "Valaanpyynti",
+                    corretta: false
+                },
+                {
+                    testo: "Liiallinen lumi",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "La perdita di habitat, i cambiamenti ambientali e malattie come la chytridiomicosi hanno contribuito al declino di numerosi anfibi.",
+            en: "Habitat loss, environmental changes and diseases such as chytridiomycosis have contributed to the decline of many amphibians.",
+            fi: "Elinympäristöjen häviäminen, ympäristön muutokset ja kytridiomykoosin kaltaiset sairaudet ovat vaikuttaneet monien sammakkoeläinten vähenemiseen."
+        }
+
     },
 
 
     {
+
         emoji: "🐦",
-        nome: "Piccione migratore",
 
-        descrizione:
-            "Il piccione migratore era un uccello nordamericano che un tempo formava stormi enormi.",
+        nome: {
+            it: "Piccione migratore",
+            en: "Passenger Pigeon",
+            fi: "Vaeltajakyyhky"
+        },
 
-        causa:
-            "La specie subì una caccia commerciale su larga scala e una forte perdita dell'habitat forestale. La combinazione di queste pressioni provocò un drastico declino.",
+        descrizione: {
+            it: "Il piccione migratore era un uccello nordamericano che un tempo formava stormi enormi.",
+            en: "The passenger pigeon was a North American bird that once formed enormous flocks.",
+            fi: "Vaeltajakyyhky oli pohjoisamerikkalainen lintu, joka muodosti aikoinaan valtavia parvia."
+        },
 
-        protezione:
-            "Limitare la caccia e proteggere le foreste avrebbe potuto ridurre fortemente le pressioni sulla specie.",
+        causa: {
+            it: "La specie subì una caccia commerciale su larga scala e una forte perdita dell'habitat forestale. La combinazione di queste pressioni provocò un drastico declino.",
+            en: "The species experienced large-scale commercial hunting and severe forest habitat loss. The combination of these pressures caused a dramatic decline.",
+            fi: "Lajia metsästettiin kaupallisesti laajassa mittakaavassa, ja sen metsäelinympäristöt vähenivät voimakkaasti. Näiden paineiden yhdistelmä aiheutti jyrkän kannan romahduksen."
+        },
 
-        domanda:
-            "Quale combinazione contribuì maggiormente al declino del piccione migratore?",
+        protezione: {
+            it: "Limitare la caccia e proteggere le foreste avrebbe potuto ridurre fortemente le pressioni sulla specie.",
+            en: "Limiting hunting and protecting forests could have greatly reduced pressure on the species.",
+            fi: "Metsästyksen rajoittaminen ja metsien suojeleminen olisivat voineet vähentää merkittävästi lajiin kohdistunutta painetta."
+        },
 
-        risposte: [
-            {
-                testo: "Caccia su larga scala e perdita dell'habitat",
-                corretta: true
-            },
-            {
-                testo: "Solo eruzioni vulcaniche",
-                corretta: false
-            },
-            {
-                testo: "Solo cambiamenti delle maree",
-                corretta: false
-            },
-            {
-                testo: "La mancanza di acqua negli oceani",
-                corretta: false
-            }
-        ],
+        domanda: {
+            it: "Quale combinazione contribuì maggiormente al declino del piccione migratore?",
+            en: "Which combination contributed most to the decline of the passenger pigeon?",
+            fi: "Mikä yhdistelmä vaikutti eniten vaeltajakyyhkyn vähenemiseen?"
+        },
 
-        spiegazione:
-            "Il piccione migratore fu colpito dalla caccia commerciale su larga scala e dalla distruzione del suo habitat forestale."
+        risposte: {
+
+            it: [
+                {
+                    testo: "Caccia su larga scala e perdita dell'habitat",
+                    corretta: true
+                },
+                {
+                    testo: "Solo eruzioni vulcaniche",
+                    corretta: false
+                },
+                {
+                    testo: "Solo cambiamenti delle maree",
+                    corretta: false
+                },
+                {
+                    testo: "La mancanza di acqua negli oceani",
+                    corretta: false
+                }
+            ],
+
+            en: [
+                {
+                    testo: "Large-scale hunting and habitat loss",
+                    corretta: true
+                },
+                {
+                    testo: "Only volcanic eruptions",
+                    corretta: false
+                },
+                {
+                    testo: "Only changes in tides",
+                    corretta: false
+                },
+                {
+                    testo: "Lack of water in the oceans",
+                    corretta: false
+                }
+            ],
+
+            fi: [
+                {
+                    testo: "Laajamittainen metsästys ja elinympäristöjen häviäminen",
+                    corretta: true
+                },
+                {
+                    testo: "Vain tulivuorenpurkaukset",
+                    corretta: false
+                },
+                {
+                    testo: "Vain vuorovesien muutokset",
+                    corretta: false
+                },
+                {
+                    testo: "Veden puute valtamerissä",
+                    corretta: false
+                }
+            ]
+
+        },
+
+        spiegazione: {
+            it: "Il piccione migratore fu colpito dalla caccia commerciale su larga scala e dalla distruzione del suo habitat forestale.",
+            en: "The passenger pigeon was affected by large-scale commercial hunting and the destruction of its forest habitat.",
+            fi: "Vaeltajakyyhky kärsi laajamittaisesta kaupallisesta metsästyksestä ja metsäisen elinympäristönsä tuhoutumisesta."
+        }
+
     }
 
 ];
 
+
+/* =====================================================
+   VARIABILI DEL GIOCO
+   ===================================================== */
 
 let animaleAttuale = 0;
 
@@ -531,66 +1125,135 @@ let punteggio = 0;
 let rispostaData = false;
 
 
-/* -----------------------------------
+/* =====================================================
    FUNZIONE PER MESCOLARE LE RISPOSTE
------------------------------------ */
+   ===================================================== */
 
 function mescola(array) {
 
     const copia = [...array];
 
-    for (let i = copia.length - 1; i > 0; i--) {
+    for (
+        let i = copia.length - 1;
+        i > 0;
+        i--
+    ) {
 
-        const j = Math.floor(Math.random() * (i + 1));
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
 
-        [copia[i], copia[j]] =
-        [copia[j], copia[i]];
+        [
+            copia[i],
+            copia[j]
+        ] = [
+            copia[j],
+            copia[i]
+        ];
 
     }
 
     return copia;
+
 }
 
 
-/* -----------------------------------
+/* =====================================================
+   APPLICA TRADUZIONE INTERFACCIA
+   ===================================================== */
+
+function applicaLingua() {
+
+    const t = testi[lingua];
+
+    document.getElementById("titoloPagina").innerText =
+        t.titoloPagina;
+
+    document.getElementById("sottotitoloPagina").innerText =
+        t.sottotitoloPagina;
+
+    document.getElementById("titoloFinale").innerText =
+        t.finale;
+
+    document.getElementById("testoFinale").innerText =
+        t.finaleTesto;
+
+    document.getElementById("ricomincia").innerText =
+        t.ricomincia;
+
+    document.getElementById("home").innerText =
+        t.home;
+
+    document.getElementById("footer").innerText =
+        t.footer;
+
+    document.getElementById("prossima").innerText =
+        t.prossimo;
+
+}
+
+
+/* =====================================================
    MOSTRA ANIMALE
------------------------------------ */
+   ===================================================== */
 
 function mostraAnimale() {
 
     rispostaData = false;
 
-    const animale = animali[animaleAttuale];
+    const animale =
+        animali[animaleAttuale];
+
+    const t =
+        testi[lingua];
+
 
     document.getElementById("numero").innerText =
-        "ANIMALE " +
+        t.animale +
+        " " +
         (animaleAttuale + 1) +
-        " DI " +
+        " " +
+        t.di +
+        " " +
         animali.length;
+
 
     document.getElementById("animale").innerText =
         animale.emoji;
 
+
     document.getElementById("nomeAnimale").innerText =
-        animale.nome;
+        animale.nome[lingua];
+
 
     document.getElementById("descrizione").innerText =
-        animale.descrizione;
+        animale.descrizione[lingua];
+
 
     document.getElementById("informazioni").innerHTML =
-        "<strong>💀 Perché si è estinto?</strong><br>" +
-        animale.causa +
+        "<strong>" +
+        t.causa +
+        "</strong><br>" +
+        animale.causa[lingua] +
         "<br><br>" +
-        "<strong>🛡️ Cosa si sarebbe potuto fare?</strong><br>" +
-        animale.protezione;
+        "<strong>" +
+        t.protezione +
+        "</strong><br>" +
+        animale.protezione[lingua];
+
 
     document.getElementById("domanda").innerText =
-        animale.domanda;
+        animale.domanda[lingua];
 
-    document.getElementById("risultato").innerText = "";
+
+    document.getElementById("risultato").innerText =
+        "";
+
 
     document.getElementById("spiegazione").style.display =
         "none";
+
 
     document.getElementById("prossima").style.display =
         "none";
@@ -602,38 +1265,50 @@ function mostraAnimale() {
     contenitore.innerHTML = "";
 
 
-    /* MESCOLA LE RISPOSTE */
-
     const risposteMescolate =
-        mescola(animale.risposte);
+        mescola(
+            animale.risposte[lingua]
+        );
 
 
-    risposteMescolate.forEach(function(risposta) {
+    risposteMescolate.forEach(
+        function(risposta) {
 
-        const bottone =
-            document.createElement("button");
+            const bottone =
+                document.createElement("button");
 
-        bottone.className = "risposta";
 
-        bottone.innerText =
-            risposta.testo;
+            bottone.className =
+                "risposta";
 
-        bottone.onclick = function() {
 
-            controllaRisposta(risposta);
+            bottone.innerText =
+                risposta.testo;
 
-        };
 
-        contenitore.appendChild(bottone);
+            bottone.onclick =
+                function() {
 
-    });
+                    controllaRisposta(
+                        risposta
+                    );
+
+                };
+
+
+            contenitore.appendChild(
+                bottone
+            );
+
+        }
+    );
 
 }
 
 
-/* -----------------------------------
+/* =====================================================
    CONTROLLA RISPOSTA
------------------------------------ */
+   ===================================================== */
 
 function controllaRisposta(risposta) {
 
@@ -643,18 +1318,21 @@ function controllaRisposta(risposta) {
 
     rispostaData = true;
 
+    const t =
+        testi[lingua];
+
 
     if (risposta.corretta) {
 
         punteggio++;
 
         document.getElementById("risultato").innerText =
-            "✅ Risposta corretta!";
+            t.corretta;
 
     } else {
 
         document.getElementById("risultato").innerText =
-            "❌ Risposta sbagliata!";
+            t.sbagliata;
 
     }
 
@@ -664,8 +1342,9 @@ function controllaRisposta(risposta) {
 
 
     document.getElementById("spiegazione").innerText =
-        "📚 " +
-        animale.spiegazione;
+        t.spiegazione +
+        " " +
+        animale.spiegazione[lingua];
 
 
     document.getElementById("spiegazione").style.display =
@@ -678,16 +1357,19 @@ function controllaRisposta(risposta) {
 }
 
 
-/* -----------------------------------
+/* =====================================================
    PROSSIMO ANIMALE
------------------------------------ */
+   ===================================================== */
 
 function prossimaDomanda() {
 
     animaleAttuale++;
 
 
-    if (animaleAttuale < animali.length) {
+    if (
+        animaleAttuale <
+        animali.length
+    ) {
 
         mostraAnimale();
 
@@ -700,51 +1382,57 @@ function prossimaDomanda() {
 }
 
 
-/* -----------------------------------
+/* =====================================================
    RISULTATO FINALE
------------------------------------ */
+   ===================================================== */
 
 function mostraRisultatoFinale() {
 
+    const t =
+        testi[lingua];
+
+
     document.getElementById("gioco").style.display =
         "none";
+
 
     document.getElementById("finale").style.display =
         "block";
 
 
     document.getElementById("punteggioFinale").innerText =
-        punteggio + " / 6";
+        punteggio +
+        " / 6";
 
 
     if (punteggio === 6) {
 
         document.getElementById("messaggioFinale").innerText =
-            "🌟 Perfetto! Conosci molto bene la storia delle specie estinte e le principali cause della loro scomparsa.";
+            t.perfetto;
 
     } else if (punteggio >= 4) {
 
         document.getElementById("messaggioFinale").innerText =
-            "🌱 Molto bene! Hai una buona conoscenza delle cause dell'estinzione.";
+            t.moltoBene;
 
     } else if (punteggio >= 2) {
 
         document.getElementById("messaggioFinale").innerText =
-            "👍 Buon lavoro! Hai imparato diverse cose, ma puoi approfondire ancora.";
+            t.buonLavoro;
 
     } else {
 
         document.getElementById("messaggioFinale").innerText =
-            "📚 Continua a esplorare: conoscere le cause delle estinzioni aiuta a capire come proteggere le specie.";
+            t.continua;
 
     }
 
 }
 
 
-/* -----------------------------------
+/* =====================================================
    RICOMINCIA
------------------------------------ */
+   ===================================================== */
 
 function ricomincia() {
 
@@ -752,24 +1440,31 @@ function ricomincia() {
 
     punteggio = 0;
 
+
     document.getElementById("finale").style.display =
         "none";
 
+
     document.getElementById("gioco").style.display =
         "block";
+
 
     mostraAnimale();
 
 }
 
 
-/* AVVIO DEL GIOCO */
+/* =====================================================
+   AVVIO DEL GIOCO
+   ===================================================== */
+
+applicaLingua();
 
 mostraAnimale();
-
 
 </script>
 
 </body>
 
 </html>
+```
