@@ -25,7 +25,9 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header {
     background: linear-gradient(135deg, #1b5e20, #2e7d32);
@@ -44,7 +46,9 @@ header p {
     margin: 0;
 }
 
-/* SELETTORE LINGUA */
+/* =========================
+   SELETTORE LINGUA
+========================= */
 
 .lingue {
     display: flex;
@@ -76,7 +80,9 @@ header p {
     color: #07140e;
 }
 
-/* NAVIGAZIONE */
+/* =========================
+   NAVIGAZIONE
+========================= */
 
 .navigazione {
     width: 90%;
@@ -104,7 +110,9 @@ header p {
     transform: translateY(-2px);
 }
 
-/* CONTENITORE */
+/* =========================
+   CONTENITORE
+========================= */
 
 .contenitore {
     width: 90%;
@@ -112,7 +120,9 @@ header p {
     margin: 30px auto 60px;
 }
 
-/* INTRO */
+/* =========================
+   INTRO
+========================= */
 
 .introduzione {
     background: #172a21;
@@ -127,7 +137,9 @@ header p {
     color: #81c784;
 }
 
-/* SEZIONI */
+/* =========================
+   SEZIONI
+========================= */
 
 .sezione {
     background: #172a21;
@@ -191,7 +203,9 @@ header p {
     font-weight: bold;
 }
 
-/* PULSANTE HOME */
+/* =========================
+   HOME
+========================= */
 
 .home {
     display: block;
@@ -212,7 +226,9 @@ header p {
     transform: translateY(-2px);
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     background: #07140e;
@@ -221,7 +237,9 @@ footer {
     color: #a5d6a7;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
@@ -247,762 +265,1093 @@ footer {
 
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
-<h1>📚 EcoGame - Informazioni</h1>
+    <h1 data-i18n="pageTitle">
+        📚 EcoGame - Informazioni
+    </h1>
 
-<p>
-    Tutto ciò che devi sapere per comprendere
-    gli argomenti dei quiz e dei giochi.
-</p>
+    <p data-i18n="pageDescription">
+        Tutto ciò che devi sapere per comprendere
+        gli argomenti dei quiz e dei giochi.
+    </p>
 
-<!-- LINGUE -->
 
-<div class="lingue">
+    <!-- LINGUE -->
 
-    <button id="itBtn" onclick="cambiaLingua('it')">
-        🇮🇹 Italiano
-    </button>
+    <div class="lingue">
 
-    <button id="enBtn" onclick="cambiaLingua('en')">
-        🇬🇧 English
-    </button>
+        <button
+            id="itBtn"
+            onclick="cambiaLingua('it')"
+            type="button">
+            🇮🇹 Italiano
+        </button>
 
-    <button id="fiBtn" onclick="cambiaLingua('fi')">
-    🇫🇮 Suomi
-</button>
+        <button
+            id="enBtn"
+            onclick="cambiaLingua('en')"
+            type="button">
+            🇬🇧 English
+        </button>
 
-</div>
+        <button
+            id="fiBtn"
+            onclick="cambiaLingua('fi')"
+            type="button">
+            🇫🇮 Suomi
+        </button>
+
+    </div>
 
 </header>
 
 
+<!-- =========================
+     NAVIGAZIONE
+========================= -->
+
 <div class="navigazione">
 
-<button onclick="apriSezione('uso')">
-    🧭 Come usare EcoGame
-</button>
+    <button onclick="apriSezione('uso')" type="button"
+            data-i18n="navUse">
+        🧭 Come usare EcoGame
+    </button>
 
-<button onclick="apriSezione('clima')">
-    🌍 Clima
-</button>
+    <button onclick="apriSezione('clima')" type="button"
+            data-i18n="navClimate">
+        🌍 Clima
+    </button>
 
-<button onclick="apriSezione('biodiversita')">
-    🌱 Biodiversità
-</button>
+    <button onclick="apriSezione('biodiversita')" type="button"
+            data-i18n="navBiodiversity">
+        🌱 Biodiversità
+    </button>
 
-<button onclick="apriSezione('animali')">
-    🐾 Animali
-</button>
+    <button onclick="apriSezione('animali')" type="button"
+            data-i18n="navAnimals">
+        🐾 Animali
+    </button>
 
-<button onclick="apriSezione('acqua')">
-    💧 Acqua
-</button>
+    <button onclick="apriSezione('foreste')" type="button"
+            data-i18n="navForests">
+        🌳 Foreste
+    </button>
 
-<button onclick="apriSezione('oceani')">
-    🌊 Oceani
-</button>
+    <button onclick="apriSezione('acqua')" type="button"
+            data-i18n="navWater">
+        💧 Acqua
+    </button>
 
-<button onclick="apriSezione('rifiuti')">
-    ♻️ Rifiuti
-</button>
+    <button onclick="apriSezione('oceani')" type="button"
+            data-i18n="navOceans">
+        🌊 Oceani
+    </button>
 
-<button onclick="apriSezione('energia')">
-    ⚡ Energia
-</button>
+    <button onclick="apriSezione('rifiuti')" type="button"
+            data-i18n="navWaste">
+        ♻️ Rifiuti
+    </button>
 
-<button onclick="apriSezione('inquinamento')">
-    🏭 Inquinamento
-</button>
+    <button onclick="apriSezione('energia')" type="button"
+            data-i18n="navEnergy">
+        ⚡ Energia
+    </button>
 
-<button onclick="apriSezione('sostenibilita')">
-    🌱 Sostenibilità
-</button>
+    <button onclick="apriSezione('cicli')" type="button"
+            data-i18n="navCycles">
+        🧪 Cicli naturali
+    </button>
+
+    <button onclick="apriSezione('impollinatori')" type="button"
+            data-i18n="navPollinators">
+        🐝 Impollinatori
+    </button>
+
+    <button onclick="apriSezione('inquinamento')" type="button"
+            data-i18n="navPollution">
+        🏭 Inquinamento
+    </button>
+
+    <button onclick="apriSezione('sostenibilita')" type="button"
+            data-i18n="navSustainability">
+        🌱 Sostenibilità
+    </button>
 
 </div>
 
 
 <div class="contenitore">
 
+
+<!-- =========================
+     INTRODUZIONE
+========================= -->
+
 <div class="introduzione">
 
-<h2>🌍 Benvenuto nella guida di EcoGame!</h2>
+    <h2 data-i18n="welcomeTitle">
+        🌍 Benvenuto nella guida di EcoGame!
+    </h2>
 
-<p>
-    Questa sezione è stata creata per aiutarti a studiare
-    prima di affrontare i quiz e i mini-giochi.
-</p>
+    <p data-i18n="welcomeText1">
+        Questa sezione è stata creata per aiutarti a studiare
+        prima di affrontare i quiz e i mini-giochi.
+    </p>
 
-<p>
-    Non è necessario imparare tutto a memoria:
-    leggi gli argomenti che ti interessano e usa
-    le informazioni per comprendere meglio le domande
-    presenti nel sito.
-</p>
+    <p data-i18n="welcomeText2">
+        Non è necessario imparare tutto a memoria:
+        leggi gli argomenti che ti interessano e usa
+        le informazioni per comprendere meglio le domande
+        presenti nel sito.
+    </p>
 
-<div class="importante">
-    💡 <strong>Consiglio:</strong> se non conosci una risposta
-    durante un quiz, torna qui e ripassa l'argomento!
+    <div class="importante">
+
+        💡 <strong data-i18n="tipLabel">
+            Consiglio:
+        </strong>
+
+        <span data-i18n="tipText">
+            se non conosci una risposta durante un quiz,
+            torna qui e ripassa l'argomento!
+        </span>
+
+    </div>
+
 </div>
 
-</div>
 
-
-<!-- COME USARE -->
+<!-- =========================
+     COME USARE
+========================= -->
 
 <div class="sezione" id="uso">
 
-<div class="titolo" onclick="toggle('uso')">
-    🧭 Come usare EcoGame
-</div>
+    <div class="titolo"
+         onclick="toggle('uso')"
+         data-i18n="useTitle">
+        🧭 Come usare EcoGame
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🏠 Menu principale</h3>
+        <h3 data-i18n="mainMenuTitle">
+            🏠 Menu principale
+        </h3>
 
-    <p>
-        Dal menu principale puoi accedere alle diverse
-        parti del progetto:
-    </p>
+        <p data-i18n="mainMenuText">
+            Dal menu principale puoi accedere alle diverse
+            parti del progetto:
+        </p>
 
-    <ul>
-        <li>🧠 <strong>Quiz ecologico</strong> – domande sull'ambiente.</li>
-        <li>🎮 <strong>Mini-giochi</strong> – giochi interattivi.</li>
-        <li>📚 <strong>Informazioni</strong> – questa enciclopedia.</li>
-        <li>🏆 <strong>Risultati</strong> – sezione dedicata ai punteggi.</li>
-    </ul>
+        <ul>
 
-    <h3>🎮 Come funzionano i giochi</h3>
+            <li data-i18n="mainMenuQuiz">
+                🧠 Quiz ecologico – domande sull'ambiente.
+            </li>
 
-    <p>
-        Ogni gioco ha regole proprie. Leggi attentamente
-        le istruzioni presenti all'inizio e cerca di
-        comprendere l'obiettivo prima di iniziare.
-    </p>
+            <li data-i18n="mainMenuGames">
+                🎮 Mini-giochi – giochi interattivi.
+            </li>
 
-    <h3>🧠 Come funziona il quiz</h3>
+            <li data-i18n="mainMenuInfo">
+                📚 Informazioni – questa enciclopedia.
+            </li>
 
-    <p>
-        Il quiz contiene domande a risposta multipla.
-        Per ogni domanda devi scegliere una risposta.
-        Dopo aver risposto viene mostrata una spiegazione.
-    </p>
+            <li data-i18n="mainMenuResults">
+                🏆 Risultati – sezione dedicata ai punteggi.
+            </li>
 
-    <div class="importante">
-        📖 Le spiegazioni del quiz sono importanti:
-        non mostrano soltanto se hai sbagliato, ma spiegano
-        anche il concetto scientifico.
+        </ul>
+
+
+        <h3 data-i18n="gamesTitle">
+            🎮 Come funzionano i giochi
+        </h3>
+
+        <p data-i18n="gamesText">
+            Ogni gioco ha regole proprie. Leggi attentamente
+            le istruzioni presenti all'inizio e cerca di
+            comprendere l'obiettivo prima di iniziare.
+        </p>
+
+
+        <h3 data-i18n="quizTitle">
+            🧠 Come funziona il quiz
+        </h3>
+
+        <p data-i18n="quizText">
+            Il quiz contiene domande a risposta multipla.
+            Per ogni domanda devi scegliere una risposta.
+            Dopo aver risposto viene mostrata una spiegazione.
+        </p>
+
+        <div class="importante"
+             data-i18n="quizImportant">
+
+            📖 Le spiegazioni del quiz sono importanti:
+            non mostrano soltanto se hai sbagliato, ma spiegano
+            anche il concetto scientifico.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- CLIMA -->
+<!-- =========================
+     CLIMA
+========================= -->
 
 <div class="sezione" id="clima">
 
-<div class="titolo" onclick="toggle('clima')">
-    🌍 Cambiamento climatico ed effetto serra
-</div>
+    <div class="titolo"
+         onclick="toggle('clima')"
+         data-i18n="climateTitle">
+        🌍 Cambiamento climatico ed effetto serra
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🌡️ Che cos'è il clima?</h3>
+        <h3 data-i18n="climateWhatTitle">
+            🌡️ Che cos'è il clima?
+        </h3>
 
-    <p>
-        Il <span class="termine">clima</span> descrive le caratteristiche
-        statistiche dell'atmosfera osservate su periodi lunghi.
-        Il <strong>tempo meteorologico</strong>, invece, descrive
-        le condizioni atmosferiche in un determinato momento
-        o periodo breve.
-    </p>
+        <p data-i18n="climateWhat">
+            Il <span class="termine">clima</span> descrive le
+            caratteristiche statistiche dell'atmosfera osservate
+            su periodi lunghi. Il <strong>tempo meteorologico</strong>,
+            invece, descrive le condizioni atmosferiche in un
+            determinato momento o periodo breve.
+        </p>
 
-    <h3>🔥 Effetto serra</h3>
+        <h3 data-i18n="greenhouseTitle">
+            🔥 Effetto serra
+        </h3>
 
-    <p>
-        Alcuni gas presenti nell'atmosfera, chiamati
-        <span class="termine">gas serra</span>, assorbono parte
-        della radiazione infrarossa emessa dalla superficie terrestre.
-    </p>
+        <p data-i18n="greenhouseText1">
+            Alcuni gas presenti nell'atmosfera, chiamati
+            <span class="termine">gas serra</span>, assorbono parte
+            della radiazione infrarossa emessa dalla superficie terrestre.
+        </p>
 
-    <p>
-        L'effetto serra naturale è fondamentale per mantenere
-        temperature compatibili con la vita sulla Terra.
-    </p>
+        <p data-i18n="greenhouseText2">
+            L'effetto serra naturale è fondamentale per mantenere
+            temperature compatibili con la vita sulla Terra.
+        </p>
 
-    <h3>🏭 Attività umane</h3>
+        <h3 data-i18n="humanActivitiesTitle">
+            🏭 Attività umane
+        </h3>
 
-    <p>
-        Le attività umane possono aumentare la concentrazione
-        di gas serra nell'atmosfera. Tra questi troviamo
-        anidride carbonica (CO₂), metano e protossido di azoto.
-    </p>
+        <p data-i18n="humanActivitiesText">
+            Le attività umane possono aumentare la concentrazione
+            di gas serra nell'atmosfera. Tra questi troviamo
+            anidride carbonica (CO₂), metano e protossido di azoto.
+        </p>
 
-    <div class="importante">
-        💡 Ricorda: effetto serra naturale e cambiamento climatico
-        antropogenico non sono la stessa cosa.
+        <div class="importante"
+             data-i18n="climateImportant">
+
+            💡 Ricorda: effetto serra naturale e cambiamento climatico
+            antropogenico non sono la stessa cosa.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- BIODIVERSITÀ -->
+<!-- =========================
+     BIODIVERSITÀ
+========================= -->
 
 <div class="sezione" id="biodiversita">
 
-<div class="titolo" onclick="toggle('biodiversita')">
-    🌱 Ecosistemi e biodiversità
+    <div class="titolo"
+         onclick="toggle('biodiversita')"
+         data-i18n="biodiversityTitle">
+        🌱 Ecosistemi e biodiversità
+    </div>
+
+    <div class="contenuto">
+
+        <h3 data-i18n="ecosystemTitle">
+            🌳 Che cos'è un ecosistema?
+        </h3>
+
+        <p data-i18n="ecosystemText">
+            Un ecosistema comprende gli organismi viventi di una
+            determinata area e l'ambiente fisico con cui interagiscono.
+        </p>
+
+        <h3 data-i18n="biodiversitySubtitle">
+            🧬 Biodiversità
+        </h3>
+
+        <p data-i18n="biodiversityText">
+            La <span class="termine">biodiversità</span> comprende
+            la varietà degli organismi viventi, delle specie,
+                   dei geni e degli ecosistemi.
+        </p>
+
+        <h3 data-i18n="resilienceTitle">
+            🛡️ Resilienza
+        </h3>
+
+        <p data-i18n="resilienceText">
+            La diversità biologica può contribuire alla resilienza
+            di un ecosistema, perché specie differenti possono
+            svolgere funzioni diverse e rispondere in modi differenti
+            alle perturbazioni.
+        </p>
+
+        <h3 data-i18n="foodWebTitle">
+            🔗 Reti trofiche
+        </h3>
+
+        <p data-i18n="foodWebText">
+            Gli organismi sono collegati attraverso rapporti alimentari.
+            Un cambiamento in una popolazione può quindi influenzare
+            altre popolazioni.
+        </p>
+
+    </div>
+
 </div>
 
-<div class="contenuto">
 
-    <h3>🌳 Che cos'è un ecosistema?</h3>
-
-    <p>
-        Un ecosistema comprende gli organismi viventi di una
-        determinata area e l'ambiente fisico con cui interagiscono.
-    </p>
-
-    <h3>🧬 Biodiversità</h3>
-
-    <p>
-        La <span class="termine">biodiversità</span> comprende
-        la varietà degli organismi viventi, delle specie,
-        dei geni e degli ecosistemi.
-    </p>
-
-    <h3>🛡️ Resilienza</h3>
-
-    <p>
-        La diversità biologica può contribuire alla resilienza
-        di un ecosistema, perché specie differenti possono
-        svolgere funzioni diverse e rispondere in modi differenti
-        alle perturbazioni.
-    </p>
-
-    <h3>🔗 Reti trofiche</h3>
-
-    <p>
-        Gli organismi sono collegati attraverso rapporti alimentari.
-        Un cambiamento in una popolazione può quindi influenzare
-        altre popolazioni.
-    </p>
-
-</div>
-
-</div>
-
-
-<!-- ANIMALI -->
+<!-- =========================
+     ANIMALI
+========================= -->
 
 <div class="sezione" id="animali">
 
-<div class="titolo" onclick="toggle('animali')">
-    🐾 Animali, specie a rischio ed estinzioni
-</div>
+    <div class="titolo"
+         onclick="toggle('animali')"
+         data-i18n="animalsTitle">
+        🐾 Animali, specie a rischio ed estinzioni
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🐾 Che cos'è una specie?</h3>
+        <h3 data-i18n="speciesTitle">
+            🐾 Che cos'è una specie?
+        </h3>
 
-    <p>
-        Una specie è un gruppo di organismi che condivide
-        caratteristiche biologiche e, nel caso della definizione
-        biologica tradizionale, può riprodursi producendo
-        prole fertile.
-    </p>
+        <p data-i18n="speciesText">
+            Una specie è un gruppo di organismi che condivide
+            caratteristiche biologiche e, nel caso della definizione
+            biologica tradizionale, può riprodursi producendo
+            prole fertile.
+        </p>
 
-    <h3>☠️ Estinzione</h3>
+        <h3 data-i18n="extinctionTitle">
+            ☠️ Estinzione
+        </h3>
 
-    <p>
-        Una specie è estinta quando non esistono più individui
-        viventi appartenenti a quella specie.
-    </p>
+        <p data-i18n="extinctionText">
+            Una specie è estinta quando non esistono più individui
+            viventi appartenenti a quella specie.
+        </p>
 
-    <h3>⚠️ Cause delle estinzioni</h3>
+        <h3 data-i18n="extinctionCausesTitle">
+            ⚠️ Cause delle estinzioni
+        </h3>
 
-    <ul>
-        <li>Perdita e frammentazione degli habitat.</li>
-        <li>Cambiamenti climatici.</li>
-        <li>Inquinamento.</li>
-        <li>Sovrasfruttamento delle risorse.</li>
-        <li>Introduzione di specie invasive.</li>
-        <li>Altre pressioni ambientali.</li>
-    </ul>
+        <ul>
 
-    <h3>🛡️ Come proteggere le specie?</h3>
+            <li data-i18n="cause1">
+                Perdita e frammentazione degli habitat.
+            </li>
 
-    <p>
-        La conservazione può comprendere la protezione degli habitat,
-        la creazione di aree protette, il controllo delle minacce
-        e programmi di ripristino e conservazione.
-    </p>
+            <li data-i18n="cause2">
+                Cambiamenti climatici.
+            </li>
 
-    <div class="importante">
-        🐾 Proteggere una specie significa spesso proteggere
-        anche l'habitat e l'intero ecosistema da cui dipende.
+            <li data-i18n="cause3">
+                Inquinamento.
+            </li>
+
+            <li data-i18n="cause4">
+                Sovrasfruttamento delle risorse.
+            </li>
+
+            <li data-i18n="cause5">
+                Introduzione di specie invasive.
+            </li>
+
+            <li data-i18n="cause6">
+                Altre pressioni ambientali.
+            </li>
+
+        </ul>
+
+        <h3 data-i18n="protectSpeciesTitle">
+            🛡️ Come proteggere le specie?
+        </h3>
+
+        <p data-i18n="protectSpeciesText">
+            La conservazione può comprendere la protezione degli habitat,
+            la creazione di aree protette, il controllo delle minacce
+            e programmi di ripristino e conservazione.
+        </p>
+
+        <div class="importante"
+             data-i18n="speciesImportant">
+
+            🐾 Proteggere una specie significa spesso proteggere
+            anche l'habitat e l'intero ecosistema da cui dipende.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- FORESTE E SUOLO -->
+<!-- =========================
+     FORESTE
+========================= -->
 
 <div class="sezione" id="foreste">
 
-<div class="titolo" onclick="toggle('foreste')">
-    🌳 Foreste e suolo
+    <div class="titolo"
+         onclick="toggle('foreste')"
+         data-i18n="forestsTitle">
+        🌳 Foreste e suolo
+    </div>
+
+    <div class="contenuto">
+
+        <h3 data-i18n="forestsImportantTitle">
+            🌲 Perché le foreste sono importanti?
+        </h3>
+
+        <p data-i18n="forestsImportantText">
+            Le foreste forniscono habitat, contribuiscono al ciclo
+            del carbonio e dell'acqua e offrono numerosi servizi
+            ecosistemici.
+        </p>
+
+        <h3 data-i18n="erosionTitle">
+            🌾 Erosione del suolo
+        </h3>
+
+        <p data-i18n="erosionText">
+            L'erosione può rimuovere lo strato superficiale del suolo,
+            spesso ricco di sostanza organica e nutrienti.
+        </p>
+
+        <h3 data-i18n="conservationTitle">
+            🌱 Conservazione
+        </h3>
+
+        <p data-i18n="conservationText">
+            La protezione della vegetazione, una gestione appropriata
+            del territorio e pratiche agricole sostenibili possono
+            contribuire alla conservazione del suolo.
+        </p>
+
+    </div>
+
 </div>
 
-<div class="contenuto">
 
-    <h3>🌲 Perché le foreste sono importanti?</h3>
-
-    <p>
-        Le foreste forniscono habitat, contribuiscono al ciclo
-        del carbonio e dell'acqua e offrono numerosi servizi
-        ecosistemici.
-    </p>
-
-    <h3>🌾 Erosione del suolo</h3>
-
-    <p>
-        L'erosione può rimuovere lo strato superficiale del suolo,
-        spesso ricco di sostanza organica e nutrienti.
-    </p>
-
-    <h3>🌱 Conservazione</h3>
-
-    <p>
-        La protezione della vegetazione, una gestione appropriata
-        del territorio e pratiche agricole sostenibili possono
-        contribuire alla conservazione del suolo.
-    </p>
-
-</div>
-
-</div>
-
-
-<!-- ACQUA -->
+<!-- =========================
+     ACQUA
+========================= -->
 
 <div class="sezione" id="acqua">
 
-<div class="titolo" onclick="toggle('acqua')">
-    💧 Acqua e ciclo dell'acqua
+    <div class="titolo"
+         onclick="toggle('acqua')"
+         data-i18n="waterTitle">
+        💧 Acqua e ciclo dell'acqua
+    </div>
+
+    <div class="contenuto">
+
+        <h3 data-i18n="waterCycleTitle">
+            💧 Il ciclo dell'acqua
+        </h3>
+
+        <p data-i18n="waterCycleText">
+            L'acqua circola continuamente tra atmosfera, superficie
+            terrestre, suolo, oceani e organismi viventi.
+        </p>
+
+        <ul>
+
+            <li data-i18n="evaporation">
+                ☀️ Evaporazione
+            </li>
+
+            <li data-i18n="condensation">
+                ☁️ Condensazione
+            </li>
+
+            <li data-i18n="precipitation">
+                🌧️ Precipitazione
+            </li>
+
+            <li data-i18n="runoff">
+                🌊 Ruscellamento
+            </li>
+
+            <li data-i18n="infiltration">
+                🌱 Infiltrazione
+            </li>
+
+            <li data-i18n="transpiration">
+                🌿 Traspirazione
+            </li>
+
+        </ul>
+
+        <h3 data-i18n="waterWasteTitle">
+            🚰 Spreco d'acqua
+        </h3>
+
+        <p data-i18n="waterWasteText">
+            L'acqua viene utilizzata per agricoltura, industria,
+            produzione energetica e consumo domestico.
+            Ridurre gli sprechi significa usare la risorsa
+            in modo più efficiente.
+        </p>
+
+        <h3 data-i18n="waterPollutionTitle">
+            🧪 Inquinamento dell'acqua
+        </h3>
+
+        <p data-i18n="waterPollutionText">
+            Sostanze nutrienti in eccesso, sostanze chimiche,
+            rifiuti e altri contaminanti possono alterare
+            gli ecosistemi acquatici.
+        </p>
+
+        <h3 data-i18n="eutrophicationTitle">
+            🌿 Eutrofizzazione
+        </h3>
+
+        <p data-i18n="eutrophicationText">
+            Un eccesso di nutrienti come nitrati e fosfati può
+            favorire una crescita eccessiva delle alghe.
+            La decomposizione della biomassa può consumare
+            molto ossigeno e danneggiare gli organismi acquatici.
+        </p>
+
+    </div>
+
 </div>
 
-<div class="contenuto">
 
-    <h3>💧 Il ciclo dell'acqua</h3>
-
-    <p>
-        L'acqua circola continuamente tra atmosfera, superficie
-        terrestre, suolo, oceani e organismi viventi.
-    </p>
-
-    <ul>
-        <li>☀️ Evaporazione</li>
-        <li>☁️ Condensazione</li>
-        <li>🌧️ Precipitazione</li>
-        <li>🌊 Ruscellamento</li>
-        <li>🌱 Infiltrazione</li>
-        <li>🌿 Traspirazione</li>
-    </ul>
-
-    <h3>🚰 Spreco d'acqua</h3>
-
-    <p>
-        L'acqua viene utilizzata per agricoltura, industria,
-        produzione energetica e consumo domestico.
-        Ridurre gli sprechi significa usare la risorsa
-        in modo più efficiente.
-    </p>
-
-    <h3>🧪 Inquinamento dell'acqua</h3>
-
-    <p>
-        Sostanze nutrienti in eccesso, sostanze chimiche,
-        rifiuti e altri contaminanti possono alterare
-        gli ecosistemi acquatici.
-    </p>
-
-    <h3>🌿 Eutrofizzazione</h3>
-
-    <p>
-        Un eccesso di nutrienti come nitrati e fosfati può
-        favorire una crescita eccessiva delle alghe.
-        La decomposizione della biomassa può consumare
-        molto ossigeno e danneggiare gli organismi acquatici.
-    </p>
-
-</div>
-
-</div>
-
-
-<!-- OCEANI -->
+<!-- =========================
+     OCEANI
+========================= -->
 
 <div class="sezione" id="oceani">
 
-<div class="titolo" onclick="toggle('oceani')">
-    🌊 Oceani
-</div>
+    <div class="titolo"
+         onclick="toggle('oceani')"
+         data-i18n="oceansTitle">
+        🌊 Oceani
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🌊 Perché gli oceani sono importanti?</h3>
+        <h3 data-i18n="oceansImportantTitle">
+            🌊 Perché gli oceani sono importanti?
+        </h3>
 
-    <p>
-        Gli oceani ospitano una grande quantità di biodiversità
-        e svolgono un ruolo fondamentale nei cicli della materia
-        e nel sistema climatico.
-    </p>
+        <p data-i18n="oceansImportantText">
+            Gli oceani ospitano una grande quantità di biodiversità
+            e svolgono un ruolo fondamentale nei cicli della materia
+            e nel sistema climatico.
+        </p>
 
-    <h3>🧪 Acidificazione degli oceani</h3>
+        <h3 data-i18n="acidificationTitle">
+            🧪 Acidificazione degli oceani
+        </h3>
 
-    <p>
-        Gli oceani assorbono una parte della CO₂ presente
-        nell'atmosfera. Questo processo modifica gli equilibri
-        chimici dell'acqua marina e contribuisce alla diminuzione
-        del suo pH.
-    </p>
+        <p data-i18n="acidificationText">
+            Gli oceani assorbono una parte della CO₂ presente
+            nell'atmosfera. Questo processo modifica gli equilibri
+            chimici dell'acqua marina e contribuisce alla diminuzione
+            del suo pH.
+        </p>
 
-    <h3>🐟 Pesca e biodiversità</h3>
+        <h3 data-i18n="fishingTitle">
+            🐟 Pesca e biodiversità
+        </h3>
 
-    <p>
-        Una gestione non sostenibile delle risorse marine può
-        ridurre le popolazioni di alcune specie e alterare
-        le reti alimentari.
-    </p>
+        <p data-i18n="fishingText">
+            Una gestione non sostenibile delle risorse marine può
+            ridurre le popolazioni di alcune specie e alterare
+            le reti alimentari.
+        </p>
 
-    <div class="importante">
-        🌊 Gli ecosistemi marini sono collegati tra loro:
-        una modifica di una componente può avere effetti
-        anche su altre componenti della rete ecologica.
+        <div class="importante"
+             data-i18n="oceansImportant">
+
+            🌊 Gli ecosistemi marini sono collegati tra loro:
+            una modifica di una componente può avere effetti
+            anche su altre componenti della rete ecologica.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- RIFIUTI -->
+<!-- =========================
+     RIFIUTI
+========================= -->
 
 <div class="sezione" id="rifiuti">
 
-<div class="titolo" onclick="toggle('rifiuti')">
-    ♻️ Rifiuti, riciclo ed economia circolare
-</div>
+    <div class="titolo"
+         onclick="toggle('rifiuti')"
+         data-i18n="wasteTitle">
+        ♻️ Rifiuti, riciclo ed economia circolare
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>♻️ Economia circolare</h3>
+        <h3 data-i18n="circularEconomyTitle">
+            ♻️ Economia circolare
+        </h3>
 
-    <p>
-        L'economia circolare cerca di mantenere prodotti,
-        materiali e risorse in uso il più a lungo possibile,
-        riducendo sprechi e consumo di risorse vergini.
-    </p>
+        <p data-i18n="circularEconomyText">
+            L'economia circolare cerca di mantenere prodotti,
+            materiali e risorse in uso il più a lungo possibile,
+            riducendo sprechi e consumo di risorse vergini.
+        </p>
 
-    <h3>🔄 Strategie principali</h3>
+        <h3 data-i18n="strategiesTitle">
+            🔄 Strategie principali
+        </h3>
 
-    <ul>
-        <li>Riduzione dei consumi.</li>
-        <li>Riutilizzo.</li>
-        <li>Riparazione.</li>
-        <li>Riciclo.</li>
-        <li>Recupero dei materiali.</li>
-    </ul>
+        <ul>
 
-    <h3>🗑️ Raccolta differenziata</h3>
+            <li data-i18n="reduce">
+                Riduzione dei consumi.
+            </li>
 
-    <p>
-        La corretta separazione dei rifiuti permette di avviare
-        materiali diversi ai processi di trattamento appropriati.
-        Le regole precise possono variare in base al comune
-        e al sistema locale di raccolta.
-    </p>
+            <li data-i18n="reuse">
+                Riutilizzo.
+            </li>
 
-    <div class="importante">
-        ♻️ Ricorda: il modo migliore per ridurre un rifiuto
-        è spesso evitarne la produzione in primo luogo.
+            <li data-i18n="repair">
+                Riparazione.
+            </li>
+
+            <li data-i18n="recycle">
+                Riciclo.
+            </li>
+
+            <li data-i18n="materialRecovery">
+                Recupero dei materiali.
+            </li>
+
+        </ul>
+
+        <h3 data-i18n="wasteSeparationTitle">
+            🗑️ Raccolta differenziata
+        </h3>
+
+        <p data-i18n="wasteSeparationText">
+            La corretta separazione dei rifiuti permette di avviare
+            materiali diversi ai processi di trattamento appropriati.
+            Le regole precise possono variare in base al comune
+            e al sistema locale di raccolta.
+        </p>
+
+        <div class="importante"
+             data-i18n="wasteImportant">
+
+            ♻️ Ricorda: il modo migliore per ridurre un rifiuto
+            è spesso evitarne la produzione in primo luogo.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- ENERGIA -->
+<!-- =========================
+     ENERGIA
+========================= -->
 
 <div class="sezione" id="energia">
 
-<div class="titolo" onclick="toggle('energia')">
-    ⚡ Energia e fonti energetiche
-</div>
+    <div class="titolo"
+         onclick="toggle('energia')"
+         data-i18n="energyTitle">
+        ⚡ Energia e fonti energetiche
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>⚡ Che cos'è l'energia?</h3>
+        <h3 data-i18n="energyWhatTitle">
+            ⚡ Che cos'è l'energia?
+        </h3>
 
-    <p>
-        L'energia permette di compiere lavoro e può assumere
-        forme diverse, come energia termica, elettrica,
-        chimica e cinetica.
-    </p>
+        <p data-i18n="energyWhatText">
+            L'energia permette di compiere lavoro e può assumere
+            forme diverse, come energia termica, elettrica,
+            chimica e cinetica.
+        </p>
 
-    <h3>☀️ Fonti rinnovabili</h3>
+        <h3 data-i18n="renewableTitle">
+            ☀️ Fonti rinnovabili
+        </h3>
 
-    <p>
-        Le fonti rinnovabili sfruttano flussi naturali che
-        vengono continuamente alimentati, come energia solare,
-        eolica, idroelettrica e geotermica.
-    </p>
+        <p data-i18n="renewableText">
+            Le fonti rinnovabili sfruttano flussi naturali che
+            vengono continuamente alimentati, come energia solare,
+            eolica, idroelettrica e geotermica.
+        </p>
 
-    <h3>🛢️ Combustibili fossili</h3>
+        <h3 data-i18n="fossilTitle">
+            🛢️ Combustibili fossili
+        </h3>
 
-    <p>
-        Carbone, petrolio e gas naturale sono combustibili fossili.
-        Contengono carbonio immagazzinato geologicamente e la loro
-        combustione produce emissioni, tra cui CO₂.
-    </p>
+        <p data-i18n="fossilText">
+            Carbone, petrolio e gas naturale sono combustibili fossili.
+            Contengono carbonio immagazzinato geologicamente e la loro
+            combustione produce emissioni, tra cui CO₂.
+        </p>
 
-    <h3>💡 Efficienza energetica</h3>
+        <h3 data-i18n="efficiencyTitle">
+            💡 Efficienza energetica
+        </h3>
 
-    <p>
-        L'efficienza energetica significa ottenere un determinato
-        servizio utilizzando meno energia.
-    </p>
+        <p data-i18n="efficiencyText">
+            L'efficienza energetica significa ottenere un determinato
+            servizio utilizzando meno energia.
+        </p>
 
-    <div class="importante">
-        ⚡ Risparmiare energia e usare l'energia in modo efficiente
-        sono concetti importanti per ridurre consumi e impatti.
+        <div class="importante"
+             data-i18n="energyImportant">
+
+            ⚡ Risparmiare energia e usare l'energia in modo efficiente
+            sono concetti importanti per ridurre consumi e impatti.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- CICLI NATURALI -->
+<!-- =========================
+     CICLI NATURALI
+========================= -->
 
 <div class="sezione" id="cicli">
 
-<div class="titolo" onclick="toggle('cicli')">
-    🧪 Cicli del carbonio e dell'azoto
+    <div class="titolo"
+         onclick="toggle('cicli')"
+         data-i18n="cyclesTitle">
+        🧪 Cicli del carbonio e dell'azoto
+    </div>
+
+    <div class="contenuto">
+
+        <h3 data-i18n="carbonCycleTitle">
+            🌲 Ciclo del carbonio
+        </h3>
+
+        <p data-i18n="carbonCycleText">
+            Il carbonio si muove tra atmosfera, oceani, suolo,
+            organismi viventi e altre riserve attraverso processi
+            naturali e attività umane.
+        </p>
+
+        <h3 data-i18n="carbonSinkTitle">
+            🌲 Pozzo di carbonio
+        </h3>
+
+        <p data-i18n="carbonSinkText">
+            Un <span class="termine">pozzo di carbonio</span> è un sistema
+            che, nel periodo considerato, assorbe più carbonio di quanto
+            ne rilasci.
+        </p>
+
+        <h3 data-i18n="nitrogenCycleTitle">
+            🧪 Ciclo dell'azoto
+        </h3>
+
+        <p data-i18n="nitrogenCycleText">
+            L'azoto è fondamentale per gli organismi viventi.
+            Il ciclo dell'azoto comprende diversi processi.
+        </p>
+
+        <h3 data-i18n="nitrogenFixationTitle">
+            🦠 Fissazione dell'azoto
+        </h3>
+
+        <p data-i18n="nitrogenFixationText">
+            La fissazione dell'azoto converte l'azoto molecolare
+            atmosferico in forme azotate che possono entrare
+            nel ciclo biologico.
+        </p>
+
+    </div>
+
 </div>
 
-<div class="contenuto">
 
-    <h3>🌲 Ciclo del carbonio</h3>
-
-    <p>
-        Il carbonio si muove tra atmosfera, oceani, suolo,
-        organismi viventi e altre riserve attraverso processi
-        naturali e attività umane.
-    </p>
-
-    <h3>🌲 Pozzo di carbonio</h3>
-
-    <p>
-        Un <span class="termine">pozzo di carbonio</span> è un sistema
-        che, nel periodo considerato, assorbe più carbonio di quanto
-        ne rilasci.
-    </p>
-
-    <h3>🧪 Ciclo dell'azoto</h3>
-
-    <p>
-        L'azoto è fondamentale per gli organismi viventi.
-        Il ciclo dell'azoto comprende diversi processi.
-    </p>
-
-    <h3>🦠 Fissazione dell'azoto</h3>
-
-    <p>
-        La fissazione dell'azoto converte l'azoto molecolare
-        atmosferico in forme azotate che possono entrare
-        nel ciclo biologico.
-    </p>
-
-</div>
-
-</div>
-
-
-<!-- IMPOLLINATORI -->
+<!-- =========================
+     IMPOLLINATORI
+========================= -->
 
 <div class="sezione" id="impollinatori">
 
-<div class="titolo" onclick="toggle('impollinatori')">
-    🐝 Impollinatori e catene alimentari
+    <div class="titolo"
+         onclick="toggle('impollinatori')"
+         data-i18n="pollinatorsTitle">
+        🐝 Impollinatori e catene alimentari
+    </div>
+
+    <div class="contenuto">
+
+        <h3 data-i18n="pollinationTitle">
+            🐝 Impollinazione
+        </h3>
+
+        <p data-i18n="pollinationText">
+            L'impollinazione permette il trasferimento del polline
+            e contribuisce alla riproduzione di molte piante.
+            Numerosi animali, tra cui api e altri insetti,
+            possono svolgere questo ruolo.
+        </p>
+
+        <h3 data-i18n="agricultureTitle">
+            🌾 Agricoltura
+        </h3>
+
+        <p data-i18n="agricultureText">
+            Molte colture dipendono in parte dall'impollinazione
+            animale. La perdita degli impollinatori può quindi
+            influenzare alcuni sistemi agricoli.
+        </p>
+
+        <h3 data-i18n="foodChainTitle">
+            🐺 Catena alimentare
+        </h3>
+
+        <p data-i18n="foodChainText">
+            In una catena alimentare l'energia passa da un livello
+            trofico all'altro. Le reti trofiche rappresentano
+            connessioni più complesse tra numerosi organismi.
+        </p>
+
+        <h3 data-i18n="predatorsTitle">
+            🌳 Predatori
+        </h3>
+
+        <p data-i18n="predatorsText">
+            La diminuzione dei predatori apicali può provocare
+            cambiamenti nelle popolazioni delle prede e,
+            attraverso una cascata trofica, influenzare altri
+            livelli dell'ecosistema.
+        </p>
+
+    </div>
+
 </div>
 
-<div class="contenuto">
 
-    <h3>🐝 Impollinazione</h3>
-
-    <p>
-        L'impollinazione permette il trasferimento del polline
-        e contribuisce alla riproduzione di molte piante.
-        Numerosi animali, tra cui api e altri insetti,
-        possono svolgere questo ruolo.
-    </p>
-
-    <h3>🌾 Agricoltura</h3>
-
-    <p>
-        Molte colture dipendono in parte dall'impollinazione
-        animale. La perdita degli impollinatori può quindi
-        influenzare alcuni sistemi agricoli.
-    </p>
-
-    <h3>🐺 Catena alimentare</h3>
-
-    <p>
-        In una catena alimentare l'energia passa da un livello
-        trofico all'altro. Le reti trofiche rappresentano
-        connessioni più complesse tra numerosi organismi.
-    </p>
-
-    <h3>🌳 Predatori</h3>
-
-    <p>
-        La diminuzione dei predatori apicali può provocare
-        cambiamenti nelle popolazioni delle prede e,
-        attraverso una cascata trofica, influenzare altri
-        livelli dell'ecosistema.
-    </p>
-
-</div>
-
-</div>
-
-
-<!-- INQUINAMENTO -->
+<!-- =========================
+     INQUINAMENTO
+========================= -->
 
 <div class="sezione" id="inquinamento">
 
-<div class="titolo" onclick="toggle('inquinamento')">
-    🏭 Inquinamento
-</div>
+    <div class="titolo"
+         onclick="toggle('inquinamento')"
+         data-i18n="pollutionTitle">
+        🏭 Inquinamento
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🏭 Inquinamento atmosferico</h3>
+        <h3 data-i18n="airPollutionTitle">
+            🏭 Inquinamento atmosferico
+        </h3>
 
-    <p>
-        L'inquinamento atmosferico consiste nella presenza
-        nell'aria di sostanze o particelle che possono avere
-        effetti sull'ambiente e sulla salute.
-    </p>
+        <p data-i18n="airPollutionText">
+            L'inquinamento atmosferico consiste nella presenza
+            nell'aria di sostanze o particelle che possono avere
+            effetti sull'ambiente e sulla salute.
+        </p>
 
-    <h3>🚗 Fonti antropogeniche</h3>
+        <h3 data-i18n="anthropogenicTitle">
+            🚗 Fonti antropogeniche
+        </h3>
 
-    <p>
-        Trasporti, industrie, produzione energetica e altre
-        attività umane possono produrre emissioni inquinanti.
-    </p>
+        <p data-i18n="anthropogenicText">
+            Trasporti, industrie, produzione energetica e altre
+            attività umane possono produrre emissioni inquinanti.
+        </p>
 
-    <h3>🌋 Fonti naturali</h3>
+        <h3 data-i18n="naturalSourcesTitle">
+            🌋 Fonti naturali
+        </h3>
 
-    <p>
-        Anche fenomeni naturali, come eruzioni vulcaniche
-        e incendi naturali, possono contribuire alla presenza
-        di alcune sostanze nell'atmosfera.
-    </p>
+        <p data-i18n="naturalSourcesText">
+            Anche fenomeni naturali, come eruzioni vulcaniche
+            e incendi naturali, possono contribuire alla presenza
+            di alcune sostanze nell'atmosfera.
+        </p>
 
-    <div class="importante">
-        🏭 "Antropogenico" significa legato alle attività umane.
+        <div class="importante"
+             data-i18n="anthropogenicImportant">
+
+            🏭 "Antropogenico" significa legato alle attività umane.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
-
-<!-- SOSTENIBILITÀ -->
+<!-- =========================
+     SOSTENIBILITÀ
+========================= -->
 
 <div class="sezione" id="sostenibilita">
 
-<div class="titolo" onclick="toggle('sostenibilita')">
-    🌱 Sviluppo sostenibile
-</div>
+    <div class="titolo"
+         onclick="toggle('sostenibilita')"
+         data-i18n="sustainabilityTitle">
+        🌱 Sviluppo sostenibile
+    </div>
 
-<div class="contenuto">
+    <div class="contenuto">
 
-    <h3>🌱 Che cos'è?</h3>
+        <h3 data-i18n="sustainableWhatTitle">
+            🌱 Che cos'è?
+        </h3>
 
-    <p>
-        Lo sviluppo sostenibile considera contemporaneamente
-        dimensioni ambientali, sociali ed economiche,
-        tenendo conto anche delle conseguenze nel lungo periodo.
-    </p>
+        <p data-i18n="sustainableWhatText">
+            Lo sviluppo sostenibile considera contemporaneamente
+            dimensioni ambientali, sociali ed economiche,
+            tenendo conto anche delle conseguenze nel lungo periodo.
+        </p>
 
-    <h3>⚖️ Equilibrio</h3>
+        <h3 data-i18n="balanceTitle">
+            ⚖️ Equilibrio
+        </h3>
 
-    <p>
-        La sostenibilità non significa semplicemente fermare
-        ogni attività umana. Significa cercare modalità di
-        sviluppo che tengano conto dei limiti ambientali
-        e delle esigenze della società.
-    </p>
+        <p data-i18n="balanceText">
+            La sostenibilità non significa semplicemente fermare
+            ogni attività umana. Significa cercare modalità di
+            sviluppo che tengano conto dei limiti ambientali
+            e delle esigenze della società.
+        </p>
 
-    <h3>🌍 Esempi</h3>
+        <h3 data-i18n="examplesTitle">
+            🌍 Esempi
+        </h3>
 
-    <ul>
-        <li>Uso efficiente delle risorse.</li>
-        <li>Riduzione degli sprechi.</li>
-        <li>Protezione degli ecosistemi.</li>
-        <li>Riduzione dell'inquinamento.</li>
-        <li>Uso responsabile dell'energia.</li>
-        <li>Conservazione della biodiversità.</li>
-    </ul>
+        <ul>
 
-    <div class="importante">
-        🌱 L'obiettivo è considerare gli effetti delle nostre
-        scelte non solo nel presente, ma anche nel lungo periodo.
+            <li data-i18n="example1">
+                Uso efficiente delle risorse.
+            </li>
+
+            <li data-i18n="example2">
+                Riduzione degli sprechi.
+            </li>
+
+            <li data-i18n="example3">
+                Protezione degli ecosistemi.
+            </li>
+
+            <li data-i18n="example4">
+                Riduzione dell'inquinamento.
+            </li>
+
+            <li data-i18n="example5">
+                Uso responsabile dell'energia.
+            </li>
+
+            <li data-i18n="example6">
+                Conservazione della biodiversità.
+            </li>
+
+        </ul>
+
+        <div class="importante"
+             data-i18n="sustainabilityImportant">
+
+            🌱 L'obiettivo è considerare gli effetti delle nostre
+            scelte non solo nel presente, ma anche nel lungo periodo.
+
+        </div>
+
     </div>
 
 </div>
 
-</div>
 
+<!-- =========================
+     HOME
+========================= -->
 
-<a class="home" onclick="tornaHome()">
+<a class="home"
+   onclick="tornaHome()"
+   data-i18n="homeButton">
+
     🏠 Torna al menu principale
+
 </a>
 
+
 </div>
 
 
-<footer>
+<!-- =========================
+     FOOTER
+========================= -->
 
-🌱 EcoGame — Imparare l'ecologia giocando
-
+<footer data-i18n="footer">
+    🌱 EcoGame — Imparare l'ecologia giocando
 </footer>
 
 
 <script>
 
 /* =====================================================
-   FUNZIONI ORIGINALI DEL SITO
-   ===================================================== */
+   FUNZIONI DEL SITO
+===================================================== */
 
 function toggle(id) {
 
     const sezione = document.getElementById(id);
 
+    if (!sezione) return;
+
     const contenuto = sezione.querySelector(".contenuto");
+
+    if (!contenuto) return;
 
     contenuto.classList.toggle("aperto");
 
@@ -1013,7 +1362,11 @@ function apriSezione(id) {
 
     const sezione = document.getElementById(id);
 
+    if (!sezione) return;
+
     const contenuto = sezione.querySelector(".contenuto");
+
+    if (!contenuto) return;
 
     contenuto.classList.add("aperto");
 
@@ -1034,1135 +1387,1618 @@ function tornaHome() {
 
 /* =====================================================
    TRADUZIONI
-   ===================================================== */
+===================================================== */
 
 const traduzioni = {
 
-it: {
+    /* =========================
+       ITALIANO
+    ========================= */
 
-"📚 EcoGame - Informazioni": "📚 EcoGame - Informazioni",
+    it: {
 
-"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
-"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.",
+        pageTitle:
+            "📚 EcoGame - Informazioni",
 
-"🧭 Come usare EcoGame":
-"🧭 Come usare EcoGame",
+        pageDescription:
+            "Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.",
 
-"🌍 Clima":
-"🌍 Clima",
+        navUse:
+            "🧭 Come usare EcoGame",
 
-"🌱 Biodiversità":
-"🌱 Biodiversità",
+        navClimate:
+            "🌍 Clima",
 
-"🐾 Animali":
-"🐾 Animali",
+        navBiodiversity:
+            "🌱 Biodiversità",
 
-"💧 Acqua":
-"💧 Acqua",
+        navAnimals:
+            "🐾 Animali",
 
-"🌊 Oceani":
-"🌊 Oceani",
+        navForests:
+            "🌳 Foreste",
 
-"♻️ Rifiuti":
-"♻️ Rifiuti",
+        navWater:
+            "💧 Acqua",
 
-"⚡ Energia":
-"⚡ Energia",
+        navOceans:
+            "🌊 Oceani",
 
-"🏭 Inquinamento":
-"🏭 Inquinamento",
+        navWaste:
+            "♻️ Rifiuti",
 
-"🌱 Sostenibilità":
-"🌱 Sostenibilità",
+        navEnergy:
+            "⚡ Energia",
 
-"🌍 Benvenuto nella guida di EcoGame!":
-"🌍 Benvenuto nella guida di EcoGame!",
+        navCycles:
+            "🧪 Cicli naturali",
 
-"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
-"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.",
+        navPollinators:
+            "🐝 Impollinatori",
 
-"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
-"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.",
+        navPollution:
+            "🏭 Inquinamento",
 
-"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
-"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!",
+        navSustainability:
+            "🌱 Sostenibilità",
 
-"🧭 Come usare EcoGame":
-"🧭 Come usare EcoGame",
+        welcomeTitle:
+            "🌍 Benvenuto nella guida di EcoGame!",
 
-"🏠 Menu principale":
-"🏠 Menu principale",
+        welcomeText1:
+            "Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.",
 
-"Dal menu principale puoi accedere alle diverse parti del progetto:":
-"Dal menu principale puoi accedere alle diverse parti del progetto:",
+        welcomeText2:
+            "Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.",
 
-"🎮 Mini-giochi – giochi interattivi.":
-"🎮 Mini-giochi – giochi interattivi.",
+        tipLabel:
+            "Consiglio:",
 
-"📚 Informazioni – questa enciclopedia.":
-"📚 Informazioni – questa enciclopedia.",
+        tipText:
+            "se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!",
 
-"🏆 Risultati – sezione dedicata ai punteggi.":
-"🏆 Risultati – sezione dedicata ai punteggi.",
+        useTitle:
+            "🧭 Come usare EcoGame",
 
-"🎮 Come funzionano i giochi":
-"🎮 Come funzionano i giochi",
+        mainMenuTitle:
+            "🏠 Menu principale",
 
-"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
-"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.",
+        mainMenuText:
+            "Dal menu principale puoi accedere alle diverse parti del progetto:",
 
-"🧠 Come funziona il quiz":
-"🧠 Come funziona il quiz",
+        mainMenuQuiz:
+            "🧠 Quiz ecologico – domande sull'ambiente.",
 
-"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
-"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.",
+        mainMenuGames:
+            "🎮 Mini-giochi – giochi interattivi.",
 
-"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
-"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.",
+        mainMenuInfo:
+            "📚 Informazioni – questa enciclopedia.",
 
-"🌍 Cambiamento climatico ed effetto serra":
-"🌍 Cambiamento climatico ed effetto serra",
+        mainMenuResults:
+            "🏆 Risultati – sezione dedicata ai punteggi.",
 
-"🌡️ Che cos'è il clima?":
-"🌡️ Che cos'è il clima?",
+        gamesTitle:
+            "🎮 Come funzionano i giochi",
 
-"🔥 Effetto serra":
-"🔥 Effetto serra",
+        gamesText:
+            "Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.",
 
-"🏭 Attività umane":
-"🏭 Attività umane",
+        quizTitle:
+            "🧠 Come funziona il quiz",
 
-"🌱 Ecosistemi e biodiversità":
-"🌱 Ecosistemi e biodiversità",
+        quizText:
+            "Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.",
 
-"🌳 Che cos'è un ecosistema?":
-"🌳 Che cos'è un ecosistema?",
+        quizImportant:
+            "📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.",
 
-"🧬 Biodiversità":
-"🧬 Biodiversità",
+        climateTitle:
+            "🌍 Cambiamento climatico ed effetto serra",
 
-"🛡️ Resilienza":
-"🛡️ Resilienza",
+        climateWhatTitle:
+            "🌡️ Che cos'è il clima?",
 
-"🔗 Reti trofiche":
-"🔗 Reti trofiche",
+        climateWhat:
+            "Il clima descrive le caratteristiche statistiche dell'atmosfera osservate su periodi lunghi. Il tempo meteorologico, invece, descrive le condizioni atmosferiche in un determinato momento o periodo breve.",
 
-"🐾 Animali, specie a rischio ed estinzioni":
-"🐾 Animali, specie a rischio ed estinzioni",
+        greenhouseTitle:
+            "🔥 Effetto serra",
 
-"🐾 Che cos'è una specie?":
-"🐾 Che cos'è una specie?",
+        greenhouseText1:
+            "Alcuni gas presenti nell'atmosfera, chiamati gas serra, assorbono parte della radiazione infrarossa emessa dalla superficie terrestre.",
 
-"☠️ Estinzione":
-"☠️ Estinzione",
+        greenhouseText2:
+            "L'effetto serra naturale è fondamentale per mantenere temperature compatibili con la vita sulla Terra.",
 
-"⚠️ Cause delle estinzioni":
-"⚠️ Cause delle estinzioni",
+        humanActivitiesTitle:
+            "🏭 Attività umane",
 
-"🛡️ Come proteggere le specie?":
-"🛡️ Come proteggere le specie?",
+        humanActivitiesText:
+            "Le attività umane possono aumentare la concentrazione di gas serra nell'atmosfera. Tra questi troviamo anidride carbonica (CO₂), metano e protossido di azoto.",
 
-"🌳 Foreste e suolo":
-"🌳 Foreste e suolo",
+        climateImportant:
+            "💡 Ricorda: effetto serra naturale e cambiamento climatico antropogenico non sono la stessa cosa.",
 
-"🌲 Perché le foreste sono importanti?":
-"🌲 Perché le foreste sono importanti?",
+        biodiversityTitle:
+            "🌱 Ecosistemi e biodiversità",
 
-"🌾 Erosione del suolo":
-"🌾 Erosione del suolo",
+        ecosystemTitle:
+            "🌳 Che cos'è un ecosistema?",
 
-"🌱 Conservazione":
-"🌱 Conservazione",
+        ecosystemText:
+            "Un ecosistema comprende gli organismi viventi di una determinata area e l'ambiente fisico con cui interagiscono.",
 
-"💧 Acqua e ciclo dell'acqua":
-"💧 Acqua e ciclo dell'acqua",
+        biodiversitySubtitle:
+            "🧬 Biodiversità",
 
-"💧 Il ciclo dell'acqua":
-"💧 Il ciclo dell'acqua",
+        biodiversityText:
+            "La biodiversità comprende la varietà degli organismi viventi, delle specie, dei geni e degli ecosistemi.",
 
-"🚰 Spreco d'acqua":
-"🚰 Spreco d'acqua",
+        resilienceTitle:
+            "🛡️ Resilienza",
 
-"🧪 Inquinamento dell'acqua":
-"🧪 Inquinamento dell'acqua",
+        resilienceText:
+            "La diversità biologica può contribuire alla resilienza di un ecosistema, perché specie differenti possono svolgere funzioni diverse e rispondere in modi differenti alle perturbazioni.",
 
-"🌿 Eutrofizzazione":
-"🌿 Eutrofizzazione",
+        foodWebTitle:
+            "🔗 Reti trofiche",
 
-"🌊 Oceani":
-"🌊 Oceani",
+        foodWebText:
+            "Gli organismi sono collegati attraverso rapporti alimentari. Un cambiamento in una popolazione può quindi influenzare altre popolazioni.",
 
-"🌊 Perché gli oceani sono importanti?":
-"🌊 Perché gli oceani sono importanti?",
+        animalsTitle:
+            "🐾 Animali, specie a rischio ed estinzioni",
 
-"🧪 Acidificazione degli oceani":
-"🧪 Acidificazione degli oceani",
+        speciesTitle:
+            "🐾 Che cos'è una specie?",
 
-"🐟 Pesca e biodiversità":
-"🐟 Pesca e biodiversità",
+        speciesText:
+            "Una specie è un gruppo di organismi che condivide caratteristiche biologiche e, nel caso della definizione biologica tradizionale, può riprodursi producendo prole fertile.",
 
-"♻️ Rifiuti, riciclo ed economia circolare":
-"♻️ Rifiuti, riciclo ed economia circolare",
+        extinctionTitle:
+            "☠️ Estinzione",
 
-"♻️ Economia circolare":
-"♻️ Economia circolare",
+        extinctionText:
+            "Una specie è estinta quando non esistono più individui viventi appartenenti a quella specie.",
 
-"🔄 Strategie principali":
-"🔄 Strategie principali",
+        extinctionCausesTitle:
+            "⚠️ Cause delle estinzioni",
 
-"🗑️ Raccolta differenziata":
-"🗑️ Raccolta differenziata",
+        cause1:
+            "Perdita e frammentazione degli habitat.",
 
-"⚡ Energia e fonti energetiche":
-"⚡ Energia e fonti energetiche",
+        cause2:
+            "Cambiamenti climatici.",
 
-"⚡ Che cos'è l'energia?":
-"⚡ Che cos'è l'energia?",
+        cause3:
+            "Inquinamento.",
 
-"☀️ Fonti rinnovabili":
-"☀️ Fonti rinnovabili",
+        cause4:
+            "Sovrasfruttamento delle risorse.",
 
-"🛢️ Combustibili fossili":
-"🛢️ Combustibili fossili",
+        cause5:
+            "Introduzione di specie invasive.",
 
-"💡 Efficienza energetica":
-"💡 Efficienza energetica",
+        cause6:
+            "Altre pressioni ambientali.",
 
-"🧪 Cicli del carbonio e dell'azoto":
-"🧪 Cicli del carbonio e dell'azoto",
+        protectSpeciesTitle:
+            "🛡️ Come proteggere le specie?",
 
-"🌲 Ciclo del carbonio":
-"🌲 Ciclo del carbonio",
+        protectSpeciesText:
+            "La conservazione può comprendere la protezione degli habitat, la creazione di aree protette, il controllo delle minacce e programmi di ripristino e conservazione.",
 
-"🌲 Pozzo di carbonio":
-"🌲 Pozzo di carbonio",
+        speciesImportant:
+            "🐾 Proteggere una specie significa spesso proteggere anche l'habitat e l'intero ecosistema da cui dipende.",
 
-"🧪 Ciclo dell'azoto":
-"🧪 Ciclo dell'azoto",
+        forestsTitle:
+            "🌳 Foreste e suolo",
 
-"🦠 Fissazione dell'azoto":
-"🦠 Fissazione dell'azoto",
+        forestsImportantTitle:
+            "🌲 Perché le foreste sono importanti?",
 
-"🐝 Impollinatori e catene alimentari":
-"🐝 Impollinatori e catene alimentari",
+        forestsImportantText:
+            "Le foreste forniscono habitat, contribuiscono al ciclo del carbonio e dell'acqua e offrono numerosi servizi ecosistemici.",
 
-"🐝 Impollinazione":
-"🐝 Impollinazione",
+        erosionTitle:
+            "🌾 Erosione del suolo",
 
-"🌾 Agricoltura":
-"🌾 Agricoltura",
+        erosionText:
+            "L'erosione può rimuovere lo strato superficiale del suolo, spesso ricco di sostanza organica e nutrienti.",
 
-"🐺 Catena alimentare":
-"🐺 Catena alimentare",
+        conservationTitle:
+            "🌱 Conservazione",
 
-"🌳 Predatori":
-"🌳 Predatori",
+        conservationText:
+            "La protezione della vegetazione, una gestione appropriata del territorio e pratiche agricole sostenibili possono contribuire alla conservazione del suolo.",
 
-"🏭 Inquinamento":
-"🏭 Inquinamento",
+        waterTitle:
+            "💧 Acqua e ciclo dell'acqua",
 
-"🏭 Inquinamento atmosferico":
-"🏭 Inquinamento atmosferico",
+        waterCycleTitle:
+            "💧 Il ciclo dell'acqua",
 
-"🚗 Fonti antropogeniche":
-"🚗 Fonti antropogeniche",
+        waterCycleText:
+            "L'acqua circola continuamente tra atmosfera, superficie terrestre, suolo, oceani e organismi viventi.",
 
-"🌋 Fonti naturali":
-"🌋 Fonti naturali",
+        evaporation:
+            "☀️ Evaporazione",
 
-"🌱 Sviluppo sostenibile":
-"🌱 Sviluppo sostenibile",
+        condensation:
+            "☁️ Condensazione",
 
-"🌱 Che cos'è?":
-"🌱 Che cos'è?",
+        precipitation:
+            "🌧️ Precipitazione",
 
-"⚖️ Equilibrio":
-"⚖️ Equilibrio",
+        runoff:
+            "🌊 Ruscellamento",
 
-"🌍 Esempi":
-"🌍 Esempi",
+        infiltration:
+            "🌱 Infiltrazione",
 
-"🏠 Torna al menu principale":
-"🏠 Torna al menu principale",
+        transpiration:
+            "🌿 Traspirazione",
 
-"🌱 EcoGame — Imparare l'ecologia giocando":
-"🌱 EcoGame — Imparare l'ecologia giocando"
+        waterWasteTitle:
+            "🚰 Spreco d'acqua",
 
-},
+        waterWasteText:
+            "L'acqua viene utilizzata per agricoltura, industria, produzione energetica e consumo domestico. Ridurre gli sprechi significa usare la risorsa in modo più efficiente.",
 
+        waterPollutionTitle:
+            "🧪 Inquinamento dell'acqua",
 
-en: {
+        waterPollutionText:
+            "Sostanze nutrienti in eccesso, sostanze chimiche, rifiuti e altri contaminanti possono alterare gli ecosistemi acquatici.",
 
-"📚 EcoGame - Informazioni":
-"📚 EcoGame - Information",
+        eutrophicationTitle:
+            "🌿 Eutrofizzazione",
 
-"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
-"Everything you need to know to understand the topics covered by the quizzes and games.",
+        eutrophicationText:
+            "Un eccesso di nutrienti come nitrati e fosfati può favorire una crescita eccessiva delle alghe. La decomposizione della biomassa può consumare molto ossigeno e danneggiare gli organismi acquatici.",
 
-"🧭 Come usare EcoGame":
-"🧭 How to use EcoGame",
+        oceansTitle:
+            "🌊 Oceani",
 
-"🌍 Clima":
-"🌍 Climate",
+        oceansImportantTitle:
+            "🌊 Perché gli oceani sono importanti?",
 
-"🌱 Biodiversità":
-"🌱 Biodiversity",
+        oceansImportantText:
+            "Gli oceani ospitano una grande quantità di biodiversità e svolgono un ruolo fondamentale nei cicli della materia e nel sistema climatico.",
 
-"🐾 Animali":
-"🐾 Animals",
+        acidificationTitle:
+            "🧪 Acidificazione degli oceani",
 
-"💧 Acqua":
-"💧 Water",
+        acidificationText:
+            "Gli oceani assorbono una parte della CO₂ presente nell'atmosfera. Questo processo modifica gli equilibri chimici dell'acqua marina e contribuisce alla diminuzione del suo pH.",
 
-"🌊 Oceani":
-"🌊 Oceans",
+        fishingTitle:
+            "🐟 Pesca e biodiversità",
 
-"♻️ Rifiuti":
-"♻️ Waste",
+        fishingText:
+            "Una gestione non sostenibile delle risorse marine può ridurre le popolazioni di alcune specie e alterare le reti alimentari.",
 
-"⚡ Energia":
-"⚡ Energy",
+        oceansImportant:
+            "🌊 Gli ecosistemi marini sono collegati tra loro: una modifica di una componente può avere effetti anche su altre componenti della rete ecologica.",
 
-"🏭 Inquinamento":
-"🏭 Pollution",
+        wasteTitle:
+            "♻️ Rifiuti, riciclo ed economia circolare",
 
-"🌱 Sostenibilità":
-"🌱 Sustainability",
+        circularEconomyTitle:
+            "♻️ Economia circolare",
 
-"🌍 Benvenuto nella guida di EcoGame!":
-"🌍 Welcome to the EcoGame guide!",
+        circularEconomyText:
+            "L'economia circolare cerca di mantenere prodotti, materiali e risorse in uso il più a lungo possibile, riducendo sprechi e consumo di risorse vergini.",
 
-"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
-"This section was created to help you study before taking the quizzes and mini-games.",
+        strategiesTitle:
+            "🔄 Strategie principali",
 
-"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
-"You do not need to memorize everything: read the topics that interest you and use the information to better understand the questions on the website.",
+        reduce:
+            "Riduzione dei consumi.",
 
-"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
-"💡 Tip: if you don't know an answer during a quiz, come back here and review the topic!",
+        reuse:
+            "Riutilizzo.",
 
-"🏠 Menu principale":
-"🏠 Main menu",
+        repair:
+            "Riparazione.",
 
-"Dal menu principale puoi accedere alle diverse parti del progetto:":
-"From the main menu you can access the different parts of the project:",
+        recycle:
+            "Riciclo.",
 
-"🧠 Quiz ecologico – domande sull'ambiente.":
-"🧠 Environmental quiz – questions about the environment.",
+        materialRecovery:
+            "Recupero dei materiali.",
 
-"🎮 Mini-giochi – giochi interattivi.":
-"🎮 Mini-games – interactive games.",
+        wasteSeparationTitle:
+            "🗑️ Raccolta differenziata",
 
-"📚 Informazioni – questa enciclopedia.":
-"📚 Information – this encyclopedia.",
+        wasteSeparationText:
+            "La corretta separazione dei rifiuti permette di avviare materiali diversi ai processi di trattamento appropriati. Le regole precise possono variare in base al comune e al sistema locale di raccolta.",
 
-"🏆 Risultati – sezione dedicata ai punteggi.":
-"🏆 Results – section dedicated to scores.",
+        wasteImportant:
+            "♻️ Ricorda: il modo migliore per ridurre un rifiuto è spesso evitarne la produzione in primo luogo.",
 
-"🎮 Come funzionano i giochi":
-"🎮 How the games work",
+        energyTitle:
+            "⚡ Energia e fonti energetiche",
 
-"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
-"Each game has its own rules. Carefully read the instructions at the beginning and try to understand the objective before starting.",
+        energyWhatTitle:
+            "⚡ Che cos'è l'energia?",
 
-"🧠 Come funziona il quiz":
-"🧠 How the quiz works",
+        energyWhatText:
+            "L'energia permette di compiere lavoro e può assumere forme diverse, come energia termica, elettrica, chimica e cinetica.",
 
-"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
-"The quiz contains multiple-choice questions. For each question you must choose an answer. After answering, an explanation is shown.",
+        renewableTitle:
+            "☀️ Fonti rinnovabili",
 
-"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
-"📖 The quiz explanations are important: they do not only show whether you were wrong, but also explain the scientific concept.",
+        renewableText:
+            "Le fonti rinnovabili sfruttano flussi naturali che vengono continuamente alimentati, come energia solare, eolica, idroelettrica e geotermica.",
 
-"🌍 Cambiamento climatico ed effetto serra":
-"🌍 Climate change and the greenhouse effect",
+        fossilTitle:
+            "🛢️ Combustibili fossili",
 
-"🌡️ Che cos'è il clima?":
-"🌡️ What is climate?",
+        fossilText:
+            "Carbone, petrolio e gas naturale sono combustibili fossili. Contengono carbonio immagazzinato geologicamente e la loro combustione produce emissioni, tra cui CO₂.",
 
-"🔥 Effetto serra":
-"🔥 Greenhouse effect",
+        efficiencyTitle:
+            "💡 Efficienza energetica",
 
-"🏭 Attività umane":
-"🏭 Human activities",
+        efficiencyText:
+            "L'efficienza energetica significa ottenere un determinato servizio utilizzando meno energia.",
 
-"🌱 Ecosistemi e biodiversità":
-"🌱 Ecosystems and biodiversity",
+        energyImportant:
+            "⚡ Risparmiare energia e usare l'energia in modo efficiente sono concetti importanti per ridurre consumi e impatti.",
 
-"🌳 Che cos'è un ecosistema?":
-"🌳 What is an ecosystem?",
+        cyclesTitle:
+            "🧪 Cicli del carbonio e dell'azoto",
 
-"🧬 Biodiversità":
-"🧬 Biodiversity",
+        carbonCycleTitle:
+            "🌲 Ciclo del carbonio",
 
-"🛡️ Resilienza":
-"🛡️ Resilience",
+        carbonCycleText:
+            "Il carbonio si muove tra atmosfera, oceani, suolo, organismi viventi e altre riserve attraverso processi naturali e attività umane.",
 
-"🔗 Reti trofiche":
-"🔗 Food webs",
+        carbonSinkTitle:
+            "🌲 Pozzo di carbonio",
 
-"🐾 Animali, specie a rischio ed estinzioni":
-"🐾 Animals, endangered species and extinctions",
+        carbonSinkText:
+            "Un pozzo di carbonio è un sistema che, nel periodo considerato, assorbe più carbonio di quanto ne rilasci.",
 
-"🐾 Che cos'è una specie?":
-"🐾 What is a species?",
+        nitrogenCycleTitle:
+            "🧪 Ciclo dell'azoto",
 
-"☠️ Estinzione":
-"☠️ Extinction",
+        nitrogenCycleText:
+            "L'azoto è fondamentale per gli organismi viventi. Il ciclo dell'azoto comprende diversi processi.",
 
-"⚠️ Cause delle estinzioni":
-"⚠️ Causes of extinction",
+        nitrogenFixationTitle:
+            "🦠 Fissazione dell'azoto",
 
-"🛡️ Come proteggere le specie?":
-"🛡️ How to protect species?",
+        nitrogenFixationText:
+            "La fissazione dell'azoto converte l'azoto molecolare atmosferico in forme azotate che possono entrare nel ciclo biologico.",
 
-"🌳 Foreste e suolo":
-"🌳 Forests and soil",
+        pollinatorsTitle:
+            "🐝 Impollinatori e catene alimentari",
 
-"🌲 Perché le foreste sono importanti?":
-"🌲 Why are forests important?",
+        pollinationTitle:
+            "🐝 Impollinazione",
 
-"🌾 Erosione del suolo":
-"🌾 Soil erosion",
+        pollinationText:
+            "L'impollinazione permette il trasferimento del polline e contribuisce alla riproduzione di molte piante. Numerosi animali, tra cui api e altri insetti, possono svolgere questo ruolo.",
 
-"🌱 Conservazione":
-"🌱 Conservation",
+        agricultureTitle:
+            "🌾 Agricoltura",
 
-"💧 Acqua e ciclo dell'acqua":
-"💧 Water and the water cycle",
+        agricultureText:
+            "Molte colture dipendono in parte dall'impollinazione animale. La perdita degli impollinatori può quindi influenzare alcuni sistemi agricoli.",
 
-"💧 Il ciclo dell'acqua":
-"💧 The water cycle",
+        foodChainTitle:
+            "🐺 Catena alimentare",
 
-"🚰 Spreco d'acqua":
-"🚰 Water waste",
+        foodChainText:
+            "In una catena alimentare l'energia passa da un livello trofico all'altro. Le reti trofiche rappresentano connessioni più complesse tra numerosi organismi.",
 
-"🧪 Inquinamento dell'acqua":
-"🧪 Water pollution",
+        predatorsTitle:
+            "🌳 Predatori",
 
-"🌿 Eutrofizzazione":
-"🌿 Eutrophication",
+        predatorsText:
+            "La diminuzione dei predatori apicali può provocare cambiamenti nelle popolazioni delle prede e, attraverso una cascata trofica, influenzare altri livelli dell'ecosistema.",
 
-"🌊 Oceani":
-"🌊 Oceans",
+        pollutionTitle:
+            "🏭 Inquinamento",
 
-"🌊 Perché gli oceani sono importanti?":
-"🌊 Why are oceans important?",
+        airPollutionTitle:
+            "🏭 Inquinamento atmosferico",
 
-"🧪 Acidificazione degli oceani":
-"🧪 Ocean acidification",
+        airPollutionText:
+            "L'inquinamento atmosferico consiste nella presenza nell'aria di sostanze o particelle che possono avere effetti sull'ambiente e sulla salute.",
 
-"🐟 Pesca e biodiversità":
-"🐟 Fishing and biodiversity",
+        anthropogenicTitle:
+            "🚗 Fonti antropogeniche",
 
-"♻️ Rifiuti, riciclo ed economia circolare":
-"♻️ Waste, recycling and circular economy",
+        anthropogenicText:
+            "Trasporti, industrie, produzione energetica e altre attività umane possono produrre emissioni inquinanti.",
 
-"♻️ Economia circolare":
-"♻️ Circular economy",
+        naturalSourcesTitle:
+            "🌋 Fonti naturali",
 
-"🔄 Strategie principali":
-"🔄 Main strategies",
+        naturalSourcesText:
+            "Anche fenomeni naturali, come eruzioni vulcaniche e incendi naturali, possono contribuire alla presenza di alcune sostanze nell'atmosfera.",
 
-"🗑️ Raccolta differenziata":
-"🗑️ Waste separation",
+        anthropogenicImportant:
+            "🏭 \"Antropogenico\" significa legato alle attività umane.",
 
-"⚡ Energia e fonti energetiche":
-"⚡ Energy and energy sources",
+        sustainabilityTitle:
+            "🌱 Sviluppo sostenibile",
 
-"⚡ Che cos'è l'energia?":
-"⚡ What is energy?",
+        sustainableWhatTitle:
+            "🌱 Che cos'è?",
 
-"☀️ Fonti rinnovabili":
-"☀️ Renewable sources",
+        sustainableWhatText:
+            "Lo sviluppo sostenibile considera contemporaneamente dimensioni ambientali, sociali ed economiche, tenendo conto anche delle conseguenze nel lungo periodo.",
 
-"🛢️ Combustibili fossili":
-"🛢️ Fossil fuels",
+        balanceTitle:
+            "⚖️ Equilibrio",
 
-"💡 Efficienza energetica":
-"💡 Energy efficiency",
+        balanceText:
+            "La sostenibilità non significa semplicemente fermare ogni attività umana. Significa cercare modalità di sviluppo che tengano conto dei limiti ambientali e delle esigenze della società.",
 
-"🧪 Cicli del carbonio e dell'azoto":
-"🧪 Carbon and nitrogen cycles",
+        examplesTitle:
+            "🌍 Esempi",
 
-"🌲 Ciclo del carbonio":
-"🌲 Carbon cycle",
+        example1:
+            "Uso efficiente delle risorse.",
 
-"🌲 Pozzo di carbonio":
-"🌲 Carbon sink",
+        example2:
+            "Riduzione degli sprechi.",
 
-"🧪 Ciclo dell'azoto":
-"🧪 Nitrogen cycle",
+        example3:
+            "Protezione degli ecosistemi.",
 
-"🦠 Fissazione dell'azoto":
-"🦠 Nitrogen fixation",
+        example4:
+            "Riduzione dell'inquinamento.",
 
-"🐝 Impollinatori e catene alimentari":
-"🐝 Pollinators and food chains",
+        example5:
+            "Uso responsabile dell'energia.",
 
-"🐝 Impollinazione":
-"🐝 Pollination",
+        example6:
+            "Conservazione della biodiversità.",
 
-"🌾 Agricoltura":
-"🌾 Agriculture",
+        sustainabilityImportant:
+            "🌱 L'obiettivo è considerare gli effetti delle nostre scelte non solo nel presente, ma anche nel lungo periodo.",
 
-"🐺 Catena alimentare":
-"🐺 Food chain",
+        homeButton:
+            "🏠 Torna al menu principale",
 
-"🌳 Predatori":
-"🌳 Predators",
+        footer:
+            "🌱 EcoGame — Imparare l'ecologia giocando"
 
-"🏭 Inquinamento":
-"🏭 Pollution",
+    },
 
-"🏭 Inquinamento atmosferico":
-"🏭 Air pollution",
 
-"🚗 Fonti antropogeniche":
-"🚗 Human sources",
+    /* =========================
+       INGLESE
+    ========================= */
 
-"🌋 Fonti naturali":
-"🌋 Natural sources",
+    en: {
 
-"🌱 Sviluppo sostenibile":
-"🌱 Sustainable development",
+        pageTitle:
+            "📚 EcoGame - Information",
 
-"🌱 Che cos'è?":
-"🌱 What is it?",
+        pageDescription:
+            "Everything you need to know to understand the topics covered by the quizzes and games.",
 
-"⚖️ Equilibrio":
-"⚖️ Balance",
+        navUse:
+            "🧭 How to use EcoGame",
 
-"🌍 Esempi":
-"🌍 Examples",
+        navClimate:
+            "🌍 Climate",
 
-"🏠 Torna al menu principale":
-"🏠 Back to main menu",
+        navBiodiversity:
+            "🌱 Biodiversity",
 
-"🌱 EcoGame — Imparare l'ecologia giocando":
-"🌱 EcoGame — Learn ecology by playing"
+        navAnimals:
+            "🐾 Animals",
 
-},
+        navForests:
+            "🌳 Forests",
 
+        navWater:
+            "💧 Water",
 
-es: {
+        navOceans:
+            "🌊 Oceans",
 
-"📚 EcoGame - Informazioni":
-"📚 EcoGame - Información",
+        navWaste:
+            "♻️ Waste",
 
-"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
-"Todo lo que necesitas saber para comprender los temas de los cuestionarios y juegos.",
+        navEnergy:
+            "⚡ Energy",
 
-"🧭 Come usare EcoGame":
-"🧭 Cómo usar EcoGame",
+        navCycles:
+            "🧪 Natural cycles",
 
-"🌍 Clima":
-"🌍 Clima",
+        navPollinators:
+            "🐝 Pollinators",
 
-"🌱 Biodiversità":
-"🌱 Biodiversidad",
+        navPollution:
+            "🏭 Pollution",
 
-"🐾 Animali":
-"🐾 Animales",
+        navSustainability:
+            "🌱 Sustainability",
 
-"💧 Acqua":
-"💧 Agua",
+        welcomeTitle:
+            "🌍 Welcome to the EcoGame guide!",
 
-"🌊 Oceani":
-"🌊 Océanos",
+        welcomeText1:
+            "This section was created to help you study before taking the quizzes and mini-games.",
 
-"♻️ Rifiuti":
-"♻️ Residuos",
+        welcomeText2:
+            "You do not need to memorize everything: read the topics that interest you and use the information to better understand the questions on the website.",
 
-"⚡ Energia":
-"⚡ Energía",
+        tipLabel:
+            "Tip:",
 
-"🏭 Inquinamento":
-"🏭 Contaminación",
+        tipText:
+            "if you don't know an answer during a quiz, come back here and review the topic!",
 
-"🌱 Sostenibilità":
-"🌱 Sostenibilidad",
+        useTitle:
+            "🧭 How to use EcoGame",
 
-"🌍 Benvenuto nella guida di EcoGame!":
-"🌍 ¡Bienvenido a la guía de EcoGame!",
+        mainMenuTitle:
+            "🏠 Main menu",
 
-"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
-"Esta sección ha sido creada para ayudarte a estudiar antes de realizar los cuestionarios y minijuegos.",
+        mainMenuText:
+            "From the main menu you can access the different parts of the project:",
 
-"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
-"No es necesario memorizarlo todo: lee los temas que te interesen y utiliza la información para comprender mejor las preguntas del sitio.",
+        mainMenuQuiz:
+            "🧠 Environmental quiz – questions about the environment.",
 
-"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
-"💡 Consejo: si no conoces una respuesta durante un cuestionario, vuelve aquí y repasa el tema.",
+        mainMenuGames:
+            "🎮 Mini-games – interactive games.",
 
-"🏠 Menu principale":
-"🏠 Menú principal",
+        mainMenuInfo:
+            "📚 Information – this encyclopedia.",
 
-"Dal menu principale puoi accedere alle diverse parti del progetto:":
-"Desde el menú principal puedes acceder a las diferentes partes del proyecto:",
+        mainMenuResults:
+            "🏆 Results – section dedicated to scores.",
 
-"🧠 Quiz ecologico – domande sull'ambiente.":
-"🧠 Cuestionario ecológico – preguntas sobre el medio ambiente.",
+        gamesTitle:
+            "🎮 How the games work",
 
-"🎮 Mini-giochi – giochi interattivi.":
-"🎮 Minijuegos – juegos interactivos.",
+        gamesText:
+            "Each game has its own rules. Carefully read the instructions at the beginning and try to understand the objective before starting.",
 
-"📚 Informazioni – questa enciclopedia.":
-"📚 Información – esta enciclopedia.",
+        quizTitle:
+            "🧠 How the quiz works",
 
-"🏆 Risultati – sezione dedicata ai punteggi.":
-"🏆 Resultados – sección dedicada a las puntuaciones.",
+        quizText:
+            "The quiz contains multiple-choice questions. For each question you must choose an answer. After answering, an explanation is shown.",
 
-"🎮 Come funzionano i giochi":
-"🎮 Cómo funcionan los juegos",
+        quizImportant:
+            "📖 The quiz explanations are important: they do not only show whether you were wrong, but also explain the scientific concept.",
 
-"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
-"Cada juego tiene sus propias reglas. Lee atentamente las instrucciones del principio e intenta comprender el objetivo antes de comenzar.",
+        climateTitle:
+            "🌍 Climate change and the greenhouse effect",
 
-"🧠 Come funziona il quiz":
-"🧠 Cómo funciona el cuestionario",
+        climateWhatTitle:
+            "🌡️ What is climate?",
 
-"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
-"El cuestionario contiene preguntas de opción múltiple. Para cada pregunta debes elegir una respuesta. Después de responder se muestra una explicación.",
+        climateWhat:
+            "Climate describes the statistical characteristics of the atmosphere observed over long periods. Weather, on the other hand, describes atmospheric conditions at a particular moment or over a short period.",
 
-"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
-"📖 Las explicaciones del cuestionario son importantes: no solo muestran si te has equivocado, sino que también explican el concepto científico.",
+        greenhouseTitle:
+            "🔥 Greenhouse effect",
 
-"🌍 Cambiamento climatico ed effetto serra":
-"🌍 Cambio climático y efecto invernadero",
+        greenhouseText1:
+            "Some gases in the atmosphere, called greenhouse gases, absorb part of the infrared radiation emitted by Earth's surface.",
 
-"🌡️ Che cos'è il clima?":
-"🌡️ ¿Qué es el clima?",
+        greenhouseText2:
+            "The natural greenhouse effect is essential for maintaining temperatures compatible with life on Earth.",
 
-"🔥 Effetto serra":
-"🔥 Efecto invernadero",
+        humanActivitiesTitle:
+            "🏭 Human activities",
 
-"🏭 Attività umane":
-"🏭 Actividades humanas",
+        humanActivitiesText:
+            "Human activities can increase the concentration of greenhouse gases in the atmosphere. These include carbon dioxide (CO₂), methane and nitrous oxide.",
 
-"🌱 Ecosistemi e biodiversità":
-"🌱 Ecosistemas y biodiversidad",
+        climateImportant:
+            "💡 Remember: the natural greenhouse effect and anthropogenic climate change are not the same thing.",
 
-"🌳 Che cos'è un ecosistema?":
-"🌳 ¿Qué es un ecosistema?",
+        biodiversityTitle:
+            "🌱 Ecosystems and biodiversity",
 
-"🧬 Biodiversità":
-"🧬 Biodiversidad",
+        ecosystemTitle:
+            "🌳 What is an ecosystem?",
 
-"🛡️ Resilienza":
-"🛡️ Resiliencia",
+        ecosystemText:
+            "An ecosystem includes the living organisms in a particular area and the physical environment with which they interact.",
 
-"🔗 Reti trofiche":
-"🔗 Redes alimentarias",
+        biodiversitySubtitle:
+            "🧬 Biodiversity",
 
-"🐾 Animali, specie a rischio ed estinzioni":
-"🐾 Animales, especies en riesgo y extinciones",
+        biodiversityText:
+            "Biodiversity includes the variety of living organisms, species, genes and ecosystems.",
 
-"🐾 Che cos'è una specie?":
-"🐾 ¿Qué es una especie?",
+        resilienceTitle:
+            "🛡️ Resilience",
 
-"☠️ Estinzione":
-"☠️ Extinción",
+        resilienceText:
+            "Biological diversity can contribute to ecosystem resilience because different species can perform different functions and respond differently to disturbances.",
 
-"⚠️ Cause delle estinzioni":
-"⚠️ Causas de las extinciones",
+        foodWebTitle:
+            "🔗 Food webs",
 
-"🛡️ Come proteggere le specie?":
-"🛡️ ¿Cómo proteger las especies?",
+        foodWebText:
+            "Organisms are connected through feeding relationships. A change in one population can therefore affect other populations.",
 
-"🌳 Foreste e suolo":
-"🌳 Bosques y suelo",
+        animalsTitle:
+            "🐾 Animals, endangered species and extinctions",
 
-"🌲 Perché le foreste sono importanti?":
-"🌲 ¿Por qué son importantes los bosques?",
+        speciesTitle:
+            "🐾 What is a species?",
 
-"🌾 Erosione del suolo":
-"🌾 Erosión del suelo",
+        speciesText:
+            "A species is a group of organisms that shares biological characteristics and, under the traditional biological species concept, can reproduce and produce fertile offspring.",
 
-"🌱 Conservazione":
-"🌱 Conservación",
+        extinctionTitle:
+            "☠️ Extinction",
 
-"💧 Acqua e ciclo dell'acqua":
-"💧 Agua y ciclo del agua",
+        extinctionText:
+            "A species is extinct when no living individuals belonging to that species remain.",
 
-"💧 Il ciclo dell'acqua":
-"💧 El ciclo del agua",
+        extinctionCausesTitle:
+            "⚠️ Causes of extinction",
 
-"🚰 Spreco d'acqua":
-"🚰 Desperdicio de agua",
+        cause1:
+            "Habitat loss and fragmentation.",
 
-"🧪 Inquinamento dell'acqua":
-"🧪 Contaminación del agua",
+        cause2:
+            "Climate change.",
 
-"🌿 Eutrofizzazione":
-"🌿 Eutrofización",
+        cause3:
+            "Pollution.",
 
-"🌊 Oceani":
-"🌊 Océanos",
+        cause4:
+            "Overexploitation of resources.",
 
-"🌊 Perché gli oceani sono importanti?":
-"🌊 ¿Por qué son importantes los océanos?",
+        cause5:
+            "Introduction of invasive species.",
 
-"🧪 Acidificazione degli oceani":
-"🧪 Acidificación de los océanos",
+        cause6:
+            "Other environmental pressures.",
 
-"🐟 Pesca e biodiversità":
-"🐟 Pesca y biodiversidad",
+        protectSpeciesTitle:
+            "🛡️ How to protect species?",
 
-"♻️ Rifiuti, riciclo ed economia circolare":
-"♻️ Residuos, reciclaje y economía circular",
+        protectSpeciesText:
+            "Conservation can include habitat protection, the creation of protected areas, threat management, and restoration and conservation programs.",
 
-"♻️ Economia circolare":
-"♻️ Economía circular",
+        speciesImportant:
+            "🐾 Protecting a species often also means protecting its habitat and the entire ecosystem on which it depends.",
 
-"🔄 Strategie principali":
-"🔄 Estrategias principales",
+        forestsTitle:
+            "🌳 Forests and soil",
 
-"🗑️ Raccolta differenziata":
-"🗑️ Separación de residuos",
+        forestsImportantTitle:
+            "🌲 Why are forests important?",
 
-"⚡ Energia e fonti energetiche":
-"⚡ Energía y fuentes de energía",
+        forestsImportantText:
+            "Forests provide habitats, contribute to the carbon and water cycles, and provide numerous ecosystem services.",
 
-"⚡ Che cos'è l'energia?":
-"⚡ ¿Qué es la energía?",
+        erosionTitle:
+            "🌾 Soil erosion",
 
-"☀️ Fonti rinnovabili":
-"☀️ Fuentes renovables",
+        erosionText:
+            "Erosion can remove the surface layer of soil, which is often rich in organic matter and nutrients.",
 
-"🛢️ Combustibili fossili":
-"🛢️ Combustibles fósiles",
+        conservationTitle:
+            "🌱 Conservation",
 
-"💡 Efficienza energetica":
-"💡 Eficiencia energética",
+        conservationText:
+            "Protecting vegetation, managing land appropriately and using sustainable agricultural practices can contribute to soil conservation.",
 
-"🧪 Cicli del carbonio e dell'azoto":
-"🧪 Ciclos del carbono y del nitrógeno",
+        waterTitle:
+            "💧 Water and the water cycle",
 
-"🌲 Ciclo del carbonio":
-"🌲 Ciclo del carbono",
+        waterCycleTitle:
+            "💧 The water cycle",
 
-"🌲 Pozzo di carbonio":
-"🌲 Sumidero de carbono",
+        waterCycleText:
+            "Water continuously circulates between the atmosphere, Earth's surface, soil, oceans and living organisms.",
 
-"🧪 Ciclo dell'azoto":
-"🧪 Ciclo del nitrógeno",
+        evaporation:
+            "☀️ Evaporation",
 
-"🦠 Fissazione dell'azoto":
-"🦠 Fijación del nitrógeno",
+        condensation:
+            "☁️ Condensation",
 
-"🐝 Impollinatori e catene alimentari":
-"🐝 Polinizadores y cadenas alimentarias",
+        precipitation:
+            "🌧️ Precipitation",
 
-"🐝 Impollinazione":
-"🐝 Polinización",
+        runoff:
+            "🌊 Runoff",
 
-"🌾 Agricoltura":
-"🌾 Agricultura",
+        infiltration:
+            "🌱 Infiltration",
 
-"🐺 Catena alimentare":
-"🐺 Cadena alimentaria",
+        transpiration:
+            "🌿 Transpiration",
 
-"🌳 Predatori":
-"🌳 Depredadores",
+        waterWasteTitle:
+            "🚰 Water waste",
 
-"🏭 Inquinamento":
-"🏭 Contaminación",
+        waterWasteText:
+            "Water is used for agriculture, industry, energy production and domestic consumption. Reducing waste means using this resource more efficiently.",
 
-"🏭 Inquinamento atmosferico":
-"🏭 Contaminación atmosférica",
+        waterPollutionTitle:
+            "🧪 Water pollution",
 
-"🚗 Fonti antropogeniche":
-"🚗 Fuentes antropogénicas",
+        waterPollutionText:
+            "Excess nutrients, chemicals, waste and other contaminants can alter aquatic ecosystems.",
 
-"🌋 Fonti naturali":
-"🌋 Fuentes naturales",
+        eutrophicationTitle:
+            "🌿 Eutrophication",
 
-"🌱 Sviluppo sostenibile":
-"🌱 Desarrollo sostenible",
+        eutrophicationText:
+            "An excess of nutrients such as nitrates and phosphates can promote excessive algae growth. The decomposition of biomass can consume large amounts of oxygen and harm aquatic organisms.",
 
-"🌱 Che cos'è?":
-"🌱 ¿Qué es?",
+        oceansTitle:
+            "🌊 Oceans",
 
-"⚖️ Equilibrio":
-"⚖️ Equilibrio",
+        oceansImportantTitle:
+            "🌊 Why are oceans important?",
 
-"🌍 Esempi":
-"🌍 Ejemplos",
+        oceansImportantText:
+            "Oceans host a large amount of biodiversity and play a fundamental role in matter cycles and the climate system.",
 
-"🏠 Torna al menu principale":
-"🏠 Volver al menú principal",
+        acidificationTitle:
+            "🧪 Ocean acidification",
 
-"🌱 EcoGame — Imparare l'ecologia giocando":
-"🌱 EcoGame — Aprender ecología jugando"
+        acidificationText:
+            "Oceans absorb part of the CO₂ present in the atmosphere. This process changes the chemical balance of seawater and contributes to a decrease in its pH.",
 
-},
+        fishingTitle:
+            "🐟 Fishing and biodiversity",
 
+        fishingText:
+            "Unsustainable management of marine resources can reduce populations of some species and alter food webs.",
 
-/* =====================================================
-   FINLANDESE AGGIUNTO
-   ===================================================== */
+        oceansImportant:
+            "🌊 Marine ecosystems are interconnected: a change in one component can also affect other parts of the ecological network.",
 
-fi: {
+        wasteTitle:
+            "♻️ Waste, recycling and circular economy",
 
-"📚 EcoGame - Informazioni":
-"📚 EcoGame - Tietoa",
+        circularEconomyTitle:
+            "♻️ Circular economy",
 
-"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
-"Kaikki, mitä sinun tarvitsee tietää ymmärtääksesi tietokilpailujen ja pelien aiheet.",
+        circularEconomyText:
+            "The circular economy aims to keep products, materials and resources in use for as long as possible, reducing waste and the consumption of virgin resources.",
 
-"🧭 Come usare EcoGame":
-"🧭 EcoGamen käyttö",
+        strategiesTitle:
+            "🔄 Main strategies",
 
-"🌍 Clima":
-"🌍 Ilmasto",
+        reduce:
+            "Reducing consumption.",
 
-"🌱 Biodiversità":
-"🌱 Luonnon monimuotoisuus",
+        reuse:
+            "Reuse.",
 
-"🐾 Animali":
-"🐾 Eläimet",
+        repair:
+            "Repair.",
 
-"💧 Acqua":
-"💧 Vesi",
+        recycle:
+            "Recycling.",
 
-"🌊 Oceani":
-"🌊 Valtameret",
+        materialRecovery:
+            "Material recovery.",
 
-"♻️ Rifiuti":
-"♻️ Jätteet",
+        wasteSeparationTitle:
+            "🗑️ Waste separation",
 
-"⚡ Energia":
-"⚡ Energia",
+        wasteSeparationText:
+            "Proper waste separation allows different materials to be sent to appropriate treatment processes. Specific rules may vary depending on the municipality and local collection system.",
 
-"🏭 Inquinamento":
-"🏭 Saastuminen",
+        wasteImportant:
+            "♻️ Remember: the best way to reduce waste is often to avoid producing it in the first place.",
 
-"🌱 Sostenibilità":
-"🌱 Kestävyys",
+        energyTitle:
+            "⚡ Energy and energy sources",
 
-"🌍 Benvenuto nella guida di EcoGame!":
-"🌍 Tervetuloa EcoGamen oppaaseen!",
+        energyWhatTitle:
+            "⚡ What is energy?",
 
-"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
-"Tämä osio on luotu auttamaan sinua opiskelussa ennen tietokilpailuja ja minipelejä.",
+        energyWhatText:
+            "Energy enables work to be done and can take different forms, such as thermal, electrical, chemical and kinetic energy.",
 
-"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
-"Sinun ei tarvitse opetella kaikkea ulkoa: lue sinua kiinnostavista aiheista ja käytä tietoja ymmärtääksesi paremmin sivuston kysymyksiä.",
+        renewableTitle:
+            "☀️ Renewable sources",
 
-"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
-"💡 Vinkki: jos et tiedä vastausta tietokilpailussa, palaa tänne ja kertaa aihe!",
+        renewableText:
+            "Renewable sources use natural flows that are continuously replenished, such as solar, wind, hydroelectric and geothermal energy.",
 
-"🏠 Menu principale":
-"🏠 Päävalikko",
+        fossilTitle:
+            "🛢️ Fossil fuels",
 
-"Dal menu principale puoi accedere alle diverse parti del progetto:":
-"Päävalikosta voit siirtyä projektin eri osioihin:",
+        fossilText:
+            "Coal, oil and natural gas are fossil fuels. They contain geologically stored carbon and their combustion produces emissions, including CO₂.",
 
-"🧠 Quiz ecologico – domande sull'ambiente.":
-"🧠 Ympäristöaiheinen tietokilpailu – kysymyksiä ympäristöstä.",
+        efficiencyTitle:
+            "💡 Energy efficiency",
 
-"🎮 Mini-giochi – giochi interattivi.":
-"🎮 Minipelit – interaktiivisia pelejä.",
+        efficiencyText:
+            "Energy efficiency means obtaining a particular service while using less energy.",
 
-"📚 Informazioni – questa enciclopedia.":
-"📚 Tietoa – tämä tietosanakirja.",
+        energyImportant:
+            "⚡ Saving energy and using energy efficiently are important ways to reduce consumption and impacts.",
 
-"🏆 Risultati – sezione dedicata ai punteggi.":
-"🏆 Tulokset – pisteille omistettu osio.",
+        cyclesTitle:
+            "🧪 Carbon and nitrogen cycles",
 
-"🎮 Come funzionano i giochi":
-"🎮 Miten pelit toimivat",
+        carbonCycleTitle:
+            "🌲 Carbon cycle",
 
-"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
-"Jokaisella pelillä on omat sääntönsä. Lue alussa olevat ohjeet huolellisesti ja yritä ymmärtää tavoite ennen aloittamista.",
+        carbonCycleText:
+            "Carbon moves between the atmosphere, oceans, soil, living organisms and other reservoirs through natural processes and human activities.",
 
-"🧠 Come funziona il quiz":
-"🧠 Miten tietokilpailu toimii",
+        carbonSinkTitle:
+            "🌲 Carbon sink",
 
-"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
-"Tietokilpailu sisältää monivalintakysymyksiä. Jokaisessa kysymyksessä sinun on valittava yksi vastaus. Vastauksen jälkeen näytetään selitys.",
+        carbonSinkText:
+            "A carbon sink is a system that, over the period considered, absorbs more carbon than it releases.",
 
-"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
-"📖 Tietokilpailun selitykset ovat tärkeitä: ne eivät ainoastaan kerro, vastasitko väärin, vaan selittävät myös tieteellisen käsitteen.",
+        nitrogenCycleTitle:
+            "🧪 Nitrogen cycle",
 
-"🌍 Cambiamento climatico ed effetto serra":
-"🌍 Ilmastonmuutos ja kasvihuoneilmiö",
+        nitrogenCycleText:
+            "Nitrogen is essential for living organisms. The nitrogen cycle includes several processes.",
 
-"🌡️ Che cos'è il clima?":
-"🌡️ Mitä ilmasto on?",
+        nitrogenFixationTitle:
+            "🦠 Nitrogen fixation",
 
-"🔥 Effetto serra":
-"🔥 Kasvihuoneilmiö",
+        nitrogenFixationText:
+            "Nitrogen fixation converts atmospheric molecular nitrogen into nitrogen forms that can enter the biological cycle.",
 
-"🏭 Attività umane":
-"🏭 Ihmisen toiminta",
+        pollinatorsTitle:
+            "🐝 Pollinators and food chains",
 
-"🌱 Ecosistemi e biodiversità":
-"🌱 Ekosysteemit ja luonnon monimuotoisuus",
+        pollinationTitle:
+            "🐝 Pollination",
 
-"🌳 Che cos'è un ecosistema?":
-"🌳 Mikä on ekosysteemi?",
+        pollinationText:
+            "Pollination enables the transfer of pollen and contributes to the reproduction of many plants. Many animals, including bees and other insects, can perform this role.",
 
-"🧬 Biodiversità":
-"🧬 Luonnon monimuotoisuus",
+        agricultureTitle:
+            "🌾 Agriculture",
 
-"🛡️ Resilienza":
-"🛡️ Resilienssi",
+        agricultureText:
+            "Many crops depend partly on animal pollination. The loss of pollinators can therefore affect some agricultural systems.",
 
-"🔗 Reti trofiche":
-"🔗 Ravintoverkot",
+        foodChainTitle:
+            "🐺 Food chain",
 
-"🐾 Animali, specie a rischio ed estinzioni":
-"🐾 Eläimet, uhanalaiset lajit ja sukupuutot",
+        foodChainText:
+            "In a food chain, energy moves from one trophic level to another. Food webs represent more complex connections among many organisms.",
 
-"🐾 Che cos'è una specie?":
-"🐾 Mikä on laji?",
+        predatorsTitle:
+            "🌳 Predators",
 
-"☠️ Estinzione":
-"☠️ Sukupuutto",
+        predatorsText:
+            "A decline in apex predators can cause changes in prey populations and, through a trophic cascade, affect other levels of the ecosystem.",
 
-"⚠️ Cause delle estinzioni":
-"⚠️ Sukupuuttojen syyt",
+        pollutionTitle:
+            "🏭 Pollution",
 
-"🛡️ Come proteggere le specie?":
-"🛡️ Miten lajeja voidaan suojella?",
+        airPollutionTitle:
+            "🏭 Air pollution",
 
-"🌳 Foreste e suolo":
-"🌳 Metsät ja maaperä",
+        airPollutionText:
+            "Air pollution consists of substances or particles in the air that can affect the environment and health.",
 
-"🌲 Perché le foreste sono importanti?":
-"🌲 Miksi metsät ovat tärkeitä?",
+        anthropogenicTitle:
+            "🚗 Human-related sources",
 
-"🌾 Erosione del suolo":
-"🌾 Maaperän eroosio",
+        anthropogenicText:
+            "Transport, industry, energy production and other human activities can produce pollutant emissions.",
 
-"🌱 Conservazione":
-"🌱 Suojelu",
+        naturalSourcesTitle:
+            "🌋 Natural sources",
 
-"💧 Acqua e ciclo dell'acqua":
-"💧 Vesi ja veden kiertokulku",
+        naturalSourcesText:
+            "Natural phenomena, such as volcanic eruptions and natural fires, can also contribute to the presence of certain substances in the atmosphere.",
 
-"💧 Il ciclo dell'acqua":
-"💧 Veden kiertokulku",
+        anthropogenicImportant:
+            "🏭 \"Anthropogenic\" means related to human activities.",
 
-"🚰 Spreco d'acqua":
-"🚰 Veden tuhlaaminen",
+        sustainabilityTitle:
+            "🌱 Sustainable development",
 
-"🧪 Inquinamento dell'acqua":
-"🧪 Vesien saastuminen",
+        sustainableWhatTitle:
+            "🌱 What is it?",
 
-"🌿 Eutrofizzazione":
-"🌿 Rehevöityminen",
+        sustainableWhatText:
+            "Sustainable development considers environmental, social and economic dimensions at the same time, while also taking long-term consequences into account.",
 
-"🌊 Perché gli oceani sono importanti?":
-"🌊 Miksi valtameret ovat tärkeitä?",
+        balanceTitle:
+            "⚖️ Balance",
 
-"🧪 Acidificazione degli oceani":
-"🧪 Valtamerten happamoituminen",
+        balanceText:
+            "Sustainability does not simply mean stopping all human activity. It means seeking forms of development that take environmental limits and society's needs into account.",
 
-"🐟 Pesca e biodiversità":
-"🐟 Kalastus ja luonnon monimuotoisuus",
+        examplesTitle:
+            "🌍 Examples",
 
-"♻️ Rifiuti, riciclo ed economia circolare":
-"♻️ Jätteet, kierrätys ja kiertotalous",
+        example1:
+            "Efficient use of resources.",
 
-"♻️ Economia circolare":
-"♻️ Kiertotalous",
+        example2:
+            "Reducing waste.",
 
-"🔄 Strategie principali":
-"🔄 Tärkeimmät strategiat",
+        example3:
+            "Protecting ecosystems.",
 
-"🗑️ Raccolta differenziata":
-"🗑️ Jätteiden lajittelu",
+        example4:
+            "Reducing pollution.",
 
-"⚡ Energia e fonti energetiche":
-"⚡ Energia ja energialähteet",
+        example5:
+            "Responsible use of energy.",
 
-"⚡ Che cos'è l'energia?":
-"⚡ Mitä energia on?",
+        example6:
+            "Conserving biodiversity.",
 
-"☀️ Fonti rinnovabili":
-"☀️ Uusiutuvat energialähteet",
+        sustainabilityImportant:
+            "🌱 The goal is to consider the effects of our choices not only in the present, but also in the long term.",
 
-"🛢️ Combustibili fossili":
-"🛢️ Fossiiliset polttoaineet",
+        homeButton:
+            "🏠 Back to main menu",
 
-"💡 Efficienza energetica":
-"💡 Energiatehokkuus",
+        footer:
+            "🌱 EcoGame — Learn ecology by playing"
 
-"🧪 Cicli del carbonio e dell'azoto":
-"🧪 Hiilen ja typen kierrot",
+    },
 
-"🌲 Ciclo del carbonio":
-"🌲 Hiilen kierto",
 
-"🌲 Pozzo di carbonio":
-"🌲 Hiilinielu",
+    /* =========================
+       FINLANDESE
+    ========================= */
 
-"🧪 Ciclo dell'azoto":
-"🧪 Typen kierto",
+    fi: {
 
-"🦠 Fissazione dell'azoto":
-"🦠 Typensidonta",
+        pageTitle:
+            "📚 EcoGame - Tietoa",
 
-"🐝 Impollinatori e catene alimentari":
-"🐝 Pölyttäjät ja ravintoketjut",
+        pageDescription:
+            "Kaikki, mitä sinun tarvitsee tietää ymmärtääksesi tietokilpailujen ja pelien aiheet.",
 
-"🐝 Impollinazione":
-"🐝 Pölytys",
+        navUse:
+            "🧭 EcoGamen käyttö",
 
-"🌾 Agricoltura":
-"🌾 Maatalous",
+        navClimate:
+            "🌍 Ilmasto",
 
-"🐺 Catena alimentare":
-"🐺 Ravintoketju",
+        navBiodiversity:
+            "🌱 Luonnon monimuotoisuus",
 
-"🌳 Predatori":
-"🌳 Petoeläimet",
+        navAnimals:
+            "🐾 Eläimet",
 
-"🏭 Inquinamento":
-"🏭 Saastuminen",
+        navForests:
+            "🌳 Metsät",
 
-"🏭 Inquinamento atmosferico":
-"🏭 Ilmansaasteet",
+        navWater:
+            "💧 Vesi",
 
-"🚗 Fonti antropogeniche":
-"🚗 Ihmisen aiheuttamat lähteet",
+        navOceans:
+            "🌊 Valtameret",
 
-"🌋 Fonti naturali":
-"🌋 Luonnolliset lähteet",
+        navWaste:
+            "♻️ Jätteet",
 
-"🌱 Sviluppo sostenibile":
-"🌱 Kestävä kehitys",
+        navEnergy:
+            "⚡ Energia",
 
-"🌱 Che cos'è?":
-"🌱 Mitä se tarkoittaa?",
+        navCycles:
+            "🧪 Luonnon kiertokulut",
 
-"⚖️ Equilibrio":
-"⚖️ Tasapaino",
+        navPollinators:
+            "🐝 Pölyttäjät",
 
-"🌍 Esempi":
-"🌍 Esimerkkejä",
+        navPollution:
+            "🏭 Saastuminen",
 
-"🏠 Torna al menu principale":
-"🏠 Palaa päävalikkoon",
+        navSustainability:
+            "🌱 Kestävä kehitys",
 
-"🌱 EcoGame — Imparare l'ecologia giocando":
-"🌱 EcoGame — Opitaan ekologiaa pelaamalla"
+        welcomeTitle:
+            "🌍 Tervetuloa EcoGamen oppaaseen!",
 
-}
+        welcomeText1:
+            "Tämä osio on luotu auttamaan sinua opiskelussa ennen tietokilpailuja ja minipelejä.",
+
+        welcomeText2:
+            "Sinun ei tarvitse opetella kaikkea ulkoa: lue sinua kiinnostavista aiheista ja käytä tietoja ymmärtääksesi paremmin sivuston kysymyksiä.",
+
+        tipLabel:
+            "Vinkki:",
+
+        tipText:
+            "jos et tiedä vastausta tietokilpailussa, palaa tänne ja kertaa aihe!",
+
+        useTitle:
+            "🧭 EcoGamen käyttö",
+
+        mainMenuTitle:
+            "🏠 Päävalikko",
+
+        mainMenuText:
+            "Päävalikosta voit siirtyä projektin eri osioihin:",
+
+        mainMenuQuiz:
+            "🧠 Ympäristöaiheinen tietokilpailu – kysymyksiä ympäristöstä.",
+
+        mainMenuGames:
+            "🎮 Minipelit – interaktiivisia pelejä.",
+
+        mainMenuInfo:
+            "📚 Tietoa – tämä tietosanakirja.",
+
+        mainMenuResults:
+            "🏆 Tulokset – pisteille omistettu osio.",
+
+        gamesTitle:
+            "🎮 Miten pelit toimivat",
+
+        gamesText:
+            "Jokaisella pelillä on omat sääntönsä. Lue alussa olevat ohjeet huolellisesti ja yritä ymmärtää tavoite ennen aloittamista.",
+
+        quizTitle:
+            "🧠 Miten tietokilpailu toimii",
+
+        quizText:
+            "Tietokilpailu sisältää monivalintakysymyksiä. Jokaisessa kysymyksessä sinun on valittava yksi vastaus. Vastauksen jälkeen näytetään selitys.",
+
+        quizImportant:
+            "📖 Tietokilpailun selitykset ovat tärkeitä: ne eivät ainoastaan kerro, vastasitko väärin, vaan selittävät myös tieteellisen käsitteen.",
+
+        climateTitle:
+            "🌍 Ilmastonmuutos ja kasvihuoneilmiö",
+
+        climateWhatTitle:
+            "🌡️ Mitä ilmasto on?",
+
+        climateWhat:
+            "Ilmasto kuvaa ilmakehän tilastollisia ominaisuuksia, joita havaitaan pitkien ajanjaksojen aikana. Sää puolestaan kuvaa ilmakehän olosuhteita tiettynä hetkenä tai lyhyenä ajanjaksona.",
+
+        greenhouseTitle:
+            "🔥 Kasvihuoneilmiö",
+
+        greenhouseText1:
+            "Jotkin ilmakehän kaasut, joita kutsutaan kasvihuonekaasuiksi, absorboivat osan Maan pinnan lähettämästä infrapunasäteilystä.",
+
+        greenhouseText2:
+            "Luonnollinen kasvihuoneilmiö on välttämätön elämälle sopivien lämpötilojen ylläpitämiseksi Maassa.",
+
+        humanActivitiesTitle:
+            "🏭 Ihmisen toiminta",
+
+        humanActivitiesText:
+            "Ihmisen toiminta voi lisätä kasvihuonekaasujen pitoisuutta ilmakehässä. Näitä ovat esimerkiksi hiilidioksidi (CO₂), metaani ja dityppioksidi.",
+
+        climateImportant:
+            "💡 Muista: luonnollinen kasvihuoneilmiö ja ihmisen aiheuttama ilmastonmuutos eivät ole sama asia.",
+
+        biodiversityTitle:
+            "🌱 Ekosysteemit ja luonnon monimuotoisuus",
+
+        ecosystemTitle:
+            "🌳 Mikä on ekosysteemi?",
+
+        ecosystemText:
+            "Ekosysteemiin kuuluvat tietyn alueen elävät organismit sekä niiden fyysinen ympäristö, jonka kanssa ne ovat vuorovaikutuksessa.",
+
+        biodiversitySubtitle:
+            "🧬 Luonnon monimuotoisuus",
+
+        biodiversityText:
+            "Luonnon monimuotoisuus tarkoittaa elävien organismien, lajien, geenien ja ekosysteemien moninaisuutta.",
+
+        resilienceTitle:
+            "🛡️ Resilienssi",
+
+        resilienceText:
+            "Biologinen monimuotoisuus voi vahvistaa ekosysteemin resilienssiä, koska eri lajit voivat suorittaa erilaisia tehtäviä ja reagoida häiriöihin eri tavoin.",
+
+        foodWebTitle:
+            "🔗 Ravintoverkot",
+
+        foodWebText:
+            "Organismit ovat yhteydessä toisiinsa ravintosuhteiden kautta. Yhden populaation muutos voi siten vaikuttaa muihin populaatioihin.",
+
+        animalsTitle:
+            "🐾 Eläimet, uhanalaiset lajit ja sukupuutot",
+
+        speciesTitle:
+            "🐾 Mikä on laji?",
+
+        speciesText:
+            "Laji on organismiryhmä, jolla on yhteisiä biologisia ominaisuuksia ja joka perinteisen biologisen lajikäsityksen mukaan voi lisääntyä ja tuottaa lisääntymiskykyisiä jälkeläisiä.",
+
+        extinctionTitle:
+            "☠️ Sukupuutto",
+
+        extinctionText:
+            "Laji on kuollut sukupuuttoon, kun yhtään kyseiseen lajiin kuuluvaa elävää yksilöä ei enää ole.",
+
+        extinctionCausesTitle:
+            "⚠️ Sukupuuttojen syyt",
+
+        cause1:
+            "Elinympäristöjen häviäminen ja pirstoutuminen.",
+
+        cause2:
+            "Ilmastonmuutos.",
+
+        cause3:
+            "Saastuminen.",
+
+        cause4:
+            "Luonnonvarojen liikakäyttö.",
+
+        cause5:
+            "Vieraslajien leviäminen.",
+
+        cause6:
+            "Muut ympäristöön kohdistuvat paineet.",
+
+        protectSpeciesTitle:
+            "🛡️ Miten lajeja voidaan suojella?",
+
+        protectSpeciesText:
+            "Luonnonsuojeluun voi kuulua elinympäristöjen suojelu, suojelualueiden perustaminen, uhkien hallinta sekä ennallistamis- ja suojeluohjelmat.",
+
+        speciesImportant:
+            "🐾 Lajin suojeleminen tarkoittaa usein myös sen elinympäristön ja koko ekosysteemin suojelemista.",
+
+        forestsTitle:
+            "🌳 Metsät ja maaperä",
+
+        forestsImportantTitle:
+            "🌲 Miksi metsät ovat tärkeitä?",
+
+        forestsImportantText:
+            "Metsät tarjoavat elinympäristöjä, osallistuvat hiilen ja veden kiertoon sekä tarjoavat monia ekosysteemipalveluja.",
+
+        erosionTitle:
+            "🌾 Maaperän eroosio",
+
+        erosionText:
+            "Eroosio voi poistaa maaperän pintakerrosta, joka sisältää usein paljon orgaanista ainesta ja ravinteita.",
+
+        conservationTitle:
+            "🌱 Suojelu",
+
+        conservationText:
+            "Kasvillisuuden suojelu, asianmukainen maankäyttö ja kestävät maatalouskäytännöt voivat auttaa säilyttämään maaperää.",
+
+        waterTitle:
+            "💧 Vesi ja veden kiertokulku",
+
+        waterCycleTitle:
+            "💧 Veden kiertokulku",
+
+        waterCycleText:
+            "Vesi kiertää jatkuvasti ilmakehän, maan pinnan, maaperän, valtamerten ja elävien organismien välillä.",
+
+        evaporation:
+            "☀️ Haihtuminen",
+
+        condensation:
+            "☁️ Tiivistyminen",
+
+        precipitation:
+            "🌧️ Sademäärä",
+
+        runoff:
+            "🌊 Pintavalunta",
+
+        infiltration:
+            "🌱 Suodattuminen maaperään",
+
+        transpiration:
+            "🌿 Haihdunta kasvillisuudesta",
+
+        waterWasteTitle:
+            "🚰 Veden tuhlaaminen",
+
+        waterWasteText:
+            "Vettä käytetään maataloudessa, teollisuudessa, energiantuotannossa ja kotitalouksissa. Hukan vähentäminen tarkoittaa veden tehokkaampaa käyttöä.",
+
+        waterPollutionTitle:
+            "🧪 Vesien saastuminen",
+
+        waterPollutionText:
+            "Liialliset ravinteet, kemikaalit, jätteet ja muut epäpuhtaudet voivat muuttaa vesiekosysteemejä.",
+
+        eutrophicationTitle:
+            "🌿 Rehevöityminen",
+
+        eutrophicationText:
+            "Nitraattien ja fosfaattien kaltaisten ravinteiden liiallinen määrä voi edistää levien liiallista kasvua. Biomassan hajoaminen voi kuluttaa paljon happea ja vahingoittaa vesieliöitä.",
+
+        oceansTitle:
+            "🌊 Valtameret",
+
+        oceansImportantTitle:
+            "🌊 Miksi valtameret ovat tärkeitä?",
+
+        oceansImportantText:
+            "Valtamerissä elää suuri määrä erilaisia eliöitä, ja niillä on tärkeä rooli aineiden kierrossa ja ilmastojärjestelmässä.",
+
+        acidificationTitle:
+            "🧪 Valtamerten happamoituminen",
+
+        acidificationText:
+            "Valtameret sitovat osan ilmakehän CO₂:sta. Tämä prosessi muuttaa meriveden kemiallista tasapainoa ja vaikuttaa sen pH-arvon alenemiseen.",
+
+        fishingTitle:
+            "🐟 Kalastus ja luonnon monimuotoisuus",
+
+        fishingText:
+            "Meriluonnonvarojen kestämätön hoito voi vähentää joidenkin lajien populaatioita ja muuttaa ravintoverkkoja.",
+
+        oceansImportant:
+            "🌊 Meriekosysteemit ovat yhteydessä toisiinsa: yhden osan muutos voi vaikuttaa myös muihin ekologisen verkoston osiin.",
+
+        wasteTitle:
+            "♻️ Jätteet, kierrätys ja kiertotalous",
+
+        circularEconomyTitle:
+            "♻️ Kiertotalous",
+
+        circularEconomyText:
+            "Kiertotalous pyrkii pitämään tuotteet, materiaalit ja luonnonvarat käytössä mahdollisimman pitkään sekä vähentämään jätettä ja uusien luonnonvarojen kulutusta.",
+
+        strategiesTitle:
+            "🔄 Tärkeimmät strategiat",
+
+        reduce:
+            "Kulutuksen vähentäminen.",
+
+        reuse:
+            "Uudelleenkäyttö.",
+
+        repair:
+            "Korjaaminen.",
+
+        recycle:
+            "Kierrätys.",
+
+        materialRecovery:
+            "Materiaalien talteenotto.",
+
+        wasteSeparationTitle:
+            "🗑️ Jätteiden lajittelu",
+
+        wasteSeparationText:
+            "Jätteiden asianmukainen lajittelu mahdollistaa eri materiaalien ohjaamisen sopiviin käsittelyprosesseihin. Tarkat säännöt voivat vaihdella kunnan ja paikallisen jätehuoltojärjestelmän mukaan.",
+
+        wasteImportant:
+            "♻️ Muista: paras tapa vähentää jätettä on usein välttää sen syntymistä alun perin.",
+
+        energyTitle:
+            "⚡ Energia ja energialähteet",
+
+        energyWhatTitle:
+            "⚡ Mitä energia on?",
+
+        energyWhatText:
+            "Energia mahdollistaa työn tekemisen ja voi esiintyä eri muodoissa, kuten lämpö-, sähkö-, kemiallisena ja liike-energiana.",
+
+        renewableTitle:
+            "☀️ Uusiutuvat energialähteet",
+
+        renewableText:
+            "Uusiutuvat energialähteet hyödyntävät luonnollisia virtauksia, jotka täydentyvät jatkuvasti, kuten aurinko-, tuuli-, vesi- ja geotermistä energiaa.",
+
+        fossilTitle:
+            "🛢️ Fossiiliset polttoaineet",
+
+        fossilText:
+            "Kivihiili, öljy ja maakaasu ovat fossiilisia polttoaineita. Ne sisältävät geologisesti varastoitunutta hiiltä, ja niiden polttaminen tuottaa päästöjä, kuten CO₂:ta.",
+
+        efficiencyTitle:
+            "💡 Energiatehokkuus",
+
+        efficiencyText:
+            "Energiatehokkuus tarkoittaa tietyn palvelun tai toiminnon saavuttamista käyttämällä vähemmän energiaa.",
+
+        energyImportant:
+            "⚡ Energian säästäminen ja tehokas käyttö ovat tärkeitä keinoja vähentää kulutusta ja ympäristövaikutuksia.",
+
+        cyclesTitle:
+            "🧪 Hiilen ja typen kierrot",
+
+        carbonCycleTitle:
+            "🌲 Hiilen kierto",
+
+        carbonCycleText:
+            "Hiili liikkuu ilmakehän, valtamerten, maaperän, elävien organismien ja muiden hiilivarastojen välillä luonnollisten prosessien ja ihmisen toiminnan kautta.",
+
+        carbonSinkTitle:
+            "🌲 Hiilinielu",
+
+        carbonSinkText:
+            "Hiilinielu on järjestelmä, joka tarkasteltuna ajanjaksona sitoo enemmän hiiltä kuin vapauttaa.",
+
+        nitrogenCycleTitle:
+            "🧪 Typen kierto",
+
+        nitrogenCycleText:
+            "Typpi on välttämätöntä eläville organismeille. Typen kiertoon kuuluu useita prosesseja.",
+
+        nitrogenFixationTitle:
+            "🦠 Typensidonta",
+
+        nitrogenFixationText:
+            "Typensidonta muuttaa ilmakehän molekyylimuotoista typpeä typen yhdisteiksi, jotka voivat osallistua biologiseen kiertoon.",
+
+        pollinatorsTitle:
+            "🐝 Pölyttäjät ja ravintoketjut",
+
+        pollinationTitle:
+            "🐝 Pölytys",
+
+        pollinationText:
+            "Pölytys mahdollistaa siitepölyn siirtymisen ja edistää monien kasvien lisääntymistä. Monet eläimet, kuten mehiläiset ja muut hyönteiset, voivat toimia pölyttäjinä.",
+
+        agricultureTitle:
+            "🌾 Maatalous",
+
+        agricultureText:
+            "Monet viljelykasvit ovat osittain riippuvaisia eläinten suorittamasta pölytyksestä. Pölyttäjien väheneminen voi siten vaikuttaa joihinkin maatalousjärjestelmiin.",
+
+        foodChainTitle:
+            "🐺 Ravintoketju",
+
+        foodChainText:
+            "Ravintoketjussa energia siirtyy trofiatasolta toiselle. Ravintoverkot kuvaavat monimutkaisempia yhteyksiä useiden organismien välillä.",
+
+        predatorsTitle:
+            "🌳 Petoeläimet",
+
+        predatorsText:
+            "Huippupetojen väheneminen voi muuttaa saaliseläinten populaatioita ja troofisen kaskadin kautta vaikuttaa ekosysteemin muihin tasoihin.",
+
+        pollutionTitle:
+            "🏭 Saastuminen",
+
+        airPollutionTitle:
+            "🏭 Ilmansaasteet",
+
+        airPollutionText:
+            "Ilmansaasteet tarkoittavat ilmassa olevia aineita tai hiukkasia, jotka voivat vaikuttaa ympäristöön ja terveyteen.",
+
+        anthropogenicTitle:
+            "🚗 Ihmisen aiheuttamat lähteet",
+
+        anthropogenicText:
+            "Liikenne, teollisuus, energiantuotanto ja muu ihmisen toiminta voivat tuottaa saastepäästöjä.",
+
+        naturalSourcesTitle:
+            "🌋 Luonnolliset lähteet",
+
+        naturalSourcesText:
+            "Myös luonnonilmiöt, kuten tulivuorenpurkaukset ja luonnolliset metsäpalot, voivat vaikuttaa tiettyjen aineiden määrään ilmakehässä.",
+
+        anthropogenicImportant:
+            "🏭 \"Antropogeeninen\" tarkoittaa ihmisen toimintaan liittyvää.",
+
+        sustainabilityTitle:
+            "🌱 Kestävä kehitys",
+
+        sustainableWhatTitle:
+            "🌱 Mitä se tarkoittaa?",
+
+        sustainableWhatText:
+            "Kestävä kehitys ottaa samanaikaisesti huomioon ympäristölliset, sosiaaliset ja taloudelliset näkökulmat sekä pitkän aikavälin seuraukset.",
+
+        balanceTitle:
+            "⚖️ Tasapaino",
+
+        balanceText:
+            "Kestävä kehitys ei tarkoita kaiken ihmisen toiminnan lopettamista. Se tarkoittaa kehitystapojen etsimistä, joissa otetaan huomioon ympäristön rajat ja yhteiskunnan tarpeet.",
+
+        examplesTitle:
+            "🌍 Esimerkkejä",
+
+        example1:
+            "Luonnonvarojen tehokas käyttö.",
+
+        example2:
+            "Hukan vähentäminen.",
+
+        example3:
+            "Ekosysteemien suojelu.",
+
+        example4:
+            "Saastumisen vähentäminen.",
+
+        example5:
+            "Energian vastuullinen käyttö.",
+
+        example6:
+            "Luonnon monimuotoisuuden säilyttäminen.",
+
+        sustainabilityImportant:
+            "🌱 Tavoitteena on huomioida valintojemme vaikutukset paitsi nykyhetkessä myös pitkällä aikavälillä.",
+
+        homeButton:
+            "🏠 Palaa päävalikkoon",
+
+        footer:
+            "🌱 EcoGame — Opitaan ekologiaa pelaamalla"
+
+    }
 
 };
 
 
 /* =====================================================
    SISTEMA CAMBIO LINGUA
-   ===================================================== */
+===================================================== */
 
 let linguaAttuale = "it";
 
 
-function normalizza(testo) {
+function aggiornaInterfacciaLingua() {
 
-    return testo
-        .replace(/\s+/g, " ")
-        .trim();
+    document.querySelectorAll("[data-i18n]").forEach(elemento => {
 
-}
-
-
-function cambiaLingua(lingua) {
-
-    linguaAttuale = lingua;
-
-    const elementi = document.querySelectorAll(
-        "body *"
-    );
-
-    elementi.forEach(elemento => {
+        const chiave = elemento.dataset.i18n;
 
         if (
-            elemento.children.length === 0 &&
-            elemento.tagName !== "SCRIPT" &&
-            elemento.tagName !== "STYLE"
+            traduzioni[linguaAttuale] &&
+            traduzioni[linguaAttuale][chiave]
         ) {
 
-            const originale = normalizza(elemento.textContent);
-
-            if (
-                traduzioni[lingua] &&
-                traduzioni[lingua][originale]
-            ) {
-
-                elemento.textContent =
-                    traduzioni[lingua][originale];
-
-            }
+            elemento.textContent =
+                traduzioni[linguaAttuale][chiave];
 
         }
 
     });
 
 
+    /* Aggiorna il titolo della pagina */
+
+    document.title =
+        traduzioni[linguaAttuale].pageTitle;
+
+
+    /* Aggiorna lang dell'HTML */
+
+    document.documentElement.lang =
+        linguaAttuale;
+
+
+    /* Aggiorna pulsante attivo */
+
+    document
+        .querySelectorAll(".lingue button")
+        .forEach(button => {
+
+            button.classList.remove("attiva");
+
+        });
+
+
+    const pulsanteAttivo =
+        document.getElementById(
+            linguaAttuale + "Btn"
+        );
+
+    if (pulsanteAttivo) {
+
+        pulsanteAttivo.classList.add("attiva");
+
+    }
+
+}
+
+
+function cambiaLingua(lingua) {
+
+    if (!traduzioni[lingua]) {
+        return;
+    }
+
+    linguaAttuale = lingua;
+
+
     /*
-       Aggiorna anche alcuni testi composti
-       presenti dentro elementi HTML.
+       Salva la lingua scelta.
+       In questo modo rimane anche dopo
+       il caricamento della pagina.
     */
 
-    document.documentElement.lang = lingua;
+    try {
 
+        localStorage.setItem(
+            "ecogameLingua",
+            lingua
+        );
 
-    document.getElementById("itBtn")
-        .classList.remove("attiva");
+    } catch (errore) {
 
-    document.getElementById("enBtn")
-        .classList.remove("attiva");
+        console.warn(
+            "Impossibile salvare la lingua.",
+            errore
+        );
 
-    document.getElementById("esBtn")
-        .classList.remove("attiva");
-
-    document.getElementById("fiBtn")
-        .classList.remove("attiva");
-
-
-    if (lingua === "it") {
-        document.getElementById("itBtn")
-            .classList.add("attiva");
     }
 
-    if (lingua === "en") {
-        document.getElementById("enBtn")
-            .classList.add("attiva");
+
+    aggiornaInterfacciaLingua();
+
+}
+
+
+/* =====================================================
+   CARICAMENTO DELLA LINGUA SALVATA
+===================================================== */
+
+function caricaLingua() {
+
+    let linguaSalvata = "it";
+
+    try {
+
+        const salvata =
+            localStorage.getItem(
+                "ecogameLingua"
+            );
+
+        if (
+            salvata &&
+            traduzioni[salvata]
+        ) {
+
+            linguaSalvata = salvata;
+
+        }
+
+    } catch (errore) {
+
+        console.warn(
+            "Impossibile leggere la lingua salvata.",
+            errore
+        );
+
     }
 
-    if (lingua === "es") {
-        document.getElementById("esBtn")
-            .classList.add("attiva");
-    }
 
-    if (lingua === "fi") {
-        document.getElementById("fiBtn")
-            .classList.add("attiva");
-    }
+    linguaAttuale =
+        linguaSalvata;
+
+
+    aggiornaInterfacciaLingua();
 
 }
 
 
 /* =====================================================
    APRE AUTOMATICAMENTE LA PRIMA SEZIONE
-   ===================================================== */
+===================================================== */
 
 document
     .querySelector("#uso .contenuto")
     .classList.add("aperto");
 
 
-/* ITALIANO ATTIVO ALL'INIZIO */
+/* =====================================================
+   AVVIO
+===================================================== */
 
-document
-    .getElementById("itBtn")
-    .classList.add("attiva");
+caricaLingua();
 
 </script>
 
