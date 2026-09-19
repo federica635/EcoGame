@@ -132,6 +132,40 @@ footer {
     color: #bdbdbd;
 }
 
+
+/* ============================= */
+/* SELETTORE LINGUA - AGGIUNTO */
+/* ============================= */
+
+.lingua {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.lingua select {
+    width: auto;
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #263d32;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .lingua {
+        position: static;
+        margin-top: 20px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -140,13 +174,27 @@ footer {
 
 <header>
 
-```
 <h1>🌍 EcoGame</h1>
 
-<p>
+<p id="sottotitolo">
     Diario personale e recensioni
 </p>
+
+<div class="lingua">
+
 ```
+<select id="lingua" onchange="cambiaLingua()">
+
+    <option value="it">🇮🇹 Italiano</option>
+
+    <option value="en">🇬🇧 English</option>
+
+    <option value="fi">🇫🇮 Suomi</option>
+
+</select>
+```
+
+</div>
 
 </header>
 
@@ -155,121 +203,424 @@ footer {
     onclick="location.href='index.html'">
 
 ```
-🏠 Torna al menu
+🏠 <span id="tornaMenu">Torna al menu</span>
 ```
 
 </div>
 
 <div class="contenitore">
 
-```
 <!-- AGENDA -->
 
 <div class="scheda">
 
-    <div class="icona">
-        📖
-    </div>
-
-    <h2>
-        La mia agenda
-    </h2>
-
-    <p>
-        Scrivi quello che hai imparato,
-        gli argomenti da ripassare
-        oppure le tue idee.
-    </p>
-
-    <textarea
-        id="nota"
-        placeholder="Scrivi qui la tua nota...">
-    </textarea>
-
-    <button onclick="salvaNota()">
-
-        💾 Salva nota
-
-    </button>
-
-    <div id="noteSalvate"></div>
-
+```
+<div class="icona">
+    📖
 </div>
 
+<h2 id="titoloAgenda">
+    La mia agenda
+</h2>
+
+<p id="descrizioneAgenda">
+    Scrivi quello che hai imparato,
+    gli argomenti da ripassare
+    oppure le tue idee.
+</p>
+
+<textarea
+    id="nota"
+    placeholder="Scrivi qui la tua nota...">
+</textarea>
+
+<button onclick="salvaNota()" id="bottoneSalva">
+
+    💾 Salva nota
+
+</button>
+
+<div id="noteSalvate"></div>
+```
+
+</div>
 
 <!-- RECENSIONE -->
 
 <div class="scheda">
 
-    <div class="icona">
-        ⭐
-    </div>
+```
+<div class="icona">
+    ⭐
+</div>
 
-    <h2>
-        Lascia una recensione
-    </h2>
+<h2 id="titoloRecensione">
+    Lascia una recensione
+</h2>
 
-    <p>
-        Dicci cosa ne pensi di EcoGame!
-    </p>
+<p id="descrizioneRecensione">
+    Dicci cosa ne pensi di EcoGame!
+</p>
 
-    <input
-        type="text"
-        id="username"
-        placeholder="Il tuo nome o username">
+<input
+    type="text"
+    id="username"
+    placeholder="Il tuo nome o username">
 
-    <select id="stelle">
+<select id="stelle">
 
-        <option value="5">
-            ⭐⭐⭐⭐⭐ — Fantastico
-        </option>
+    <option value="5" id="stella5">
+        ⭐⭐⭐⭐⭐ — Fantastico
+    </option>
 
-        <option value="4">
-            ⭐⭐⭐⭐ — Molto bello
-        </option>
+    <option value="4" id="stella4">
+        ⭐⭐⭐⭐ — Molto bello
+    </option>
 
-        <option value="3">
-            ⭐⭐⭐ — Bello
-        </option>
+    <option value="3" id="stella3">
+        ⭐⭐⭐ — Bello
+    </option>
 
-        <option value="2">
-            ⭐⭐ — Da migliorare
-        </option>
+    <option value="2" id="stella2">
+        ⭐⭐ — Da migliorare
+    </option>
 
-        <option value="1">
-            ⭐ — Non mi è piaciuto
-        </option>
+    <option value="1" id="stella1">
+        ⭐ — Non mi è piaciuto
+    </option>
 
-    </select>
+</select>
 
-    <textarea
-        id="recensione"
-        placeholder="Scrivi la tua recensione...">
-    </textarea>
+<textarea
+    id="recensione"
+    placeholder="Scrivi la tua recensione...">
+</textarea>
 
-    <button onclick="inviaRecensione()">
+<button onclick="inviaRecensione()" id="bottoneRecensione">
 
-        📩 Invia recensione
+    📩 Invia recensione
 
-    </button>
+</button>
 
-    <div id="messaggio"></div>
+<div id="messaggio"></div>
+```
 
 </div>
-```
 
 </div>
 
 <footer>
 
 ```
-🌱 EcoGame — Imparare l'ecologia giocando
+<span id="footerTesto">
+    🌱 EcoGame — Imparare l'ecologia giocando
+</span>
 ```
 
 </footer>
 
 <script>
 
+
+/* ============================= */
+/* TRADUZIONI */
+/* ============================= */
+
+const traduzioni = {
+
+    it: {
+
+        sottotitolo:
+            "Diario personale e recensioni",
+
+        tornaMenu:
+            "Torna al menu",
+
+        titoloAgenda:
+            "La mia agenda",
+
+        descrizioneAgenda:
+            "Scrivi quello che hai imparato, gli argomenti da ripassare oppure le tue idee.",
+
+        notaPlaceholder:
+            "Scrivi qui la tua nota...",
+
+        salvaNota:
+            "💾 Salva nota",
+
+        titoloRecensione:
+            "Lascia una recensione",
+
+        descrizioneRecensione:
+            "Dicci cosa ne pensi di EcoGame!",
+
+        username:
+            "Il tuo nome o username",
+
+        recensionePlaceholder:
+            "Scrivi la tua recensione...",
+
+        inviaRecensione:
+            "📩 Invia recensione",
+
+        stella5:
+            "⭐⭐⭐⭐⭐ — Fantastico",
+
+        stella4:
+            "⭐⭐⭐⭐ — Molto bello",
+
+        stella3:
+            "⭐⭐⭐ — Bello",
+
+        stella2:
+            "⭐⭐ — Da migliorare",
+
+        stella1:
+            "⭐ — Non mi è piaciuto",
+
+        tueNote:
+            "📝 Le tue note",
+
+        elimina:
+            "🗑️ Elimina",
+
+        scriviNota:
+            "✏️ Scrivi prima una nota!",
+
+        scriviRecensione:
+            "✏️ Scrivi una recensione prima di inviarla!",
+
+        email:
+            "📩 Si sta aprendo la tua app email. Premi Invia per mandarmi la recensione.",
+
+        footer:
+            "🌱 EcoGame — Imparare l'ecologia giocando"
+
+    },
+
+
+    en: {
+
+        sottotitolo:
+            "Personal diary and reviews",
+
+        tornaMenu:
+            "Back to menu",
+
+        titoloAgenda:
+            "My diary",
+
+        descrizioneAgenda:
+            "Write what you have learned, topics to review, or your ideas.",
+
+        notaPlaceholder:
+            "Write your note here...",
+
+        salvaNota:
+            "💾 Save note",
+
+        titoloRecensione:
+            "Leave a review",
+
+        descrizioneRecensione:
+            "Tell us what you think about EcoGame!",
+
+        username:
+            "Your name or username",
+
+        recensionePlaceholder:
+            "Write your review...",
+
+        inviaRecensione:
+            "📩 Send review",
+
+        stella5:
+            "⭐⭐⭐⭐⭐ — Fantastic",
+
+        stella4:
+            "⭐⭐⭐⭐ — Very good",
+
+        stella3:
+            "⭐⭐⭐ — Good",
+
+        stella2:
+            "⭐⭐ — Needs improvement",
+
+        stella1:
+            "⭐ — I didn't like it",
+
+        tueNote:
+            "📝 Your notes",
+
+        elimina:
+            "🗑️ Delete",
+
+        scriviNota:
+            "✏️ Write a note first!",
+
+        scriviRecensione:
+            "✏️ Write a review before sending it!",
+
+        email:
+            "📩 Your email app is opening. Press Send to send me the review.",
+
+        footer:
+            "🌱 EcoGame — Learn ecology by playing"
+
+    },
+
+
+    fi: {
+
+        sottotitolo:
+            "Henkilökohtainen päiväkirja ja arvostelut",
+
+        tornaMenu:
+            "Takaisin valikkoon",
+
+        titoloAgenda:
+            "Oma päiväkirjani",
+
+        descrizioneAgenda:
+            "Kirjoita, mitä olet oppinut, mitä aiheita haluat kerrata tai omia ajatuksiasi.",
+
+        notaPlaceholder:
+            "Kirjoita muistiinpanosi tähän...",
+
+        salvaNota:
+            "💾 Tallenna muistiinpano",
+
+        titoloRecensione:
+            "Jätä arvostelu",
+
+        descrizioneRecensione:
+            "Kerro meille, mitä mieltä olet EcoGamesta!",
+
+        username:
+            "Nimesi tai käyttäjänimesi",
+
+        recensionePlaceholder:
+            "Kirjoita arvostelusi...",
+
+        inviaRecensione:
+            "📩 Lähetä arvostelu",
+
+        stella5:
+            "⭐⭐⭐⭐⭐ — Fantastinen",
+
+        stella4:
+            "⭐⭐⭐⭐ — Erittäin hyvä",
+
+        stella3:
+            "⭐⭐⭐ — Hyvä",
+
+        stella2:
+            "⭐⭐ — Parannettavaa",
+
+        stella1:
+            "⭐ — En pitänyt",
+
+        tueNote:
+            "📝 Muistiinpanosi",
+
+        elimina:
+            "🗑️ Poista",
+
+        scriviNota:
+            "✏️ Kirjoita ensin muistiinpano!",
+
+        scriviRecensione:
+            "✏️ Kirjoita arvostelu ennen lähettämistä!",
+
+        email:
+            "📩 Sähköpostisovelluksesi avautuu. Paina Lähetä lähettääksesi arvostelun.",
+
+        footer:
+            "🌱 EcoGame — Opi ekologiaa pelaamalla"
+
+    }
+
+};
+
+
+/* ============================= */
+/* CAMBIO LINGUA */
+/* ============================= */
+
+function cambiaLingua() {
+
+    const lingua =
+        document.getElementById("lingua").value;
+
+    const t =
+        traduzioni[lingua];
+
+
+    document.documentElement.lang = lingua;
+
+
+    document.getElementById("sottotitolo").innerText =
+        t.sottotitolo;
+
+    document.getElementById("tornaMenu").innerText =
+        t.tornaMenu;
+
+    document.getElementById("titoloAgenda").innerText =
+        t.titoloAgenda;
+
+    document.getElementById("descrizioneAgenda").innerText =
+        t.descrizioneAgenda;
+
+    document.getElementById("nota").placeholder =
+        t.notaPlaceholder;
+
+    document.getElementById("bottoneSalva").innerText =
+        t.salvaNota;
+
+    document.getElementById("titoloRecensione").innerText =
+        t.titoloRecensione;
+
+    document.getElementById("descrizioneRecensione").innerText =
+        t.descrizioneRecensione;
+
+    document.getElementById("username").placeholder =
+        t.username;
+
+    document.getElementById("recensione").placeholder =
+        t.recensionePlaceholder;
+
+    document.getElementById("bottoneRecensione").innerText =
+        t.inviaRecensione;
+
+
+    document.getElementById("stella5").innerText =
+        t.stella5;
+
+    document.getElementById("stella4").innerText =
+        t.stella4;
+
+    document.getElementById("stella3").innerText =
+        t.stella3;
+
+    document.getElementById("stella2").innerText =
+        t.stella2;
+
+    document.getElementById("stella1").innerText =
+        t.stella1;
+
+
+    document.getElementById("footerTesto").innerText =
+        t.footer;
+
+
+    mostraNote();
+
+}
+
+
+/* ============================= */
+/* SALVA NOTA */
+/* ============================= */
 
 function salvaNota() {
 
@@ -278,7 +629,12 @@ function salvaNota() {
 
     if (testo === "") {
 
-        alert("✏️ Scrivi prima una nota!");
+        const lingua =
+            document.getElementById("lingua").value;
+
+        alert(
+            traduzioni[lingua].scriviNota
+        );
 
         return;
 
@@ -303,6 +659,10 @@ function salvaNota() {
 }
 
 
+/* ============================= */
+/* MOSTRA NOTE */
+/* ============================= */
+
 function mostraNote() {
 
     const contenitore =
@@ -313,8 +673,16 @@ function mostraNote() {
             localStorage.getItem("ecoGameNote") || "[]"
         );
 
+    const lingua =
+        document.getElementById("lingua").value;
+
+    const t =
+        traduzioni[lingua];
+
+
     contenitore.innerHTML =
-        "<h3>📝 Le tue note</h3>";
+        "<h3>" + t.tueNote + "</h3>";
+
 
     note.forEach(function(nota, indice) {
 
@@ -327,7 +695,9 @@ function mostraNote() {
             "📝 " + nota +
             "<br><button onclick=\"eliminaNota(" +
             indice +
-            ")\">🗑️ Elimina</button>";
+            ")\">" +
+            t.elimina +
+            "</button>";
 
         contenitore.appendChild(div);
 
@@ -335,6 +705,10 @@ function mostraNote() {
 
 }
 
+
+/* ============================= */
+/* ELIMINA NOTA */
+/* ============================= */
 
 function eliminaNota(indice) {
 
@@ -355,6 +729,10 @@ function eliminaNota(indice) {
 }
 
 
+/* ============================= */
+/* INVIA RECENSIONE */
+/* ============================= */
+
 function inviaRecensione() {
 
     const username =
@@ -366,15 +744,21 @@ function inviaRecensione() {
     const recensione =
         document.getElementById("recensione").value.trim();
 
+
+    const lingua =
+        document.getElementById("lingua").value;
+
+
     if (recensione === "") {
 
         alert(
-            "✏️ Scrivi una recensione prima di inviarla!"
+            traduzioni[lingua].scriviRecensione
         );
 
         return;
 
     }
+
 
     let simboli = "";
 
@@ -387,6 +771,7 @@ function inviaRecensione() {
         simboli += "⭐";
 
     }
+
 
     const testoEmail =
 
@@ -410,7 +795,7 @@ function inviaRecensione() {
 
 
     const email =
-    "federicapiattipvt@gmail.com";
+        "federicapiattipvt@gmail.com";
 
 
     window.location.href =
@@ -421,10 +806,14 @@ function inviaRecensione() {
 
 
     document.getElementById("messaggio").innerText =
-        "📩 Si sta aprendo la tua app email. Premi Invia per mandarmi la recensione.";
+        traduzioni[lingua].email;
 
 }
 
+
+/* ============================= */
+/* CARICAMENTO INIZIALE */
+/* ============================= */
 
 mostraNote();
 
