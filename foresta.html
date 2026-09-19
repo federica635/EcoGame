@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -100,7 +101,7 @@ header {
 
 .barra div {
     height: 100%;
-    width: 50%;
+    width: 70%;
     background: #66bb6a;
     transition: width 0.4s;
 }
@@ -258,7 +259,8 @@ header {
     </div>
 
     <div class="turno">
-        Turno <span id="numeroTurno">1</span> / 8
+        <span id="testoTurno">Turno</span>
+        <span id="numeroTurno">1</span> / 8
     </div>
 
 </header>
@@ -269,9 +271,9 @@ header {
 
     <div class="intro">
 
-        <h1>🌳 Salva la Foresta</h1>
+        <h1 id="titoloGioco">🌳 Salva la Foresta</h1>
 
-        <p>
+        <p id="introGioco">
             Gestisci un ecosistema forestale.
             Ogni decisione produce conseguenze.
         </p>
@@ -284,7 +286,7 @@ header {
 
         <div class="stat">
 
-            <div class="titolo">
+            <div class="titolo" id="labelBiodiversita">
                 🌿 Biodiversità
             </div>
 
@@ -301,7 +303,7 @@ header {
 
         <div class="stat">
 
-            <div class="titolo">
+            <div class="titolo" id="labelAcqua">
                 💧 Acqua
             </div>
 
@@ -318,7 +320,7 @@ header {
 
         <div class="stat">
 
-            <div class="titolo">
+            <div class="titolo" id="labelSuolo">
                 🌱 Suolo
             </div>
 
@@ -335,7 +337,7 @@ header {
 
         <div class="stat">
 
-            <div class="titolo">
+            <div class="titolo" id="labelComunita">
                 👥 Comunità
             </div>
 
@@ -357,7 +359,7 @@ header {
 
 
         <div class="scenario" id="scenario">
-            SITUAZIONE 1
+            SITUAZIONE 1 — PROTEZIONE
         </div>
 
 
@@ -367,10 +369,9 @@ header {
 
 
         <div class="testo" id="testo">
-            La tua foresta copre 2.000 ettari.
-            Negli ultimi anni il numero di specie presenti
-            è diminuito e la pressione economica sul territorio
-            sta aumentando.
+            Una parte della foresta ospita specie rare.
+            La pressione economica sul territorio sta aumentando.
+            Devi decidere come intervenire.
         </div>
 
 
@@ -379,40 +380,56 @@ header {
 
             <button class="opzione" onclick="scegli(0)">
 
-                <strong>A — Zona protetta</strong><br><br>
+                <strong id="opzione0Titolo">
+                    A — Zona protetta
+                </strong><br><br>
 
-                Istituisci una nuova area protetta,
-                limitando alcune attività economiche.
+                <span id="opzione0Testo">
+                    Istituisci una nuova area protetta,
+                    limitando alcune attività economiche.
+                </span>
 
             </button>
 
 
             <button class="opzione" onclick="scegli(1)">
 
-                <strong>B — Taglio controllato</strong><br><br>
+                <strong id="opzione1Titolo">
+                    B — Taglio controllato
+                </strong><br><br>
 
-                Permetti il taglio selettivo degli alberi
-                con limiti e monitoraggio.
+                <span id="opzione1Testo">
+                    Permetti il taglio selettivo degli alberi
+                    con limiti e monitoraggio.
+                </span>
 
             </button>
 
 
             <button class="opzione" onclick="scegli(2)">
 
-                <strong>C — Espansione agricola</strong><br><br>
+                <strong id="opzione2Titolo">
+                    C — Espansione agricola
+                </strong><br><br>
 
-                Concedi parte della foresta
-                all'espansione delle coltivazioni.
+                <span id="opzione2Testo">
+                    Concedi parte della foresta
+                    all'espansione delle coltivazioni.
+                </span>
 
             </button>
 
 
             <button class="opzione" onclick="scegli(3)">
 
-                <strong>D — Nessun intervento</strong><br><br>
+                <strong id="opzione3Titolo">
+                    D — Nessun intervento
+                </strong><br><br>
 
-                Mantieni le regole attuali
-                e osserva l'evoluzione dell'ecosistema.
+                <span id="opzione3Testo">
+                    Mantieni le regole attuali
+                    e osserva l'evoluzione dell'ecosistema.
+                </span>
 
             </button>
 
@@ -435,7 +452,9 @@ header {
 
     <div class="card" id="fine">
 
-        <h2>🏁 Gestione completata</h2>
+        <h2 id="titoloFine">
+            🏁 Gestione completata
+        </h2>
 
         <div class="risultatoFinale" id="punteggioFinale">
             0
@@ -444,22 +463,22 @@ header {
         <div class="dettagli">
 
             <div>
-                🌿 Biodiversità:
+                🌿 <span id="finalLabelBiodiversita">Biodiversità</span>:
                 <strong id="finaleBiodiversita"></strong>
             </div>
 
             <div>
-                💧 Acqua:
+                💧 <span id="finalLabelAcqua">Acqua</span>:
                 <strong id="finaleAcqua"></strong>
             </div>
 
             <div>
-                🌱 Suolo:
+                🌱 <span id="finalLabelSuolo">Suolo</span>:
                 <strong id="finaleSuolo"></strong>
             </div>
 
             <div>
-                👥 Comunità:
+                👥 <span id="finalLabelComunita">Comunità</span>:
                 <strong id="finaleComunita"></strong>
             </div>
 
@@ -470,12 +489,12 @@ header {
 
 
         <button class="finalButton" onclick="ricomincia()">
-            🔄 Nuova gestione
+            🔄 <span id="nuovaGestione">Nuova gestione</span>
         </button>
 
 
         <button class="finalButton" onclick="tornaGiochi()">
-            🎮 Torna ai giochi
+            🎮 <span id="tornaGiochi">Torna ai giochi</span>
         </button>
 
     </div>
@@ -487,154 +506,671 @@ header {
 <script>
 
 
-const turni = [
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
 
-    {
-        scenario: "SITUAZIONE 1 — PROTEZIONE",
-        titolo: "Il futuro della foresta",
-        testo: "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
-        effetti: [
-            [8, 2, 4, -5],
-            [2, 3, -1, 5],
-            [-8, -4, -6, 7],
-            [-2, 0, -1, 2]
+const traduzioni = {
+
+    it: {
+
+        titoloGioco: "🌳 Salva la Foresta",
+
+        introGioco:
+            "Gestisci un ecosistema forestale. Ogni decisione produce conseguenze.",
+
+        turno: "Turno",
+
+        biodiversita: "Biodiversità",
+        acqua: "Acqua",
+        suolo: "Suolo",
+        comunita: "Comunità",
+
+        feedback: "Decisione registrata.",
+
+        continua: "➡️ Continua",
+
+        fine: "🏁 Gestione completata",
+
+        nuovaGestione: "Nuova gestione",
+
+        tornaGiochi: "Torna ai giochi",
+
+        scenario: [
+            "SITUAZIONE 1 — PROTEZIONE",
+            "SITUAZIONE 2 — ACQUA",
+            "SITUAZIONE 3 — SPECIE INVASIVA",
+            "SITUAZIONE 4 — INCENDI",
+            "SITUAZIONE 5 — SUOLO",
+            "SITUAZIONE 6 — ECONOMIA LOCALE",
+            "SITUAZIONE 7 — BIODIVERSITÀ",
+            "SITUAZIONE 8 — DECISIONE FINALE"
         ],
+
+        titoli: [
+            "Il futuro della foresta",
+            "Una stagione molto secca",
+            "Una nuova specie compare",
+            "Aumenta il rischio di incendio",
+            "Erosione del terreno",
+            "La comunità chiede lavoro",
+            "Una specie è in forte calo",
+            "Il piano per i prossimi anni"
+        ],
+
+        testi: [
+            "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
+
+            "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
+
+            "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
+
+            "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
+
+            "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
+
+            "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
+
+            "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
+
+            "Devi scegliere la strategia generale per il futuro della foresta."
+        ],
+
+        opzioni: [
+
+            [
+                ["A — Zona protetta", "Istituisci una nuova area protetta, limitando alcune attività economiche."],
+                ["B — Taglio controllato", "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."],
+                ["C — Espansione agricola", "Concedi parte della foresta all'espansione delle coltivazioni."],
+                ["D — Nessun intervento", "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."]
+            ],
+
+            [
+                ["A — Protezione delle aree d'acqua", "Proteggi le aree ripariali e limita i prelievi d'acqua."],
+                ["B — Uso controllato", "Permetti un uso controllato delle risorse idriche con monitoraggio."],
+                ["C — Aumento dei prelievi", "Aumenti i prelievi d'acqua per sostenere le attività agricole."],
+                ["D — Nessun intervento", "Mantieni la situazione attuale e osserva l'evoluzione."]
+            ],
+
+            [
+                ["A — Rimozione precoce", "Intervieni rapidamente per limitare la diffusione della specie invasiva."],
+                ["B — Controllo selettivo", "Controlli la specie in modo selettivo attraverso un monitoraggio scientifico."],
+                ["C — Nessun controllo", "Lasci che la specie si diffonda senza interventi significativi."],
+                ["D — Ignorare il problema", "Non intervieni e lasci che l'ecosistema si evolva autonomamente."]
+            ],
+
+            [
+                ["A — Prevenzione incendi", "Aumenti la prevenzione e gestisci il combustibile vegetale."],
+                ["B — Interventi mirati", "Realizzi interventi mirati nelle aree maggiormente esposte."],
+                ["C — Maggiore pressione", "Aumenti le attività sul territorio nonostante il rischio."],
+                ["D — Nessuna prevenzione", "Non introduci nuove misure di prevenzione."]
+            ],
+
+            [
+                ["A — Protezione del suolo", "Aumenti la copertura vegetale e proteggi le aree più vulnerabili."],
+                ["B — Uso controllato", "Limiti l'utilizzo del territorio nelle zone maggiormente esposte."],
+                ["C — Rimozione della vegetazione", "Rimuovi parte della vegetazione per favorire nuove attività."],
+                ["D — Nessun intervento", "Non introduci nuove misure contro l'erosione."]
+            ],
+
+            [
+                ["A — Economia sostenibile", "Promuovi attività economiche sostenibili e turismo naturalistico."],
+                ["B — Utilizzo regolamentato", "Permetti un utilizzo regolamentato delle risorse forestali."],
+                ["C — Espansione economica", "Aumenti le attività economiche e l'utilizzo del territorio."],
+                ["D — Nessun intervento", "Non introduci nuove opportunità economiche."]
+            ],
+
+            [
+                ["A — Protezione dell'habitat", "Proteggi le aree di foresta matura più importanti per la specie."],
+                ["B — Gestione selettiva", "Permetti una gestione selettiva evitando gli habitat più importanti."],
+                ["C — Conversione del territorio", "Converti parte dell'habitat per altre attività."],
+                ["D — Solo monitoraggio", "Continui il monitoraggio senza modificare le pressioni sull'habitat."]
+            ],
+
+            [
+                ["A — Strategia integrata", "Adotti una strategia che combina conservazione e benefici sociali."],
+                ["B — Gestione controllata", "Combini alcuni usi economici con obiettivi di conservazione."],
+                ["C — Conversione del territorio", "Aumenti la conversione del territorio per ottenere benefici economici."],
+                ["D — Nessuna strategia", "Mantieni la situazione attuale senza una nuova strategia."]
+            ]
+
+        ],
+
         spiegazioni: [
-            "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
-            "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
-            "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
-            "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
+
+            [
+                "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
+                "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
+                "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
+                "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
+            ],
+
+            [
+                "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
+                "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
+                "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
+                "Non intervenire lascia invariata la pressione sulle risorse."
+            ],
+
+            [
+                "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
+                "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
+                "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
+                "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
+            ],
+
+            [
+                "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
+                "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
+                "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
+                "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
+            ],
+
+            [
+                "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
+                "Un uso controllato del territorio può limitare parte del problema.",
+                "La rimozione della vegetazione può aumentare il rischio di erosione.",
+                "Senza interventi il degrado del suolo può continuare."
+            ],
+
+            [
+                "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
+                "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
+                "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
+                "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
+            ],
+
+            [
+                "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
+                "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
+                "La perdita di habitat può accelerare il declino della specie.",
+                "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
+            ],
+
+            [
+                "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
+                "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
+                "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
+                "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
+            ]
+
+        ],
+
+        messaggiFinali: [
+            "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.",
+            "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.",
+            "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.",
+            "🌳 La foresta è in difficoltà. Prova una strategia diversa."
         ]
+
     },
 
-    {
-        scenario: "SITUAZIONE 2 — ACQUA",
-        titolo: "Una stagione molto secca",
-        testo: "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
-        effetti: [
-            [5, 8, 4, -3],
-            [2, 3, 1, 3],
-            [-3, -8, -5, 6],
-            [0, -2, 0, 0]
+
+    en: {
+
+        titoloGioco: "🌳 Save the Forest",
+
+        introGioco:
+            "Manage a forest ecosystem. Every decision has consequences.",
+
+        turno: "Turn",
+
+        biodiversita: "Biodiversity",
+        acqua: "Water",
+        suolo: "Soil",
+        comunita: "Community",
+
+        feedback: "Decision recorded.",
+
+        continua: "➡️ Continue",
+
+        fine: "🏁 Management completed",
+
+        nuovaGestione: "New management",
+
+        tornaGiochi: "Back to games",
+
+        scenario: [
+            "SITUATION 1 — PROTECTION",
+            "SITUATION 2 — WATER",
+            "SITUATION 3 — INVASIVE SPECIES",
+            "SITUATION 4 — FIRES",
+            "SITUATION 5 — SOIL",
+            "SITUATION 6 — LOCAL ECONOMY",
+            "SITUATION 7 — BIODIVERSITY",
+            "SITUATION 8 — FINAL DECISION"
         ],
+
+        titoli: [
+            "The future of the forest",
+            "A very dry season",
+            "A new species appears",
+            "Fire risk increases",
+            "Soil erosion",
+            "The community needs jobs",
+            "A species is declining rapidly",
+            "The plan for the coming years"
+        ],
+
+        testi: [
+            "Part of the forest is home to rare species. Economic pressure on the area is increasing. You must decide how to intervene.",
+
+            "Rainfall has decreased for the second consecutive year. The forest's waterways are showing flows below average.",
+
+            "A plant species that is not native to the area is rapidly spreading along the edge of the forest.",
+
+            "High temperatures and dry vegetation are increasing the risk of widespread fires during the summer.",
+
+            "After heavy rainfall, some slopes show signs of erosion. Fertile soil is decreasing.",
+
+            "Part of the local population depends economically on forest resources.",
+
+            "Monitoring shows a sharp decline in an animal species that depends on mature forest.",
+
+            "You must choose the overall strategy for the future of the forest."
+        ],
+
+        opzioni: [
+
+            [
+                ["A — Protected area", "Establish a new protected area, limiting some economic activities."],
+                ["B — Controlled logging", "Allow selective tree cutting with limits and monitoring."],
+                ["C — Agricultural expansion", "Allow part of the forest to be converted for agricultural expansion."],
+                ["D — No intervention", "Keep the current rules and observe how the ecosystem develops."]
+            ],
+
+            [
+                ["A — Protect water areas", "Protect riparian areas and limit water withdrawals."],
+                ["B — Controlled use", "Allow controlled use of water resources with monitoring."],
+                ["C — Increase withdrawals", "Increase water withdrawals to support agricultural activities."],
+                ["D — No intervention", "Keep the current situation and observe how it develops."]
+            ],
+
+            [
+                ["A — Early removal", "Act quickly to limit the spread of the invasive species."],
+                ["B — Selective control", "Control the species selectively through scientific monitoring."],
+                ["C — No control", "Allow the species to spread without significant intervention."],
+                ["D — Ignore the problem", "Do not intervene and allow the ecosystem to develop on its own."]
+            ],
+
+            [
+                ["A — Fire prevention", "Increase prevention measures and manage vegetation fuel."],
+                ["B — Targeted measures", "Carry out targeted measures in the areas most exposed to risk."],
+                ["C — Greater pressure", "Increase activities in the area despite the risk."],
+                ["D — No prevention", "Do not introduce new prevention measures."]
+            ],
+
+            [
+                ["A — Soil protection", "Increase vegetation cover and protect the most vulnerable areas."],
+                ["B — Controlled use", "Limit land use in the areas most exposed to erosion."],
+                ["C — Vegetation removal", "Remove some vegetation to support new activities."],
+                ["D — No intervention", "Do not introduce new measures against erosion."]
+            ],
+
+            [
+                ["A — Sustainable economy", "Promote sustainable economic activities and nature tourism."],
+                ["B — Regulated use", "Allow regulated use of forest resources."],
+                ["C — Economic expansion", "Increase economic activities and land use."],
+                ["D — No intervention", "Do not introduce new economic opportunities."]
+            ],
+
+            [
+                ["A — Habitat protection", "Protect the most important mature forest areas for the species."],
+                ["B — Selective management", "Allow selective management while avoiding the most important habitats."],
+                ["C — Land conversion", "Convert part of the habitat for other activities."],
+                ["D — Monitoring only", "Continue monitoring without changing pressures on the habitat."]
+            ],
+
+            [
+                ["A — Integrated strategy", "Adopt a strategy combining conservation and social benefits."],
+                ["B — Controlled management", "Combine some economic uses with conservation objectives."],
+                ["C — Land conversion", "Increase land conversion to obtain economic benefits."],
+                ["D — No strategy", "Keep the current situation without a new strategy."]
+            ]
+
+        ],
+
         spiegazioni: [
-            "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
-            "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
-            "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
-            "Non intervenire lascia invariata la pressione sulle risorse."
+
+            [
+                "Greater protection can support habitat conservation, but it may reduce some local economic opportunities.",
+                "Selective logging can reduce the impact compared with intensive deforestation when applied using scientific criteria.",
+                "Forest conversion can reduce habitats and ecosystem services, although it may increase some economic activities.",
+                "Taking no action may be appropriate in some contexts, but it does not automatically solve existing problems."
+            ],
+
+            [
+                "Protecting riparian areas and limiting withdrawals can contribute to the resilience of the water system.",
+                "Controlled resource use can reduce pressure, but it should be accompanied by monitoring.",
+                "Increased agricultural withdrawals can worsen water scarcity during drought periods.",
+                "Taking no action leaves the pressure on resources unchanged."
+            ],
+
+            [
+                "Early intervention can limit the spread of an invasive species before it becomes difficult to manage.",
+                "Selective control can work when accompanied by scientific monitoring.",
+                "Allowing pressure to increase can encourage the spread of the invasive species.",
+                "Ignoring the problem can allow the species to colonize new habitats."
+            ],
+
+            [
+                "Fire prevention and vegetation fuel management can reduce some risks.",
+                "Targeted measures can contribute to prevention when properly designed.",
+                "Greater pressure on the area can increase exposure to risk.",
+                "Lack of prevention leaves the system more vulnerable to extreme events."
+            ],
+
+            [
+                "Vegetation cover and soil protection can reduce erosion.",
+                "Controlled land use can limit part of the problem.",
+                "Removing vegetation can increase erosion risk.",
+                "Without intervention, soil degradation may continue."
+            ],
+
+            [
+                "Conservation can be compatible with sustainable economic activities and nature tourism.",
+                "Regulated use can provide economic resources while maintaining some ecological limits.",
+                "Economic expansion can increase income, but also pressure on ecosystems.",
+                "Ignoring the community's needs can increase social conflict."
+            ],
+
+            [
+                "Protecting mature habitats can benefit species that depend on complex forest structures.",
+                "Selective management can be compatible with conservation if the most important habitats are avoided.",
+                "Habitat loss can accelerate the species' decline.",
+                "Monitoring without intervention does not directly change pressures on the habitat."
+            ],
+
+            [
+                "An integrated strategy can seek to maintain both ecological functions and social benefits.",
+                "Controlled management can combine some economic uses with conservation objectives.",
+                "Strong land conversion can increase some short-term economic benefits but reduce several ecosystem functions.",
+                "The absence of a strategy can leave existing pressures unresolved."
+            ]
+
+        ],
+
+        messaggiFinali: [
+            "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
+            "🌱 Good management: the forest remained in generally positive condition.",
+            "⚠️ Fragile balance: some decisions created significant pressures.",
+            "🌳 The forest is struggling. Try a different strategy."
         ]
+
     },
 
-    {
-        scenario: "SITUAZIONE 3 — SPECIE INVASIVA",
-        titolo: "Una nuova specie compare",
-        testo: "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
-        effetti: [
-            [7, 2, 4, -3],
-            [3, 0, 2, 2],
-            [-5, -2, -4, 3],
-            [-4, -1, -3, 0]
-        ],
-        spiegazioni: [
-            "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
-            "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
-            "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
-            "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
-        ]
-    },
 
-    {
-        scenario: "SITUAZIONE 4 — INCENDI",
-        titolo: "Aumenta il rischio di incendio",
-        testo: "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
-        effetti: [
-            [6, 5, 5, 2],
-            [4, 2, 3, 3],
-            [-4, -5, -4, 4],
-            [-3, -3, -2, 0]
-        ],
-        spiegazioni: [
-            "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
-            "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
-            "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
-            "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
-        ]
-    },
+    fi: {
 
-    {
-        scenario: "SITUAZIONE 5 — SUOLO",
-        titolo: "Erosione del terreno",
-        testo: "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
-        effetti: [
-            [5, 4, 9, 1],
-            [2, 1, 4, 3],
-            [-5, -2, -8, 5],
-            [-2, -1, -2, 0]
-        ],
-        spiegazioni: [
-            "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
-            "Un uso controllato del territorio può limitare parte del problema.",
-            "La rimozione della vegetazione può aumentare il rischio di erosione.",
-            "Senza interventi il degrado del suolo può continuare."
-        ]
-    },
+        titoloGioco: "🌳 Pelasta metsä",
 
-    {
-        scenario: "SITUAZIONE 6 — ECONOMIA LOCALE",
-        titolo: "La comunità chiede lavoro",
-        testo: "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
-        effetti: [
-            [3, 1, 2, 5],
-            [2, 1, 1, 7],
-            [-5, -2, -4, 8],
-            [-1, 0, 0, -5]
-        ],
-        spiegazioni: [
-            "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
-            "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
-            "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
-            "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
-        ]
-    },
+        introGioco:
+            "Hallitse metsäekosysteemiä. Jokaisella päätöksellä on seurauksia.",
 
-    {
-        scenario: "SITUAZIONE 7 — BIODIVERSITÀ",
-        titolo: "Una specie è in forte calo",
-        testo: "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
-        effetti: [
-            [9, 2, 4, -3],
-            [4, 1, 2, 2],
-            [-7, -3, -6, 5],
-            [-3, 0, -2, -1]
-        ],
-        spiegazioni: [
-            "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
-            "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
-            "La perdita di habitat può accelerare il declino della specie.",
-            "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
-        ]
-    },
+        turno: "Vuoro",
 
-    {
-        scenario: "SITUAZIONE 8 — DECISIONE FINALE",
-        titolo: "Il piano per i prossimi anni",
-        testo: "Devi scegliere la strategia generale per il futuro della foresta.",
-        effetti: [
-            [7, 5, 6, 4],
-            [4, 3, 3, 5],
-            [-7, -5, -7, 7],
-            [-3, -2, -2, -3]
+        biodiversita: "Luonnon monimuotoisuus",
+        acqua: "Vesi",
+        suolo: "Maaperä",
+        comunita: "Yhteisö",
+
+        feedback: "Päätös tallennettu.",
+
+        continua: "➡️ Jatka",
+
+        fine: "🏁 Hallinta suoritettu",
+
+        nuovaGestione: "Uusi hallinta",
+
+        tornaGiochi: "Takaisin peleihin",
+
+        scenario: [
+            "TILANNE 1 — SUOJELU",
+            "TILANNE 2 — VESI",
+            "TILANNE 3 — VIERASLAJI",
+            "TILANNE 4 — METSÄPALOT",
+            "TILANNE 5 — MAAPERÄ",
+            "TILANNE 6 — PAIKALLINEN TALOUS",
+            "TILANNE 7 — LUONNON MONIMUOTOISUUS",
+            "TILANNE 8 — LOPULLINEN PÄÄTÖS"
         ],
+
+        titoli: [
+            "Metsän tulevaisuus",
+            "Erittäin kuiva kausi",
+            "Uusi laji ilmestyy",
+            "Metsäpalojen riski kasvaa",
+            "Maaperän eroosio",
+            "Yhteisö tarvitsee työpaikkoja",
+            "Lajin määrä vähenee nopeasti",
+            "Suunnitelma tuleville vuosille"
+        ],
+
+        testi: [
+            "Osa metsästä on harvinaisten lajien elinympäristöä. Taloudellinen paine alueella kasvaa. Sinun on päätettävä, miten toimia.",
+
+            "Sademäärä on vähentynyt jo toista vuotta peräkkäin. Metsän vesistöjen virtaamat ovat keskimääräistä pienempiä.",
+
+            "Alueelle vieras kasvilaji leviää nopeasti metsän reunalla.",
+
+            "Korkeat lämpötilat ja kuiva kasvillisuus lisäävät laajojen metsäpalojen riskiä kesällä.",
+
+            "Voimakkaiden sateiden jälkeen jotkin rinteet osoittavat eroosion merkkejä. Hedelmällinen maaperä vähenee.",
+
+            "Osa paikallisesta väestöstä on taloudellisesti riippuvainen metsän resursseista.",
+
+            "Seuranta osoittaa voimakasta vähenemistä eläinlajissa, joka tarvitsee vanhaa metsää.",
+
+            "Sinun on valittava metsän tulevaisuuden yleinen strategia."
+        ],
+
+        opzioni: [
+
+            [
+                ["A — Suojelualue", "Perusta uusi suojelualue ja rajoita joitakin taloudellisia toimintoja."],
+                ["B — Hallittu hakkuu", "Salli valikoiva puiden hakkuu rajoituksin ja seurannalla."],
+                ["C — Maatalouden laajentaminen", "Salli osan metsästä muuttaminen maatalouskäyttöön."],
+                ["D — Ei toimenpiteitä", "Pidä nykyiset säännöt ja seuraa ekosysteemin kehitystä."]
+            ],
+
+            [
+                ["A — Vesialueiden suojelu", "Suojele vesistöjen reuna-alueita ja rajoita vedenottoa."],
+                ["B — Hallittu käyttö", "Salli vesivarojen hallittu käyttö seurannan avulla."],
+                ["C — Lisää vedenottoa", "Lisää vedenottoa maataloustoiminnan tukemiseksi."],
+                ["D — Ei toimenpiteitä", "Pidä nykyinen tilanne ja seuraa sen kehitystä."]
+            ],
+
+            [
+                ["A — Varhainen poistaminen", "Toimi nopeasti vieraslajin leviämisen rajoittamiseksi."],
+                ["B — Valikoiva torjunta", "Torju lajia valikoivasti tieteellisen seurannan avulla."],
+                ["C — Ei torjuntaa", "Anna lajin levitä ilman merkittäviä toimenpiteitä."],
+                ["D — Jätä ongelma huomiotta", "Älä puutu tilanteeseen ja anna ekosysteemin kehittyä itsestään."]
+            ],
+
+            [
+                ["A — Metsäpalojen ehkäisy", "Lisää ennaltaehkäisyä ja hallitse kasvillisuuden palokuormaa."],
+                ["B — Kohdennetut toimet", "Toteuta kohdennettuja toimia riskialtteimmilla alueilla."],
+                ["C — Lisää painetta", "Lisää alueen toimintaa riskistä huolimatta."],
+                ["D — Ei ehkäisyä", "Älä ota käyttöön uusia ehkäisytoimia."]
+            ],
+
+            [
+                ["A — Maaperän suojelu", "Lisää kasvillisuuden peittävyyttä ja suojele haavoittuvimpia alueita."],
+                ["B — Hallittu käyttö", "Rajoita maankäyttöä eroosioalttiilla alueilla."],
+                ["C — Kasvillisuuden poistaminen", "Poista kasvillisuutta uusien toimintojen mahdollistamiseksi."],
+                ["D — Ei toimenpiteitä", "Älä ota käyttöön uusia eroosion vastaisia toimia."]
+            ],
+
+            [
+                ["A — Kestävä talous", "Edistä kestävää taloudellista toimintaa ja luontomatkailua."],
+                ["B — Säännelty käyttö", "Salli metsän resurssien säännelty käyttö."],
+                ["C — Talouden laajentaminen", "Lisää taloudellista toimintaa ja maankäyttöä."],
+                ["D — Ei toimenpiteitä", "Älä luo uusia taloudellisia mahdollisuuksia."]
+            ],
+
+            [
+                ["A — Elinympäristön suojelu", "Suojele lajin tärkeimpiä vanhan metsän alueita."],
+                ["B — Valikoiva hallinta", "Salli valikoiva hallinta ja vältä tärkeimpiä elinympäristöjä."],
+                ["C — Alueen muuttaminen", "Muuta osa elinympäristöstä muuhun käyttöön."],
+                ["D — Vain seuranta", "Jatka seurantaa muuttamatta elinympäristöön kohdistuvia paineita."]
+            ],
+
+            [
+                ["A — Yhdistetty strategia", "Ota käyttöön strategia, jossa yhdistyvät suojelu ja yhteisön hyödyt."],
+                ["B — Hallittu käyttö", "Yhdistä taloudellisia käyttötapoja luonnonsuojelutavoitteisiin."],
+                ["C — Alueen muuttaminen", "Lisää alueen muuttamista taloudellisten hyötyjen saavuttamiseksi."],
+                ["D — Ei strategiaa", "Pidä nykyinen tilanne ilman uutta strategiaa."]
+            ]
+
+        ],
+
         spiegazioni: [
-            "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
-            "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
-            "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
-            "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
+
+            [
+                "Parempi suojelu voi edistää elinympäristöjen säilymistä, mutta se voi vähentää paikallisia taloudellisia mahdollisuuksia.",
+                "Valikoiva hakkuu voi vähentää vaikutuksia verrattuna voimakkaaseen metsien hävittämiseen, jos sitä tehdään tieteellisten periaatteiden mukaisesti.",
+                "Metsän muuttaminen muuhun käyttöön voi vähentää elinympäristöjä ja ekosysteemipalveluja, vaikka se voi lisätä taloudellista toimintaa.",
+                "Toimimattomuus voi olla joissakin tilanteissa sopivaa, mutta se ei automaattisesti ratkaise olemassa olevia ongelmia."
+            ],
+
+            [
+                "Vesistöjen reuna-alueiden suojeleminen ja vedenoton rajoittaminen voivat parantaa vesijärjestelmän kestävyyttä.",
+                "Luonnonvarojen hallittu käyttö voi vähentää painetta, mutta sen tulee perustua seurantaan.",
+                "Maatalouden vedenoton lisääminen voi pahentaa vesipulaa kuivina kausina.",
+                "Toimimattomuus pitää luonnonvaroihin kohdistuvan paineen ennallaan."
+            ],
+
+            [
+                "Varhainen toiminta voi rajoittaa vieraslajin leviämistä ennen kuin sitä on vaikea hallita.",
+                "Valikoiva torjunta voi toimia, jos sitä tuetaan tieteellisellä seurannalla.",
+                "Paineen lisääminen voi edistää vieraslajin leviämistä.",
+                "Ongelman huomiotta jättäminen voi antaa lajin levitä uusille elinympäristöille."
+            ],
+
+            [
+                "Metsäpalojen ehkäisy ja kasvillisuuden palokuorman hallinta voivat vähentää joitakin riskejä.",
+                "Kohdennetut toimet voivat edistää ehkäisyä, jos ne suunnitellaan oikein.",
+                "Lisääntynyt paine alueella voi kasvattaa riskeille altistumista.",
+                "Ehkäisyn puute jättää järjestelmän haavoittuvammaksi äärimmäisille tapahtumille."
+            ],
+
+            [
+                "Kasvillisuuden peittävyys ja maaperän suojelu voivat vähentää eroosiota.",
+                "Hallittu maankäyttö voi rajoittaa osaa ongelmasta.",
+                "Kasvillisuuden poistaminen voi lisätä eroosioriskiä.",
+                "Ilman toimenpiteitä maaperän heikkeneminen voi jatkua."
+            ],
+
+            [
+                "Luonnonsuojelu voi olla yhteensopivaa kestävän taloudellisen toiminnan ja luontomatkailun kanssa.",
+                "Säännelty käyttö voi tuottaa taloudellisia resursseja säilyttäen samalla ekologisia rajoja.",
+                "Talouden laajentaminen voi lisätä tuloja, mutta myös ekosysteemeihin kohdistuvaa painetta.",
+                "Yhteisön tarpeiden huomiotta jättäminen voi lisätä sosiaalisia ristiriitoja."
+            ],
+
+            [
+                "Vanhojen metsien elinympäristöjen suojeleminen voi hyödyttää lajeja, jotka tarvitsevat monimutkaisia metsäympäristöjä.",
+                "Valikoiva hallinta voi olla yhteensopivaa suojelun kanssa, jos tärkeimpiä elinympäristöjä vältetään.",
+                "Elinympäristöjen menetys voi nopeuttaa lajin vähenemistä.",
+                "Seuranta ilman toimenpiteitä ei suoraan muuta elinympäristöön kohdistuvia paineita."
+            ],
+
+            [
+                "Yhdistetty strategia voi pyrkiä säilyttämään sekä ekologiset toiminnot että yhteisön hyödyt.",
+                "Hallittu käyttö voi yhdistää joitakin taloudellisia käyttötapoja suojelutavoitteisiin.",
+                "Laaja alueen muuttaminen voi lisätä joitakin lyhyen aikavälin taloudellisia hyötyjä, mutta vähentää useita ekosysteemitoimintoja.",
+                "Strategian puuttuminen voi jättää olemassa olevat paineet ratkaisematta."
+            ]
+
+        ],
+
+        messaggiFinali: [
+            "🏆 Erinomainen hallinta: säilytit hyvän tasapainon ekosysteemin ja yhteisön välillä.",
+            "🌱 Hyvä hallinta: metsä säilyi kokonaisuutena hyvässä kunnossa.",
+            "⚠️ Hauras tasapaino: jotkin päätökset aiheuttivat merkittäviä paineita.",
+            "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa."
         ]
+
     }
 
-];
+};
 
+
+/* =====================================================
+   KIELEN HAKEMINEN
+   ===================================================== */
+
+let linguaCorrente =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+if (!traduzioni[linguaCorrente]) {
+    linguaCorrente = "it";
+}
+
+const tLingua = traduzioni[linguaCorrente];
+
+document.documentElement.lang = linguaCorrente;
+
+
+/* =====================================================
+   MUUT KÄÄNNÖKSET
+   ===================================================== */
+
+function applicaLingua() {
+
+    document.getElementById("titoloGioco").innerText =
+        tLingua.titoloGioco;
+
+    document.getElementById("introGioco").innerText =
+        tLingua.introGioco;
+
+    document.getElementById("testoTurno").innerText =
+        tLingua.turno;
+
+    document.getElementById("labelBiodiversita").innerText =
+        "🌿 " + tLingua.biodiversita;
+
+    document.getElementById("labelAcqua").innerText =
+        "💧 " + tLingua.acqua;
+
+    document.getElementById("labelSuolo").innerText =
+        "🌱 " + tLingua.suolo;
+
+    document.getElementById("labelComunita").innerText =
+        "👥 " + tLingua.comunita;
+
+    document.getElementById("continua").innerText =
+        tLingua.continua;
+
+    document.getElementById("titoloFine").innerText =
+        tLingua.fine;
+
+    document.getElementById("finalLabelBiodiversita").innerText =
+        tLingua.biodiversita;
+
+    document.getElementById("finalLabelAcqua").innerText =
+        tLingua.acqua;
+
+    document.getElementById("finalLabelSuolo").innerText =
+        tLingua.suolo;
+
+    document.getElementById("finalLabelComunita").innerText =
+        tLingua.comunita;
+
+    document.getElementById("nuovaGestione").innerText =
+        tLingua.nuovaGestione;
+
+    document.getElementById("tornaGiochi").innerText =
+        tLingua.tornaGiochi;
+
+    mostraTurno();
+
+}
+
+
+/* =====================================================
+   STATISTICHE
+   ===================================================== */
 
 let turno = 0;
 
@@ -683,6 +1219,10 @@ function aggiornaStatistiche() {
 }
 
 
+/* =====================================================
+   MOSTRA TURNO
+   ===================================================== */
+
 function mostraTurno() {
 
     rispostaData = false;
@@ -693,13 +1233,25 @@ function mostraTurno() {
         turno + 1;
 
     document.getElementById("scenario").innerText =
-        t.scenario;
+        tLingua.scenario[turno];
 
     document.getElementById("titolo").innerText =
-        t.titolo;
+        tLingua.titoli[turno];
 
     document.getElementById("testo").innerText =
-        t.testo;
+        tLingua.testi[turno];
+
+
+    for (let i = 0; i < 4; i++) {
+
+        document.getElementById("opzione" + i + "Titolo").innerText =
+            tLingua.opzioni[turno][i][0];
+
+        document.getElementById("opzione" + i + "Testo").innerText =
+            tLingua.opzioni[turno][i][1];
+
+    }
+
 
     document.getElementById("feedback").innerText =
         "";
@@ -713,6 +1265,10 @@ function mostraTurno() {
 }
 
 
+/* =====================================================
+   SCELTA
+   ===================================================== */
+
 function scegli(opzione) {
 
     if (rispostaData) {
@@ -724,6 +1280,7 @@ function scegli(opzione) {
     const t = turni[turno];
 
     const effetti = t.effetti[opzione];
+
 
     biodiversita =
         limita(biodiversita + effetti[0]);
@@ -742,14 +1299,14 @@ function scegli(opzione) {
 
 
     document.getElementById("feedback").innerText =
-        "Decisione registrata.";
+        tLingua.feedback;
 
     document.getElementById("feedback").style.color =
         "#81c784";
 
 
     document.getElementById("spiegazione").innerText =
-        "🔬 " + t.spiegazioni[opzione];
+        "🔬 " + tLingua.spiegazioni[turno][opzione];
 
     document.getElementById("spiegazione").style.display =
         "block";
@@ -760,6 +1317,10 @@ function scegli(opzione) {
 
 }
 
+
+/* =====================================================
+   PROSSIMO TURNO
+   ===================================================== */
 
 function prossimoTurno() {
 
@@ -778,17 +1339,27 @@ function prossimoTurno() {
 }
 
 
+/* =====================================================
+   PUNTEGGIO
+   ===================================================== */
+
 function calcolaPunteggio() {
 
     return Math.round(
-        (biodiversita +
-        acqua +
-        suolo +
-        comunita) / 4
+        (
+            biodiversita +
+            acqua +
+            suolo +
+            comunita
+        ) / 4
     );
 
 }
 
+
+/* =====================================================
+   FINE
+   ===================================================== */
 
 function fine() {
 
@@ -826,22 +1397,22 @@ function fine() {
     if (punteggio >= 85) {
 
         messaggio =
-            "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.";
+            tLingua.messaggiFinali[0];
 
     } else if (punteggio >= 70) {
 
         messaggio =
-            "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.";
+            tLingua.messaggiFinali[1];
 
     } else if (punteggio >= 50) {
 
         messaggio =
-            "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.";
+            tLingua.messaggiFinali[2];
 
     } else {
 
         messaggio =
-            "🌳 La foresta è in difficoltà. Prova una strategia diversa.";
+            tLingua.messaggiFinali[3];
 
     }
 
@@ -851,6 +1422,10 @@ function fine() {
 
 }
 
+
+/* =====================================================
+   RICOMINCIA
+   ===================================================== */
 
 function ricomincia() {
 
@@ -876,6 +1451,10 @@ function ricomincia() {
 }
 
 
+/* =====================================================
+   TORNA AI GIOCHI
+   ===================================================== */
+
 function tornaGiochi() {
 
     window.location.href =
@@ -884,10 +1463,94 @@ function tornaGiochi() {
 }
 
 
+/* =====================================================
+   DATI DEL GIOCO
+   ===================================================== */
+
+const turni = [
+
+    {
+        effetti: [
+            [8, 2, 4, -5],
+            [2, 3, -1, 5],
+            [-8, -4, -6, 7],
+            [-2, 0, -1, 2]
+        ]
+    },
+
+    {
+        effetti: [
+            [5, 8, 4, -3],
+            [2, 3, 1, 3],
+            [-3, -8, -5, 6],
+            [0, -2, 0, 0]
+        ]
+    },
+
+    {
+        effetti: [
+            [7, 2, 4, -3],
+            [3, 0, 2, 2],
+            [-5, -2, -4, 3],
+            [-4, -1, -3, 0]
+        ]
+    },
+
+    {
+        effetti: [
+            [6, 5, 5, 2],
+            [4, 2, 3, 3],
+            [-4, -5, -4, 4],
+            [-3, -3, -2, 0]
+        ]
+    },
+
+    {
+        effetti: [
+            [5, 4, 9, 1],
+            [2, 1, 4, 3],
+            [-5, -2, -8, 5],
+            [-2, -1, -2, 0]
+        ]
+    },
+
+    {
+        effetti: [
+            [3, 1, 2, 5],
+            [2, 1, 1, 7],
+            [-5, -2, -4, 8],
+            [-1, 0, 0, -5]
+        ]
+    },
+
+    {
+        effetti: [
+            [9, 2, 4, -3],
+            [4, 1, 2, 2],
+            [-7, -3, -6, 5],
+            [-3, 0, -2, -1]
+        ]
+    },
+
+    {
+        effetti: [
+            [7, 5, 6, 4],
+            [4, 3, 3, 5],
+            [-7, -5, -7, 7],
+            [-3, -2, -2, -3]
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
 aggiornaStatistiche();
 
-mostraTurno();
-
+applicaLingua();
 
 </script>
 
@@ -895,3 +1558,4 @@ mostraTurno();
 </body>
 
 </html>
+```
