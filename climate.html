@@ -1,10 +1,11 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🌍 Climate Challenge - EcoGame</title>
 
 <style>
@@ -255,6 +256,7 @@ header {
 }
 
 </style>
+
 </head>
 
 <body>
@@ -269,24 +271,28 @@ header {
         class="menu"
         onclick="location.href='giochi.html'">
 
-        🎮 Giochi
+        🎮 <span id="gamesMenu">Giochi</span>
 
     </div>
 
 </header>
 
+
 <div class="container">
 
     <div class="title">
 
-        <h1>🌍 Climate Challenge</h1>
+        <h1 id="gameTitle">
+            🌍 Climate Challenge
+        </h1>
 
-        <p>
+        <p id="gameDescription">
             20 sfide sul clima, sull'atmosfera
             e sui cambiamenti ambientali.
         </p>
 
     </div>
+
 
     <div class="progress">
 
@@ -297,19 +303,21 @@ header {
 
     </div>
 
+
     <div class="info">
 
         <div>
-            Domanda:
+            <span id="questionLabel">Domanda:</span>
             <span id="questionNumber">1/20</span>
         </div>
 
         <div>
-            Punti:
+            <span id="scoreLabel">Punti:</span>
             <span id="score">0</span>
         </div>
 
     </div>
+
 
     <div class="card" id="quizCard">
 
@@ -350,6 +358,7 @@ header {
 
     </div>
 
+
     <div
         class="card hidden"
         id="resultCard">
@@ -360,11 +369,11 @@ header {
                 🌍
             </div>
 
-            <h2>
+            <h2 id="resultTitle">
                 Climate Challenge completata!
             </h2>
 
-            <p>
+            <p id="resultObtained">
                 Hai ottenuto:
             </p>
 
@@ -380,9 +389,9 @@ header {
 
             <button
                 class="restart"
-                onclick="location.reload()">
+                onclick="restartGame()">
 
-                🔄 Riprova
+                🔄 <span id="restartText">Riprova</span>
 
             </button>
 
@@ -390,7 +399,7 @@ header {
                 class="back"
                 onclick="location.href='giochi.html'">
 
-                🎮 Torna ai giochi
+                🎮 <span id="backText">Torna ai giochi</span>
 
             </button>
 
@@ -400,499 +409,1429 @@ header {
 
 </div>
 
+
 <script>
+
+/* =========================================================
+   LINGUA
+   ========================================================= */
+
+/*
+   Il gioco legge automaticamente la lingua scelta
+   nella pagina giochi.html.
+
+   La tua pagina principale salva:
+   localStorage.setItem("linguaEcoGame", lingua);
+
+   Quindi qui la recuperiamo.
+*/
+
+const lingua =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+document.documentElement.lang = lingua;
+
+
+/* =========================================================
+   TESTI DELL'INTERFACCIA
+   ========================================================= */
+
+const testi = {
+
+    it: {
+
+        games: "Giochi",
+
+        title: "🌍 Climate Challenge",
+
+        description:
+            "20 sfide sul clima, sull'atmosfera e sui cambiamenti ambientali.",
+
+        question: "Domanda:",
+
+        score: "Punti:",
+
+        next: "Prossima sfida →",
+
+        resultTitle:
+            "Climate Challenge completata!",
+
+        obtained:
+            "Hai ottenuto:",
+
+        retry:
+            "Riprova",
+
+        back:
+            "Torna ai giochi",
+
+        correct:
+            "Corretto! +10 punti",
+
+        wrong:
+            "Risposta non corretta. -5 punti",
+
+        correctAnswer:
+            "La risposta corretta era:",
+
+        excellent:
+            "🌟 Preparazione eccellente! Hai dimostrato di saper collegare diversi aspetti del sistema climatico.",
+
+        veryGood:
+            "👏 Ottimo risultato! Conosci bene i principali fenomeni climatici e atmosferici.",
+
+        good:
+            "👍 Buona preparazione. Hai una base solida, ma alcuni concetti meritano un ripasso.",
+
+        enough:
+            "📚 Discreto punto di partenza. Ripassando alcuni concetti potrai migliorare molto.",
+
+        learn:
+            "🌱 C'è ancora da imparare! Riprova e usa le spiegazioni dopo ogni domanda per ripassare.",
+
+        final:
+            "🏆 Vedi risultato"
+
+    },
+
+
+    en: {
+
+        games: "Games",
+
+        title: "🌍 Climate Challenge",
+
+        description:
+            "20 challenges about climate, the atmosphere and environmental changes.",
+
+        question: "Question:",
+
+        score: "Points:",
+
+        next: "Next challenge →",
+
+        resultTitle:
+            "Climate Challenge completed!",
+
+        obtained:
+            "Your score:",
+
+        retry:
+            "Try again",
+
+        back:
+            "Back to games",
+
+        correct:
+            "Correct! +10 points",
+
+        wrong:
+            "Incorrect answer. -5 points",
+
+        correctAnswer:
+            "The correct answer was:",
+
+        excellent:
+            "🌟 Excellent preparation! You showed that you can connect different aspects of the climate system.",
+
+        veryGood:
+            "👏 Great result! You know the main climate and atmospheric phenomena well.",
+
+        good:
+            "👍 Good preparation. You have a solid foundation, but some concepts deserve a review.",
+
+        enough:
+            "📚 A good starting point. Reviewing some concepts will help you improve a lot.",
+
+        learn:
+            "🌱 There is still more to learn! Try again and use the explanations after each question to review.",
+
+        final:
+            "🏆 See result"
+
+    },
+
+
+    fi: {
+
+        games: "Pelit",
+
+        title: "🌍 Climate Challenge",
+
+        description:
+            "20 haastetta ilmastosta, ilmakehästä ja ympäristön muutoksista.",
+
+        question: "Kysymys:",
+
+        score: "Pisteet:",
+
+        next: "Seuraava haaste →",
+
+        resultTitle:
+            "Climate Challenge suoritettu!",
+
+        obtained:
+            "Pisteesi:",
+
+        retry:
+            "Yritä uudelleen",
+
+        back:
+            "Takaisin peleihin",
+
+        correct:
+            "Oikein! +10 pistettä",
+
+        wrong:
+            "Väärä vastaus. -5 pistettä",
+
+        correctAnswer:
+            "Oikea vastaus oli:",
+
+        excellent:
+            "🌟 Erinomainen suoritus! Osoitit ymmärtäväsi ilmastojärjestelmän eri osa-alueiden yhteyksiä.",
+
+        veryGood:
+            "👏 Hieno tulos! Tunnet tärkeimmät ilmastoon ja ilmakehään liittyvät ilmiöt hyvin.",
+
+        good:
+            "👍 Hyvä valmistautuminen. Perustasi on vahva, mutta jotkin käsitteet kaipaavat vielä kertausta.",
+
+        enough:
+            "📚 Hyvä lähtökohta. Kertaamalla joitakin käsitteitä voit parantaa tulostasi paljon.",
+
+        learn:
+            "🌱 Opittavaa riittää vielä! Yritä uudelleen ja käytä jokaisen kysymyksen jälkeisiä selityksiä kertaamiseen.",
+
+        final:
+            "🏆 Näytä tulos"
+
+    }
+
+};
+
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const category =
+    document.getElementById("category");
+
+const question =
+    document.getElementById("question");
+
+const scenario =
+    document.getElementById("scenario");
+
+const answers =
+    document.getElementById("answers");
+
+const feedback =
+    document.getElementById("feedback");
+
+const next =
+    document.getElementById("next");
+
+const scoreElement =
+    document.getElementById("score");
+
+const questionNumber =
+    document.getElementById("questionNumber");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+
+/* =========================================================
+   DOM - TESTI INTERFACCIA
+   ========================================================= */
+
+document.getElementById("gamesMenu").innerText =
+    testi[lingua].games;
+
+document.getElementById("gameTitle").innerText =
+    testi[lingua].title;
+
+document.getElementById("gameDescription").innerText =
+    testi[lingua].description;
+
+document.getElementById("questionLabel").innerText =
+    testi[lingua].question;
+
+document.getElementById("scoreLabel").innerText =
+    testi[lingua].score;
+
+document.getElementById("next").innerText =
+    testi[lingua].next;
+
+document.getElementById("resultTitle").innerText =
+    testi[lingua].resultTitle;
+
+document.getElementById("resultObtained").innerText =
+    testi[lingua].obtained;
+
+document.getElementById("restartText").innerText =
+    testi[lingua].retry;
+
+document.getElementById("backText").innerText =
+    testi[lingua].back;
+
+
+/* =========================================================
+   DOMANDE
+   =========================================================
+
+   Ogni domanda contiene:
+
+   category:
+   [italiano, inglese, finlandese]
+
+   question:
+   [italiano, inglese, finlandese]
+
+   scenario:
+   [italiano, inglese, finlandese]
+
+   answers:
+   [italiano, inglese, finlandese]
+
+   correct:
+   indice della risposta corretta
+*/
+
 
 const questions = [
 
-{
-    category: "EFFETTO SERRA",
+/* 01 */
 
-    question:
+{
+    category: [
+        "EFFETTO SERRA",
+        "GREENHOUSE EFFECT",
+        "KASVIHUONEILMIÖ"
+    ],
+
+    question: [
         "Perché l'aumento della concentrazione di alcuni gas nell'atmosfera può aumentare la temperatura media terrestre?",
+        "Why can an increase in the concentration of certain gases in the atmosphere increase Earth's average temperature?",
+        "Miksi joidenkin ilmakehän kaasujen pitoisuuden kasvu voi nostaa maapallon keskilämpötilaa?"
+    ],
 
-    scenario:
+    scenario: [
         "Immagina l'atmosfera come una coperta: una parte della radiazione emessa dalla superficie terrestre viene trattenuta dai gas serra.",
+        "Imagine the atmosphere as a blanket: some of the radiation emitted by Earth's surface is retained by greenhouse gases.",
+        "Kuvittele ilmakehä peittona: kasvihuonekaasut pidättävät osan Maan pinnan lähettämästä säteilystä."
+    ],
 
     answers: [
-        "Perché i gas serra impediscono completamente alla luce solare di arrivare sulla Terra.",
-        "Perché assorbono e riemettono parte della radiazione infrarossa emessa dalla superficie.",
-        "Perché trasformano l'ossigeno dell'atmosfera direttamente in calore.",
-        "Perché fanno aumentare automaticamente la distanza tra Terra e Sole."
+        [
+            "Perché i gas serra impediscono completamente alla luce solare di arrivare sulla Terra.",
+            "Perché assorbono e riemettono parte della radiazione infrarossa emessa dalla superficie.",
+            "Perché trasformano l'ossigeno dell'atmosfera direttamente in calore.",
+            "Perché fanno aumentare automaticamente la distanza tra Terra e Sole."
+        ],
+        [
+            "Because greenhouse gases completely prevent sunlight from reaching Earth.",
+            "Because they absorb and re-emit part of the infrared radiation emitted by the surface.",
+            "Because they directly transform atmospheric oxygen into heat.",
+            "Because they automatically increase the distance between Earth and the Sun."
+        ],
+        [
+            "Koska kasvihuonekaasut estävät auringonvalon pääsyn kokonaan Maahan.",
+            "Koska ne absorboivat ja säteilevät uudelleen osan pinnan lähettämästä infrapunasäteilystä.",
+            "Koska ne muuttavat ilmakehän hapen suoraan lämmöksi.",
+            "Koska ne lisäävät automaattisesti Maan ja Auringon välistä etäisyyttä."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "I gas serra, come CO₂, metano e vapore acqueo, interagiscono con la radiazione infrarossa. Un aumento della loro concentrazione può rafforzare l'effetto serra naturale."
+    explanation: [
+        "I gas serra, come CO₂, metano e vapore acqueo, interagiscono con la radiazione infrarossa. Un aumento della loro concentrazione può rafforzare l'effetto serra naturale.",
+        "Greenhouse gases such as CO₂, methane and water vapor interact with infrared radiation. An increase in their concentration can strengthen the natural greenhouse effect.",
+        "Kasvihuonekaasut, kuten CO₂, metaani ja vesihöyry, vaikuttavat infrapunasäteilyyn. Niiden pitoisuuden kasvu voi voimistaa luonnollista kasvihuoneilmiötä."
+    ]
 },
 
-{
-    category: "METEO E CLIMA",
+/* 02 */
 
-    question:
+{
+    category: [
+        "METEO E CLIMA",
+        "WEATHER AND CLIMATE",
+        "SÄÄ JA ILMASTO"
+    ],
+
+    question: [
         "Una città registra un inverno insolitamente freddo. Questo dato, da solo, dimostra che il cambiamento climatico si è fermato?",
+        "A city experiences an unusually cold winter. Does this alone prove that climate change has stopped?",
+        "Kokee kaupunki epätavallisen kylmän talven. Todistaako tämä yksin, että ilmastonmuutos on pysähtynyt?"
+    ],
 
-    scenario:
+    scenario: [
         "Un singolo episodio meteorologico può essere molto diverso dalla tendenza osservata su periodi molto più lunghi.",
+        "A single weather event can be very different from a trend observed over much longer periods.",
+        "Yksittäinen sääilmiö voi olla hyvin erilainen kuin paljon pidemmällä ajanjaksolla havaittu kehitys."
+    ],
 
     answers: [
-        "Sì, perché il clima dipende esclusivamente dalle temperature dell'anno corrente.",
-        "Sì, perché un raffreddamento locale annulla il riscaldamento globale.",
-        "No, perché clima e meteo descrivono scale temporali differenti.",
-        "No, perché il clima riguarda solamente gli oceani."
+        [
+            "Sì, perché il clima dipende esclusivamente dalle temperature dell'anno corrente.",
+            "Sì, perché un raffreddamento locale annulla il riscaldamento globale.",
+            "No, perché clima e meteo descrivono scale temporali differenti.",
+            "No, perché il clima riguarda solamente gli oceani."
+        ],
+        [
+            "Yes, because climate depends exclusively on temperatures during the current year.",
+            "Yes, because local cooling cancels global warming.",
+            "No, because weather and climate describe different time scales.",
+            "No, because climate only concerns the oceans."
+        ],
+        [
+            "Kyllä, koska ilmasto riippuu ainoastaan kuluvan vuoden lämpötiloista.",
+            "Kyllä, koska paikallinen viileneminen kumoaa maailmanlaajuisen lämpenemisen.",
+            "Ei, koska sää ja ilmasto kuvaavat eri aikaskaaloja.",
+            "Ei, koska ilmasto koskee vain valtameriä."
+        ]
     ],
 
     correct: 2,
 
-    explanation:
-        "Il meteo descrive condizioni atmosferiche a breve termine. Il clima riguarda invece statistiche e tendenze osservate su periodi molto più lunghi."
+    explanation: [
+        "Il meteo descrive condizioni atmosferiche a breve termine. Il clima riguarda invece statistiche e tendenze osservate su periodi molto più lunghi.",
+        "Weather describes short-term atmospheric conditions. Climate concerns statistics and trends observed over much longer periods.",
+        "Sää kuvaa lyhyen aikavälin ilmakehän olosuhteita. Ilmasto puolestaan perustuu paljon pidempien ajanjaksojen tilastoihin ja kehitykseen."
+    ]
 },
 
-{
-    category: "CO₂",
+/* 03 */
 
-    question:
+{
+    category: [
+        "CO₂",
+        "CO₂",
+        "CO₂"
+    ],
+
+    question: [
         "Quale situazione contribuisce direttamente all'aumento della CO₂ atmosferica?",
+        "Which situation directly contributes to an increase in atmospheric CO₂?",
+        "Mikä tilanne lisää suoraan ilmakehän CO₂-pitoisuutta?"
+    ],
 
-    scenario:
+    scenario: [
         "Considera una centrale elettrica che utilizza un combustibile fossile per produrre energia.",
+        "Consider a power plant that uses a fossil fuel to produce energy.",
+        "Ajattele voimalaitosta, joka käyttää fossiilista polttoainetta energian tuottamiseen."
+    ],
 
     answers: [
-        "La combustione del carbone.",
-        "La formazione delle nuvole.",
-        "La fotosintesi delle piante.",
-        "La condensazione del vapore acqueo."
+        [
+            "La combustione del carbone.",
+            "La formazione delle nuvole.",
+            "La fotosintesi delle piante.",
+            "La condensazione del vapore acqueo."
+        ],
+        [
+            "Burning coal.",
+            "Cloud formation.",
+            "Photosynthesis in plants.",
+            "Condensation of water vapor."
+        ],
+        [
+            "Hiilen polttaminen.",
+            "Pilvien muodostuminen.",
+            "Kasvien fotosynteesi.",
+            "Vesihöyryn tiivistyminen."
+        ]
     ],
 
     correct: 0,
 
-    explanation:
-        "La combustione di combustibili fossili libera carbonio precedentemente immagazzinato nel sottosuolo sotto forma di CO₂."
+    explanation: [
+        "La combustione di combustibili fossili libera carbonio precedentemente immagazzinato nel sottosuolo sotto forma di CO₂.",
+        "Burning fossil fuels releases carbon that was previously stored underground as CO₂.",
+        "Fossiilisten polttoaineiden polttaminen vapauttaa hiiltä, joka oli aiemmin varastoitunut maan alle CO₂:n muodossa."
+    ]
 },
 
-{
-    category: "FORESTE",
+/* 04 */
 
-    question:
+{
+    category: [
+        "FORESTE",
+        "FORESTS",
+        "METSÄT"
+    ],
+
+    question: [
         "Perché la perdita di grandi quantità di foreste può avere conseguenze sul clima?",
+        "Why can the loss of large areas of forest affect the climate?",
+        "Miksi suurten metsäalueiden menetyksellä voi olla vaikutuksia ilmastoon?"
+    ],
 
-    scenario:
+    scenario: [
         "Le foreste non sono importanti soltanto come habitat: partecipano anche al ciclo del carbonio.",
+        "Forests are important not only as habitats: they also participate in the carbon cycle.",
+        "Metsät eivät ole tärkeitä ainoastaan elinympäristöinä, vaan ne osallistuvat myös hiilen kiertoon."
+    ],
 
     answers: [
-        "Perché gli alberi producono direttamente tutto l'ossigeno dell'atmosfera.",
-        "Perché riduce la quantità di vegetazione capace di assorbire CO₂ e può liberare carbonio.",
-        "Perché elimina il campo magnetico terrestre.",
-        "Perché impedisce completamente la formazione delle precipitazioni."
+        [
+            "Perché gli alberi producono direttamente tutto l'ossigeno dell'atmosfera.",
+            "Perché riduce la quantità di vegetazione capace di assorbire CO₂ e può liberare carbonio.",
+            "Perché elimina il campo magnetico terrestre.",
+            "Perché impedisce completamente la formazione delle precipitazioni."
+        ],
+        [
+            "Because trees directly produce all the oxygen in the atmosphere.",
+            "Because it reduces vegetation capable of absorbing CO₂ and can release stored carbon.",
+            "Because it removes Earth's magnetic field.",
+            "Because it completely prevents precipitation from forming."
+        ],
+        [
+            "Koska puut tuottavat suoraan kaiken ilmakehän hapen.",
+            "Koska se vähentää CO₂:ta sitovan kasvillisuuden määrää ja voi vapauttaa hiiltä.",
+            "Koska se poistaa Maan magneettikentän.",
+            "Koska se estää kokonaan sateiden muodostumisen."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Le foreste assorbono CO₂ attraverso la fotosintesi. La deforestazione può ridurre questo assorbimento e, in determinate condizioni, liberare carbonio immagazzinato nella vegetazione e nei suoli."
+    explanation: [
+        "Le foreste assorbono CO₂ attraverso la fotosintesi. La deforestazione può ridurre questo assorbimento e, in determinate condizioni, liberare carbonio immagazzinato nella vegetazione e nei suoli.",
+        "Forests absorb CO₂ through photosynthesis. Deforestation can reduce this absorption and, under certain conditions, release carbon stored in vegetation and soils.",
+        "Metsät sitovat CO₂:ta fotosynteesin avulla. Metsäkato voi vähentää tätä sitomista ja tietyissä olosuhteissa vapauttaa kasvillisuuteen ja maaperään varastoitunutta hiiltä."
+    ]
 },
 
-{
-    category: "GHIACCIO",
+/* 05 */
 
-    question:
+{
+    category: [
+        "GHIACCIO",
+        "ICE",
+        "JÄÄ"
+    ],
+
+    question: [
         "Perché la perdita di ghiaccio marino può contribuire a un ulteriore riscaldamento?",
+        "Why can the loss of sea ice contribute to further warming?",
+        "Miksi merijään väheneminen voi edistää lisälämpenemistä?"
+    ],
 
-    scenario:
+    scenario: [
         "Confronta una superficie chiara come il ghiaccio con una superficie scura come l'oceano.",
+        "Compare a bright surface such as ice with a dark surface such as the ocean.",
+        "Vertaa vaaleaa pintaa, kuten jäätä, tummaan pintaan, kuten meren pintaan."
+    ],
 
     answers: [
-        "Perché il ghiaccio produce CO₂ quando si scioglie.",
-        "Perché l'acqua oceanica riflette più luce del ghiaccio.",
-        "Perché una superficie più scura assorbe in genere più radiazione solare.",
-        "Perché il ghiaccio impedisce al vento di soffiare."
+        [
+            "Perché il ghiaccio produce CO₂ quando si scioglie.",
+            "Perché l'acqua oceanica riflette più luce del ghiaccio.",
+            "Perché una superficie più scura assorbe in genere più radiazione solare.",
+            "Perché il ghiaccio impedisce al vento di soffiare."
+        ],
+        [
+            "Because ice produces CO₂ when it melts.",
+            "Because ocean water reflects more light than ice.",
+            "Because a darker surface generally absorbs more solar radiation.",
+            "Because ice prevents the wind from blowing."
+        ],
+        [
+            "Koska jää tuottaa CO₂:ta sulaessaan.",
+            "Koska merivesi heijastaa enemmän valoa kuin jää.",
+            "Koska tummempi pinta yleensä absorboi enemmän auringon säteilyä.",
+            "Koska jää estää tuulta puhaltamasta."
+        ]
     ],
 
     correct: 2,
 
-    explanation:
-        "Il ghiaccio ha un'elevata riflettività. Quando diminuisce, superfici più scure come l'oceano possono assorbire più energia solare: questo è collegato all'effetto albedo."
+    explanation: [
+        "Il ghiaccio ha un'elevata riflettività. Quando diminuisce, superfici più scure come l'oceano possono assorbire più energia solare: questo è collegato all'effetto albedo.",
+        "Ice has high reflectivity. When it decreases, darker surfaces such as the ocean can absorb more solar energy. This is related to the albedo effect.",
+        "Jää heijastaa paljon säteilyä. Kun jään määrä vähenee, tummemmat pinnat kuten meri voivat absorboida enemmän aurinkoenergiaa. Tätä kutsutaan albedo-vaikutukseksi."
+    ]
 },
 
-{
-    category: "VERO O FALSO",
+/* 06 */
 
-    question:
+{
+    category: [
+        "VERO O FALSO",
+        "TRUE OR FALSE",
+        "TOTTA VAI TARUA"
+    ],
+
+    question: [
         "Vero o falso: il cambiamento climatico significa semplicemente che ogni giorno farà più caldo del giorno precedente.",
+        "True or false: climate change simply means that every day will be warmer than the previous day.",
+        "Totta vai tarua: ilmastonmuutos tarkoittaa yksinkertaisesti sitä, että jokainen päivä on edellistä lämpimämpi."
+    ],
 
-    scenario:
+    scenario: [
         "Il clima non descrive il singolo giorno, ma variazioni delle condizioni atmosferiche osservate su periodi lunghi.",
+        "Climate does not describe a single day, but changes in atmospheric conditions observed over long periods.",
+        "Ilmasto ei kuvaa yksittäistä päivää, vaan ilmakehän olosuhteiden muutoksia pitkällä aikavälillä."
+    ],
 
     answers: [
-        "VERO",
-        "FALSO"
+        [
+            "VERO",
+            "FALSO"
+        ],
+        [
+            "TRUE",
+            "FALSE"
+        ],
+        [
+            "TOTTA",
+            "TARUA"
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "FALSO. Il cambiamento climatico riguarda variazioni delle condizioni climatiche nel lungo periodo. Possono comunque verificarsi giorni o periodi freddi anche in un clima che si sta riscaldando."
+    explanation: [
+        "FALSO. Il cambiamento climatico riguarda variazioni delle condizioni climatiche nel lungo periodo. Possono comunque verificarsi giorni o periodi freddi anche in un clima che si sta riscaldando.",
+        "FALSE. Climate change concerns long-term changes in climate conditions. Cold days or periods can still occur in a warming climate.",
+        "TARUA. Ilmastonmuutos tarkoittaa ilmasto-olosuhteiden pitkäaikaisia muutoksia. Myös lämpenevässä ilmastossa voi esiintyä kylmiä päiviä tai jaksoja."
+    ]
 },
 
-{
-    category: "OCEANI",
+/* 07 */
 
-    question:
+{
+    category: [
+        "OCEANI",
+        "OCEANS",
+        "VALTAMERET"
+    ],
+
+    question: [
         "Quale effetto può avere il riscaldamento degli oceani?",
+        "What effect can ocean warming have?",
+        "Mitä vaikutuksia valtamerten lämpenemisellä voi olla?"
+    ],
 
-    scenario:
+    scenario: [
         "Gli oceani assorbono una grande quantità del calore aggiuntivo presente nel sistema climatico.",
+        "The oceans absorb a large amount of the additional heat in the climate system.",
+        "Valtameret absorboivat suuren osan ilmastojärjestelmän ylimääräisestä lämmöstä."
+    ],
 
     answers: [
-        "Nessun effetto, perché l'acqua non può accumulare calore.",
-        "Può contribuire all'espansione termica dell'acqua e influenzare gli ecosistemi marini.",
-        "Fa scomparire immediatamente tutto il ghiaccio terrestre.",
-        "Trasforma l'acqua salata in acqua dolce."
+        [
+            "Nessun effetto, perché l'acqua non può accumulare calore.",
+            "Può contribuire all'espansione termica dell'acqua e influenzare gli ecosistemi marini.",
+            "Fa scomparire immediatamente tutto il ghiaccio terrestre.",
+            "Trasforma l'acqua salata in acqua dolce."
+        ],
+        [
+            "No effect, because water cannot store heat.",
+            "It can contribute to the thermal expansion of water and affect marine ecosystems.",
+            "It immediately makes all land ice disappear.",
+            "It turns salt water into fresh water."
+        ],
+        [
+            "Ei vaikutusta, koska vesi ei voi varastoida lämpöä.",
+            "Se voi aiheuttaa veden lämpölaajenemista ja vaikuttaa meriekosysteemeihin.",
+            "Se sulattaa välittömästi kaiken maajään.",
+            "Se muuttaa suolaveden makeaksi vedeksi."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "L'acqua marina si espande quando si riscalda. Inoltre il riscaldamento degli oceani può avere conseguenze importanti sugli ecosistemi marini."
+    explanation: [
+        "L'acqua marina si espande quando si riscalda. Inoltre il riscaldamento degli oceani può avere conseguenze importanti sugli ecosistemi marini.",
+        "Seawater expands as it warms. Ocean warming can also have important consequences for marine ecosystems.",
+        "Merivesi laajenee lämmetessään. Valtamerten lämpenemisellä voi myös olla merkittäviä vaikutuksia meriekosysteemeihin."
+    ]
 },
 
-{
-    category: "BUCO DELL'OZONO",
+/* 08 */
 
-    question:
+{
+    category: [
+        "BUCO DELL'OZONO",
+        "OZONE HOLE",
+        "OTSONIAUKKO"
+    ],
+
+    question: [
         "Il buco dell'ozono e il cambiamento climatico sono esattamente lo stesso fenomeno?",
+        "Are the ozone hole and climate change exactly the same phenomenon?",
+        "Ovatko otsoniaukko ja ilmastonmuutos täsmälleen sama ilmiö?"
+    ],
 
-    scenario:
+    scenario: [
         "Entrambi riguardano l'atmosfera, ma coinvolgono processi differenti.",
+        "Both concern the atmosphere, but they involve different processes.",
+        "Molemmat liittyvät ilmakehään, mutta niihin liittyvät eri prosessit."
+    ],
 
     answers: [
-        "Sì, sono semplicemente due nomi dello stesso fenomeno.",
-        "No, riguardano fenomeni diversi, anche se esistono alcune interazioni tra atmosfera e clima.",
-        "Sì, perché entrambi sono causati principalmente dalla CO₂.",
-        "No, perché il buco dell'ozono riguarda esclusivamente gli oceani."
+        [
+            "Sì, sono semplicemente due nomi dello stesso fenomeno.",
+            "No, riguardano fenomeni diversi, anche se esistono alcune interazioni tra atmosfera e clima.",
+            "Sì, perché entrambi sono causati principalmente dalla CO₂.",
+            "No, perché il buco dell'ozono riguarda esclusivamente gli oceani."
+        ],
+        [
+            "Yes, they are simply two names for the same phenomenon.",
+            "No, they concern different phenomena, although there are some interactions between the atmosphere and climate.",
+            "Yes, because both are mainly caused by CO₂.",
+            "No, because the ozone hole concerns only the oceans."
+        ],
+        [
+            "Kyllä, ne ovat vain kaksi nimeä samalle ilmiölle.",
+            "Ei, kyseessä ovat eri ilmiöt, vaikka ilmakehän ja ilmaston välillä on joitakin yhteyksiä.",
+            "Kyllä, koska CO₂ aiheuttaa pääasiassa molemmat.",
+            "Ei, koska otsoniaukko koskee ainoastaan valtameriä."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Il buco dell'ozono riguarda soprattutto la riduzione dell'ozono stratosferico, mentre il cambiamento climatico è fortemente legato all'aumento dei gas serra. Sono fenomeni distinti."
+    explanation: [
+        "Il buco dell'ozono riguarda soprattutto la riduzione dell'ozono stratosferico, mentre il cambiamento climatico è fortemente legato all'aumento dei gas serra. Sono fenomeni distinti.",
+        "The ozone hole mainly concerns the reduction of stratospheric ozone, while climate change is strongly linked to increasing greenhouse gases. They are distinct phenomena.",
+        "Otsoniaukko liittyy ennen kaikkea stratosfäärin otsonin vähenemiseen, kun taas ilmastonmuutos liittyy voimakkaasti kasvihuonekaasujen lisääntymiseen. Ne ovat eri ilmiöitä."
+    ]
 },
 
-{
-    category: "BUCO DELL'OZONO",
+/* 09 */
 
-    question:
+{
+    category: [
+        "BUCO DELL'OZONO",
+        "OZONE HOLE",
+        "OTSONIAUKKO"
+    ],
+
+    question: [
         "Quale sostanza è stata storicamente importante nella distruzione dell'ozono stratosferico?",
+        "Which substance has historically played an important role in the destruction of stratospheric ozone?",
+        "Millä aineella on ollut historiallisesti merkittävä rooli stratosfäärin otsonin tuhoutumisessa?"
+    ],
 
-    scenario:
+    scenario: [
         "Alcune sostanze utilizzate in passato in frigoriferi, aerosol e altri prodotti potevano raggiungere la stratosfera.",
+        "Some substances formerly used in refrigerators, aerosols and other products could reach the stratosphere.",
+        "Joissakin aiemmin jääkaapeissa, aerosoleissa ja muissa tuotteissa käytetyissä aineissa oli yhdisteitä, jotka saattoivat päästä stratosfääriin."
+    ],
 
     answers: [
-        "Clorofluorocarburi (CFC).",
-        "Ossigeno molecolare.",
-        "Azoto atmosferico.",
-        "Anidride carbonica."
+        [
+            "Clorofluorocarburi (CFC).",
+            "Ossigeno molecolare.",
+            "Azoto atmosferico.",
+            "Anidride carbonica."
+        ],
+        [
+            "Chlorofluorocarbons (CFCs).",
+            "Molecular oxygen.",
+            "Atmospheric nitrogen.",
+            "Carbon dioxide."
+        ],
+        [
+            "Kloorifluorihiilivedyt (CFC-yhdisteet).",
+            "Molekyylihappi.",
+            "Ilmakehän typpi.",
+            "Hiilidioksidi."
+        ]
     ],
 
     correct: 0,
 
-    explanation:
-        "I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono."
+    explanation: [
+        "I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono.",
+        "CFCs can release chlorine in the stratosphere. Chlorine participates in reactions that destroy ozone.",
+        "CFC-yhdisteet voivat vapauttaa klooria stratosfäärissä. Kloori osallistuu reaktioihin, jotka tuhoavat otsonia."
+    ]
 },
 
-{
-    category: "BUCO DELL'OZONO",
+/* 10 */
 
-    question:
+{
+    category: [
+        "BUCO DELL'OZONO",
+        "OZONE HOLE",
+        "OTSONIAUKKO"
+    ],
+
+    question: [
         "Perché lo strato di ozono è importante per la vita sulla Terra?",
+        "Why is the ozone layer important for life on Earth?",
+        "Miksi otsonikerros on tärkeä elämälle Maassa?"
+    ],
 
-    scenario:
+    scenario: [
         "Pensa a cosa potrebbe accadere se una quantità molto maggiore di radiazione ultravioletta raggiungesse la superficie.",
+        "Think about what could happen if a much greater amount of ultraviolet radiation reached the surface.",
+        "Mieti, mitä voisi tapahtua, jos paljon suurempi määrä ultraviolettisäteilyä saavuttaisi Maan pinnan."
+    ],
 
     answers: [
-        "Perché produce tutto l'ossigeno respirato dagli esseri umani.",
-        "Perché assorbe una parte importante della radiazione ultravioletta proveniente dal Sole.",
-        "Perché impedisce completamente il riscaldamento globale.",
-        "Perché mantiene costante la quantità di CO₂."
+        [
+            "Perché produce tutto l'ossigeno respirato dagli esseri umani.",
+            "Perché assorbe una parte importante della radiazione ultravioletta proveniente dal Sole.",
+            "Perché impedisce completamente il riscaldamento globale.",
+            "Perché mantiene costante la quantità di CO₂."
+        ],
+        [
+            "Because it produces all the oxygen humans breathe.",
+            "Because it absorbs a significant part of the ultraviolet radiation from the Sun.",
+            "Because it completely prevents global warming.",
+            "Because it keeps the amount of CO₂ constant."
+        ],
+        [
+            "Koska se tuottaa kaiken ihmisten hengittämän hapen.",
+            "Koska se absorboi suuren osan Auringosta tulevasta ultraviolettisäteilystä.",
+            "Koska se estää kokonaan ilmaston lämpenemisen.",
+            "Koska se pitää CO₂:n määrän vakiona."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole."
+    explanation: [
+        "L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole.",
+        "Stratospheric ozone absorbs much of the harmful ultraviolet radiation coming from the Sun.",
+        "Stratosfäärin otsoni absorboi suuren osan Auringosta tulevasta haitallisesta ultraviolettisäteilystä."
+    ]
 },
 
-{
-    category: "ENERGIA",
+/* 11 */
 
-    question:
+{
+    category: [
+        "ENERGIA",
+        "ENERGY",
+        "ENERGIA"
+    ],
+
+    question: [
         "Una città sostituisce una parte dell'elettricità prodotta da carbone con energia solare. Quale cambiamento è più direttamente atteso?",
+        "A city replaces part of its coal-generated electricity with solar energy. What change would be most directly expected?",
+        "Kaupunki korvaa osan hiilellä tuotetusta sähköstä aurinkoenergialla. Mitä muutosta voidaan odottaa suoraan?"
+    ],
 
-    scenario:
+    scenario: [
         "Considera il caso in cui la nuova produzione solare sostituisca realmente una parte della produzione da combustibili fossili.",
+        "Consider the case where the new solar generation actually replaces part of fossil-fuel generation.",
+        "Oleta, että uusi aurinkosähkö todella korvaa osan fossiilisilla polttoaineilla tuotetusta sähköstä."
+    ],
 
     answers: [
-        "Aumento diretto delle emissioni di CO₂ della centrale a carbone.",
-        "Riduzione delle emissioni associate alla produzione dell'elettricità sostituita.",
-        "Aumento della quantità di carbone necessaria.",
-        "Scomparsa dell'effetto serra naturale."
+        [
+            "Aumento diretto delle emissioni di CO₂ della centrale a carbone.",
+            "Riduzione delle emissioni associate alla produzione dell'elettricità sostituita.",
+            "Aumento della quantità di carbone necessaria.",
+            "Scomparsa dell'effetto serra naturale."
+        ],
+        [
+            "A direct increase in CO₂ emissions from the coal plant.",
+            "A reduction in emissions associated with the replaced electricity generation.",
+            "An increase in the amount of coal required.",
+            "The disappearance of the natural greenhouse effect."
+        ],
+        [
+            "Hiilivoimalan CO₂-päästöjen suora kasvu.",
+            "Korvatun sähköntuotannon päästöjen väheneminen.",
+            "Tarvittavan hiilen määrän kasvu.",
+            "Luonnollisen kasvihuoneilmiön katoaminen."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione."
+    explanation: [
+        "Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione.",
+        "If solar electricity replaces coal generation, emissions associated with that share of generation decrease.",
+        "Jos aurinkosähkö korvaa hiilellä tuotettua sähköä, kyseiseen tuotanto-osuuteen liittyvät päästöt vähenevät."
+    ]
 },
 
-{
-    category: "VERO O FALSO",
+/* 12 */
 
-    question:
+{
+    category: [
+        "VERO O FALSO",
+        "TRUE OR FALSE",
+        "TOTTA VAI TARUA"
+    ],
+
+    question: [
         "Vero o falso: il vapore acqueo è un gas serra naturale.",
+        "True or false: water vapor is a natural greenhouse gas.",
+        "Totta vai tarua: vesihöyry on luonnollinen kasvihuonekaasu."
+    ],
 
-    scenario:
+    scenario: [
         "Il vapore acqueo è presente naturalmente nell'atmosfera e partecipa all'effetto serra.",
+        "Water vapor occurs naturally in the atmosphere and contributes to the greenhouse effect.",
+        "Vesihöyryä esiintyy luonnostaan ilmakehässä ja se osallistuu kasvihuoneilmiöön."
+    ],
 
     answers: [
-        "VERO",
-        "FALSO"
+        [
+            "VERO",
+            "FALSO"
+        ],
+        [
+            "TRUE",
+            "FALSE"
+        ],
+        [
+            "TOTTA",
+            "TARUA"
+        ]
     ],
 
     correct: 0,
 
-    explanation:
-        "VERO. Il vapore acqueo è un gas serra naturale e svolge un ruolo importante nel sistema climatico."
+    explanation: [
+        "VERO. Il vapore acqueo è un gas serra naturale e svolge un ruolo importante nel sistema climatico.",
+        "TRUE. Water vapor is a natural greenhouse gas and plays an important role in the climate system.",
+        "TOTTA. Vesihöyry on luonnollinen kasvihuonekaasu ja sillä on tärkeä rooli ilmastojärjestelmässä."
+    ]
 },
 
+/* 13 */
+
 {
-    category: "TRASPORTI",
+    category: [
+        "TRASPORTI",
+        "TRANSPORT",
+        "LIIKENNE"
+    ],
 
-    question:
+    question: [
         "Due persone devono percorrere ogni giorno pochi chilometri in una città ben servita dai trasporti pubblici. Quale scelta può contribuire a ridurre le emissioni legate agli spostamenti?",
+        "Two people need to travel a few kilometers every day in a city with good public transport. Which choice can help reduce transport-related emissions?",
+        "Kaksi ihmistä kulkee päivittäin muutaman kilometrin kaupungissa, jossa on hyvät julkiset liikenneyhteydet. Mikä valinta voi vähentää liikkumiseen liittyviä päästöjä?"
+    ],
 
-    scenario:
+    scenario: [
         "Considera il caso specifico descritto e le alternative realmente praticabili.",
+        "Consider the specific situation and the alternatives that are realistically available.",
+        "Tarkastele kuvattua tilannetta ja käytännössä mahdollisia vaihtoehtoja."
+    ],
 
     answers: [
-        "Utilizzare sempre un'auto privata anche quando non è necessaria.",
-        "Valutare bicicletta, spostamenti a piedi o trasporto pubblico quando sono praticabili.",
-        "Lasciare il motore acceso durante tutto il tragitto.",
-        "Aumentare la distanza percorsa ogni giorno."
+        [
+            "Utilizzare sempre un'auto privata anche quando non è necessaria.",
+            "Valutare bicicletta, spostamenti a piedi o trasporto pubblico quando sono praticabili.",
+            "Lasciare il motore acceso durante tutto il tragitto.",
+            "Aumentare la distanza percorsa ogni giorno."
+        ],
+        [
+            "Always use a private car even when it is unnecessary.",
+            "Consider cycling, walking or public transport when practical.",
+            "Leave the engine running throughout the journey.",
+            "Increase the distance traveled every day."
+        ],
+        [
+            "Käyttää aina yksityisautoa, vaikka se ei olisi tarpeen.",
+            "Harkita pyöräilyä, kävelyä tai julkista liikennettä, kun ne ovat mahdollisia.",
+            "Pitää moottori käynnissä koko matkan ajan.",
+            "Lisätä päivittäin kuljettua matkaa."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati."
+    explanation: [
+        "Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati.",
+        "When practical, active mobility and public transport can reduce the use of private vehicles.",
+        "Kun se on käytännössä mahdollista, kävely, pyöräily ja julkinen liikenne voivat vähentää yksityisautojen käyttöä."
+    ]
 },
 
+/* 14 */
+
 {
-    category: "ADATTAMENTO",
+    category: [
+        "ADATTAMENTO",
+        "ADAPTATION",
+        "SOPEUTUMINEN"
+    ],
 
-    question:
+    question: [
         "Una città costruisce aree verdi e sistemi per gestire meglio l'acqua piovana durante forti precipitazioni. Questa è principalmente una misura di:",
+        "A city creates green areas and systems to better manage rainwater during heavy precipitation. This is mainly a measure of:",
+        "Kaupunki rakentaa viheralueita ja järjestelmiä sadeveden hallitsemiseksi voimakkaiden sateiden aikana. Tämä on ensisijaisesti:"
+    ],
 
-    scenario:
+    scenario: [
         "La città sta cercando di gestire alcuni rischi associati ai cambiamenti climatici.",
+        "The city is trying to manage some risks associated with climate change.",
+        "Kaupunki pyrkii hallitsemaan joitakin ilmastonmuutokseen liittyviä riskejä."
+    ],
 
     answers: [
-        "Adattamento.",
-        "Aumento delle emissioni.",
-        "Riduzione dello strato di ozono.",
-        "Combustione del carbonio."
+        [
+            "Adattamento.",
+            "Aumento delle emissioni.",
+            "Riduzione dello strato di ozono.",
+            "Combustione del carbonio."
+        ],
+        [
+            "Adaptation.",
+            "Increased emissions.",
+            "Reduction of the ozone layer.",
+            "Carbon combustion."
+        ],
+        [
+            "Sopeutumista.",
+            "Päästöjen lisäämistä.",
+            "Otsonikerroksen vähentämistä.",
+            "Hiilen polttamista."
+        ]
     ],
 
     correct: 0,
 
-    explanation:
-        "L'adattamento comprende interventi che riducono i danni o i rischi associati agli effetti del cambiamento climatico."
+    explanation: [
+        "L'adattamento comprende interventi che riducono i danni o i rischi associati agli effetti del cambiamento climatico.",
+        "Adaptation includes actions that reduce damage or risks associated with the effects of climate change.",
+        "Sopeutuminen tarkoittaa toimia, joilla vähennetään ilmastonmuutoksen vaikutuksiin liittyviä vahinkoja tai riskejä."
+    ]
 },
 
+/* 15 */
+
 {
-    category: "MITIGAZIONE",
+    category: [
+        "MITIGAZIONE",
+        "MITIGATION",
+        "HILLINTÄ"
+    ],
 
-    question:
+    question: [
         "Quale delle seguenti è principalmente una misura di mitigazione?",
+        "Which of the following is mainly a mitigation measure?",
+        "Mikä seuraavista on ensisijaisesti ilmastonmuutoksen hillintätoimi?"
+    ],
 
-    scenario:
+    scenario: [
         "La mitigazione mira soprattutto a ridurre le cause del cambiamento climatico.",
+        "Mitigation mainly aims to reduce the causes of climate change.",
+        "Ilmastonmuutoksen hillinnällä pyritään ensisijaisesti vähentämään ilmastonmuutoksen syitä."
+    ],
 
     answers: [
-        "Costruire barriere contro l'innalzamento del mare.",
-        "Installare sistemi di raffreddamento negli edifici durante le ondate di calore.",
-        "Ridurre le emissioni di gas serra.",
-        "Spostare una strada lontano da una zona soggetta ad allagamenti."
+        [
+            "Costruire barriere contro l'innalzamento del mare.",
+            "Installare sistemi di raffreddamento negli edifici durante le ondate di calore.",
+            "Ridurre le emissioni di gas serra.",
+            "Spostare una strada lontano da una zona soggetta ad allagamenti."
+        ],
+        [
+            "Building barriers against sea-level rise.",
+            "Installing cooling systems in buildings during heat waves.",
+            "Reducing greenhouse gas emissions.",
+            "Moving a road away from a flood-prone area."
+        ],
+        [
+            "Rakentaa esteitä merenpinnan nousua vastaan.",
+            "Asentaa rakennuksiin jäähdytysjärjestelmiä helleaaltojen aikana.",
+            "Vähentää kasvihuonekaasupäästöjä.",
+            "Siirtää tie pois tulville alttiilta alueelta."
+        ]
     ],
 
     correct: 2,
 
-    explanation:
-        "La mitigazione consiste soprattutto nel ridurre le emissioni di gas serra o aumentare la loro rimozione dall'atmosfera."
+    explanation: [
+        "La mitigazione consiste soprattutto nel ridurre le emissioni di gas serra o aumentare la loro rimozione dall'atmosfera.",
+        "Mitigation mainly involves reducing greenhouse gas emissions or increasing their removal from the atmosphere.",
+        "Hillintä tarkoittaa ennen kaikkea kasvihuonekaasupäästöjen vähentämistä tai niiden poistamisen lisäämistä ilmakehästä."
+    ]
 },
 
-{
-    category: "CARBONIO",
+/* 16 */
 
-    question:
+{
+    category: [
+        "CARBONIO",
+        "CARBON",
+        "HIILI"
+    ],
+
+    question: [
         "Perché gli oceani sono importanti nel ciclo globale del carbonio?",
+        "Why are oceans important in the global carbon cycle?",
+        "Miksi valtameret ovat tärkeitä maailmanlaajuisessa hiilen kierrossa?"
+    ],
 
-    scenario:
+    scenario: [
         "L'oceano scambia continuamente carbonio con l'atmosfera.",
+        "The ocean continuously exchanges carbon with the atmosphere.",
+        "Valtameret vaihtavat jatkuvasti hiiltä ilmakehän kanssa."
+    ],
 
     answers: [
-        "Perché non contiene mai carbonio.",
-        "Perché assorbe e immagazzina una parte della CO₂ presente nel sistema Terra.",
-        "Perché trasforma tutta la CO₂ in ossigeno.",
-        "Perché elimina completamente le emissioni umane."
+        [
+            "Perché non contiene mai carbonio.",
+            "Perché assorbe e immagazzina una parte della CO₂ presente nel sistema Terra.",
+            "Perché trasforma tutta la CO₂ in ossigeno.",
+            "Perché elimina completamente le emissioni umane."
+        ],
+        [
+            "Because it never contains carbon.",
+            "Because it absorbs and stores part of the CO₂ present in the Earth system.",
+            "Because it converts all CO₂ into oxygen.",
+            "Because it completely eliminates human emissions."
+        ],
+        [
+            "Koska se ei koskaan sisällä hiiltä.",
+            "Koska se absorboi ja varastoi osan maapallon järjestelmässä olevasta CO₂:sta.",
+            "Koska se muuttaa kaiken CO₂:n hapeksi.",
+            "Koska se poistaa kokonaan ihmisen aiheuttamat päästöt."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio."
+    explanation: [
+        "Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio.",
+        "Oceans absorb some atmospheric CO₂ and play an important role in the global carbon cycle.",
+        "Valtameret absorboivat osan ilmakehän CO₂:sta ja niillä on tärkeä rooli maailmanlaajuisessa hiilen kierrossa."
+    ]
 },
 
-{
-    category: "EVENTI ESTREMI",
+/* 17 */
 
-    question:
+{
+    category: [
+        "EVENTI ESTREMI",
+        "EXTREME EVENTS",
+        "ÄÄRIOLOSUHTEET"
+    ],
+
+    question: [
         "Quale affermazione descrive meglio il rapporto tra cambiamento climatico ed eventi estremi?",
+        "Which statement best describes the relationship between climate change and extreme events?",
+        "Mikä väite kuvaa parhaiten ilmastonmuutoksen ja äärimmäisten sääilmiöiden välistä suhdetta?"
+    ],
 
-    scenario:
+    scenario: [
         "Non significa che ogni singolo evento estremo sia causato esclusivamente dal cambiamento climatico.",
+        "This does not mean that every individual extreme event is caused exclusively by climate change.",
+        "Tämä ei tarkoita, että jokainen yksittäinen äärimmäinen sääilmiö johtuisi yksinomaan ilmastonmuutoksesta."
+    ],
 
     answers: [
-        "Il cambiamento climatico rende impossibili tutti gli eventi estremi naturali.",
-        "Il cambiamento climatico può modificare la probabilità o l'intensità di alcuni eventi estremi.",
-        "Ogni singola tempesta è causata direttamente dalla CO₂.",
-        "Gli eventi estremi non hanno alcun rapporto con il clima."
+        [
+            "Il cambiamento climatico rende impossibili tutti gli eventi estremi naturali.",
+            "Il cambiamento climatico può modificare la probabilità o l'intensità di alcuni eventi estremi.",
+            "Ogni singola tempesta è causata direttamente dalla CO₂.",
+            "Gli eventi estremi non hanno alcun rapporto con il clima."
+        ],
+        [
+            "Climate change makes all natural extreme events impossible.",
+            "Climate change can alter the probability or intensity of some extreme events.",
+            "Every single storm is directly caused by CO₂.",
+            "Extreme events have no relationship with climate."
+        ],
+        [
+            "Ilmastonmuutos tekee kaikista luonnollisista äärimmäisistä sääilmiöistä mahdottomia.",
+            "Ilmastonmuutos voi muuttaa joidenkin äärimmäisten sääilmiöiden todennäköisyyttä tai voimakkuutta.",
+            "Jokainen yksittäinen myrsky johtuu suoraan CO₂:sta.",
+            "Äärimmäisillä sääilmiöillä ei ole mitään yhteyttä ilmastoon."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi."
+    explanation: [
+        "Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi.",
+        "Climate change can influence the probability, duration or intensity of some extreme events.",
+        "Ilmastonmuutos voi vaikuttaa joidenkin äärimmäisten sääilmiöiden todennäköisyyteen, kestoon tai voimakkuuteen."
+    ]
 },
 
+/* 18 */
+
 {
-    category: "ALBEDO",
+    category: [
+        "ALBEDO",
+        "ALBEDO",
+        "ALBEDO"
+    ],
 
-    question:
+    question: [
         "Quale superficie tende generalmente a riflettere una maggiore quantità di radiazione solare?",
+        "Which surface generally tends to reflect a greater amount of solar radiation?",
+        "Mikä pinta yleensä heijastaa suuremman määrän auringon säteilyä?"
+    ],
 
-    scenario:
+    scenario: [
         "Confronta una superficie molto chiara con una superficie molto scura.",
+        "Compare a very light surface with a very dark surface.",
+        "Vertaa hyvin vaaleaa pintaa hyvin tummaan pintaan."
+    ],
 
     answers: [
-        "Una superficie innevata e chiara.",
-        "Una superficie nera.",
-        "Una superficie asfaltata scura.",
-        "Una superficie oceanica molto scura."
+        [
+            "Una superficie innevata e chiara.",
+            "Una superficie nera.",
+            "Una superficie asfaltata scura.",
+            "Una superficie oceanica molto scura."
+        ],
+        [
+            "A bright, snow-covered surface.",
+            "A black surface.",
+            "A dark asphalt surface.",
+            "A very dark ocean surface."
+        ],
+        [
+            "Vaalea lumipeitteinen pinta.",
+            "Musta pinta.",
+            "Tumma asfalttipinta.",
+            "Hyvin tumma meren pinta."
+        ]
     ],
 
     correct: 0,
 
-    explanation:
-        "Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore."
+    explanation: [
+        "Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore.",
+        "Bright surfaces such as snow and ice generally have a higher albedo.",
+        "Vaaleilla pinnoilla, kuten lumella ja jäällä, on yleensä suurempi albedo."
+    ]
 },
 
-{
-    category: "SCENARIO",
+/* 19 */
 
-    question:
+{
+    category: [
+        "SCENARIO",
+        "SCENARIO",
+        "SKENAARIO"
+    ],
+
+    question: [
         "Una persona dice: 'Se piantiamo alberi, possiamo continuare a bruciare combustibili fossili senza problemi'. Qual è il problema principale di questo ragionamento?",
+        "A person says: 'If we plant trees, we can continue burning fossil fuels without problems.' What is the main problem with this reasoning?",
+        "Henkilö sanoo: 'Jos istutamme puita, voimme jatkaa fossiilisten polttoaineiden polttamista ilman ongelmia.' Mikä on tämän ajattelun suurin ongelma?"
+    ],
 
-    scenario:
+    scenario: [
         "Gli alberi possono assorbire CO₂, ma il loro assorbimento è limitato e dipende da diversi fattori.",
+        "Trees can absorb CO₂, but their capacity to absorb it is limited and depends on several factors.",
+        "Puut voivat sitoa CO₂:ta, mutta niiden sitomiskyky on rajallinen ja riippuu useista tekijöistä."
+    ],
 
     answers: [
-        "Gli alberi non interagiscono mai con la CO₂.",
-        "Gli alberi possono assorbire carbonio, ma non rendono illimitate le emissioni fossili.",
-        "Gli alberi producono soltanto metano.",
-        "La CO₂ non può essere assorbita dalla vegetazione."
+        [
+            "Gli alberi non interagiscono mai con la CO₂.",
+            "Gli alberi possono assorbire carbonio, ma non rendono illimitate le emissioni fossili.",
+            "Gli alberi producono soltanto metano.",
+            "La CO₂ non può essere assorbita dalla vegetazione."
+        ],
+        [
+            "Trees never interact with CO₂.",
+            "Trees can absorb carbon, but they do not make fossil-fuel emissions unlimited.",
+            "Trees only produce methane.",
+            "CO₂ cannot be absorbed by vegetation."
+        ],
+        [
+            "Puut eivät koskaan ole vuorovaikutuksessa CO₂:n kanssa.",
+            "Puut voivat sitoa hiiltä, mutta ne eivät tee fossiilisista päästöistä rajattomia.",
+            "Puut tuottavat vain metaania.",
+            "Kasvillisuus ei voi sitoa CO₂:ta."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "La vegetazione può rimuovere e immagazzinare carbonio, ma questa capacità è limitata e non sostituisce automaticamente la riduzione delle emissioni alla fonte."
+    explanation: [
+        "La vegetazione può rimuovere e immagazzinare carbonio, ma questa capacità è limitata e non sostituisce automaticamente la riduzione delle emissioni alla fonte.",
+        "Vegetation can remove and store carbon, but this capacity is limited and does not automatically replace reducing emissions at their source.",
+        "Kasvillisuus voi poistaa ja varastoida hiiltä, mutta sen kapasiteetti on rajallinen eikä se automaattisesti korvaa päästöjen vähentämistä niiden lähteellä."
+    ]
 },
 
+/* 20 */
+
 {
-    category: "SFIDA FINALE",
+    category: [
+        "SFIDA FINALE",
+        "FINAL CHALLENGE",
+        "LOPPUHAASTE"
+    ],
 
-    question:
+    question: [
         "Quale affermazione distingue meglio tre problemi atmosferici diversi?",
+        "Which statement best distinguishes three different atmospheric issues?",
+        "Mikä väite erottaa parhaiten kolme erilaista ilmakehään liittyvää ongelmaa?"
+    ],
 
-    scenario:
+    scenario: [
         "Devi spiegare alla classe la differenza tra effetto serra, cambiamento climatico e riduzione dell'ozono stratosferico.",
+        "You have to explain to your class the difference between the greenhouse effect, climate change and the reduction of stratospheric ozone.",
+        "Sinun täytyy selittää luokallesi kasvihuoneilmiön, ilmastonmuutoksen ja stratosfäärin otsonin vähenemisen erot."
+    ],
 
     answers: [
-        "Sono tutti lo stesso fenomeno e hanno esattamente le stesse cause.",
-        "L'effetto serra è un fenomeno naturale; il suo rafforzamento contribuisce al riscaldamento, mentre la riduzione dell'ozono stratosferico è un fenomeno distinto.",
-        "Il buco dell'ozono è causato direttamente dal traffico automobilistico e coincide con il riscaldamento globale.",
-        "Il cambiamento climatico dipende esclusivamente dall'ozono."
+        [
+            "Sono tutti lo stesso fenomeno e hanno esattamente le stesse cause.",
+            "L'effetto serra è un fenomeno naturale; il suo rafforzamento contribuisce al riscaldamento, mentre la riduzione dell'ozono stratosferico è un fenomeno distinto.",
+            "Il buco dell'ozono è causato direttamente dal traffico automobilistico e coincide con il riscaldamento globale.",
+            "Il cambiamento climatico dipende esclusivamente dall'ozono."
+        ],
+        [
+            "They are all the same phenomenon and have exactly the same causes.",
+            "The greenhouse effect is a natural phenomenon; its strengthening contributes to warming, while the reduction of stratospheric ozone is a distinct phenomenon.",
+            "The ozone hole is directly caused by car traffic and is the same as global warming.",
+            "Climate change depends exclusively on ozone."
+        ],
+        [
+            "Ne ovat kaikki sama ilmiö ja niillä on täsmälleen samat syyt.",
+            "Kasvihuoneilmiö on luonnollinen ilmiö; sen voimistuminen edistää lämpenemistä, kun taas stratosfäärin otsonin väheneminen on erillinen ilmiö.",
+            "Otsoniaukko johtuu suoraan autoliikenteestä ja on sama asia kuin ilmaston lämpeneminen.",
+            "Ilmastonmuutos riippuu yksinomaan otsonista."
+        ]
     ],
 
     correct: 1,
 
-    explanation:
-        "L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto."
-}
+    explanation: [
+        "L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto.",
+        "The natural greenhouse effect is essential for life. Its strengthening due to increased greenhouse gases contributes to global warming and climate change. The reduction of stratospheric ozone is a distinct phenomenon.",
+        "Luonnollinen kasvihuoneilmiö on elämälle välttämätön. Kasvihuonekaasujen lisääntymisen aiheuttama voimistuminen edistää maapallon lämpenemistä ja ilmastonmuutosta. Stratosfäärin otsonin väheneminen on puolestaan erillinen ilmiö."
+    ]
+};
 
-];
+
+/* =========================================================
+   STATO DEL GIOCO
+   ========================================================= */
 
 let current = 0;
+
 let score = 0;
+
 let answered = false;
 
-const category = document.getElementById("category");
-const question = document.getElementById("question");
-const scenario = document.getElementById("scenario");
-const answers = document.getElementById("answers");
-const feedback = document.getElementById("feedback");
-const next = document.getElementById("next");
-const scoreElement = document.getElementById("score");
-const questionNumber = document.getElementById("questionNumber");
-const progressBar = document.getElementById("progressBar");
+
+/* =========================================================
+   CARICA DOMANDA
+   ========================================================= */
 
 function loadQuestion() {
 
     answered = false;
 
     feedback.style.display = "none";
+
     next.style.display = "none";
 
-    const q = questions[current];
+    next.innerText =
+        testi[lingua].next;
 
-    category.innerText = q.category;
-    question.innerText = q.question;
-    scenario.innerText = q.scenario;
+
+    const q =
+        questions[current];
+
+
+    /*
+       Trova l'indice della lingua:
+
+       it = 0
+       en = 1
+       fi = 2
+    */
+
+    const langIndex =
+        lingua === "en"
+            ? 1
+            : lingua === "fi"
+                ? 2
+                : 0;
+
+
+    category.innerText =
+        q.category[langIndex];
+
+
+    question.innerText =
+        q.question[langIndex];
+
+
+    scenario.innerText =
+        q.scenario[langIndex];
+
 
     answers.innerHTML = "";
 
-    q.answers.forEach(function(answer, index) {
 
-        const button = document.createElement("button");
+    /*
+       Le risposte sono organizzate così:
 
-        button.className = "answer";
-        button.innerText = answer;
+       q.answers[lingua][risposta]
 
-        button.onclick = function() {
-            checkAnswer(button, index);
-        };
+       quindi prendiamo la lingua corretta.
+    */
+
+    const currentAnswers =
+        q.answers[langIndex];
+
+
+    currentAnswers.forEach(function(answer, index) {
+
+        const button =
+            document.createElement("button");
+
+
+        button.className =
+            "answer";
+
+
+        button.innerText =
+            answer;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(
+                    button,
+                    index
+                );
+
+            };
+
 
         answers.appendChild(button);
 
     });
 
+
     questionNumber.innerText =
-        (current + 1) + "/" + questions.length;
+        (current + 1) +
+        "/" +
+        questions.length;
+
 
     progressBar.style.width =
-        ((current / questions.length) * 100) + "%";
+        ((current / questions.length) * 100) +
+        "%";
 
 }
+
+
+/* =========================================================
+   CONTROLLO RISPOSTA
+   ========================================================= */
 
 function checkAnswer(selected, index) {
 
@@ -900,60 +1839,115 @@ function checkAnswer(selected, index) {
         return;
     }
 
+
     answered = true;
 
-    const q = questions[current];
+
+    const q =
+        questions[current];
+
+
+    const langIndex =
+        lingua === "en"
+            ? 1
+            : lingua === "fi"
+                ? 2
+                : 0;
+
 
     const allAnswers =
         document.querySelectorAll(".answer");
+
 
     if (index === q.correct) {
 
         selected.classList.add("correct");
 
+
         score += 10;
 
-        feedback.innerHTML =
-            "✅ <strong>Corretto! +10 punti</strong><br><br>" +
-            q.explanation;
 
-    } else {
+        feedback.innerHTML =
+            "✅ <strong>" +
+            testi[lingua].correct +
+            "</strong><br><br>" +
+            q.explanation[langIndex];
+
+    }
+
+    else {
 
         selected.classList.add("wrong");
 
-        allAnswers[q.correct].classList.add("correct");
+
+        allAnswers[q.correct]
+            .classList.add("correct");
+
 
         score -= 5;
 
+
         feedback.innerHTML =
-            "❌ <strong>Risposta non corretta. -5 punti</strong><br><br>" +
-            "La risposta corretta era: <strong>" +
-            q.answers[q.correct] +
+            "❌ <strong>" +
+            testi[lingua].wrong +
             "</strong><br><br>" +
-            q.explanation;
+
+            testi[lingua].correctAnswer +
+            " <strong>" +
+
+            q.answers[langIndex][q.correct] +
+
+            "</strong><br><br>" +
+
+            q.explanation[langIndex];
 
     }
 
-    scoreElement.innerText = score;
 
-    feedback.style.display = "block";
-    next.style.display = "block";
+    scoreElement.innerText =
+        score;
 
-    if (current === questions.length - 1) {
-        next.innerText = "🏆 Vedi risultato";
+
+    feedback.style.display =
+        "block";
+
+
+    next.style.display =
+        "block";
+
+
+    if (
+        current ===
+        questions.length - 1
+    ) {
+
+        next.innerText =
+            testi[lingua].final;
+
     }
 
 }
+
+
+/* =========================================================
+   PROSSIMA DOMANDA
+   ========================================================= */
 
 function nextQuestion() {
 
     current++;
 
-    if (current < questions.length) {
+
+    if (
+        current <
+        questions.length
+    ) {
 
         loadQuestion();
 
-    } else {
+    }
+
+    else {
 
         showResult();
 
@@ -961,57 +1955,120 @@ function nextQuestion() {
 
 }
 
+
+/* =========================================================
+   RISULTATO FINALE
+   ========================================================= */
+
 function showResult() {
 
-    document.getElementById("quizCard")
-        .classList.add("hidden");
+    document
+        .getElementById("quizCard")
+        .classList
+        .add("hidden");
 
-    document.getElementById("resultCard")
-        .classList.remove("hidden");
 
-    progressBar.style.width = "100%";
+    document
+        .getElementById("resultCard")
+        .classList
+        .remove("hidden");
 
-    document.getElementById("finalScore").innerText =
-        score + " / 200";
+
+    progressBar.style.width =
+        "100%";
+
+
+    document
+        .getElementById("finalScore")
+        .innerText =
+        score +
+        " / 200";
+
 
     let message;
+
 
     if (score >= 170) {
 
         message =
-            "🌟 Preparazione eccellente! " +
-            "Hai dimostrato di saper collegare diversi aspetti del sistema climatico.";
-
-    } else if (score >= 140) {
-
-        message =
-            "👏 Ottimo risultato! " +
-            "Conosci bene i principali fenomeni climatici e atmosferici.";
-
-    } else if (score >= 100) {
-
-        message =
-            "👍 Buona preparazione. " +
-            "Hai una base solida, ma alcuni concetti meritano un ripasso.";
-
-    } else if (score >= 60) {
-
-        message =
-            "📚 Discreto punto di partenza. " +
-            "Ripassando alcuni concetti potrai migliorare molto.";
-
-    } else {
-
-        message =
-            "🌱 C'è ancora da imparare! " +
-            "Riprova e usa le spiegazioni dopo ogni domanda per ripassare.";
+            testi[lingua].excellent;
 
     }
 
-    document.getElementById("resultMessage").innerText =
+    else if (score >= 140) {
+
+        message =
+            testi[lingua].veryGood;
+
+    }
+
+    else if (score >= 100) {
+
+        message =
+            testi[lingua].good;
+
+    }
+
+    else if (score >= 60) {
+
+        message =
+            testi[lingua].enough;
+
+    }
+
+    else {
+
+        message =
+            testi[lingua].learn;
+
+    }
+
+
+    document
+        .getElementById("resultMessage")
+        .innerText =
         message;
 
 }
+
+
+/* =========================================================
+   RICOMINCIA
+   ========================================================= */
+
+function restartGame() {
+
+    current = 0;
+
+    score = 0;
+
+    answered = false;
+
+
+    scoreElement.innerText =
+        "0";
+
+
+    document
+        .getElementById("resultCard")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("quizCard")
+        .classList
+        .remove("hidden");
+
+
+    loadQuestion();
+
+}
+
+
+/* =========================================================
+   AVVIO
+   ========================================================= */
 
 loadQuestion();
 
@@ -1019,4 +2076,3 @@ loadQuestion();
 
 </body>
 </html>
-```
