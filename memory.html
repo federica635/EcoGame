@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -5,6 +6,8 @@
 <head>
 
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🐝 Memory della Biodiversità - EcoGame</title>
 
@@ -28,6 +31,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -36,8 +41,22 @@ header {
     font-weight: bold;
 }
 
+.destra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .info {
     color: #b8c8bc;
+}
+
+.lingua {
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .container {
@@ -243,30 +262,47 @@ header {
 
 <header>
 
-```
 <div class="logo">
     🌍 EcoGame
 </div>
 
-<div class="info">
-    🧠 Memory ecologico
+<div class="destra">
+
+    <div class="info" data-testo="info">
+        🧠 Memory ecologico
+    </div>
+
+    <select class="lingua" id="lingua" onchange="cambiaLingua()">
+
+        <option value="it">🇮🇹 Italiano</option>
+
+        <option value="en">🇬🇧 English</option>
+
+        <option value="fi">🇫🇮 Suomi</option>
+
+    </select>
+
 </div>
-```
 
 </header>
 
+
 <div class="container">
 
-```
+
 <div class="intro">
 
-    <h1>🐝 Memory della Biodiversità</h1>
+    <h1 data-testo="titolo">
+        🐝 Memory della Biodiversità
+    </h1>
 
-    <p>
+    <p data-testo="intro">
         Trova le coppie di concetti collegati.
         <br>
         Non cercare solo immagini uguali:
-        <strong>ragiona sulle relazioni ecologiche.</strong>
+        <strong data-testo="ragiona">
+            ragiona sulle relazioni ecologiche.
+        </strong>
     </p>
 
 </div>
@@ -276,7 +312,7 @@ header {
 
     <div class="stat">
 
-        <div class="stat-title">
+        <div class="stat-title" data-testo="tempoTitolo">
             ⏱️ Tempo
         </div>
 
@@ -289,7 +325,7 @@ header {
 
     <div class="stat">
 
-        <div class="stat-title">
+        <div class="stat-title" data-testo="tentativiTitolo">
             🎯 Tentativi
         </div>
 
@@ -302,7 +338,7 @@ header {
 
     <div class="stat">
 
-        <div class="stat-title">
+        <div class="stat-title" data-testo="coppieTitolo">
             🧩 Coppie
         </div>
 
@@ -321,14 +357,20 @@ header {
 <div class="feedback" id="feedback"></div>
 
 
-<button class="reset" onclick="nuovaPartita()">
+<button class="reset"
+        onclick="nuovaPartita()"
+        data-testo="nuovaPartita">
+
     🔄 Nuova partita
+
 </button>
 
 
 <div id="finale">
 
-    <h2>🏆 Biodiversità completata!</h2>
+    <h2 data-testo="finaleTitolo">
+        🏆 Biodiversità completata!
+    </h2>
 
     <div class="final-score">
         <span id="punteggio">0</span>
@@ -336,148 +378,530 @@ header {
 
     <p class="final-text" id="finalText"></p>
 
-    <button class="reset" onclick="nuovaPartita()">
+    <button class="reset"
+            onclick="nuovaPartita()"
+            data-testo="giocaAncora">
+
         🔄 Gioca ancora
+
     </button>
 
     <button class="reset"
-        onclick="window.location.href='giochi.html'">
+            onclick="window.location.href='giochi.html'"
+            data-testo="tornaGiochi">
 
         🎮 Torna ai giochi
 
     </button>
 
 </div>
-```
+
 
 </div>
 
+
 <script>
 
+
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
+
+const traduzioni = {
+
+    /* =================================================
+       🇮🇹 ITALIANO
+       ================================================= */
+
+    it: {
+
+        info: "🧠 Memory ecologico",
+
+        titolo: "🐝 Memory della Biodiversità",
+
+        intro: "Trova le coppie di concetti collegati.",
+
+        ragiona: "ragiona sulle relazioni ecologiche.",
+
+        tempoTitolo: "⏱️ Tempo",
+
+        tentativiTitolo: "🎯 Tentativi",
+
+        coppieTitolo: "🧩 Coppie",
+
+        nuovaPartita: "🔄 Nuova partita",
+
+        finaleTitolo: "🏆 Biodiversità completata!",
+
+        giocaAncora: "🔄 Gioca ancora",
+
+        tornaGiochi: "🎮 Torna ai giochi",
+
+        secondi: "s",
+
+        punti: "punti",
+
+        feedbackPrefix: "🧠",
+
+        messaggio800:
+            "🏆 Memoria ecologica eccellente! Hai trovato rapidamente le relazioni tra i concetti.",
+
+        messaggio600:
+            "🌿 Ottimo lavoro! Hai dimostrato una buona conoscenza delle relazioni ecologiche.",
+
+        messaggio400:
+            "🧠 Buon risultato. Alcune coppie richiedevano un po' più di ragionamento.",
+
+        messaggioBasso:
+            "🔎 Hai completato il memory! Prova a migliorare tempo e numero di tentativi.",
+
+        carte: {
+
+            1: [
+                "Foresta",
+                "Habitat ricco di specie"
+            ],
+
+            2: [
+                "Biodiversità",
+                "Varietà di forme di vita"
+            ],
+
+            3: [
+                "Ape",
+                "Importante impollinatore"
+            ],
+
+            4: [
+                "Impollinazione",
+                "Trasferimento del polline"
+            ],
+
+            5: [
+                "Sole",
+                "Fonte primaria di energia"
+            ],
+
+            6: [
+                "Produttori",
+                "Trasformano energia luminosa"
+            ],
+
+            7: [
+                "Predatore",
+                "Regola alcune popolazioni"
+            ],
+
+            8: [
+                "Prede",
+                "Parte della rete trofica"
+            ],
+
+            9: [
+                "Oceano",
+                "Grande serbatoio di calore"
+            ],
+
+            10: [
+                "Clima",
+                "Sistema influenzato dagli oceani"
+            ],
+
+            11: [
+                "Zona umida",
+                "Habitat e regolazione dell'acqua"
+            ],
+
+            12: [
+                "Uccelli migratori",
+                "Usano le zone umide come habitat"
+            ],
+
+            13: [
+                "Riciclo",
+                "Recupero di materiali"
+            ],
+
+            14: [
+                "Economia circolare",
+                "Riduce sprechi e consumo di risorse"
+            ],
+
+            15: [
+                "Habitat",
+                "Ambiente in cui vive una specie"
+            ],
+
+            16: [
+                "Specie",
+                "Organismo adattato al proprio ambiente"
+            ]
+
+        }
+
+    },
+
+
+    /* =================================================
+       🇬🇧 INGLESE
+       ================================================= */
+
+    en: {
+
+        info: "🧠 Ecology Memory",
+
+        titolo: "🐝 Biodiversity Memory",
+
+        intro: "Find the pairs of connected concepts.",
+
+        ragiona: "think about ecological relationships.",
+
+        tempoTitolo: "⏱️ Time",
+
+        tentativiTitolo: "🎯 Attempts",
+
+        coppieTitolo: "🧩 Pairs",
+
+        nuovaPartita: "🔄 New Game",
+
+        finaleTitolo: "🏆 Biodiversity Completed!",
+
+        giocaAncora: "🔄 Play Again",
+
+        tornaGiochi: "🎮 Back to Games",
+
+        secondi: "s",
+
+        punti: "points",
+
+        feedbackPrefix: "🧠",
+
+        messaggio800:
+            "🏆 Excellent ecological memory! You quickly found the relationships between the concepts.",
+
+        messaggio600:
+            "🌿 Great job! You demonstrated a good understanding of ecological relationships.",
+
+        messaggio400:
+            "🧠 Good result. Some pairs required a little more reasoning.",
+
+        messaggioBasso:
+            "🔎 You completed the memory game! Try to improve your time and number of attempts.",
+
+        carte: {
+
+            1: [
+                "Forest",
+                "Species-rich habitat"
+            ],
+
+            2: [
+                "Biodiversity",
+                "Variety of forms of life"
+            ],
+
+            3: [
+                "Bee",
+                "Important pollinator"
+            ],
+
+            4: [
+                "Pollination",
+                "Transfer of pollen"
+            ],
+
+            5: [
+                "Sun",
+                "Primary source of energy"
+            ],
+
+            6: [
+                "Producers",
+                "Transform light energy"
+            ],
+
+            7: [
+                "Predator",
+                "Regulates some populations"
+            ],
+
+            8: [
+                "Prey",
+                "Part of the food web"
+            ],
+
+            9: [
+                "Ocean",
+                "Large heat reservoir"
+            ],
+
+            10: [
+                "Climate",
+                "System influenced by oceans"
+            ],
+
+            11: [
+                "Wetland",
+                "Habitat and water regulation"
+            ],
+
+            12: [
+                "Migratory birds",
+                "Use wetlands as habitat"
+            ],
+
+            13: [
+                "Recycling",
+                "Recovery of materials"
+            ],
+
+            14: [
+                "Circular economy",
+                "Reduces waste and resource consumption"
+            ],
+
+            15: [
+                "Habitat",
+                "Environment where a species lives"
+            ],
+
+            16: [
+                "Species",
+                "Organism adapted to its environment"
+            ]
+
+        }
+
+    },
+
+
+    /* =================================================
+       🇫🇮 FINLANDESE
+       ================================================= */
+
+    fi: {
+
+        info: "🧠 Ekologinen muistipeli",
+
+        titolo: "🐝 Luonnon monimuotoisuus -muistipeli",
+
+        intro: "Etsi toisiinsa liittyvien käsitteiden parit.",
+
+        ragiona: "pohdi ekologisia suhteita.",
+
+        tempoTitolo: "⏱️ Aika",
+
+        tentativiTitolo: "🎯 Yritykset",
+
+        coppieTitolo: "🧩 Parit",
+
+        nuovaPartita: "🔄 Uusi peli",
+
+        finaleTitolo: "🏆 Luonnon monimuotoisuus suoritettu!",
+
+        giocaAncora: "🔄 Pelaa uudelleen",
+
+        tornaGiochi: "🎮 Takaisin peleihin",
+
+        secondi: "s",
+
+        punti: "pistettä",
+
+        feedbackPrefix: "🧠",
+
+        messaggio800:
+            "🏆 Erinomainen ekologinen muisti! Löysit nopeasti käsitteiden väliset suhteet.",
+
+        messaggio600:
+            "🌿 Hienoa työtä! Osoitit hyvää ekologisten suhteiden tuntemusta.",
+
+        messaggio400:
+            "🧠 Hyvä tulos. Jotkin parit vaativat hieman enemmän päättelyä.",
+
+        messaggioBasso:
+            "🔎 Suoritit muistipelin! Yritä parantaa aikaasi ja vähentää yritysten määrää.",
+
+        carte: {
+
+            1: [
+                "Metsä",
+                "Lajeiltaan monipuolinen elinympäristö"
+            ],
+
+            2: [
+                "Luonnon monimuotoisuus",
+                "Elämänmuotojen moninaisuus"
+            ],
+
+            3: [
+                "Mehiläinen",
+                "Tärkeä pölyttäjä"
+            ],
+
+            4: [
+                "Pölytys",
+                "Siitepölyn siirtyminen"
+            ],
+
+            5: [
+                "Aurinko",
+                "Ensisijainen energianlähde"
+            ],
+
+            6: [
+                "Tuottajat",
+                "Muuntaa valoenergiaa"
+            ],
+
+            7: [
+                "Peto",
+                "Säätelee joitakin populaatioita"
+            ],
+
+            8: [
+                "Saalis",
+                "Osa ravintoverkkoa"
+            ],
+
+            9: [
+                "Valtameri",
+                "Suuri lämmön varasto"
+            ],
+
+            10: [
+                "Ilmasto",
+                "Valtamerien vaikutuksesta muotoutuva järjestelmä"
+            ],
+
+            11: [
+                "Kosteikko",
+                "Elinympäristö ja veden säätely"
+            ],
+
+            12: [
+                "Muuttolinnut",
+                "Käyttävät kosteikkoja elinympäristönä"
+            ],
+
+            13: [
+                "Kierrätys",
+                "Materiaalien talteenotto"
+            ],
+
+            14: [
+                "Kiertotalous",
+                "Vähentää jätettä ja luonnonvarojen kulutusta"
+            ],
+
+            15: [
+                "Elinympäristö",
+                "Ympäristö, jossa laji elää"
+            ],
+
+            16: [
+                "Laji",
+                "Omaan ympäristöönsä sopeutunut eliö"
+            ]
+
+        }
+
+    }
+
+};
+
+
+/* =====================================================
+   DATI DELLE CARTE
+   ===================================================== */
 
 const coppie = [
 
     {
         id: 1,
-        emoji: "🌳",
-        titolo: "Foresta",
-        descrizione: "Habitat ricco di specie"
+        emoji: "🌳"
     },
 
     {
         id: 1,
-        emoji: "🐾",
-        titolo: "Biodiversità",
-        descrizione: "Varietà di forme di vita"
-    },
-
-
-    {
-        id: 2,
-        emoji: "🐝",
-        titolo: "Ape",
-        descrizione: "Importante impollinatore"
+        emoji: "🐾"
     },
 
     {
         id: 2,
-        emoji: "🌼",
-        titolo: "Impollinazione",
-        descrizione: "Trasferimento del polline"
+        emoji: "🐝"
     },
 
-
     {
-        id: 3,
-        emoji: "☀️",
-        titolo: "Sole",
-        descrizione: "Fonte primaria di energia"
+        id: 2,
+        emoji: "🌼"
     },
 
     {
         id: 3,
-        emoji: "🌱",
-        titolo: "Produttori",
-        descrizione: "Trasformano energia luminosa"
+        emoji: "☀️"
     },
 
-
     {
-        id: 4,
-        emoji: "🐺",
-        titolo: "Predatore",
-        descrizione: "Regola alcune popolazioni"
+        id: 3,
+        emoji: "🌱"
     },
 
     {
         id: 4,
-        emoji: "🦌",
-        titolo: "Prede",
-        descrizione: "Parte della rete trofica"
+        emoji: "🐺"
     },
 
-
     {
-        id: 5,
-        emoji: "🌊",
-        titolo: "Oceano",
-        descrizione: "Grande serbatoio di calore"
+        id: 4,
+        emoji: "🦌"
     },
 
     {
         id: 5,
-        emoji: "🌡️",
-        titolo: "Clima",
-        descrizione: "Sistema influenzato dagli oceani"
+        emoji: "🌊"
     },
 
-
     {
-        id: 6,
-        emoji: "💧",
-        titolo: "Zona umida",
-        descrizione: "Habitat e regolazione dell'acqua"
+        id: 5,
+        emoji: "🌡️"
     },
 
     {
         id: 6,
-        emoji: "🪶",
-        titolo: "Uccelli migratori",
-        descrizione: "Usano le zone umide come habitat"
+        emoji: "💧"
     },
 
-
     {
-        id: 7,
-        emoji: "♻️",
-        titolo: "Riciclo",
-        descrizione: "Recupero di materiali"
+        id: 6,
+        emoji: "🪶"
     },
 
     {
         id: 7,
-        emoji: "🔄",
-        titolo: "Economia circolare",
-        descrizione: "Riduce sprechi e consumo di risorse"
+        emoji: "♻️"
     },
 
-
     {
-        id: 8,
-        emoji: "🌿",
-        titolo: "Habitat",
-        descrizione: "Ambiente in cui vive una specie"
+        id: 7,
+        emoji: "🔄"
     },
 
     {
         id: 8,
-        emoji: "🦊",
-        titolo: "Specie",
-        descrizione: "Organismo adattato al proprio ambiente"
+        emoji: "🌿"
+    },
+
+    {
+        id: 8,
+        emoji: "🦊"
     }
 
 ];
 
+
+/* =====================================================
+   VARIABILI
+   ===================================================== */
 
 let carte = [];
 
@@ -496,6 +920,151 @@ let tempo = 0;
 let timer = null;
 
 
+/* =====================================================
+   FUNZIONE TRADUZIONE CARTE
+   ===================================================== */
+
+function ottieniCartaTradotta(carta, indice) {
+
+    const lingua =
+        document.getElementById("lingua").value;
+
+    const testi =
+        traduzioni[lingua];
+
+    const indiceTraduzione =
+        indice;
+
+    const dati =
+        testi.carte[indiceTraduzione + 1];
+
+    return {
+
+        titolo: dati[0],
+
+        descrizione: dati[1]
+
+    };
+
+}
+
+
+/* =====================================================
+   CAMBIO LINGUA
+   ===================================================== */
+
+function cambiaLingua() {
+
+    const selettore =
+        document.getElementById("lingua");
+
+    const lingua =
+        selettore.value;
+
+    const testi =
+        traduzioni[lingua];
+
+    if (!testi) {
+        return;
+    }
+
+
+    document
+        .querySelectorAll("[data-testo]")
+        .forEach(function(elemento) {
+
+            const chiave =
+                elemento.getAttribute("data-testo");
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    testi,
+                    chiave
+                )
+            ) {
+
+                if (chiave === "ragiona") {
+
+                    elemento.textContent =
+                        testi[chiave];
+
+                } else {
+
+                    elemento.textContent =
+                        testi[chiave];
+
+                }
+
+            }
+
+        });
+
+
+    document.documentElement.lang =
+        lingua;
+
+
+    localStorage.setItem(
+        "linguaEcoGame",
+        lingua
+    );
+
+
+    if (carte.length > 0) {
+
+        aggiornaCarteVisibili();
+
+    }
+
+}
+
+
+/* =====================================================
+   AGGIORNA LE CARTE DOPO IL CAMBIO LINGUA
+   ===================================================== */
+
+function aggiornaCarteVisibili() {
+
+    const elementi =
+        document.querySelectorAll(".card");
+
+    elementi.forEach(function(elemento, indice) {
+
+        const carta =
+            carte[indice];
+
+        const dati =
+            ottieniCartaTradotta(carta, indice);
+
+        const testo =
+            elemento.querySelector(".text");
+
+        const descrizione =
+            elemento.querySelector("small");
+
+        if (testo) {
+
+            testo.innerText =
+                dati.titolo;
+
+        }
+
+        if (descrizione) {
+
+            descrizione.innerText =
+                dati.descrizione;
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   MESCOLA
+   ===================================================== */
+
 function mescola(array) {
 
     return array.sort(
@@ -505,11 +1074,13 @@ function mescola(array) {
 }
 
 
+/* =====================================================
+   NUOVA PARTITA
+   ===================================================== */
+
 function nuovaPartita() {
 
-
     clearInterval(timer);
-
 
     primaCarta = null;
 
@@ -524,11 +1095,14 @@ function nuovaPartita() {
     tempo = 0;
 
 
-    document.getElementById("tempo").innerText = "0";
+    document.getElementById("tempo").innerText =
+        "0";
 
-    document.getElementById("tentativi").innerText = "0";
+    document.getElementById("tentativi").innerText =
+        "0";
 
-    document.getElementById("coppie").innerText = "0";
+    document.getElementById("coppie").innerText =
+        "0";
 
 
     document.getElementById("finale").style.display =
@@ -552,12 +1126,14 @@ function nuovaPartita() {
 
     carte.forEach(function(carta, indice) {
 
-
         const elemento =
             document.createElement("div");
 
-
         elemento.className = "card";
+
+
+        const dati =
+            ottieniCartaTradotta(carta, indice);
 
 
         elemento.innerHTML = `
@@ -575,11 +1151,11 @@ function nuovaPartita() {
                     </div>
 
                     <div class="text">
-                        ${carta.titolo}
+                        ${dati.titolo}
                     </div>
 
                     <small>
-                        ${carta.descrizione}
+                        ${dati.descrizione}
                     </small>
 
                 </div>
@@ -591,7 +1167,7 @@ function nuovaPartita() {
 
         elemento.onclick = function() {
 
-            giraCarta(elemento, carta);
+            giraCarta(elemento, carta, indice);
 
         };
 
@@ -613,8 +1189,11 @@ function nuovaPartita() {
 }
 
 
-function giraCarta(elemento, carta) {
+/* =====================================================
+   GIRA CARTA
+   ===================================================== */
 
+function giraCarta(elemento, carta, indice) {
 
     if (blocco) {
         return;
@@ -637,8 +1216,13 @@ function giraCarta(elemento, carta) {
     if (!primaCarta) {
 
         primaCarta = {
+
             elemento: elemento,
-            carta: carta
+
+            carta: carta,
+
+            indice: indice
+
         };
 
         return;
@@ -647,8 +1231,13 @@ function giraCarta(elemento, carta) {
 
 
     secondaCarta = {
+
         elemento: elemento,
-        carta: carta
+
+        carta: carta,
+
+        indice: indice
+
     };
 
 
@@ -664,8 +1253,11 @@ function giraCarta(elemento, carta) {
 }
 
 
-function controllaCoppia() {
+/* =====================================================
+   CONTROLLA COPPIA
+   ===================================================== */
 
+function controllaCoppia() {
 
     blocco = true;
 
@@ -677,7 +1269,6 @@ function controllaCoppia() {
 
 
         setTimeout(function() {
-
 
             primaCarta.elemento.classList.add(
                 "matched"
@@ -696,17 +1287,18 @@ function controllaCoppia() {
                 coppieTrovate;
 
 
-            mostrarExplicacao(
-                primaCarta.carta
+            mostraSpiegazione(
+                primaCarta.carta,
+                primaCarta.indice
             );
 
 
-            primeiraReset();
+            primaReset();
 
 
             if (coppieTrovate === 8) {
 
-                terminar();
+                termina();
 
             }
 
@@ -719,7 +1311,6 @@ function controllaCoppia() {
 
         setTimeout(function() {
 
-
             primaCarta.elemento.classList.remove(
                 "flipped"
             );
@@ -730,8 +1321,7 @@ function controllaCoppia() {
             );
 
 
-            primeiraReset();
-
+            primaReset();
 
         }, 1000);
 
@@ -740,7 +1330,11 @@ function controllaCoppia() {
 }
 
 
-function primeiraReset() {
+/* =====================================================
+   RESET CARTE
+   ===================================================== */
+
+function primaReset() {
 
     primaCarta = null;
 
@@ -751,18 +1345,34 @@ function primeiraReset() {
 }
 
 
-function mostrarExplicacao(carta) {
+/* =====================================================
+   MOSTRA SPIEGAZIONE
+   ===================================================== */
 
+function mostraSpiegazione(carta, indice) {
 
     const feedback =
         document.getElementById("feedback");
 
 
+    const lingua =
+        document.getElementById("lingua").value;
+
+
+    const testi =
+        traduzioni[lingua];
+
+
+    const dati =
+        ottieniCartaTradotta(carta, indice);
+
+
     feedback.innerHTML =
-        "🧠 <strong>" +
-        carta.titolo +
+        testi.feedbackPrefix +
+        " <strong>" +
+        dati.titolo +
         ":</strong> " +
-        carta.descrizione;
+        dati.descrizione;
 
 
     feedback.style.display =
@@ -771,18 +1381,23 @@ function mostrarExplicacao(carta) {
 }
 
 
-function terminar() {
+/* =====================================================
+   FINE PARTITA
+   ===================================================== */
 
+function termina() {
 
     clearInterval(timer);
 
 
     let base = 1000;
 
-    let penalidadeTempo =
+
+    let penalitaTempo =
         tempo * 3;
 
-    let penalidadeTentativas =
+
+    let penalitaTentativi =
         Math.max(0, tentativi - 8) * 30;
 
 
@@ -790,14 +1405,23 @@ function terminar() {
         Math.max(
             100,
             base -
-            penalidadeTempo -
-            penalidadeTentativi
+            penalitaTempo -
+            penalitaTentativi
         );
+
+
+    const lingua =
+        document.getElementById("lingua").value;
+
+
+    const testi =
+        traduzioni[lingua];
 
 
     document.getElementById("punteggio").innerText =
         punteggioFinale +
-        " punti";
+        " " +
+        testi.punti;
 
 
     let messaggio;
@@ -806,22 +1430,22 @@ function terminar() {
     if (punteggioFinale >= 800) {
 
         messaggio =
-            "🏆 Memoria ecologica eccellente! Hai trovato rapidamente le relazioni tra i concetti.";
+            testi.messaggio800;
 
     } else if (punteggioFinale >= 600) {
 
         messaggio =
-            "🌿 Ottimo lavoro! Hai dimostrato una buona conoscenza delle relazioni ecologiche.";
+            testi.messaggio600;
 
     } else if (punteggioFinale >= 400) {
 
         messaggio =
-            "🧠 Buon risultato. Alcune coppie richiedevano un po' più di ragionamento.";
+            testi.messaggio400;
 
     } else {
 
         messaggio =
-            "🔎 Hai completato il memory! Prova a migliorare tempo e numero di tentativi.";
+            testi.messaggioBasso;
 
     }
 
@@ -836,6 +1460,43 @@ function terminar() {
 }
 
 
+/* =====================================================
+   CARICA LINGUA SALVATA
+   ===================================================== */
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+const selettoreLingua =
+    document.getElementById("lingua");
+
+
+if (
+    Object.prototype.hasOwnProperty.call(
+        traduzioni,
+        linguaSalvata
+    )
+) {
+
+    selettoreLingua.value =
+        linguaSalvata;
+
+} else {
+
+    selettoreLingua.value =
+        "it";
+
+}
+
+
+cambiaLingua();
+
+
+/* =====================================================
+   AVVIA PARTITA
+   ===================================================== */
+
 nuovaPartita();
 
 
@@ -844,3 +1505,4 @@ nuovaPartita();
 </body>
 
 </html>
+```
