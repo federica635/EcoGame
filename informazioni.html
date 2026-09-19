@@ -271,8 +271,8 @@ footer {
     </button>
 
     <button id="fiBtn" onclick="cambiaLingua('fi')">
-        🇫🇮 Suomi
-    </button>
+    🇫🇮 Suomi
+</button>
 
 </div>
 
@@ -1033,105 +1033,271 @@ function tornaHome() {
 
 
 /* =====================================================
-   SISTEMA DI TRADUZIONE COMPLETO
+   TRADUZIONI
    ===================================================== */
 
-/*
-   IMPORTANTE:
+const traduzioni = {
 
-   Il sistema salva automaticamente tutti i testi italiani
-   presenti nella pagina al caricamento.
+it: {
 
-   In questo modo possiamo tradurre anche:
-   - paragrafi
-   - liste
-   - <strong>
-   - <span>
-   - titoli
-   - pulsanti
-   - footer
-   - messaggi importanti
+"📚 EcoGame - Informazioni": "📚 EcoGame - Informazioni",
 
-   senza rompere la struttura HTML.
-*/
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.",
+
+"🧭 Come usare EcoGame":
+"🧭 Come usare EcoGame",
+
+"🌍 Clima":
+"🌍 Clima",
+
+"🌱 Biodiversità":
+"🌱 Biodiversità",
+
+"🐾 Animali":
+"🐾 Animali",
+
+"💧 Acqua":
+"💧 Acqua",
+
+"🌊 Oceani":
+"🌊 Oceani",
+
+"♻️ Rifiuti":
+"♻️ Rifiuti",
+
+"⚡ Energia":
+"⚡ Energia",
+
+"🏭 Inquinamento":
+"🏭 Inquinamento",
+
+"🌱 Sostenibilità":
+"🌱 Sostenibilità",
+
+"🌍 Benvenuto nella guida di EcoGame!":
+"🌍 Benvenuto nella guida di EcoGame!",
+
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.",
+
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.",
+
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!",
+
+"🧭 Come usare EcoGame":
+"🧭 Come usare EcoGame",
+
+"🏠 Menu principale":
+"🏠 Menu principale",
+
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"Dal menu principale puoi accedere alle diverse parti del progetto:",
+
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Mini-giochi – giochi interattivi.",
+
+"📚 Informazioni – questa enciclopedia.":
+"📚 Informazioni – questa enciclopedia.",
+
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Risultati – sezione dedicata ai punteggi.",
+
+"🎮 Come funzionano i giochi":
+"🎮 Come funzionano i giochi",
+
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.",
+
+"🧠 Come funziona il quiz":
+"🧠 Come funziona il quiz",
+
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.",
+
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.",
+
+"🌍 Cambiamento climatico ed effetto serra":
+"🌍 Cambiamento climatico ed effetto serra",
+
+"🌡️ Che cos'è il clima?":
+"🌡️ Che cos'è il clima?",
+
+"🔥 Effetto serra":
+"🔥 Effetto serra",
+
+"🏭 Attività umane":
+"🏭 Attività umane",
+
+"🌱 Ecosistemi e biodiversità":
+"🌱 Ecosistemi e biodiversità",
+
+"🌳 Che cos'è un ecosistema?":
+"🌳 Che cos'è un ecosistema?",
+
+"🧬 Biodiversità":
+"🧬 Biodiversità",
+
+"🛡️ Resilienza":
+"🛡️ Resilienza",
+
+"🔗 Reti trofiche":
+"🔗 Reti trofiche",
+
+"🐾 Animali, specie a rischio ed estinzioni":
+"🐾 Animali, specie a rischio ed estinzioni",
+
+"🐾 Che cos'è una specie?":
+"🐾 Che cos'è una specie?",
+
+"☠️ Estinzione":
+"☠️ Estinzione",
+
+"⚠️ Cause delle estinzioni":
+"⚠️ Cause delle estinzioni",
+
+"🛡️ Come proteggere le specie?":
+"🛡️ Come proteggere le specie?",
+
+"🌳 Foreste e suolo":
+"🌳 Foreste e suolo",
+
+"🌲 Perché le foreste sono importanti?":
+"🌲 Perché le foreste sono importanti?",
+
+"🌾 Erosione del suolo":
+"🌾 Erosione del suolo",
+
+"🌱 Conservazione":
+"🌱 Conservazione",
+
+"💧 Acqua e ciclo dell'acqua":
+"💧 Acqua e ciclo dell'acqua",
+
+"💧 Il ciclo dell'acqua":
+"💧 Il ciclo dell'acqua",
+
+"🚰 Spreco d'acqua":
+"🚰 Spreco d'acqua",
+
+"🧪 Inquinamento dell'acqua":
+"🧪 Inquinamento dell'acqua",
+
+"🌿 Eutrofizzazione":
+"🌿 Eutrofizzazione",
+
+"🌊 Oceani":
+"🌊 Oceani",
+
+"🌊 Perché gli oceani sono importanti?":
+"🌊 Perché gli oceani sono importanti?",
+
+"🧪 Acidificazione degli oceani":
+"🧪 Acidificazione degli oceani",
+
+"🐟 Pesca e biodiversità":
+"🐟 Pesca e biodiversità",
+
+"♻️ Rifiuti, riciclo ed economia circolare":
+"♻️ Rifiuti, riciclo ed economia circolare",
+
+"♻️ Economia circolare":
+"♻️ Economia circolare",
+
+"🔄 Strategie principali":
+"🔄 Strategie principali",
+
+"🗑️ Raccolta differenziata":
+"🗑️ Raccolta differenziata",
+
+"⚡ Energia e fonti energetiche":
+"⚡ Energia e fonti energetiche",
+
+"⚡ Che cos'è l'energia?":
+"⚡ Che cos'è l'energia?",
+
+"☀️ Fonti rinnovabili":
+"☀️ Fonti rinnovabili",
+
+"🛢️ Combustibili fossili":
+"🛢️ Combustibili fossili",
+
+"💡 Efficienza energetica":
+"💡 Efficienza energetica",
+
+"🧪 Cicli del carbonio e dell'azoto":
+"🧪 Cicli del carbonio e dell'azoto",
+
+"🌲 Ciclo del carbonio":
+"🌲 Ciclo del carbonio",
+
+"🌲 Pozzo di carbonio":
+"🌲 Pozzo di carbonio",
+
+"🧪 Ciclo dell'azoto":
+"🧪 Ciclo dell'azoto",
+
+"🦠 Fissazione dell'azoto":
+"🦠 Fissazione dell'azoto",
+
+"🐝 Impollinatori e catene alimentari":
+"🐝 Impollinatori e catene alimentari",
+
+"🐝 Impollinazione":
+"🐝 Impollinazione",
+
+"🌾 Agricoltura":
+"🌾 Agricoltura",
+
+"🐺 Catena alimentare":
+"🐺 Catena alimentare",
+
+"🌳 Predatori":
+"🌳 Predatori",
+
+"🏭 Inquinamento":
+"🏭 Inquinamento",
+
+"🏭 Inquinamento atmosferico":
+"🏭 Inquinamento atmosferico",
+
+"🚗 Fonti antropogeniche":
+"🚗 Fonti antropogeniche",
+
+"🌋 Fonti naturali":
+"🌋 Fonti naturali",
+
+"🌱 Sviluppo sostenibile":
+"🌱 Sviluppo sostenibile",
+
+"🌱 Che cos'è?":
+"🌱 Che cos'è?",
+
+"⚖️ Equilibrio":
+"⚖️ Equilibrio",
+
+"🌍 Esempi":
+"🌍 Esempi",
+
+"🏠 Torna al menu principale":
+"🏠 Torna al menu principale",
+
+"🌱 EcoGame — Imparare l'ecologia giocando":
+"🌱 EcoGame — Imparare l'ecologia giocando"
+
+},
 
 
-const testiOriginali = new Map();
-
-
-function normalizzaTesto(testo) {
-
-    return testo
-        .replace(/\s+/g, " ")
-        .trim();
-
-}
-
-
-function salvaTestiOriginali() {
-
-    const elementi = document.querySelectorAll(
-        "body *"
-    );
-
-    elementi.forEach(elemento => {
-
-        if (
-            elemento.tagName === "SCRIPT" ||
-            elemento.tagName === "STYLE"
-        ) {
-            return;
-        }
-
-        /*
-           Salviamo soltanto gli elementi che contengono
-           direttamente testo e non altri elementi complessi.
-        */
-
-        Array.from(elemento.childNodes).forEach(nodo => {
-
-            if (nodo.nodeType === Node.TEXT_NODE) {
-
-                const testo = normalizzaTesto(nodo.nodeValue);
-
-                if (testo.length > 0) {
-
-                    testiOriginali.set(
-                        nodo,
-                        nodo.nodeValue
-                    );
-
-                }
-
-            }
-
-        });
-
-    });
-
-}
-
-
-/* =====================================================
-   TRADUZIONI INGLESI
-   ===================================================== */
-
-const inglese = {
+en: {
 
 "📚 EcoGame - Informazioni":
 "📚 EcoGame - Information",
 
 "Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
 "Everything you need to know to understand the topics covered by the quizzes and games.",
-
-"🇮🇹 Italiano":
-"🇮🇹 Italian",
-
-"🇬🇧 English":
-"🇬🇧 English",
-
-"🇫🇮 Suomi":
-"🇫🇮 Finnish",
 
 "🧭 Come usare EcoGame":
 "🧭 How to use EcoGame",
@@ -1169,92 +1335,44 @@ const inglese = {
 "Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
 "This section was created to help you study before taking the quizzes and mini-games.",
 
-"Non è necessario imparare tutto a memoria:":
-"You do not need to memorize everything:",
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"You do not need to memorize everything: read the topics that interest you and use the information to better understand the questions on the website.",
 
-"leggi gli argomenti che ti interessano e usa":
-"read the topics that interest you and use",
-
-"le informazioni per comprendere meglio le domande":
-"the information to better understand the questions",
-
-"presenti nel sito.":
-"on the website.",
-
-"Consiglio:":
-"Tip:",
-
-"se non conosci una risposta":
-"if you do not know an answer",
-
-"durante un quiz, torna qui e ripassa l'argomento!":
-"during a quiz, come back here and review the topic!",
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Tip: if you don't know an answer during a quiz, come back here and review the topic!",
 
 "🏠 Menu principale":
 "🏠 Main menu",
 
-"Dal menu principale puoi accedere alle diverse":
-"From the main menu you can access the different",
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"From the main menu you can access the different parts of the project:",
 
-"parti del progetto:":
-"parts of the project:",
+"🧠 Quiz ecologico – domande sull'ambiente.":
+"🧠 Environmental quiz – questions about the environment.",
 
-"Quiz ecologico":
-"Environmental quiz",
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Mini-games – interactive games.",
 
-"domande sull'ambiente.":
-"questions about the environment.",
+"📚 Informazioni – questa enciclopedia.":
+"📚 Information – this encyclopedia.",
 
-"Mini-giochi":
-"Mini-games",
-
-"giochi interattivi.":
-"interactive games.",
-
-"Informazioni":
-"Information",
-
-"questa enciclopedia.":
-"this encyclopedia.",
-
-"Risultati":
-"Results",
-
-"sezione dedicata ai punteggi.":
-"section dedicated to scores.",
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Results – section dedicated to scores.",
 
 "🎮 Come funzionano i giochi":
 "🎮 How the games work",
 
-"Ogni gioco ha regole proprie. Leggi attentamente":
-"Each game has its own rules. Carefully read",
-
-"le istruzioni presenti all'inizio e cerca di":
-"the instructions at the beginning and try to",
-
-"comprendere l'obiettivo prima di iniziare.":
-"understand the objective before starting.",
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Each game has its own rules. Carefully read the instructions at the beginning and try to understand the objective before starting.",
 
 "🧠 Come funziona il quiz":
 "🧠 How the quiz works",
 
-"Il quiz contiene domande a risposta multipla.":
-"The quiz contains multiple-choice questions.",
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"The quiz contains multiple-choice questions. For each question you must choose an answer. After answering, an explanation is shown.",
 
-"Per ogni domanda devi scegliere una risposta.":
-"For each question you must choose an answer.",
-
-"Dopo aver risposto viene mostrata una spiegazione.":
-"After answering, an explanation is shown.",
-
-"Le spiegazioni del quiz sono importanti:":
-"The quiz explanations are important:",
-
-"non mostrano soltanto se hai sbagliato, ma spiegano":
-"they do not only show whether you were wrong, but also explain",
-
-"anche il concetto scientifico.":
-"the scientific concept.",
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 The quiz explanations are important: they do not only show whether you were wrong, but also explain the scientific concept.",
 
 "🌍 Cambiamento climatico ed effetto serra":
 "🌍 Climate change and the greenhouse effect",
@@ -1262,71 +1380,11 @@ const inglese = {
 "🌡️ Che cos'è il clima?":
 "🌡️ What is climate?",
 
-"Il":
-"The",
-
-"clima":
-"climate",
-
-"descrive le caratteristiche":
-"describes the characteristics",
-
-"statistiche dell'atmosfera osservate su periodi lunghi.":
-"of the atmosphere observed over long periods.",
-
-"Il":
-"The",
-
-"tempo meteorologico":
-"weather",
-
-"invece, descrive":
-"instead, describes",
-
-"le condizioni atmosferiche in un determinato momento":
-"the atmospheric conditions at a particular time",
-
-"o periodo breve.":
-"or over a short period.",
-
 "🔥 Effetto serra":
 "🔥 Greenhouse effect",
 
-"Alcuni gas presenti nell'atmosfera, chiamati":
-"Some gases present in the atmosphere, called",
-
-"gas serra":
-"greenhouse gases",
-
-"assorbono parte":
-"absorb part",
-
-"della radiazione infrarossa emessa dalla superficie terrestre.":
-"of the infrared radiation emitted by Earth's surface.",
-
-"L'effetto serra naturale è fondamentale per mantenere":
-"The natural greenhouse effect is essential for maintaining",
-
-"temperature compatibili con la vita sulla Terra.":
-"temperatures compatible with life on Earth.",
-
 "🏭 Attività umane":
 "🏭 Human activities",
-
-"Le attività umane possono aumentare la concentrazione":
-"Human activities can increase the concentration",
-
-"di gas serra nell'atmosfera. Tra questi troviamo":
-"of greenhouse gases in the atmosphere. These include",
-
-"anidride carbonica (CO₂), metano e protossido di azoto.":
-"carbon dioxide (CO₂), methane and nitrous oxide.",
-
-"Ricorda: effetto serra naturale e cambiamento climatico":
-"Remember: the natural greenhouse effect and anthropogenic",
-
-"antropogenico non sono la stessa cosa.":
-"climate change are not the same thing.",
 
 "🌱 Ecosistemi e biodiversità":
 "🌱 Ecosystems and biodiversity",
@@ -1334,56 +1392,14 @@ const inglese = {
 "🌳 Che cos'è un ecosistema?":
 "🌳 What is an ecosystem?",
 
-"Un ecosistema comprende gli organismi viventi di una":
-"An ecosystem includes the living organisms of a",
-
-"determinata area e l'ambiente fisico con cui interagiscono.":
-"given area and the physical environment with which they interact.",
-
 "🧬 Biodiversità":
 "🧬 Biodiversity",
-
-"La":
-"The",
-
-"biodiversità":
-"biodiversity",
-
-"comprende":
-"includes",
-
-"la varietà degli organismi viventi, delle specie,":
-"the variety of living organisms, species,",
-
-"dei geni e degli ecosistemi.":
-"genes and ecosystems.",
 
 "🛡️ Resilienza":
 "🛡️ Resilience",
 
-"La diversità biologica può contribuire alla resilienza":
-"Biological diversity can contribute to the resilience",
-
-"di un ecosistema, perché specie differenti possono":
-"of an ecosystem because different species can",
-
-"svolgere funzioni diverse e rispondere in modi differenti":
-"perform different functions and respond differently",
-
-"alle perturbazioni.":
-"to disturbances.",
-
 "🔗 Reti trofiche":
 "🔗 Food webs",
-
-"Gli organismi sono collegati attraverso rapporti alimentari.":
-"Organisms are connected through feeding relationships.",
-
-"Un cambiamento in una popolazione può quindi influenzare":
-"A change in one population can therefore affect",
-
-"altre popolazioni.":
-"other populations.",
 
 "🐾 Animali, specie a rischio ed estinzioni":
 "🐾 Animals, endangered species and extinctions",
@@ -1391,65 +1407,14 @@ const inglese = {
 "🐾 Che cos'è una specie?":
 "🐾 What is a species?",
 
-"Una specie è un gruppo di organismi che condivide":
-"A species is a group of organisms that shares",
-
-"caratteristiche biologiche e, nel caso della definizione":
-"biological characteristics and, according to the traditional biological",
-
-"biologica tradizionale, può riprodursi producendo":
-"definition, can reproduce and produce",
-
-"prole fertile.":
-"fertile offspring.",
-
 "☠️ Estinzione":
 "☠️ Extinction",
-
-"Una specie è estinta quando non esistono più individui":
-"A species is extinct when there are no longer any",
-
-"viventi appartenenti a quella specie.":
-"living individuals belonging to that species.",
 
 "⚠️ Cause delle estinzioni":
 "⚠️ Causes of extinction",
 
-"Perdita e frammentazione degli habitat.":
-"Habitat loss and fragmentation.",
-
-"Cambiamenti climatici.":
-"Climate change.",
-
-"Inquinamento.":
-"Pollution.",
-
-"Sovrasfruttamento delle risorse.":
-"Overexploitation of resources.",
-
-"Introduzione di specie invasive.":
-"Introduction of invasive species.",
-
-"Altre pressioni ambientali.":
-"Other environmental pressures.",
-
 "🛡️ Come proteggere le specie?":
 "🛡️ How to protect species?",
-
-"La conservazione può comprendere la protezione degli habitat,":
-"Conservation can include habitat protection,",
-
-"la creazione di aree protette, il controllo delle minacce":
-"the creation of protected areas, control of threats",
-
-"e programmi di ripristino e conservazione.":
-"and restoration and conservation programs.",
-
-"Proteggere una specie significa spesso proteggere":
-"Protecting a species often means protecting",
-
-"anche l'habitat e l'intero ecosistema da cui dipende.":
-"its habitat and the entire ecosystem on which it depends.",
 
 "🌳 Foreste e suolo":
 "🌳 Forests and soil",
@@ -1457,35 +1422,11 @@ const inglese = {
 "🌲 Perché le foreste sono importanti?":
 "🌲 Why are forests important?",
 
-"Le foreste forniscono habitat, contribuiscono al ciclo":
-"Forests provide habitats, contribute to the carbon",
-
-"del carbonio e dell'acqua e offrono numerosi servizi":
-"and water cycles and provide many ecosystem",
-
-"ecosistemici.":
-"services.",
-
 "🌾 Erosione del suolo":
 "🌾 Soil erosion",
 
-"L'erosione può rimuovere lo strato superficiale del suolo,":
-"Erosion can remove the surface layer of soil,",
-
-"spesso ricco di sostanza organica e nutrienti.":
-"which is often rich in organic matter and nutrients.",
-
 "🌱 Conservazione":
 "🌱 Conservation",
-
-"La protezione della vegetazione, una gestione appropriata":
-"Vegetation protection, appropriate land management",
-
-"del territorio e pratiche agricole sostenibili possono":
-"and sustainable agricultural practices can",
-
-"contribuire alla conservazione del suolo.":
-"contribute to soil conservation.",
 
 "💧 Acqua e ciclo dell'acqua":
 "💧 Water and the water cycle",
@@ -1493,71 +1434,14 @@ const inglese = {
 "💧 Il ciclo dell'acqua":
 "💧 The water cycle",
 
-"L'acqua circola continuamente tra atmosfera, superficie":
-"Water continuously circulates between the atmosphere, Earth's",
-
-"terrestre, suolo, oceani e organismi viventi.":
-"surface, soil, oceans and living organisms.",
-
-"☀️ Evaporazione":
-"☀️ Evaporation",
-
-"☁️ Condensazione":
-"☁️ Condensation",
-
-"🌧️ Precipitazione":
-"🌧️ Precipitation",
-
-"🌊 Ruscellamento":
-"🌊 Runoff",
-
-"🌱 Infiltrazione":
-"🌱 Infiltration",
-
-"🌿 Traspirazione":
-"🌿 Transpiration",
-
 "🚰 Spreco d'acqua":
 "🚰 Water waste",
-
-"L'acqua viene utilizzata per agricoltura, industria,":
-"Water is used for agriculture, industry,",
-
-"produzione energetica e consumo domestico.":
-"energy production and domestic consumption.",
-
-"Ridurre gli sprechi significa usare la risorsa":
-"Reducing waste means using the resource",
-
-"in modo più efficiente.":
-"more efficiently.",
 
 "🧪 Inquinamento dell'acqua":
 "🧪 Water pollution",
 
-"Sostanze nutrienti in eccesso, sostanze chimiche,":
-"Excess nutrients, chemicals,",
-
-"rifiuti e altri contaminanti possono alterare":
-"waste and other contaminants can alter",
-
-"gli ecosistemi acquatici.":
-"aquatic ecosystems.",
-
 "🌿 Eutrofizzazione":
 "🌿 Eutrophication",
-
-"Un eccesso di nutrienti come nitrati e fosfati può":
-"An excess of nutrients such as nitrates and phosphates can",
-
-"favorire una crescita eccessiva delle alghe.":
-"promote excessive algae growth.",
-
-"La decomposizione della biomassa può consumare":
-"The decomposition of biomass can consume",
-
-"molto ossigeno e danneggiare gli organismi acquatici.":
-"large amounts of oxygen and harm aquatic organisms.",
 
 "🌊 Oceani":
 "🌊 Oceans",
@@ -1565,50 +1449,11 @@ const inglese = {
 "🌊 Perché gli oceani sono importanti?":
 "🌊 Why are oceans important?",
 
-"Gli oceani ospitano una grande quantità di biodiversità":
-"Oceans host a great amount of biodiversity",
-
-"e svolgono un ruolo fondamentale nei cicli della materia":
-"and play a fundamental role in matter cycles",
-
-"e nel sistema climatico.":
-"and in the climate system.",
-
 "🧪 Acidificazione degli oceani":
 "🧪 Ocean acidification",
 
-"Gli oceani assorbono una parte della CO₂ presente":
-"Oceans absorb part of the CO₂ present",
-
-"nell'atmosfera. Questo processo modifica gli equilibri":
-"in the atmosphere. This process changes the chemical",
-
-"chimici dell'acqua marina e contribuisce alla diminuzione":
-"balance of seawater and contributes to the decrease",
-
-"del suo pH.":
-"in its pH.",
-
 "🐟 Pesca e biodiversità":
 "🐟 Fishing and biodiversity",
-
-"Una gestione non sostenibile delle risorse marine può":
-"Unsustainable management of marine resources can",
-
-"ridurre le popolazioni di alcune specie e alterare":
-"reduce populations of some species and alter",
-
-"le reti alimentari.":
-"food webs.",
-
-"Gli ecosistemi marini sono collegati tra loro:":
-"Marine ecosystems are interconnected:",
-
-"una modifica di una componente può avere effetti":
-"a change in one component can affect",
-
-"anche su altre componenti della rete ecologica.":
-"other components of the ecological network.",
 
 "♻️ Rifiuti, riciclo ed economia circolare":
 "♻️ Waste, recycling and circular economy",
@@ -1616,53 +1461,11 @@ const inglese = {
 "♻️ Economia circolare":
 "♻️ Circular economy",
 
-"L'economia circolare cerca di mantenere prodotti,":
-"The circular economy aims to keep products,",
-
-"materiali e risorse in uso il più a lungo possibile,":
-"materials and resources in use for as long as possible,",
-
-"riducendo sprechi e consumo di risorse vergini.":
-"reducing waste and the consumption of virgin resources.",
-
 "🔄 Strategie principali":
 "🔄 Main strategies",
 
-"Riduzione dei consumi.":
-"Reducing consumption.",
-
-"Riutilizzo.":
-"Reuse.",
-
-"Riparazione.":
-"Repair.",
-
-"Riciclo.":
-"Recycling.",
-
-"Recupero dei materiali.":
-"Material recovery.",
-
 "🗑️ Raccolta differenziata":
 "🗑️ Waste separation",
-
-"La corretta separazione dei rifiuti permette di avviare":
-"Correct waste separation allows different materials",
-
-"materiali diversi ai processi di trattamento appropriati.":
-"to be sent to the appropriate treatment processes.",
-
-"Le regole precise possono variare in base al comune":
-"Exact rules may vary depending on the municipality",
-
-"e al sistema locale di raccolta.":
-"and the local collection system.",
-
-"Ricorda: il modo migliore per ridurre un rifiuto":
-"Remember: the best way to reduce waste",
-
-"è spesso evitarne la produzione in primo luogo.":
-"is often to avoid producing it in the first place.",
 
 "⚡ Energia e fonti energetiche":
 "⚡ Energy and energy sources",
@@ -1670,53 +1473,14 @@ const inglese = {
 "⚡ Che cos'è l'energia?":
 "⚡ What is energy?",
 
-"L'energia permette di compiere lavoro e può assumere":
-"Energy allows work to be done and can take",
-
-"forme diverse, come energia termica, elettrica,":
-"different forms, such as thermal, electrical,",
-
-"chimica e cinetica.":
-"chemical and kinetic energy.",
-
 "☀️ Fonti rinnovabili":
 "☀️ Renewable sources",
-
-"Le fonti rinnovabili sfruttano flussi naturali che":
-"Renewable sources use natural flows that",
-
-"vengono continuamente alimentati, come energia solare,":
-"are continuously replenished, such as solar,",
-
-"eolica, idroelettrica e geotermica.":
-"wind, hydroelectric and geothermal energy.",
 
 "🛢️ Combustibili fossili":
 "🛢️ Fossil fuels",
 
-"Carbone, petrolio e gas naturale sono combustibili fossili.":
-"Coal, oil and natural gas are fossil fuels.",
-
-"Contengono carbonio immagazzinato geologicamente e la loro":
-"They contain carbon stored geologically and their",
-
-"combustione produce emissioni, tra cui CO₂.":
-"combustion produces emissions, including CO₂.",
-
 "💡 Efficienza energetica":
 "💡 Energy efficiency",
-
-"L'efficienza energetica significa ottenere un determinato":
-"Energy efficiency means obtaining a particular",
-
-"servizio utilizzando meno energia.":
-"service while using less energy.",
-
-"Risparmiare energia e usare l'energia in modo efficiente":
-"Saving energy and using energy efficiently",
-
-"sono concetti importanti per ridurre consumi e impatti.":
-"are important concepts for reducing consumption and impacts.",
 
 "🧪 Cicli del carbonio e dell'azoto":
 "🧪 Carbon and nitrogen cycles",
@@ -1724,53 +1488,14 @@ const inglese = {
 "🌲 Ciclo del carbonio":
 "🌲 Carbon cycle",
 
-"Il carbonio si muove tra atmosfera, oceani, suolo,":
-"Carbon moves between the atmosphere, oceans, soil,",
-
-"organismi viventi e altre riserve attraverso processi":
-"living organisms and other reservoirs through natural",
-
-"naturali e attività umane.":
-"processes and human activities.",
-
 "🌲 Pozzo di carbonio":
 "🌲 Carbon sink",
-
-"Un":
-"A",
-
-"pozzo di carbonio":
-"carbon sink",
-
-"è un sistema":
-"is a system",
-
-"che, nel periodo considerato, assorbe più carbonio di quanto":
-"that, over the period considered, absorbs more carbon than",
-
-"ne rilasci.":
-"it releases.",
 
 "🧪 Ciclo dell'azoto":
 "🧪 Nitrogen cycle",
 
-"L'azoto è fondamentale per gli organismi viventi.":
-"Nitrogen is essential for living organisms.",
-
-"Il ciclo dell'azoto comprende diversi processi.":
-"The nitrogen cycle includes several processes.",
-
 "🦠 Fissazione dell'azoto":
 "🦠 Nitrogen fixation",
-
-"La fissazione dell'azoto converte l'azoto molecolare":
-"Nitrogen fixation converts molecular nitrogen",
-
-"atmosferico in forme azotate che possono entrare":
-"from the atmosphere into nitrogen forms that can enter",
-
-"nel ciclo biologico.":
-"the biological cycle.",
 
 "🐝 Impollinatori e catene alimentari":
 "🐝 Pollinators and food chains",
@@ -1778,92 +1503,26 @@ const inglese = {
 "🐝 Impollinazione":
 "🐝 Pollination",
 
-"L'impollinazione permette il trasferimento del polline":
-"Pollination allows the transfer of pollen",
-
-"e contribuisce alla riproduzione di molte piante.":
-"and contributes to the reproduction of many plants.",
-
-"Numerosi animali, tra cui api e altri insetti,":
-"Many animals, including bees and other insects,",
-
-"possono svolgere questo ruolo.":
-"can perform this role.",
-
 "🌾 Agricoltura":
 "🌾 Agriculture",
-
-"Molte colture dipendono in parte dall'impollinazione":
-"Many crops partly depend on animal",
-
-"animale. La perdita degli impollinatori può quindi":
-"pollination. The loss of pollinators can therefore",
-
-"influenzare alcuni sistemi agricoli.":
-"affect some agricultural systems.",
 
 "🐺 Catena alimentare":
 "🐺 Food chain",
 
-"In una catena alimentare l'energia passa da un livello":
-"In a food chain, energy passes from one trophic",
-
-"trofico all'altro. Le reti trofiche rappresentano":
-"level to another. Food webs represent",
-
-"connessioni più complesse tra numerosi organismi.":
-"more complex connections between many organisms.",
-
 "🌳 Predatori":
 "🌳 Predators",
 
-"La diminuzione dei predatori apicali può provocare":
-"A decrease in apex predators can cause",
-
-"cambiamenti nelle popolazioni delle prede e,":
-"changes in prey populations and,",
-
-"attraverso una cascata trofica, influenzare altri":
-"through a trophic cascade, affect other",
-
-"livelli dell'ecosistema.":
-"levels of the ecosystem.",
+"🏭 Inquinamento":
+"🏭 Pollution",
 
 "🏭 Inquinamento atmosferico":
 "🏭 Air pollution",
 
-"L'inquinamento atmosferico consiste nella presenza":
-"Air pollution consists of the presence",
-
-"nell'aria di sostanze o particelle che possono avere":
-"of substances or particles in the air that can have",
-
-"effetti sull'ambiente e sulla salute.":
-"effects on the environment and health.",
-
 "🚗 Fonti antropogeniche":
 "🚗 Human sources",
 
-"Trasporti, industrie, produzione energetica e altre":
-"Transport, industries, energy production and other",
-
-"attività umane possono produrre emissioni inquinanti.":
-"human activities can produce pollutant emissions.",
-
 "🌋 Fonti naturali":
 "🌋 Natural sources",
-
-"Anche fenomeni naturali, come eruzioni vulcaniche":
-"Natural phenomena, such as volcanic eruptions",
-
-"e incendi naturali, possono contribuire alla presenza":
-"and natural fires, can also contribute to the presence",
-
-"di alcune sostanze nell'atmosfera.":
-"of some substances in the atmosphere.",
-
-"\"Antropogenico\" significa legato alle attività umane.":
-"\"Anthropogenic\" means related to human activities.",
 
 "🌱 Sviluppo sostenibile":
 "🌱 Sustainable development",
@@ -1871,56 +1530,11 @@ const inglese = {
 "🌱 Che cos'è?":
 "🌱 What is it?",
 
-"Lo sviluppo sostenibile considera contemporaneamente":
-"Sustainable development considers environmental,",
-
-"dimensioni ambientali, sociali ed economiche,":
-"social and economic dimensions at the same time,",
-
-"tenendo conto anche delle conseguenze nel lungo periodo.":
-"also taking long-term consequences into account.",
-
 "⚖️ Equilibrio":
 "⚖️ Balance",
 
-"La sostenibilità non significa semplicemente fermare":
-"Sustainability does not simply mean stopping",
-
-"ogni attività umana. Significa cercare modalità di":
-"all human activity. It means finding ways of",
-
-"sviluppo che tengano conto dei limiti ambientali":
-"developing that take environmental limits",
-
-"e delle esigenze della società.":
-"and society's needs into account.",
-
 "🌍 Esempi":
 "🌍 Examples",
-
-"Uso efficiente delle risorse.":
-"Efficient use of resources.",
-
-"Riduzione degli sprechi.":
-"Reducing waste.",
-
-"Protezione degli ecosistemi.":
-"Protecting ecosystems.",
-
-"Riduzione dell'inquinamento.":
-"Reducing pollution.",
-
-"Uso responsabile dell'energia.":
-"Responsible use of energy.",
-
-"Conservazione della biodiversità.":
-"Conservation of biodiversity.",
-
-"L'obiettivo è considerare gli effetti delle nostre":
-"The goal is to consider the effects of our",
-
-"scelte non solo nel presente, ma anche nel lungo periodo.":
-"choices not only in the present, but also in the long term.",
 
 "🏠 Torna al menu principale":
 "🏠 Back to main menu",
@@ -1928,29 +1542,274 @@ const inglese = {
 "🌱 EcoGame — Imparare l'ecologia giocando":
 "🌱 EcoGame — Learn ecology by playing"
 
-};
+},
+
+
+es: {
+
+"📚 EcoGame - Informazioni":
+"📚 EcoGame - Información",
+
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
+"Todo lo que necesitas saber para comprender los temas de los cuestionarios y juegos.",
+
+"🧭 Come usare EcoGame":
+"🧭 Cómo usar EcoGame",
+
+"🌍 Clima":
+"🌍 Clima",
+
+"🌱 Biodiversità":
+"🌱 Biodiversidad",
+
+"🐾 Animali":
+"🐾 Animales",
+
+"💧 Acqua":
+"💧 Agua",
+
+"🌊 Oceani":
+"🌊 Océanos",
+
+"♻️ Rifiuti":
+"♻️ Residuos",
+
+"⚡ Energia":
+"⚡ Energía",
+
+"🏭 Inquinamento":
+"🏭 Contaminación",
+
+"🌱 Sostenibilità":
+"🌱 Sostenibilidad",
+
+"🌍 Benvenuto nella guida di EcoGame!":
+"🌍 ¡Bienvenido a la guía de EcoGame!",
+
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
+"Esta sección ha sido creada para ayudarte a estudiar antes de realizar los cuestionarios y minijuegos.",
+
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"No es necesario memorizarlo todo: lee los temas que te interesen y utiliza la información para comprender mejor las preguntas del sitio.",
+
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Consejo: si no conoces una respuesta durante un cuestionario, vuelve aquí y repasa el tema.",
+
+"🏠 Menu principale":
+"🏠 Menú principal",
+
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"Desde el menú principal puedes acceder a las diferentes partes del proyecto:",
+
+"🧠 Quiz ecologico – domande sull'ambiente.":
+"🧠 Cuestionario ecológico – preguntas sobre el medio ambiente.",
+
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Minijuegos – juegos interactivos.",
+
+"📚 Informazioni – questa enciclopedia.":
+"📚 Información – esta enciclopedia.",
+
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Resultados – sección dedicada a las puntuaciones.",
+
+"🎮 Come funzionano i giochi":
+"🎮 Cómo funcionan los juegos",
+
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Cada juego tiene sus propias reglas. Lee atentamente las instrucciones del principio e intenta comprender el objetivo antes de comenzar.",
+
+"🧠 Come funziona il quiz":
+"🧠 Cómo funciona el cuestionario",
+
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"El cuestionario contiene preguntas de opción múltiple. Para cada pregunta debes elegir una respuesta. Después de responder se muestra una explicación.",
+
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 Las explicaciones del cuestionario son importantes: no solo muestran si te has equivocado, sino que también explican el concepto científico.",
+
+"🌍 Cambiamento climatico ed effetto serra":
+"🌍 Cambio climático y efecto invernadero",
+
+"🌡️ Che cos'è il clima?":
+"🌡️ ¿Qué es el clima?",
+
+"🔥 Effetto serra":
+"🔥 Efecto invernadero",
+
+"🏭 Attività umane":
+"🏭 Actividades humanas",
+
+"🌱 Ecosistemi e biodiversità":
+"🌱 Ecosistemas y biodiversidad",
+
+"🌳 Che cos'è un ecosistema?":
+"🌳 ¿Qué es un ecosistema?",
+
+"🧬 Biodiversità":
+"🧬 Biodiversidad",
+
+"🛡️ Resilienza":
+"🛡️ Resiliencia",
+
+"🔗 Reti trofiche":
+"🔗 Redes alimentarias",
+
+"🐾 Animali, specie a rischio ed estinzioni":
+"🐾 Animales, especies en riesgo y extinciones",
+
+"🐾 Che cos'è una specie?":
+"🐾 ¿Qué es una especie?",
+
+"☠️ Estinzione":
+"☠️ Extinción",
+
+"⚠️ Cause delle estinzioni":
+"⚠️ Causas de las extinciones",
+
+"🛡️ Come proteggere le specie?":
+"🛡️ ¿Cómo proteger las especies?",
+
+"🌳 Foreste e suolo":
+"🌳 Bosques y suelo",
+
+"🌲 Perché le foreste sono importanti?":
+"🌲 ¿Por qué son importantes los bosques?",
+
+"🌾 Erosione del suolo":
+"🌾 Erosión del suelo",
+
+"🌱 Conservazione":
+"🌱 Conservación",
+
+"💧 Acqua e ciclo dell'acqua":
+"💧 Agua y ciclo del agua",
+
+"💧 Il ciclo dell'acqua":
+"💧 El ciclo del agua",
+
+"🚰 Spreco d'acqua":
+"🚰 Desperdicio de agua",
+
+"🧪 Inquinamento dell'acqua":
+"🧪 Contaminación del agua",
+
+"🌿 Eutrofizzazione":
+"🌿 Eutrofización",
+
+"🌊 Oceani":
+"🌊 Océanos",
+
+"🌊 Perché gli oceani sono importanti?":
+"🌊 ¿Por qué son importantes los océanos?",
+
+"🧪 Acidificazione degli oceani":
+"🧪 Acidificación de los océanos",
+
+"🐟 Pesca e biodiversità":
+"🐟 Pesca y biodiversidad",
+
+"♻️ Rifiuti, riciclo ed economia circolare":
+"♻️ Residuos, reciclaje y economía circular",
+
+"♻️ Economia circolare":
+"♻️ Economía circular",
+
+"🔄 Strategie principali":
+"🔄 Estrategias principales",
+
+"🗑️ Raccolta differenziata":
+"🗑️ Separación de residuos",
+
+"⚡ Energia e fonti energetiche":
+"⚡ Energía y fuentes de energía",
+
+"⚡ Che cos'è l'energia?":
+"⚡ ¿Qué es la energía?",
+
+"☀️ Fonti rinnovabili":
+"☀️ Fuentes renovables",
+
+"🛢️ Combustibili fossili":
+"🛢️ Combustibles fósiles",
+
+"💡 Efficienza energetica":
+"💡 Eficiencia energética",
+
+"🧪 Cicli del carbonio e dell'azoto":
+"🧪 Ciclos del carbono y del nitrógeno",
+
+"🌲 Ciclo del carbonio":
+"🌲 Ciclo del carbono",
+
+"🌲 Pozzo di carbonio":
+"🌲 Sumidero de carbono",
+
+"🧪 Ciclo dell'azoto":
+"🧪 Ciclo del nitrógeno",
+
+"🦠 Fissazione dell'azoto":
+"🦠 Fijación del nitrógeno",
+
+"🐝 Impollinatori e catene alimentari":
+"🐝 Polinizadores y cadenas alimentarias",
+
+"🐝 Impollinazione":
+"🐝 Polinización",
+
+"🌾 Agricoltura":
+"🌾 Agricultura",
+
+"🐺 Catena alimentare":
+"🐺 Cadena alimentaria",
+
+"🌳 Predatori":
+"🌳 Depredadores",
+
+"🏭 Inquinamento":
+"🏭 Contaminación",
+
+"🏭 Inquinamento atmosferico":
+"🏭 Contaminación atmosférica",
+
+"🚗 Fonti antropogeniche":
+"🚗 Fuentes antropogénicas",
+
+"🌋 Fonti naturali":
+"🌋 Fuentes naturales",
+
+"🌱 Sviluppo sostenibile":
+"🌱 Desarrollo sostenible",
+
+"🌱 Che cos'è?":
+"🌱 ¿Qué es?",
+
+"⚖️ Equilibrio":
+"⚖️ Equilibrio",
+
+"🌍 Esempi":
+"🌍 Ejemplos",
+
+"🏠 Torna al menu principale":
+"🏠 Volver al menú principal",
+
+"🌱 EcoGame — Imparare l'ecologia giocando":
+"🌱 EcoGame — Aprender ecología jugando"
+
+},
 
 
 /* =====================================================
-   TRADUZIONI FINLANDESI
+   FINLANDESE AGGIUNTO
    ===================================================== */
 
-const finlandese = {
+fi: {
 
 "📚 EcoGame - Informazioni":
 "📚 EcoGame - Tietoa",
 
 "Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
 "Kaikki, mitä sinun tarvitsee tietää ymmärtääksesi tietokilpailujen ja pelien aiheet.",
-
-"🇮🇹 Italiano":
-"🇮🇹 Italia",
-
-"🇬🇧 English":
-"🇬🇧 Englanti",
-
-"🇫🇮 Suomi":
-"🇫🇮 Suomi",
 
 "🧭 Come usare EcoGame":
 "🧭 EcoGamen käyttö",
@@ -1988,92 +1847,44 @@ const finlandese = {
 "Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
 "Tämä osio on luotu auttamaan sinua opiskelussa ennen tietokilpailuja ja minipelejä.",
 
-"Non è necessario imparare tutto a memoria:":
-"Sinun ei tarvitse opetella kaikkea ulkoa:",
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"Sinun ei tarvitse opetella kaikkea ulkoa: lue sinua kiinnostavista aiheista ja käytä tietoja ymmärtääksesi paremmin sivuston kysymyksiä.",
 
-"leggi gli argomenti che ti interessano e usa":
-"lue sinua kiinnostavista aiheista ja käytä",
-
-"le informazioni per comprendere meglio le domande":
-"tietoja ymmärtääksesi paremmin sivuston",
-
-"presenti nel sito.":
-"kysymyksiä.",
-
-"Consiglio:":
-"Vinkki:",
-
-"se non conosci una risposta":
-"jos et tiedä vastausta",
-
-"durante un quiz, torna qui e ripassa l'argomento!":
-"tietokilpailun aikana, palaa tänne ja kertaa aihe!",
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Vinkki: jos et tiedä vastausta tietokilpailussa, palaa tänne ja kertaa aihe!",
 
 "🏠 Menu principale":
 "🏠 Päävalikko",
 
-"Dal menu principale puoi accedere alle diverse":
-"Päävalikosta voit siirtyä projektin eri",
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"Päävalikosta voit siirtyä projektin eri osioihin:",
 
-"parti del progetto:":
-"osioihin:",
+"🧠 Quiz ecologico – domande sull'ambiente.":
+"🧠 Ympäristöaiheinen tietokilpailu – kysymyksiä ympäristöstä.",
 
-"Quiz ecologico":
-"Ympäristöaiheinen tietokilpailu",
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Minipelit – interaktiivisia pelejä.",
 
-"domande sull'ambiente.":
-"kysymyksiä ympäristöstä.",
+"📚 Informazioni – questa enciclopedia.":
+"📚 Tietoa – tämä tietosanakirja.",
 
-"Mini-giochi":
-"Minipelit",
-
-"giochi interattivi.":
-"interaktiivisia pelejä.",
-
-"Informazioni":
-"Tietoa",
-
-"questa enciclopedia.":
-"tämä tietosanakirja.",
-
-"Risultati":
-"Tulokset",
-
-"sezione dedicata ai punteggi.":
-"pisteille omistettu osio.",
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Tulokset – pisteille omistettu osio.",
 
 "🎮 Come funzionano i giochi":
 "🎮 Miten pelit toimivat",
 
-"Ogni gioco ha regole proprie. Leggi attentamente":
-"Jokaisella pelillä on omat sääntönsä. Lue",
-
-"le istruzioni presenti all'inizio e cerca di":
-"alussa olevat ohjeet huolellisesti ja yritä",
-
-"comprendere l'obiettivo prima di iniziare.":
-"ymmärtää tavoite ennen aloittamista.",
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Jokaisella pelillä on omat sääntönsä. Lue alussa olevat ohjeet huolellisesti ja yritä ymmärtää tavoite ennen aloittamista.",
 
 "🧠 Come funziona il quiz":
 "🧠 Miten tietokilpailu toimii",
 
-"Il quiz contiene domande a risposta multipla.":
-"Tietokilpailu sisältää monivalintakysymyksiä.",
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"Tietokilpailu sisältää monivalintakysymyksiä. Jokaisessa kysymyksessä sinun on valittava yksi vastaus. Vastauksen jälkeen näytetään selitys.",
 
-"Per ogni domanda devi scegliere una risposta.":
-"Jokaisessa kysymyksessä sinun on valittava vastaus.",
-
-"Dopo aver risposto viene mostrata una spiegazione.":
-"Vastauksen jälkeen näytetään selitys.",
-
-"Le spiegazioni del quiz sono importanti:":
-"Tietokilpailun selitykset ovat tärkeitä:",
-
-"non mostrano soltanto se hai sbagliato, ma spiegano":
-"ne eivät ainoastaan kerro, vastasitko väärin, vaan selittävät",
-
-"anche il concetto scientifico.":
-"myös tieteellisen käsitteen.",
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 Tietokilpailun selitykset ovat tärkeitä: ne eivät ainoastaan kerro, vastasitko väärin, vaan selittävät myös tieteellisen käsitteen.",
 
 "🌍 Cambiamento climatico ed effetto serra":
 "🌍 Ilmastonmuutos ja kasvihuoneilmiö",
@@ -2081,71 +1892,11 @@ const finlandese = {
 "🌡️ Che cos'è il clima?":
 "🌡️ Mitä ilmasto on?",
 
-"Il":
-"",
-
-"clima":
-"ilmasto",
-
-"descrive le caratteristiche":
-"kuvaa",
-
-"statistiche dell'atmosfera osservate su periodi lunghi.":
-"ilmakehän tilastollisia ominaisuuksia pitkällä aikavälillä.",
-
-"Il":
-"",
-
-"tempo meteorologico":
-"sää",
-
-"invece, descrive":
-"puolestaan kuvaa",
-
-"le condizioni atmosferiche in un determinato momento":
-"ilmakehän olosuhteita tiettynä hetkenä",
-
-"o periodo breve.":
-"tai lyhyenä ajanjaksona.",
-
 "🔥 Effetto serra":
 "🔥 Kasvihuoneilmiö",
 
-"Alcuni gas presenti nell'atmosfera, chiamati":
-"Jotkin ilmakehässä olevat kaasut, joita kutsutaan",
-
-"gas serra":
-"kasvihuonekaasuiksi",
-
-"assorbono parte":
-"imevät osan",
-
-"della radiazione infrarossa emessa dalla superficie terrestre.":
-"Maan pinnan lähettämästä infrapunasäteilystä.",
-
-"L'effetto serra naturale è fondamentale per mantenere":
-"Luonnollinen kasvihuoneilmiö on välttämätön, jotta",
-
-"temperature compatibili con la vita sulla Terra.":
-"lämpötilat pysyvät elämälle sopivina maapallolla.",
-
 "🏭 Attività umane":
 "🏭 Ihmisen toiminta",
-
-"Le attività umane possono aumentare la concentrazione":
-"Ihmisen toiminta voi lisätä",
-
-"di gas serra nell'atmosfera. Tra questi troviamo":
-"kasvihuonekaasujen pitoisuutta ilmakehässä. Näihin kuuluvat",
-
-"anidride carbonica (CO₂), metano e protossido di azoto.":
-"hiilidioksidi (CO₂), metaani ja dityppioksidi.",
-
-"Ricorda: effetto serra naturale e cambiamento climatico":
-"Muista: luonnollinen kasvihuoneilmiö ja ihmisen aiheuttama",
-
-"antropogenico non sono la stessa cosa.":
-"ilmastonmuutos eivät ole sama asia.",
 
 "🌱 Ecosistemi e biodiversità":
 "🌱 Ekosysteemit ja luonnon monimuotoisuus",
@@ -2153,56 +1904,14 @@ const finlandese = {
 "🌳 Che cos'è un ecosistema?":
 "🌳 Mikä on ekosysteemi?",
 
-"Un ecosistema comprende gli organismi viventi di una":
-"Ekosysteemi sisältää tietyn alueen elävät organismit",
-
-"determinata area e l'ambiente fisico con cui interagiscono.":
-"ja fyysisen ympäristön, jonka kanssa ne ovat vuorovaikutuksessa.",
-
 "🧬 Biodiversità":
 "🧬 Luonnon monimuotoisuus",
-
-"La":
-"",
-
-"biodiversità":
-"luonnon monimuotoisuus",
-
-"comprende":
-"tarkoittaa",
-
-"la varietà degli organismi viventi, delle specie,":
-"elävien organismien, lajien",
-
-"dei geni e degli ecosistemi.":
-"geenien ja ekosysteemien monimuotoisuutta.",
 
 "🛡️ Resilienza":
 "🛡️ Resilienssi",
 
-"La diversità biologica può contribuire alla resilienza":
-"Luonnon monimuotoisuus voi vahvistaa",
-
-"di un ecosistema, perché specie differenti possono":
-"ekosysteemin resilienssiä, koska eri lajit voivat",
-
-"svolgere funzioni diverse e rispondere in modi differenti":
-"suorittaa erilaisia tehtäviä ja reagoida eri tavoin",
-
-"alle perturbazioni.":
-"häiriöihin.",
-
 "🔗 Reti trofiche":
 "🔗 Ravintoverkot",
-
-"Gli organismi sono collegati attraverso rapporti alimentari.":
-"Organismit ovat yhteydessä toisiinsa ravintosuhteiden kautta.",
-
-"Un cambiamento in una popolazione può quindi influenzare":
-"Yhden populaation muutos voi siksi vaikuttaa",
-
-"altre popolazioni.":
-"muihin populaatioihin.",
 
 "🐾 Animali, specie a rischio ed estinzioni":
 "🐾 Eläimet, uhanalaiset lajit ja sukupuutot",
@@ -2210,65 +1919,14 @@ const finlandese = {
 "🐾 Che cos'è una specie?":
 "🐾 Mikä on laji?",
 
-"Una specie è un gruppo di organismi che condivide":
-"Laji on organismiryhmä, jolla on yhteisiä",
-
-"caratteristiche biologiche e, nel caso della definizione":
-"biologisia ominaisuuksia ja joka perinteisen biologisen määritelmän",
-
-"biologica tradizionale, può riprodursi producendo":
-"mukaan voi lisääntyä ja tuottaa",
-
-"prole fertile.":
-"hedelmällisiä jälkeläisiä.",
-
 "☠️ Estinzione":
 "☠️ Sukupuutto",
-
-"Una specie è estinta quando non esistono più individui":
-"Laji on kuollut sukupuuttoon, kun siitä ei ole enää",
-
-"viventi appartenenti a quella specie.":
-"eläviä yksilöitä.",
 
 "⚠️ Cause delle estinzioni":
 "⚠️ Sukupuuttojen syyt",
 
-"Perdita e frammentazione degli habitat.":
-"Elinympäristöjen häviäminen ja pirstoutuminen.",
-
-"Cambiamenti climatici.":
-"Ilmastonmuutos.",
-
-"Inquinamento.":
-"Saastuminen.",
-
-"Sovrasfruttamento delle risorse.":
-"Luonnonvarojen liikakäyttö.",
-
-"Introduzione di specie invasive.":
-"Vieraslajien leviäminen.",
-
-"Altre pressioni ambientali.":
-"Muut ympäristöön kohdistuvat paineet.",
-
 "🛡️ Come proteggere le specie?":
 "🛡️ Miten lajeja voidaan suojella?",
-
-"La conservazione può comprendere la protezione degli habitat,":
-"Luonnonsuojeluun voi kuulua elinympäristöjen suojelu,",
-
-"la creazione di aree protette, il controllo delle minacce":
-"suojelualueiden perustaminen, uhkien hallinta",
-
-"e programmi di ripristino e conservazione.":
-"sekä ennallistamis- ja suojeluohjelmat.",
-
-"Proteggere una specie significa spesso proteggere":
-"Lajin suojeleminen tarkoittaa usein myös",
-
-"anche l'habitat e l'intero ecosistema da cui dipende.":
-"sen elinympäristön ja koko ekosysteemin suojelemista.",
 
 "🌳 Foreste e suolo":
 "🌳 Metsät ja maaperä",
@@ -2276,35 +1934,11 @@ const finlandese = {
 "🌲 Perché le foreste sono importanti?":
 "🌲 Miksi metsät ovat tärkeitä?",
 
-"Le foreste forniscono habitat, contribuiscono al ciclo":
-"Metsät tarjoavat elinympäristöjä ja osallistuvat",
-
-"del carbonio e dell'acqua e offrono numerosi servizi":
-"hiilen ja veden kiertoon sekä tarjoavat monia",
-
-"ecosistemici.":
-"ekosysteemipalveluja.",
-
 "🌾 Erosione del suolo":
 "🌾 Maaperän eroosio",
 
-"L'erosione può rimuovere lo strato superficiale del suolo,":
-"Eroosio voi poistaa maaperän pintakerroksen,",
-
-"spesso ricco di sostanza organica e nutrienti.":
-"joka sisältää usein paljon orgaanista ainetta ja ravinteita.",
-
 "🌱 Conservazione":
 "🌱 Suojelu",
-
-"La protezione della vegetazione, una gestione appropriata":
-"Kasvillisuuden suojelu, asianmukainen maankäyttö",
-
-"del territorio e pratiche agricole sostenibili possono":
-"ja kestävät maatalouskäytännöt voivat",
-
-"contribuire alla conservazione del suolo.":
-"edistää maaperän suojelua.",
 
 "💧 Acqua e ciclo dell'acqua":
 "💧 Vesi ja veden kiertokulku",
@@ -2312,122 +1946,23 @@ const finlandese = {
 "💧 Il ciclo dell'acqua":
 "💧 Veden kiertokulku",
 
-"L'acqua circola continuamente tra atmosfera, superficie":
-"Vesi kiertää jatkuvasti ilmakehän, maan pinnan,",
-
-"terrestre, suolo, oceani e organismi viventi.":
-"maaperän, valtamerten ja elävien organismien välillä.",
-
-"☀️ Evaporazione":
-"☀️ Haihtuminen",
-
-"☁️ Condensazione":
-"☁️ Tiivistyminen",
-
-"🌧️ Precipitazione":
-"🌧️ Sademäärä",
-
-"🌊 Ruscellamento":
-"🌊 Pintavalunta",
-
-"🌱 Infiltrazione":
-"🌱 Imeytyminen",
-
-"🌿 Traspirazione":
-"🌿 Haihdunta kasveista",
-
 "🚰 Spreco d'acqua":
 "🚰 Veden tuhlaaminen",
-
-"L'acqua viene utilizzata per agricoltura, industria,":
-"Vettä käytetään maataloudessa, teollisuudessa,",
-
-"produzione energetica e consumo domestico.":
-"energiantuotannossa ja kotitalouksissa.",
-
-"Ridurre gli sprechi significa usare la risorsa":
-"Hukan vähentäminen tarkoittaa luonnonvaran",
-
-"in modo più efficiente.":
-"tehokkaampaa käyttöä.",
 
 "🧪 Inquinamento dell'acqua":
 "🧪 Vesien saastuminen",
 
-"Sostanze nutrienti in eccesso, sostanze chimiche,":
-"Liialliset ravinteet, kemikaalit,",
-
-"rifiuti e altri contaminanti possono alterare":
-"jätteet ja muut epäpuhtaudet voivat muuttaa",
-
-"gli ecosistemi acquatici.":
-"vesiekosysteemejä.",
-
 "🌿 Eutrofizzazione":
 "🌿 Rehevöityminen",
-
-"Un eccesso di nutrienti come nitrati e fosfati può":
-"Nitraattien ja fosfaattien kaltaisten ravinteiden liiallinen määrä voi",
-
-"favorire una crescita eccessiva delle alghe.":
-"edistää levien liiallista kasvua.",
-
-"La decomposizione della biomassa può consumare":
-"Biomassan hajoaminen voi kuluttaa",
-
-"molto ossigeno e danneggiare gli organismi acquatici.":
-"paljon happea ja vahingoittaa vesieliöitä.",
-
-"🌊 Oceani":
-"🌊 Valtameret",
 
 "🌊 Perché gli oceani sono importanti?":
 "🌊 Miksi valtameret ovat tärkeitä?",
 
-"Gli oceani ospitano una grande quantità di biodiversità":
-"Valtamerissä on valtavasti luonnon monimuotoisuutta",
-
-"e svolgono un ruolo fondamentale nei cicli della materia":
-"ja niillä on tärkeä rooli aineiden kierrossa",
-
-"e nel sistema climatico.":
-"sekä ilmastojärjestelmässä.",
-
 "🧪 Acidificazione degli oceani":
 "🧪 Valtamerten happamoituminen",
 
-"Gli oceani assorbono una parte della CO₂ presente":
-"Valtameret imevät osan ilmakehän",
-
-"nell'atmosfera. Questo processo modifica gli equilibri":
-"CO₂:sta. Tämä prosessi muuttaa",
-
-"chimici dell'acqua marina e contribuisce alla diminuzione":
-"meriveden kemiallista tasapainoa ja vähentää",
-
-"del suo pH.":
-"sen pH-arvoa.",
-
 "🐟 Pesca e biodiversità":
 "🐟 Kalastus ja luonnon monimuotoisuus",
-
-"Una gestione non sostenibile delle risorse marine può":
-"Meriluonnonvarojen kestämätön käyttö voi",
-
-"ridurre le popolazioni di alcune specie e alterare":
-"vähentää joidenkin lajien populaatioita ja muuttaa",
-
-"le reti alimentari.":
-"ravintoverkkoja.",
-
-"Gli ecosistemi marini sono collegati tra loro:":
-"Meriekosysteemit ovat yhteydessä toisiinsa:",
-
-"una modifica di una componente può avere effetti":
-"yhden osan muutos voi vaikuttaa",
-
-"anche su altre componenti della rete ecologica.":
-"myös ekologisen verkoston muihin osiin.",
 
 "♻️ Rifiuti, riciclo ed economia circolare":
 "♻️ Jätteet, kierrätys ja kiertotalous",
@@ -2435,53 +1970,11 @@ const finlandese = {
 "♻️ Economia circolare":
 "♻️ Kiertotalous",
 
-"L'economia circolare cerca di mantenere prodotti,":
-"Kiertotalous pyrkii pitämään tuotteet,",
-
-"materiali e risorse in uso il più a lungo possibile,":
-"materiaalit ja luonnonvarat käytössä mahdollisimman pitkään,",
-
-"riducendo sprechi e consumo di risorse vergini.":
-"vähentäen jätettä ja uusien luonnonvarojen kulutusta.",
-
 "🔄 Strategie principali":
 "🔄 Tärkeimmät strategiat",
 
-"Riduzione dei consumi.":
-"kulutuksen vähentäminen.",
-
-"Riutilizzo.":
-"uudelleenkäyttö.",
-
-"Riparazione.":
-"korjaaminen.",
-
-"Riciclo.":
-"kierrätys.",
-
-"Recupero dei materiali.":
-"materiaalien talteenotto.",
-
 "🗑️ Raccolta differenziata":
 "🗑️ Jätteiden lajittelu",
-
-"La corretta separazione dei rifiuti permette di avviare":
-"Jätteiden oikea lajittelu mahdollistaa eri materiaalien",
-
-"materiali diversi ai processi di trattamento appropriati.":
-"ohjaamisen asianmukaisiin käsittelyprosesseihin.",
-
-"Le regole precise possono variare in base al comune":
-"Tarkat säännöt voivat vaihdella kunnan",
-
-"e al sistema locale di raccolta.":
-"ja paikallisen keräysjärjestelmän mukaan.",
-
-"Ricorda: il modo migliore per ridurre un rifiuto":
-"Muista: paras tapa vähentää jätettä",
-
-"è spesso evitarne la produzione in primo luogo.":
-"on usein välttää sen syntymistä alun perin.",
 
 "⚡ Energia e fonti energetiche":
 "⚡ Energia ja energialähteet",
@@ -2489,53 +1982,14 @@ const finlandese = {
 "⚡ Che cos'è l'energia?":
 "⚡ Mitä energia on?",
 
-"L'energia permette di compiere lavoro e può assumere":
-"Energia mahdollistaa työn tekemisen ja voi esiintyä",
-
-"forme diverse, come energia termica, elettrica,":
-"eri muodoissa, kuten lämpö-, sähkö-,",
-
-"chimica e cinetica.":
-"kemiallisena ja liike-energiana.",
-
 "☀️ Fonti rinnovabili":
 "☀️ Uusiutuvat energialähteet",
-
-"Le fonti rinnovabili sfruttano flussi naturali che":
-"Uusiutuvat energialähteet hyödyntävät luonnollisia virtauksia, jotka",
-
-"vengono continuamente alimentati, come energia solare,":
-"täydentyvät jatkuvasti, kuten aurinko-,",
-
-"eolica, idroelettrica e geotermica.":
-"tuuli-, vesi- ja geoterminen energia.",
 
 "🛢️ Combustibili fossili":
 "🛢️ Fossiiliset polttoaineet",
 
-"Carbone, petrolio e gas naturale sono combustibili fossili.":
-"Hiili, öljy ja maakaasu ovat fossiilisia polttoaineita.",
-
-"Contengono carbonio immagazzinato geologicamente e la loro":
-"Ne sisältävät geologisesti varastoitunutta hiiltä, ja niiden",
-
-"combustione produce emissioni, tra cui CO₂.":
-"polttaminen tuottaa päästöjä, kuten CO₂:ta.",
-
 "💡 Efficienza energetica":
 "💡 Energiatehokkuus",
-
-"L'efficienza energetica significa ottenere un determinato":
-"Energiatehokkuus tarkoittaa tietyn",
-
-"servizio utilizzando meno energia.":
-"palvelun saavuttamista pienemmällä energiankulutuksella.",
-
-"Risparmiare energia e usare l'energia in modo efficiente":
-"Energian säästäminen ja energian tehokas käyttö",
-
-"sono concetti importanti per ridurre consumi e impatti.":
-"ovat tärkeitä kulutuksen ja vaikutusten vähentämiseksi.",
 
 "🧪 Cicli del carbonio e dell'azoto":
 "🧪 Hiilen ja typen kierrot",
@@ -2543,53 +1997,14 @@ const finlandese = {
 "🌲 Ciclo del carbonio":
 "🌲 Hiilen kierto",
 
-"Il carbonio si muove tra atmosfera, oceani, suolo,":
-"Hiili liikkuu ilmakehän, valtamerten, maaperän,",
-
-"organismi viventi e altre riserve attraverso processi":
-"elävien organismien ja muiden varastojen välillä",
-
-"naturali e attività umane.":
-"luonnollisten prosessien ja ihmisen toiminnan kautta.",
-
 "🌲 Pozzo di carbonio":
 "🌲 Hiilinielu",
-
-"Un":
-"",
-
-"pozzo di carbonio":
-"hiilinielu",
-
-"è un sistema":
-"on järjestelmä",
-
-"che, nel periodo considerato, assorbe più carbonio di quanto":
-"joka tarkastelujaksona sitoo enemmän hiiltä kuin",
-
-"ne rilasci.":
-"vapauttaa.",
 
 "🧪 Ciclo dell'azoto":
 "🧪 Typen kierto",
 
-"L'azoto è fondamentale per gli organismi viventi.":
-"Typpi on välttämätöntä eläville organismeille.",
-
-"Il ciclo dell'azoto comprende diversi processi.":
-"Typen kiertoon kuuluu useita prosesseja.",
-
 "🦠 Fissazione dell'azoto":
 "🦠 Typensidonta",
-
-"La fissazione dell'azoto converte l'azoto molecolare":
-"Typensidonta muuttaa ilmakehän molekyylityppeä",
-
-"atmosferico in forme azotate che possono entrare":
-"typpiyhdisteiksi, jotka voivat siirtyä",
-
-"nel ciclo biologico.":
-"biologiseen kiertoon.",
 
 "🐝 Impollinatori e catene alimentari":
 "🐝 Pölyttäjät ja ravintoketjut",
@@ -2597,92 +2012,26 @@ const finlandese = {
 "🐝 Impollinazione":
 "🐝 Pölytys",
 
-"L'impollinazione permette il trasferimento del polline":
-"Pölytys mahdollistaa siitepölyn siirtymisen",
-
-"e contribuisce alla riproduzione di molte piante.":
-"ja edistää monien kasvien lisääntymistä.",
-
-"Numerosi animali, tra cui api e altri insetti,":
-"Monet eläimet, kuten mehiläiset ja muut hyönteiset,",
-
-"possono svolgere questo ruolo.":
-"voivat toimia pölyttäjinä.",
-
 "🌾 Agricoltura":
 "🌾 Maatalous",
-
-"Molte colture dipendono in parte dall'impollinazione":
-"Monet viljelykasvit ovat osittain riippuvaisia eläinten",
-
-"animale. La perdita degli impollinatori può quindi":
-"suorittamasta pölytyksestä. Pölyttäjien väheneminen voi siksi",
-
-"influenzare alcuni sistemi agricoli.":
-"vaikuttaa joihinkin maatalousjärjestelmiin.",
 
 "🐺 Catena alimentare":
 "🐺 Ravintoketju",
 
-"In una catena alimentare l'energia passa da un livello":
-"Ravintoketjussa energia siirtyy yhdeltä trofiatasolta",
-
-"trofico all'altro. Le reti trofiche rappresentano":
-"toiselle. Ravintoverkot kuvaavat",
-
-"connessioni più complesse tra numerosi organismi.":
-"monimutkaisempia yhteyksiä monien organismien välillä.",
-
 "🌳 Predatori":
 "🌳 Petoeläimet",
 
-"La diminuzione dei predatori apicali può provocare":
-"Huippupetojen väheneminen voi aiheuttaa",
-
-"cambiamenti nelle popolazioni delle prede e,":
-"muutoksia saaliseläinten populaatioissa ja",
-
-"attraverso una cascata trofica, influenzare altri":
-"ravintoketjun kautta vaikuttaa muihin",
-
-"livelli dell'ecosistema.":
-"ekosysteemin tasoihin.",
+"🏭 Inquinamento":
+"🏭 Saastuminen",
 
 "🏭 Inquinamento atmosferico":
 "🏭 Ilmansaasteet",
 
-"L'inquinamento atmosferico consiste nella presenza":
-"Ilmansaasteilla tarkoitetaan",
-
-"nell'aria di sostanze o particelle che possono avere":
-"ilmassa olevia aineita tai hiukkasia, joilla voi olla",
-
-"effetti sull'ambiente e sulla salute.":
-"vaikutuksia ympäristöön ja terveyteen.",
-
 "🚗 Fonti antropogeniche":
 "🚗 Ihmisen aiheuttamat lähteet",
 
-"Trasporti, industrie, produzione energetica e altre":
-"Liikenne, teollisuus, energiantuotanto ja muut",
-
-"attività umane possono produrre emissioni inquinanti.":
-"ihmisen toiminnot voivat tuottaa saastepäästöjä.",
-
 "🌋 Fonti naturali":
 "🌋 Luonnolliset lähteet",
-
-"Anche fenomeni naturali, come eruzioni vulcaniche":
-"Myös luonnonilmiöt, kuten tulivuorenpurkaukset",
-
-"e incendi naturali, possono contribuire alla presenza":
-"ja luonnolliset metsäpalot, voivat lisätä",
-
-"di alcune sostanze nell'atmosfera.":
-"joidenkin aineiden määrää ilmakehässä.",
-
-"\"Antropogenico\" significa legato alle attività umane.":
-"\"Antropogeeninen\" tarkoittaa ihmisen toimintaan liittyvää.",
 
 "🌱 Sviluppo sostenibile":
 "🌱 Kestävä kehitys",
@@ -2690,56 +2039,11 @@ const finlandese = {
 "🌱 Che cos'è?":
 "🌱 Mitä se tarkoittaa?",
 
-"Lo sviluppo sostenibile considera contemporaneamente":
-"Kestävä kehitys huomioi samanaikaisesti",
-
-"dimensioni ambientali, sociali ed economiche,":
-"ympäristölliset, sosiaaliset ja taloudelliset näkökulmat",
-
-"tenendo conto anche delle conseguenze nel lungo periodo.":
-"ottaen huomioon myös pitkän aikavälin seuraukset.",
-
 "⚖️ Equilibrio":
 "⚖️ Tasapaino",
 
-"La sostenibilità non significa semplicemente fermare":
-"Kestävyys ei tarkoita yksinkertaisesti",
-
-"ogni attività umana. Significa cercare modalità di":
-"kaiken ihmisen toiminnan lopettamista. Se tarkoittaa",
-
-"sviluppo che tengano conto dei limiti ambientali":
-"kehitystapojen etsimistä, jotka ottavat huomioon ympäristön rajat",
-
-"e delle esigenze della società.":
-"ja yhteiskunnan tarpeet.",
-
 "🌍 Esempi":
 "🌍 Esimerkkejä",
-
-"Uso efficiente delle risorse.":
-"Luonnonvarojen tehokas käyttö.",
-
-"Riduzione degli sprechi.":
-"Hukan vähentäminen.",
-
-"Protezione degli ecosistemi.":
-"Ekosysteemien suojelu.",
-
-"Riduzione dell'inquinamento.":
-"Saastumisen vähentäminen.",
-
-"Uso responsabile dell'energia.":
-"Energian vastuullinen käyttö.",
-
-"Conservazione della biodiversità.":
-"Luonnon monimuotoisuuden suojelu.",
-
-"L'obiettivo è considerare gli effetti delle nostre":
-"Tavoitteena on huomioida valintojemme vaikutukset",
-
-"scelte non solo nel presente, ma anche nel lungo periodo.":
-"ei vain nykyhetkessä vaan myös pitkällä aikavälillä.",
 
 "🏠 Torna al menu principale":
 "🏠 Palaa päävalikkoon",
@@ -2747,84 +2051,54 @@ const finlandese = {
 "🌱 EcoGame — Imparare l'ecologia giocando":
 "🌱 EcoGame — Opitaan ekologiaa pelaamalla"
 
+}
+
 };
 
 
 /* =====================================================
-   FUNZIONE DI TRADUZIONE
+   SISTEMA CAMBIO LINGUA
    ===================================================== */
+
+let linguaAttuale = "it";
+
+
+function normalizza(testo) {
+
+    return testo
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
 
 function cambiaLingua(lingua) {
 
-    let dizionario = {};
+    linguaAttuale = lingua;
 
-    if (lingua === "it") {
-        dizionario = {};
-    }
+    const elementi = document.querySelectorAll(
+        "body *"
+    );
 
-    if (lingua === "en") {
-        dizionario = inglese;
-    }
+    elementi.forEach(elemento => {
 
-    if (lingua === "fi") {
-        dizionario = finlandese;
-    }
+        if (
+            elemento.children.length === 0 &&
+            elemento.tagName !== "SCRIPT" &&
+            elemento.tagName !== "STYLE"
+        ) {
 
+            const originale = normalizza(elemento.textContent);
 
-    /*
-       Ripristina prima tutti i testi italiani originali.
-       Questo è fondamentale per poter passare:
+            if (
+                traduzioni[lingua] &&
+                traduzioni[lingua][originale]
+            ) {
 
-       IT → EN
-       EN → FI
-       FI → IT
-       EN → IT
-       FI → EN
+                elemento.textContent =
+                    traduzioni[lingua][originale];
 
-       senza perdere il testo originale.
-    */
-
-    testiOriginali.forEach((testoOriginale, nodo) => {
-
-        nodo.nodeValue = testoOriginale;
-
-    });
-
-
-    /*
-       Ora applica la lingua scelta.
-    */
-
-    testiOriginali.forEach((testoOriginale, nodo) => {
-
-        const originale = normalizzaTesto(testoOriginale);
-
-        if (dizionario[originale]) {
-
-            /*
-               Manteniamo gli spazi originali del nodo.
-            */
-
-            const inizio = testoOriginale.search(/\S|$/);
-
-            const fine = testoOriginale.search(/\s*$/);
-
-            let spazioInizio = "";
-
-            let spazioFine = "";
-
-            if (inizio > 0) {
-                spazioInizio = testoOriginale.substring(0, inizio);
             }
-
-            if (fine < testoOriginale.length) {
-                spazioFine = testoOriginale.substring(fine);
-            }
-
-            nodo.nodeValue =
-                spazioInizio +
-                dizionario[originale] +
-                spazioFine;
 
         }
 
@@ -2832,113 +2106,63 @@ function cambiaLingua(lingua) {
 
 
     /*
-       Lingua della pagina.
+       Aggiorna anche alcuni testi composti
+       presenti dentro elementi HTML.
     */
 
     document.documentElement.lang = lingua;
 
 
-    /*
-       Aggiorna il titolo della scheda.
-    */
-
-    if (lingua === "it") {
-
-        document.title =
-            "EcoGame - Informazioni 🌍";
-
-    }
-
-    if (lingua === "en") {
-
-        document.title =
-            "EcoGame - Information 🌍";
-
-    }
-
-    if (lingua === "fi") {
-
-        document.title =
-            "EcoGame - Tietoa 🌍";
-
-    }
-
-
-    /*
-       Aggiorna il pulsante attivo.
-    */
-
-    document
-        .getElementById("itBtn")
+    document.getElementById("itBtn")
         .classList.remove("attiva");
 
-    document
-        .getElementById("enBtn")
+    document.getElementById("enBtn")
         .classList.remove("attiva");
 
-    document
-        .getElementById("fiBtn")
+    document.getElementById("esBtn")
+        .classList.remove("attiva");
+
+    document.getElementById("fiBtn")
         .classList.remove("attiva");
 
 
     if (lingua === "it") {
-
-        document
-            .getElementById("itBtn")
+        document.getElementById("itBtn")
             .classList.add("attiva");
-
     }
 
     if (lingua === "en") {
-
-        document
-            .getElementById("enBtn")
+        document.getElementById("enBtn")
             .classList.add("attiva");
+    }
 
+    if (lingua === "es") {
+        document.getElementById("esBtn")
+            .classList.add("attiva");
     }
 
     if (lingua === "fi") {
-
-        document
-            .getElementById("fiBtn")
+        document.getElementById("fiBtn")
             .classList.add("attiva");
-
     }
 
 }
 
 
 /* =====================================================
-   AVVIO DEL SISTEMA
+   APRE AUTOMATICAMENTE LA PRIMA SEZIONE
    ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function() {
-
-    /*
-       Prima salviamo tutti i testi italiani originali.
-    */
-
-    salvaTestiOriginali();
+document
+    .querySelector("#uso .contenuto")
+    .classList.add("aperto");
 
 
-    /*
-       La prima sezione è aperta automaticamente.
-    */
+/* ITALIANO ATTIVO ALL'INIZIO */
 
-    document
-        .querySelector("#uso .contenuto")
-        .classList.add("aperto");
-
-
-    /*
-       Italiano attivo all'avvio.
-    */
-
-    document
-        .getElementById("itBtn")
-        .classList.add("attiva");
-
-});
+document
+    .getElementById("itBtn")
+    .classList.add("attiva");
 
 </script>
 
