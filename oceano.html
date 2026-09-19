@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🌊 Ocean Rescue - EcoGame</title>
 
 <style>
@@ -278,6 +279,7 @@ header {
 </style>
 </head>
 
+
 <body>
 
 <header>
@@ -510,6 +512,10 @@ header {
 
 
 <script>
+
+/* =========================
+   EVENTI DEL GIOCO
+========================= */
 
 const events = [
 
@@ -785,23 +791,26 @@ const events = [
 ];
 
 
+/* =========================
+   VARIABILI DEL GIOCO
+========================= */
+
 let currentTurn = 0;
-
 let chosen = false;
-
 
 let stats = {
 
     biodiversity: 70,
-
     health: 70,
-
     water: 70,
-
     activity: 70
 
 };
 
+
+/* =========================
+   AGGIORNA LE STATISTICHE
+========================= */
 
 function updateStats() {
 
@@ -820,6 +829,10 @@ function updateStats() {
 }
 
 
+/* =========================
+   LIMITA I VALORI 0-100
+========================= */
+
 function limit(value) {
 
     return Math.max(
@@ -833,6 +846,10 @@ function limit(value) {
 }
 
 
+/* =========================
+   CARICA TURNO
+========================= */
+
 function loadTurn() {
 
     chosen = false;
@@ -843,7 +860,8 @@ function loadTurn() {
     document.getElementById("turn").innerText =
         "TURNO " +
         (currentTurn + 1) +
-        " / 5";
+        " / " +
+        events.length;
 
 
     document.getElementById("event").innerText =
@@ -915,6 +933,10 @@ function loadTurn() {
 
 }
 
+
+/* =========================
+   SCELTA DEL GIOCATORE
+========================= */
 
 function chooseOption(option, selectedButton) {
 
@@ -992,6 +1014,10 @@ function chooseOption(option, selectedButton) {
 }
 
 
+/* =========================
+   TURNO SUCCESSIVO
+========================= */
+
 function nextTurn() {
 
     currentTurn++;
@@ -1004,7 +1030,9 @@ function nextTurn() {
 
         loadTurn();
 
-    } else {
+    }
+
+    else {
 
         showResult();
 
@@ -1012,6 +1040,10 @@ function nextTurn() {
 
 }
 
+
+/* =========================
+   RISULTATO FINALE
+========================= */
 
 function showResult() {
 
@@ -1082,6 +1114,10 @@ function showResult() {
 }
 
 
+/* =========================
+   RICOMINCIA
+========================= */
+
 function restartGame() {
 
     currentTurn = 0;
@@ -1117,6 +1153,10 @@ function restartGame() {
 
 }
 
+
+/* =========================
+   AVVIO DEL GIOCO
+========================= */
 
 updateStats();
 
