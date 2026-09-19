@@ -1,11 +1,10 @@
+```html
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
-
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌍 Climate Challenge - EcoGame</title>
 
 <style>
@@ -25,7 +24,6 @@ header {
     background: #172630;
     border-bottom: 1px solid #38515c;
     padding: 18px 30px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,16 +130,12 @@ header {
 .answer {
     width: 100%;
     padding: 17px;
-
     background: #1c3039;
     color: white;
-
     border: 2px solid #405b65;
     border-radius: 11px;
-
     text-align: left;
     font-size: 16px;
-
     cursor: pointer;
     transition: 0.15s;
 }
@@ -164,33 +158,22 @@ header {
 .feedback {
     margin-top: 20px;
     padding: 16px;
-
     border-radius: 10px;
-
     background: #1c3039;
-
     color: #d7e3e7;
-
     line-height: 1.6;
-
     display: none;
 }
 
 .next {
     display: block;
-
     margin: 20px auto 0;
-
     padding: 13px 25px;
-
     border: none;
     border-radius: 10px;
-
     background: #0288d1;
     color: white;
-
     font-size: 16px;
-
     cursor: pointer;
 }
 
@@ -223,10 +206,8 @@ header {
 .back {
     padding: 13px 22px;
     margin: 8px;
-
     border: none;
     border-radius: 10px;
-
     cursor: pointer;
     font-size: 16px;
 }
@@ -259,191 +240,173 @@ header {
         gap: 15px;
     }
 
+    header {
+        padding: 16px 18px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-```
-<div class="logo">
-    🌍 EcoGame
-</div>
+    <div class="logo">
+        🌍 EcoGame
+    </div>
 
-<div
-    class="menu"
-    onclick="location.href='giochi.html'">
+    <div
+        class="menu"
+        onclick="location.href='giochi.html'">
 
-    🎮 Giochi
+        🎮 Giochi
 
-</div>
-```
+    </div>
 
 </header>
 
 <div class="container">
 
-<div class="title">
+    <div class="title">
 
-```
-<h1>🌍 Climate Challenge</h1>
+        <h1>🌍 Climate Challenge</h1>
 
-<p>
-    20 sfide sul clima, sull'atmosfera
-    e sui cambiamenti ambientali.
-</p>
-```
+        <p>
+            20 sfide sul clima, sull'atmosfera
+            e sui cambiamenti ambientali.
+        </p>
 
-</div>
-
-<div class="progress">
-
-```
-<div
-    class="progress-bar"
-    id="progressBar">
-
-</div>
-```
-
-</div>
-
-<div class="info">
-
-```
-<div>
-    Domanda:
-    <span id="questionNumber">1/20</span>
-</div>
-
-<div>
-    Punti:
-    <span id="score">0</span>
-</div>
-```
-
-</div>
-
-<div class="card" id="quizCard">
-
-```
-<div
-    class="category"
-    id="category">
-
-    CLIMA
-
-</div>
-
-
-<div
-    class="question"
-    id="question">
-
-</div>
-
-
-<div
-    class="scenario"
-    id="scenario">
-
-</div>
-
-
-<div
-    class="answers"
-    id="answers">
-
-</div>
-
-
-<div
-    class="feedback"
-    id="feedback">
-
-</div>
-
-
-<button
-    class="next"
-    id="next"
-    style="display:none"
-    onclick="nextQuestion()">
-
-    Prossima sfida →
-
-</button>
-```
-
-</div>
-
-<div
-    class="card hidden"
-    id="resultCard">
-
-```
-<div class="result">
-
-    <div class="result-icon">
-        🌍
     </div>
 
-    <h2>
-        Climate Challenge completata!
-    </h2>
+    <div class="progress">
 
-    <p>
-        Hai ottenuto:
-    </p>
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <div>
+            Domanda:
+            <span id="questionNumber">1/20</span>
+        </div>
+
+        <div>
+            Punti:
+            <span id="score">0</span>
+        </div>
+
+    </div>
+
+    <div class="card" id="quizCard">
+
+        <div
+            class="category"
+            id="category">
+        </div>
+
+        <div
+            class="question"
+            id="question">
+        </div>
+
+        <div
+            class="scenario"
+            id="scenario">
+        </div>
+
+        <div
+            class="answers"
+            id="answers">
+        </div>
+
+        <div
+            class="feedback"
+            id="feedback">
+        </div>
+
+        <button
+            class="next"
+            id="next"
+            style="display:none"
+            onclick="nextQuestion()">
+
+            Prossima sfida →
+
+        </button>
+
+    </div>
 
     <div
-        class="final-score"
-        id="finalScore">
+        class="card hidden"
+        id="resultCard">
 
-        0
+        <div class="result">
+
+            <div class="result-icon">
+                🌍
+            </div>
+
+            <h2>
+                Climate Challenge completata!
+            </h2>
+
+            <p>
+                Hai ottenuto:
+            </p>
+
+            <div
+                class="final-score"
+                id="finalScore">
+
+                0
+
+            </div>
+
+            <p id="resultMessage"></p>
+
+            <button
+                class="restart"
+                onclick="location.reload()">
+
+                🔄 Riprova
+
+            </button>
+
+            <button
+                class="back"
+                onclick="location.href='giochi.html'">
+
+                🎮 Torna ai giochi
+
+            </button>
+
+        </div>
 
     </div>
-
-    <p id="resultMessage"></p>
-
-
-    <button
-        class="restart"
-        onclick="location.reload()">
-
-        🔄 Riprova
-
-    </button>
-
-
-    <button
-        class="back"
-        onclick="location.href='giochi.html'">
-
-        🎮 Torna ai giochi
-
-    </button>
-
-</div>
-```
-
-</div>
 
 </div>
 
 <script>
 
-
 const questions = [
-
-/* 1 */
 
 {
     category: "EFFETTO SERRA",
+
     question:
         "Perché l'aumento della concentrazione di alcuni gas nell'atmosfera può aumentare la temperatura media terrestre?",
 
@@ -462,8 +425,6 @@ const questions = [
     explanation:
         "I gas serra, come CO₂, metano e vapore acqueo, interagiscono con la radiazione infrarossa. Un aumento della loro concentrazione può rafforzare l'effetto serra naturale."
 },
-
-/* 2 */
 
 {
     category: "METEO E CLIMA",
@@ -487,8 +448,6 @@ const questions = [
         "Il meteo descrive condizioni atmosferiche a breve termine. Il clima riguarda invece statistiche e tendenze osservate su periodi molto più lunghi."
 },
 
-/* 3 */
-
 {
     category: "CO₂",
 
@@ -510,8 +469,6 @@ const questions = [
     explanation:
         "La combustione di combustibili fossili libera carbonio precedentemente immagazzinato nel sottosuolo sotto forma di CO₂."
 },
-
-/* 4 */
 
 {
     category: "FORESTE",
@@ -535,8 +492,6 @@ const questions = [
         "Le foreste assorbono CO₂ attraverso la fotosintesi. La deforestazione può ridurre questo assorbimento e, in determinate condizioni, liberare carbonio immagazzinato nella vegetazione e nei suoli."
 },
 
-/* 5 */
-
 {
     category: "GHIACCIO",
 
@@ -559,8 +514,6 @@ const questions = [
         "Il ghiaccio ha un'elevata riflettività. Quando diminuisce, superfici più scure come l'oceano possono assorbire più energia solare: questo è collegato all'effetto albedo."
 },
 
-/* 6 */
-
 {
     category: "VERO O FALSO",
 
@@ -580,8 +533,6 @@ const questions = [
     explanation:
         "FALSO. Il cambiamento climatico riguarda variazioni delle condizioni climatiche nel lungo periodo. Possono comunque verificarsi giorni o periodi freddi anche in un clima che si sta riscaldando."
 },
-
-/* 7 */
 
 {
     category: "OCEANI",
@@ -605,8 +556,6 @@ const questions = [
         "L'acqua marina si espande quando si riscalda. Inoltre il riscaldamento degli oceani può avere conseguenze importanti sugli ecosistemi marini."
 },
 
-/* 8 */
-
 {
     category: "BUCO DELL'OZONO",
 
@@ -629,8 +578,6 @@ const questions = [
         "Il buco dell'ozono riguarda soprattutto la riduzione dell'ozono stratosferico, mentre il cambiamento climatico è fortemente legato all'aumento dei gas serra. Sono fenomeni distinti."
 },
 
-/* 9 */
-
 {
     category: "BUCO DELL'OZONO",
 
@@ -650,10 +597,8 @@ const questions = [
     correct: 0,
 
     explanation:
-        "I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono. La loro eliminazione è stata affrontata attraverso il Protocollo di Montreal."
+        "I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono."
 },
-
-/* 10 */
 
 {
     category: "BUCO DELL'OZONO",
@@ -674,10 +619,8 @@ const questions = [
     correct: 1,
 
     explanation:
-        "L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole, contribuendo alla protezione degli organismi viventi."
+        "L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole."
 },
-
-/* 11 */
 
 {
     category: "ENERGIA",
@@ -698,10 +641,8 @@ const questions = [
     correct: 1,
 
     explanation:
-        "Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione. Questo non significa però che tutte le emissioni del sistema energetico scompaiano."
+        "Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione."
 },
-
-/* 12 */
 
 {
     category: "VERO O FALSO",
@@ -720,10 +661,8 @@ const questions = [
     correct: 0,
 
     explanation:
-        "VERO. Il vapore acqueo è il gas serra più abbondante nell'atmosfera. La sua quantità dipende anche dalla temperatura e agisce soprattutto come importante feedback del sistema climatico."
+        "VERO. Il vapore acqueo è un gas serra naturale e svolge un ruolo importante nel sistema climatico."
 },
-
-/* 13 */
 
 {
     category: "TRASPORTI",
@@ -732,7 +671,7 @@ const questions = [
         "Due persone devono percorrere ogni giorno pochi chilometri in una città ben servita dai trasporti pubblici. Quale scelta può contribuire a ridurre le emissioni legate agli spostamenti?",
 
     scenario:
-        "Non esiste una soluzione identica per ogni situazione: considera il caso specifico descritto.",
+        "Considera il caso specifico descritto e le alternative realmente praticabili.",
 
     answers: [
         "Utilizzare sempre un'auto privata anche quando non è necessaria.",
@@ -744,10 +683,8 @@ const questions = [
     correct: 1,
 
     explanation:
-        "Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati e le emissioni associate agli spostamenti."
+        "Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati."
 },
-
-/* 14 */
 
 {
     category: "ADATTAMENTO",
@@ -756,7 +693,7 @@ const questions = [
         "Una città costruisce aree verdi e sistemi per gestire meglio l'acqua piovana durante forti precipitazioni. Questa è principalmente una misura di:",
 
     scenario:
-        "La città non sta necessariamente riducendo la causa del cambiamento climatico: sta cercando di gestirne alcuni rischi.",
+        "La città sta cercando di gestire alcuni rischi associati ai cambiamenti climatici.",
 
     answers: [
         "Adattamento.",
@@ -770,8 +707,6 @@ const questions = [
     explanation:
         "L'adattamento comprende interventi che riducono i danni o i rischi associati agli effetti del cambiamento climatico."
 },
-
-/* 15 */
 
 {
     category: "MITIGAZIONE",
@@ -795,8 +730,6 @@ const questions = [
         "La mitigazione consiste soprattutto nel ridurre le emissioni di gas serra o aumentare la loro rimozione dall'atmosfera."
 },
 
-/* 16 */
-
 {
     category: "CARBONIO",
 
@@ -816,10 +749,8 @@ const questions = [
     correct: 1,
 
     explanation:
-        "Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio. Questo assorbimento ha però conseguenze, tra cui l'acidificazione degli oceani."
+        "Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio."
 },
-
-/* 17 */
 
 {
     category: "EVENTI ESTREMI",
@@ -840,10 +771,8 @@ const questions = [
     correct: 1,
 
     explanation:
-        "Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi. L'influenza varia a seconda del fenomeno e della regione."
+        "Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi."
 },
-
-/* 18 */
 
 {
     category: "ALBEDO",
@@ -864,10 +793,8 @@ const questions = [
     correct: 0,
 
     explanation:
-        "Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore e riflettono una quota più elevata della radiazione solare."
+        "Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore."
 },
-
-/* 19 */
 
 {
     category: "SCENARIO",
@@ -891,8 +818,6 @@ const questions = [
         "La vegetazione può rimuovere e immagazzinare carbonio, ma questa capacità è limitata e non sostituisce automaticamente la riduzione delle emissioni alla fonte."
 },
 
-/* 20 */
-
 {
     category: "SFIDA FINALE",
 
@@ -912,167 +837,81 @@ const questions = [
     correct: 1,
 
     explanation:
-        "L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto, legato soprattutto a sostanze come i CFC."
+        "L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto."
 }
 
 ];
 
-
 let current = 0;
-
 let score = 0;
-
 let answered = false;
 
-
-const category =
-    document.getElementById("category");
-
-const question =
-    document.getElementById("question");
-
-const scenario =
-    document.getElementById("scenario");
-
-const answers =
-    document.getElementById("answers");
-
-const feedback =
-    document.getElementById("feedback");
-
-const next =
-    document.getElementById("next");
-
-const scoreElement =
-    document.getElementById("score");
-
-const questionNumber =
-    document.getElementById(
-        "questionNumber"
-    );
-
-const progressBar =
-    document.getElementById(
-        "progressBar"
-    );
-
+const category = document.getElementById("category");
+const question = document.getElementById("question");
+const scenario = document.getElementById("scenario");
+const answers = document.getElementById("answers");
+const feedback = document.getElementById("feedback");
+const next = document.getElementById("next");
+const scoreElement = document.getElementById("score");
+const questionNumber = document.getElementById("questionNumber");
+const progressBar = document.getElementById("progressBar");
 
 function loadQuestion() {
 
-
     answered = false;
 
-    feedback.style.display =
-        "none";
+    feedback.style.display = "none";
+    next.style.display = "none";
 
-    next.style.display =
-        "none";
+    const q = questions[current];
 
+    category.innerText = q.category;
+    question.innerText = q.question;
+    scenario.innerText = q.scenario;
 
-    const q =
-        questions[current];
+    answers.innerHTML = "";
 
+    q.answers.forEach(function(answer, index) {
 
-    category.innerText =
-        q.category;
+        const button = document.createElement("button");
 
+        button.className = "answer";
+        button.innerText = answer;
 
-    question.innerText =
-        q.question;
+        button.onclick = function() {
+            checkAnswer(button, index);
+        };
 
+        answers.appendChild(button);
 
-    scenario.innerText =
-        q.scenario;
-
-
-    answers.innerHTML =
-        "";
-
-
-    q.answers.forEach(
-        function(answer, index) {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "answer";
-
-
-            button.innerText =
-                answer;
-
-
-            button.onclick =
-                function() {
-
-                    checkAnswer(
-                        button,
-                        index
-                    );
-
-                };
-
-
-            answers.appendChild(
-                button
-            );
-
-        }
-    );
-
+    });
 
     questionNumber.innerText =
-        (current + 1) + "/20";
-
+        (current + 1) + "/" + questions.length;
 
     progressBar.style.width =
-        (
-            (current / questions.length)
-            * 100
-        ) + "%";
+        ((current / questions.length) * 100) + "%";
 
 }
 
-
-function checkAnswer(
-    selected,
-    index
-) {
-
+function checkAnswer(selected, index) {
 
     if (answered) {
         return;
     }
 
-
     answered = true;
 
-
-    const q =
-        questions[current];
-
+    const q = questions[current];
 
     const allAnswers =
-        document.querySelectorAll(
-            ".answer"
-        );
+        document.querySelectorAll(".answer");
 
+    if (index === q.correct) {
 
-    if (
-        index === q.correct
-    ) {
-
-        selected.classList.add(
-            "correct"
-        );
-
+        selected.classList.add("correct");
 
         score += 10;
-
 
         feedback.innerHTML =
             "✅ <strong>Corretto! +10 punti</strong><br><br>" +
@@ -1080,20 +919,11 @@ function checkAnswer(
 
     } else {
 
-        selected.classList.add(
-            "wrong"
-        );
+        selected.classList.add("wrong");
 
-
-        allAnswers[
-            q.correct
-        ].classList.add(
-            "correct"
-        );
-
+        allAnswers[q.correct].classList.add("correct");
 
         score -= 5;
-
 
         feedback.innerHTML =
             "❌ <strong>Risposta non corretta. -5 punti</strong><br><br>" +
@@ -1104,42 +934,22 @@ function checkAnswer(
 
     }
 
+    scoreElement.innerText = score;
 
-    scoreElement.innerText =
-        score;
+    feedback.style.display = "block";
+    next.style.display = "block";
 
-
-    feedback.style.display =
-        "block";
-
-
-    next.style.display =
-        "block";
-
-
-    if (
-        current ===
-        questions.length - 1
-    ) {
-
-        next.innerText =
-            "🏆 Vedi risultato";
-
+    if (current === questions.length - 1) {
+        next.innerText = "🏆 Vedi risultato";
     }
 
 }
 
-
 function nextQuestion() {
-
 
     current++;
 
-
-    if (
-        current <
-        questions.length
-    ) {
+    if (current < questions.length) {
 
         loadQuestion();
 
@@ -1151,39 +961,20 @@ function nextQuestion() {
 
 }
 
-
 function showResult() {
 
+    document.getElementById("quizCard")
+        .classList.add("hidden");
 
-    document.getElementById(
-        "quizCard"
-    ).classList.add(
-        "hidden"
-    );
+    document.getElementById("resultCard")
+        .classList.remove("hidden");
 
+    progressBar.style.width = "100%";
 
-    document.getElementById(
-        "resultCard"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
-        "100%";
-
-
-    document.getElementById(
-        "finalScore"
-    ).innerText =
-        score +
-        " / 200";
-
+    document.getElementById("finalScore").innerText =
+        score + " / 200";
 
     let message;
-
 
     if (score >= 170) {
 
@@ -1217,20 +1008,15 @@ function showResult() {
 
     }
 
-
-    document.getElementById(
-        "resultMessage"
-    ).innerText =
+    document.getElementById("resultMessage").innerText =
         message;
 
 }
 
-
 loadQuestion();
-
 
 </script>
 
 </body>
-
 </html>
+```
