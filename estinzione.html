@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Animali Estinti 🐾</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #07130d, #10251a, #08110d);
+        color: #e8f5e9;
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #0b1f13;
+        padding: 30px 20px;
+        border-bottom: 2px solid #2e7d32;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+        margin: 5px;
+        font-size: 42px;
+        color: #81c784;
+    }
+
+    header p {
+        color: #c8e6c9;
+        font-size: 18px;
+    }
+
+    .game {
+        width: 90%;
+        max-width: 850px;
+        margin: 35px auto;
+        background: #12241a;
+        border: 1px solid #285c35;
+        border-radius: 25px;
+        padding: 35px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+    }
+
+    #numero {
+        color: #81c784;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #animale {
+        font-size: 80px;
+        margin: 15px;
+    }
+
+    #nomeAnimale {
+        color: #a5d6a7;
+        font-size: 32px;
+        margin: 10px;
+    }
+
+    #descrizione {
+        max-width: 700px;
+        margin: 20px auto;
+        line-height: 1.6;
+        color: #d7ead9;
+    }
+
+    .info {
+        background: #0c1911;
+        border-left: 5px solid #43a047;
+        border-radius: 10px;
+        padding: 18px;
+        margin: 20px auto;
+        max-width: 700px;
+        text-align: left;
+        line-height: 1.6;
+    }
+
+    .info strong {
+        color: #81c784;
+    }
+
+    #domanda {
+        font-size: 23px;
+        margin: 30px 10px 20px;
+        color: white;
+    }
+
+    .risposta {
+        display: block;
+        width: 90%;
+        max-width: 650px;
+        margin: 12px auto;
+        padding: 15px;
+        border: 1px solid #397545;
+        border-radius: 12px;
+        background: #1b3524;
+        color: white;
+        font-size: 17px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .risposta:hover {
+        background: #2e7d32;
+        transform: scale(1.02);
+    }
+
+    #risultato {
+        font-size: 21px;
+        font-weight: bold;
+        margin: 25px;
+    }
+
+    #spiegazione {
+        display: none;
+        background: #0b1710;
+        border-left: 5px solid #66bb6a;
+        padding: 18px;
+        margin: 20px auto;
+        max-width: 700px;
+        text-align: left;
+        line-height: 1.6;
+        color: #d7ead9;
+    }
+
+    #prossima,
+    #ricomincia,
+    #home {
+        border: none;
+        border-radius: 12px;
+        padding: 14px 25px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    #prossima {
+        background: #1565c0;
+        color: white;
+        display: none;
+    }
+
+    #prossima:hover {
+        background: #0d47a1;
+    }
+
+    #home {
+        background: #37474f;
+        color: white;
+    }
+
+    #home:hover {
+        background: #263238;
+    }
+
+    #ricomincia {
+        background: #43a047;
+        color: white;
+    }
+
+    #ricomincia:hover {
+        background: #1b5e20;
+    }
+
+    #finale {
+        display: none;
+    }
+
+    #punteggioFinale {
+        font-size: 35px;
+        color: #81c784;
+        font-weight: bold;
+    }
+
+    #messaggioFinale {
+        font-size: 20px;
+        color: #d7ead9;
+        line-height: 1.6;
+    }
+
+    footer {
+        padding: 25px;
+        color: #81a889;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+
+```
+<h1>🐾 Animali Estinti</h1>
+
+<p>
+    Scopri le specie scomparse e le cause della loro estinzione
+</p>
+```
+
+</header>
+
+<div class="game" id="gioco">
+
+```
+<div id="numero"></div>
+
+<div id="animale"></div>
+
+<h2 id="nomeAnimale"></h2>
+
+<p id="descrizione"></p>
+
+<div class="info" id="informazioni"></div>
+
+<h3 id="domanda"></h3>
+
+<div id="risposte"></div>
+
+<div id="risultato"></div>
+
+<div id="spiegazione"></div>
+
+<button id="prossima" onclick="prossimaDomanda()">
+    ➡️ Prossimo animale
+</button>
+```
+
+</div>
+
+<div class="game" id="finale">
+
+```
+<h2>🎉 Missione completata!</h2>
+
+<p>
+    Hai analizzato tutti e 6 gli animali.
+</p>
+
+<p id="punteggioFinale"></p>
+
+<p id="messaggioFinale"></p>
+
+<button id="ricomincia" onclick="ricomincia()">
+    🔄 Ricomincia
+</button>
+
+<button id="home" onclick="location.href='giochi.html'">
+    🏠 Torna ai giochi
+</button>
+```
+
+</div>
+
+<footer>
+
+```
+🌱 Conoscere il passato aiuta a proteggere la biodiversità.
+```
+
+</footer>
+
+<script>
+
+
+const animali = [
+
+    {
+        emoji: "🦣",
+        nome: "Mammut lanoso",
+
+        descrizione:
+            "Il mammut lanoso viveva nelle regioni fredde dell'emisfero settentrionale ed era adattato ai climi glaciali.",
+
+        causa:
+            "Le popolazioni diminuirono per una combinazione di cambiamenti climatici e pressione umana. Alcune popolazioni sopravvissero più a lungo in aree isolate.",
+
+        protezione:
+            "La riduzione della pressione di caccia e la protezione degli habitat avrebbero potuto contribuire a preservare alcune popolazioni.",
+
+        domanda:
+            "Quale combinazione di fattori è associata alla scomparsa del mammut lanoso?",
+
+        risposte: [
+            {
+                testo: "Cambiamenti ambientali e pressione umana",
+                corretta: true
+            },
+            {
+                testo: "Solo terremoti",
+                corretta: false
+            },
+            {
+                testo: "Solo malattie moderne",
+                corretta: false
+            },
+            {
+                testo: "La mancanza di acqua potabile causata dall'uomo",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "La scomparsa del mammut lanoso è stata collegata a cambiamenti climatici e, in diverse aree e periodi, alla pressione della caccia umana."
+    },
+
+
+    {
+        emoji: "🦤",
+        nome: "Dodo",
+
+        descrizione:
+            "Il dodo era un uccello incapace di volare che viveva sull'isola di Mauritius nell'Oceano Indiano.",
+
+        causa:
+            "La sua scomparsa è legata soprattutto all'arrivo degli esseri umani, alla caccia e alla presenza di animali introdotti che predavano uova e giovani.",
+
+        protezione:
+            "La protezione dell'habitat e dei siti di nidificazione, insieme al controllo degli animali introdotti, avrebbe potuto ridurre la pressione sulla specie.",
+
+        domanda:
+            "Perché il dodo era particolarmente vulnerabile all'arrivo di nuovi predatori?",
+
+        risposte: [
+            {
+                testo: "Perché non poteva volare e nidificava a terra",
+                corretta: true
+            },
+            {
+                testo: "Perché viveva sott'acqua",
+                corretta: false
+            },
+            {
+                testo: "Perché era un animale notturno",
+                corretta: false
+            },
+            {
+                testo: "Perché non poteva mangiare frutta",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "Il dodo non volava e deponeva le uova a terra, caratteristiche che lo rendevano vulnerabile a predatori introdotti nell'isola."
+    },
+
+
+    {
+        emoji: "🐯",
+        nome: "Tilacino",
+
+        descrizione:
+            "Il tilacino, noto anche come tigre della Tasmania, era un marsupiale carnivoro originario dell'Australia e della Tasmania.",
+
+        causa:
+            "In Tasmania fu perseguitato dagli esseri umani e sottoposto a campagne di abbattimento. Anche la perdita dell'habitat e altri fattori possono aver contribuito al declino.",
+
+        protezione:
+            "Una protezione anticipata della specie e la riduzione delle campagne di abbattimento avrebbero potuto aumentare le possibilità di sopravvivenza.",
+
+        domanda:
+            "Quale intervento avrebbe potuto contribuire maggiormente alla conservazione del tilacino?",
+
+        risposte: [
+            {
+                testo: "Proteggere la specie e limitare l'abbattimento",
+                corretta: true
+            },
+            {
+                testo: "Aumentare la caccia",
+                corretta: false
+            },
+            {
+                testo: "Distruggere il suo habitat",
+                corretta: false
+            },
+            {
+                testo: "Introdurre nuovi predatori",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "La protezione legale e la riduzione della persecuzione avrebbero potuto diminuire una delle principali pressioni esercitate sulla popolazione."
+    },
+
+
+    {
+        emoji: "🐦",
+        nome: "Alca impenne",
+
+        descrizione:
+            "L'alca impenne era un grande uccello marino incapace di volare che viveva nell'Atlantico settentrionale.",
+
+        causa:
+            "Fu fortemente cacciato per carne, piume e altri materiali. La pressione della caccia contribuì al rapido declino delle popolazioni.",
+
+        protezione:
+            "La regolamentazione della caccia e la protezione delle colonie riproduttive avrebbero potuto ridurre il rischio di estinzione.",
+
+        domanda:
+            "Quale fu una delle principali minacce per l'alca impenne?",
+
+        risposte: [
+            {
+                testo: "La caccia da parte degli esseri umani",
+                corretta: true
+            },
+            {
+                testo: "La fotosintesi delle alghe",
+                corretta: false
+            },
+            {
+                testo: "La mancanza di alberi tropicali",
+                corretta: false
+            },
+            {
+                testo: "L'inquinamento luminoso moderno",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "L'alca impenne fu sottoposta a una forte pressione di caccia e raccolta, che contribuì al suo declino fino all'estinzione."
+    },
+
+
+    {
+        emoji: "🐸",
+        nome: "Rana dorata del Costa Rica",
+
+        descrizione:
+            "La rana dorata del Costa Rica era una piccola rana conosciuta per il caratteristico colore arancione-dorato. È considerata estinta.",
+
+        causa:
+            "Il suo declino è stato associato a cambiamenti climatici, alterazioni dell'habitat e alla diffusione di malattie fungine tra gli anfibi.",
+
+        protezione:
+            "Il monitoraggio delle popolazioni, la protezione dell'habitat e la ricerca sulle malattie degli anfibi sono strumenti importanti per prevenire perdite simili.",
+
+        domanda:
+            "Quale problema ha contribuito al declino di molte popolazioni di anfibi, compresa la rana dorata?",
+
+        risposte: [
+            {
+                testo: "Malattie fungine e cambiamenti ambientali",
+                corretta: true
+            },
+            {
+                testo: "La pesca industriale",
+                corretta: false
+            },
+            {
+                testo: "La caccia alle balene",
+                corretta: false
+            },
+            {
+                testo: "L'eccesso di neve",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "La perdita di habitat, i cambiamenti ambientali e malattie come la chytridiomicosi hanno contribuito al declino di numerosi anfibi."
+    },
+
+
+    {
+        emoji: "🐦",
+        nome: "Piccione migratore",
+
+        descrizione:
+            "Il piccione migratore era un uccello nordamericano che un tempo formava stormi enormi.",
+
+        causa:
+            "La specie subì una caccia commerciale su larga scala e una forte perdita dell'habitat forestale. La combinazione di queste pressioni provocò un drastico declino.",
+
+        protezione:
+            "Limitare la caccia e proteggere le foreste avrebbe potuto ridurre fortemente le pressioni sulla specie.",
+
+        domanda:
+            "Quale combinazione contribuì maggiormente al declino del piccione migratore?",
+
+        risposte: [
+            {
+                testo: "Caccia su larga scala e perdita dell'habitat",
+                corretta: true
+            },
+            {
+                testo: "Solo eruzioni vulcaniche",
+                corretta: false
+            },
+            {
+                testo: "Solo cambiamenti delle maree",
+                corretta: false
+            },
+            {
+                testo: "La mancanza di acqua negli oceani",
+                corretta: false
+            }
+        ],
+
+        spiegazione:
+            "Il piccione migratore fu colpito dalla caccia commerciale su larga scala e dalla distruzione del suo habitat forestale."
+    }
+
+];
+
+
+let animaleAttuale = 0;
+
+let punteggio = 0;
+
+let rispostaData = false;
+
+
+/* -----------------------------------
+   FUNZIONE PER MESCOLARE LE RISPOSTE
+----------------------------------- */
+
+function mescola(array) {
+
+    const copia = [...array];
+
+    for (let i = copia.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [copia[i], copia[j]] =
+        [copia[j], copia[i]];
+
+    }
+
+    return copia;
+}
+
+
+/* -----------------------------------
+   MOSTRA ANIMALE
+----------------------------------- */
+
+function mostraAnimale() {
+
+    rispostaData = false;
+
+    const animale = animali[animaleAttuale];
+
+    document.getElementById("numero").innerText =
+        "ANIMALE " +
+        (animaleAttuale + 1) +
+        " DI " +
+        animali.length;
+
+    document.getElementById("animale").innerText =
+        animale.emoji;
+
+    document.getElementById("nomeAnimale").innerText =
+        animale.nome;
+
+    document.getElementById("descrizione").innerText =
+        animale.descrizione;
+
+    document.getElementById("informazioni").innerHTML =
+        "<strong>💀 Perché si è estinto?</strong><br>" +
+        animale.causa +
+        "<br><br>" +
+        "<strong>🛡️ Cosa si sarebbe potuto fare?</strong><br>" +
+        animale.protezione;
+
+    document.getElementById("domanda").innerText =
+        animale.domanda;
+
+    document.getElementById("risultato").innerText = "";
+
+    document.getElementById("spiegazione").style.display =
+        "none";
+
+    document.getElementById("prossima").style.display =
+        "none";
+
+
+    const contenitore =
+        document.getElementById("risposte");
+
+    contenitore.innerHTML = "";
+
+
+    /* MESCOLA LE RISPOSTE */
+
+    const risposteMescolate =
+        mescola(animale.risposte);
+
+
+    risposteMescolate.forEach(function(risposta) {
+
+        const bottone =
+            document.createElement("button");
+
+        bottone.className = "risposta";
+
+        bottone.innerText =
+            risposta.testo;
+
+        bottone.onclick = function() {
+
+            controllaRisposta(risposta);
+
+        };
+
+        contenitore.appendChild(bottone);
+
+    });
+
+}
+
+
+/* -----------------------------------
+   CONTROLLA RISPOSTA
+----------------------------------- */
+
+function controllaRisposta(risposta) {
+
+    if (rispostaData) {
+        return;
+    }
+
+    rispostaData = true;
+
+
+    if (risposta.corretta) {
+
+        punteggio++;
+
+        document.getElementById("risultato").innerText =
+            "✅ Risposta corretta!";
+
+    } else {
+
+        document.getElementById("risultato").innerText =
+            "❌ Risposta sbagliata!";
+
+    }
+
+
+    const animale =
+        animali[animaleAttuale];
+
+
+    document.getElementById("spiegazione").innerText =
+        "📚 " +
+        animale.spiegazione;
+
+
+    document.getElementById("spiegazione").style.display =
+        "block";
+
+
+    document.getElementById("prossima").style.display =
+        "inline-block";
+
+}
+
+
+/* -----------------------------------
+   PROSSIMO ANIMALE
+----------------------------------- */
+
+function prossimaDomanda() {
+
+    animaleAttuale++;
+
+
+    if (animaleAttuale < animali.length) {
+
+        mostraAnimale();
+
+    } else {
+
+        mostraRisultatoFinale();
+
+    }
+
+}
+
+
+/* -----------------------------------
+   RISULTATO FINALE
+----------------------------------- */
+
+function mostraRisultatoFinale() {
+
+    document.getElementById("gioco").style.display =
+        "none";
+
+    document.getElementById("finale").style.display =
+        "block";
+
+
+    document.getElementById("punteggioFinale").innerText =
+        punteggio + " / 6";
+
+
+    if (punteggio === 6) {
+
+        document.getElementById("messaggioFinale").innerText =
+            "🌟 Perfetto! Conosci molto bene la storia delle specie estinte e le principali cause della loro scomparsa.";
+
+    } else if (punteggio >= 4) {
+
+        document.getElementById("messaggioFinale").innerText =
+            "🌱 Molto bene! Hai una buona conoscenza delle cause dell'estinzione.";
+
+    } else if (punteggio >= 2) {
+
+        document.getElementById("messaggioFinale").innerText =
+            "👍 Buon lavoro! Hai imparato diverse cose, ma puoi approfondire ancora.";
+
+    } else {
+
+        document.getElementById("messaggioFinale").innerText =
+            "📚 Continua a esplorare: conoscere le cause delle estinzioni aiuta a capire come proteggere le specie.";
+
+    }
+
+}
+
+
+/* -----------------------------------
+   RICOMINCIA
+----------------------------------- */
+
+function ricomincia() {
+
+    animaleAttuale = 0;
+
+    punteggio = 0;
+
+    document.getElementById("finale").style.display =
+        "none";
+
+    document.getElementById("gioco").style.display =
+        "block";
+
+    mostraAnimale();
+
+}
+
+
+/* AVVIO DEL GIOCO */
+
+mostraAnimale();
+
+
+</script>
+
+</body>
+
+</html>

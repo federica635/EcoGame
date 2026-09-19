@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>🐝 Memory della Biodiversità - EcoGame</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101820;
+    color: #eef7f0;
+}
+
+header {
+    background: #17251d;
+    border-bottom: 1px solid #395342;
+    padding: 20px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #81c784;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.info {
+    color: #b8c8bc;
+}
+
+.container {
+    width: 92%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro h1 {
+    color: #81c784;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.intro p {
+    color: #b9c9bd;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: #17251d;
+    border: 1px solid #395342;
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-title {
+    color: #aabaae;
+    font-size: 14px;
+}
+
+.stat-number {
+    color: #81c784;
+    font-size: 27px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.memory {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 760px;
+    margin: auto;
+}
+
+.card {
+    height: 150px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner,
+.card.matched .card-inner {
+    transform: rotateY(180deg);
+}
+
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+
+.front {
+    background: #1c3324;
+    border: 2px solid #42614a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    color: #81c784;
+}
+
+.front:hover {
+    background: #274832;
+    border-color: #81c784;
+}
+
+.back {
+    background: #e8f5e9;
+    color: #17251d;
+    transform: rotateY(180deg);
+    border: 2px solid #81c784;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}
+
+.emoji {
+    font-size: 38px;
+    margin-bottom: 7px;
+}
+
+.text {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.card.matched .back {
+    background: #c8e6c9;
+}
+
+.feedback {
+    max-width: 760px;
+    margin: 25px auto 0;
+    padding: 18px;
+    background: #17251d;
+    border: 1px solid #395342;
+    border-radius: 13px;
+    text-align: center;
+    line-height: 1.6;
+    display: none;
+}
+
+.reset {
+    display: block;
+    margin: 25px auto;
+    background: #43a047;
+    border: none;
+    color: white;
+    padding: 13px 23px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.reset:hover {
+    background: #66bb6a;
+}
+
+#finale {
+    display: none;
+    text-align: center;
+    background: #17251d;
+    border: 1px solid #395342;
+    border-radius: 20px;
+    padding: 35px;
+    margin-top: 25px;
+}
+
+.final-score {
+    font-size: 55px;
+    color: #81c784;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.final-text {
+    color: #c5d2c8;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+@media(max-width: 700px) {
+
+    .memory {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+```
+<div class="logo">
+    🌍 EcoGame
+</div>
+
+<div class="info">
+    🧠 Memory ecologico
+</div>
+```
+
+</header>
+
+<div class="container">
+
+```
+<div class="intro">
+
+    <h1>🐝 Memory della Biodiversità</h1>
+
+    <p>
+        Trova le coppie di concetti collegati.
+        <br>
+        Non cercare solo immagini uguali:
+        <strong>ragiona sulle relazioni ecologiche.</strong>
+    </p>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-title">
+            ⏱️ Tempo
+        </div>
+
+        <div class="stat-number">
+            <span id="tempo">0</span>s
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            🎯 Tentativi
+        </div>
+
+        <div class="stat-number">
+            <span id="tentativi">0</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            🧩 Coppie
+        </div>
+
+        <div class="stat-number">
+            <span id="coppie">0</span> / 8
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="memory" id="memory"></div>
+
+
+<div class="feedback" id="feedback"></div>
+
+
+<button class="reset" onclick="nuovaPartita()">
+    🔄 Nuova partita
+</button>
+
+
+<div id="finale">
+
+    <h2>🏆 Biodiversità completata!</h2>
+
+    <div class="final-score">
+        <span id="punteggio">0</span>
+    </div>
+
+    <p class="final-text" id="finalText"></p>
+
+    <button class="reset" onclick="nuovaPartita()">
+        🔄 Gioca ancora
+    </button>
+
+    <button class="reset"
+        onclick="window.location.href='giochi.html'">
+
+        🎮 Torna ai giochi
+
+    </button>
+
+</div>
+```
+
+</div>
+
+<script>
+
+
+const coppie = [
+
+    {
+        id: 1,
+        emoji: "🌳",
+        titolo: "Foresta",
+        descrizione: "Habitat ricco di specie"
+    },
+
+    {
+        id: 1,
+        emoji: "🐾",
+        titolo: "Biodiversità",
+        descrizione: "Varietà di forme di vita"
+    },
+
+
+    {
+        id: 2,
+        emoji: "🐝",
+        titolo: "Ape",
+        descrizione: "Importante impollinatore"
+    },
+
+    {
+        id: 2,
+        emoji: "🌼",
+        titolo: "Impollinazione",
+        descrizione: "Trasferimento del polline"
+    },
+
+
+    {
+        id: 3,
+        emoji: "☀️",
+        titolo: "Sole",
+        descrizione: "Fonte primaria di energia"
+    },
+
+    {
+        id: 3,
+        emoji: "🌱",
+        titolo: "Produttori",
+        descrizione: "Trasformano energia luminosa"
+    },
+
+
+    {
+        id: 4,
+        emoji: "🐺",
+        titolo: "Predatore",
+        descrizione: "Regola alcune popolazioni"
+    },
+
+    {
+        id: 4,
+        emoji: "🦌",
+        titolo: "Prede",
+        descrizione: "Parte della rete trofica"
+    },
+
+
+    {
+        id: 5,
+        emoji: "🌊",
+        titolo: "Oceano",
+        descrizione: "Grande serbatoio di calore"
+    },
+
+    {
+        id: 5,
+        emoji: "🌡️",
+        titolo: "Clima",
+        descrizione: "Sistema influenzato dagli oceani"
+    },
+
+
+    {
+        id: 6,
+        emoji: "💧",
+        titolo: "Zona umida",
+        descrizione: "Habitat e regolazione dell'acqua"
+    },
+
+    {
+        id: 6,
+        emoji: "🪶",
+        titolo: "Uccelli migratori",
+        descrizione: "Usano le zone umide come habitat"
+    },
+
+
+    {
+        id: 7,
+        emoji: "♻️",
+        titolo: "Riciclo",
+        descrizione: "Recupero di materiali"
+    },
+
+    {
+        id: 7,
+        emoji: "🔄",
+        titolo: "Economia circolare",
+        descrizione: "Riduce sprechi e consumo di risorse"
+    },
+
+
+    {
+        id: 8,
+        emoji: "🌿",
+        titolo: "Habitat",
+        descrizione: "Ambiente in cui vive una specie"
+    },
+
+    {
+        id: 8,
+        emoji: "🦊",
+        titolo: "Specie",
+        descrizione: "Organismo adattato al proprio ambiente"
+    }
+
+];
+
+
+let carte = [];
+
+let primaCarta = null;
+
+let secondaCarta = null;
+
+let blocco = false;
+
+let tentativi = 0;
+
+let coppieTrovate = 0;
+
+let tempo = 0;
+
+let timer = null;
+
+
+function mescola(array) {
+
+    return array.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+
+function nuovaPartita() {
+
+
+    clearInterval(timer);
+
+
+    primaCarta = null;
+
+    secondaCarta = null;
+
+    blocco = false;
+
+    tentativi = 0;
+
+    coppieTrovate = 0;
+
+    tempo = 0;
+
+
+    document.getElementById("tempo").innerText = "0";
+
+    document.getElementById("tentativi").innerText = "0";
+
+    document.getElementById("coppie").innerText = "0";
+
+
+    document.getElementById("finale").style.display =
+        "none";
+
+
+    document.getElementById("feedback").style.display =
+        "none";
+
+
+    carte =
+        mescola([...coppie]);
+
+
+    const memory =
+        document.getElementById("memory");
+
+
+    memory.innerHTML = "";
+
+
+    carte.forEach(function(carta, indice) {
+
+
+        const elemento =
+            document.createElement("div");
+
+
+        elemento.className = "card";
+
+
+        elemento.innerHTML = `
+
+            <div class="card-inner">
+
+                <div class="face front">
+                    ?
+                </div>
+
+                <div class="face back">
+
+                    <div class="emoji">
+                        ${carta.emoji}
+                    </div>
+
+                    <div class="text">
+                        ${carta.titolo}
+                    </div>
+
+                    <small>
+                        ${carta.descrizione}
+                    </small>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        elemento.onclick = function() {
+
+            giraCarta(elemento, carta);
+
+        };
+
+
+        memory.appendChild(elemento);
+
+    });
+
+
+    timer = setInterval(function() {
+
+        tempo++;
+
+        document.getElementById("tempo").innerText =
+            tempo;
+
+    }, 1000);
+
+}
+
+
+function giraCarta(elemento, carta) {
+
+
+    if (blocco) {
+        return;
+    }
+
+
+    if (elemento.classList.contains("flipped")) {
+        return;
+    }
+
+
+    if (elemento.classList.contains("matched")) {
+        return;
+    }
+
+
+    elemento.classList.add("flipped");
+
+
+    if (!primaCarta) {
+
+        primaCarta = {
+            elemento: elemento,
+            carta: carta
+        };
+
+        return;
+
+    }
+
+
+    secondaCarta = {
+        elemento: elemento,
+        carta: carta
+    };
+
+
+    tentativi++;
+
+
+    document.getElementById("tentativi").innerText =
+        tentativi;
+
+
+    controllaCoppia();
+
+}
+
+
+function controllaCoppia() {
+
+
+    blocco = true;
+
+
+    if (
+        primaCarta.carta.id ===
+        secondaCarta.carta.id
+    ) {
+
+
+        setTimeout(function() {
+
+
+            primaCarta.elemento.classList.add(
+                "matched"
+            );
+
+
+            secondaCarta.elemento.classList.add(
+                "matched"
+            );
+
+
+            coppieTrovate++;
+
+
+            document.getElementById("coppie").innerText =
+                coppieTrovate;
+
+
+            mostrarExplicacao(
+                primaCarta.carta
+            );
+
+
+            primeiraReset();
+
+
+            if (coppieTrovate === 8) {
+
+                terminar();
+
+            }
+
+
+        }, 500);
+
+
+    } else {
+
+
+        setTimeout(function() {
+
+
+            primaCarta.elemento.classList.remove(
+                "flipped"
+            );
+
+
+            secondaCarta.elemento.classList.remove(
+                "flipped"
+            );
+
+
+            primeiraReset();
+
+
+        }, 1000);
+
+    }
+
+}
+
+
+function primeiraReset() {
+
+    primaCarta = null;
+
+    secondaCarta = null;
+
+    blocco = false;
+
+}
+
+
+function mostrarExplicacao(carta) {
+
+
+    const feedback =
+        document.getElementById("feedback");
+
+
+    feedback.innerHTML =
+        "🧠 <strong>" +
+        carta.titolo +
+        ":</strong> " +
+        carta.descrizione;
+
+
+    feedback.style.display =
+        "block";
+
+}
+
+
+function terminar() {
+
+
+    clearInterval(timer);
+
+
+    let base = 1000;
+
+    let penalidadeTempo =
+        tempo * 3;
+
+    let penalidadeTentativas =
+        Math.max(0, tentativi - 8) * 30;
+
+
+    let punteggioFinale =
+        Math.max(
+            100,
+            base -
+            penalidadeTempo -
+            penalidadeTentativi
+        );
+
+
+    document.getElementById("punteggio").innerText =
+        punteggioFinale +
+        " punti";
+
+
+    let messaggio;
+
+
+    if (punteggioFinale >= 800) {
+
+        messaggio =
+            "🏆 Memoria ecologica eccellente! Hai trovato rapidamente le relazioni tra i concetti.";
+
+    } else if (punteggioFinale >= 600) {
+
+        messaggio =
+            "🌿 Ottimo lavoro! Hai dimostrato una buona conoscenza delle relazioni ecologiche.";
+
+    } else if (punteggioFinale >= 400) {
+
+        messaggio =
+            "🧠 Buon risultato. Alcune coppie richiedevano un po' più di ragionamento.";
+
+    } else {
+
+        messaggio =
+            "🔎 Hai completato il memory! Prova a migliorare tempo e numero di tentativi.";
+
+    }
+
+
+    document.getElementById("finalText").innerText =
+        messaggio;
+
+
+    document.getElementById("finale").style.display =
+        "block";
+
+}
+
+
+nuovaPartita();
+
+
+</script>
+
+</body>
+
+</html>
