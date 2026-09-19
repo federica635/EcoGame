@@ -1,11 +1,10 @@
+```html
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
-
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌊 Ocean Rescue - EcoGame</title>
 
 <style>
@@ -157,6 +156,11 @@ header {
     background: #204351;
 }
 
+.option:disabled {
+    cursor: default;
+    opacity: 0.85;
+}
+
 .feedback {
     margin-top: 22px;
     background: #17333f;
@@ -237,513 +241,546 @@ header {
         padding: 20px;
     }
 
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .event {
+        font-size: 23px;
+    }
+
+}
+
+@media(max-width: 450px) {
+
+    header {
+        padding: 16px 18px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .menu {
+        font-size: 14px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat {
+        padding: 12px 8px;
+    }
+
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-```
-<div class="logo">
-    🌍 EcoGame
-</div>
+    <div class="logo">
+        🌍 EcoGame
+    </div>
 
-<div
-    class="menu"
-    onclick="location.href='giochi.html'">
+    <div
+        class="menu"
+        onclick="location.href='giochi.html'">
 
-    🎮 Giochi
+        🎮 Giochi
 
-</div>
-```
+    </div>
 
 </header>
 
+
 <div class="container">
 
-<div class="title">
+    <div class="title">
 
-```
-<h1>🌊 Ocean Rescue</h1>
+        <h1>🌊 Ocean Rescue</h1>
 
-<p>
-    Sei il responsabile di una riserva marina.
-    Hai 5 turni per proteggere il suo equilibrio.
-</p>
-```
-
-</div>
-
-<div class="stats">
-
-```
-<div class="stat">
-
-    <div class="stat-icon">
-        🐠
-    </div>
-
-    <div class="stat-name">
-        Biodiversità
-    </div>
-
-    <div
-        class="stat-value"
-        id="biodiversity">
-
-        70
+        <p>
+            Sei il responsabile di una riserva marina.
+            Hai 5 turni per proteggere il suo equilibrio.
+        </p>
 
     </div>
 
-</div>
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🐠
+            </div>
+
+            <div class="stat-name">
+                Biodiversità
+            </div>
+
+            <div
+                class="stat-value"
+                id="biodiversity">
+
+                70
+
+            </div>
+
+        </div>
 
 
-<div class="stat">
+        <div class="stat">
 
-    <div class="stat-icon">
-        🌊
+            <div class="stat-icon">
+                🌊
+            </div>
+
+            <div class="stat-name">
+                Salute del mare
+            </div>
+
+            <div
+                class="stat-value"
+                id="health">
+
+                70
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🧪
+            </div>
+
+            <div class="stat-name">
+                Qualità acqua
+            </div>
+
+            <div
+                class="stat-value"
+                id="water">
+
+                70
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎣
+            </div>
+
+            <div class="stat-name">
+                Attività umane
+            </div>
+
+            <div
+                class="stat-value"
+                id="activity">
+
+                70
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="stat-name">
-        Salute del mare
-    </div>
 
-    <div
-        class="stat-value"
-        id="health">
+    <div class="progress">
 
-        70
+        <div
+            class="progress-bar"
+            id="progress">
+        </div>
 
     </div>
-
-</div>
-
-
-<div class="stat">
-
-    <div class="stat-icon">
-        🧪
-    </div>
-
-    <div class="stat-name">
-        Qualità acqua
-    </div>
-
-    <div
-        class="stat-value"
-        id="water">
-
-        70
-
-    </div>
-
-</div>
-
-
-<div class="stat">
-
-    <div class="stat-icon">
-        🎣
-    </div>
-
-    <div class="stat-name">
-        Attività umane
-    </div>
-
-    <div
-        class="stat-value"
-        id="activity">
-
-        70
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<div class="progress">
-
-```
-<div
-    class="progress-bar"
-    id="progress">
-
-</div>
-```
-
-</div>
-
-<div
-    class="card"
-    id="gameCard">
-
-```
-<div
-    class="turn"
-    id="turn">
-
-    TURNO 1 / 5
-
-</div>
-
-
-<div
-    class="event"
-    id="event">
-
-</div>
-
-
-<div
-    class="description"
-    id="description">
-
-</div>
-
-
-<div
-    class="options"
-    id="options">
-
-</div>
-
-
-<div
-    class="feedback"
-    id="feedback">
-
-</div>
-
-
-<button
-    class="next"
-    id="next"
-    style="display:none"
-    onclick="nextTurn()">
-
-    Continua →
-
-</button>
-```
-
-</div>
-
-<div
-    class="card hidden"
-    id="resultCard">
-
-```
-<div class="result">
-
-    <div class="result-icon">
-        🌊
-    </div>
-
-    <h2>
-        La tua gestione è terminata
-    </h2>
-
-    <p>
-        Stato finale della riserva:
-    </p>
 
 
     <div
-        class="final-score"
-        id="finalScore">
+        class="card"
+        id="gameCard">
+
+        <div
+            class="turn"
+            id="turn">
+
+            TURNO 1 / 5
+
+        </div>
+
+
+        <div
+            class="event"
+            id="event">
+        </div>
+
+
+        <div
+            class="description"
+            id="description">
+        </div>
+
+
+        <div
+            class="options"
+            id="options">
+        </div>
+
+
+        <div
+            class="feedback"
+            id="feedback">
+        </div>
+
+
+        <button
+            class="next"
+            id="next"
+            style="display:none"
+            onclick="nextTurn()">
+
+            Continua →
+
+        </button>
 
     </div>
 
 
-    <p id="message"></p>
+    <div
+        class="card hidden"
+        id="resultCard">
 
+        <div class="result">
 
-    <br>
+            <div class="result-icon">
+                🌊
+            </div>
 
+            <h2>
+                La tua gestione è terminata
+            </h2>
 
-    <button
-        class="restart"
-        onclick="location.reload()">
+            <p>
+                Stato finale della riserva:
+            </p>
 
-        🔄 Ricomincia
+            <div
+                class="final-score"
+                id="finalScore">
+            </div>
 
-    </button>
+            <p id="message"></p>
 
+            <br>
 
-    <button
-        class="back"
-        onclick="location.href='giochi.html'">
+            <button
+                class="restart"
+                onclick="restartGame()">
 
-        🎮 Torna ai giochi
+                🔄 Ricomincia
 
-    </button>
+            </button>
+
+            <button
+                class="back"
+                onclick="location.href='giochi.html'">
+
+                🎮 Torna ai giochi
+
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
-```
 
-</div>
-
-</div>
 
 <script>
 
-
 const events = [
 
-/* TURNO 1 */
+    {
+        title: "🎣 Aumento della pesca",
 
-{
-    title: "🎣 Aumento della pesca",
+        description:
+            "I pescatori locali chiedono di poter aumentare il numero di pesci catturati. La pesca è importante per l'economia della zona, ma alcune specie stanno diminuendo.",
 
-    description:
-        "I pescatori locali chiedono di poter aumentare il numero di pesci catturati. La pesca è importante per l'economia della zona, ma alcune specie stanno diminuendo.",
+        options: [
 
-    options: [
+            {
+                text: "🚫 Creare una zona protetta dove la pesca è vietata.",
 
-        {
-            text: "🚫 Creare una zona protetta dove la pesca è vietata.",
-            effects: {
-                biodiversity: 10,
-                health: 8,
-                water: 0,
-                activity: -8
+                effects: {
+                    biodiversity: 10,
+                    health: 8,
+                    water: 0,
+                    activity: -8
+                },
+
+                explanation:
+                    "Una zona protetta può favorire il recupero delle popolazioni ittiche, ma riduce temporaneamente l'attività di pesca nell'area."
             },
-            explanation:
-                "Una zona protetta può favorire il recupero delle popolazioni ittiche, ma riduce temporaneamente l'attività di pesca nell'area."
-        },
 
-        {
-            text: "🎣 Permettere l'aumento della pesca senza modifiche.",
-            effects: {
-                biodiversity: -10,
-                health: -7,
-                water: 0,
-                activity: 10
+            {
+                text: "🎣 Permettere l'aumento della pesca senza modifiche.",
+
+                effects: {
+                    biodiversity: -10,
+                    health: -7,
+                    water: 0,
+                    activity: 10
+                },
+
+                explanation:
+                    "L'aumento della pressione di pesca può favorire l'economia nel breve periodo, ma può ridurre le popolazioni di alcune specie."
             },
-            explanation:
-                "L'aumento della pressione di pesca può favorire l'economia nel breve periodo, ma può ridurre le popolazioni di alcune specie."
-        },
 
-        {
-            text: "⚖️ Stabilire quote di pesca sostenibili.",
-            effects: {
-                biodiversity: 6,
-                health: 5,
-                water: 0,
-                activity: 4
+            {
+                text: "⚖️ Stabilire quote di pesca sostenibili.",
+
+                effects: {
+                    biodiversity: 6,
+                    health: 5,
+                    water: 0,
+                    activity: 4
+                },
+
+                explanation:
+                    "Le quote possono cercare di mantenere un equilibrio tra attività economiche e conservazione delle popolazioni marine."
+            }
+
+        ]
+    },
+
+
+    {
+        title: "🧴 Plastica sulla costa",
+
+        description:
+            "Dopo una forte mareggiata, sulla costa sono comparsi numerosi rifiuti di plastica. Devi decidere come intervenire.",
+
+        options: [
+
+            {
+                text: "🧹 Organizzare una grande pulizia della costa.",
+
+                effects: {
+                    biodiversity: 5,
+                    health: 8,
+                    water: 10,
+                    activity: 0
+                },
+
+                explanation:
+                    "Rimuovere i rifiuti può ridurre i rischi per gli organismi marini e migliorare la qualità dell'ambiente."
             },
-            explanation:
-                "Le quote possono cercare di mantenere un equilibrio tra attività economiche e conservazione delle popolazioni marine."
-        }
 
-    ]
-},
+            {
+                text: "⏳ Non intervenire: la corrente porterà via i rifiuti.",
 
+                effects: {
+                    biodiversity: -8,
+                    health: -8,
+                    water: -12,
+                    activity: 0
+                },
 
-/* TURNO 2 */
-
-{
-    title: "🧴 Plastica sulla costa",
-
-    description:
-        "Dopo una forte mareggiata, sulla costa sono comparsi numerosi rifiuti di plastica. Devi decidere come intervenire.",
-
-    options: [
-
-        {
-            text: "🧹 Organizzare una grande pulizia della costa.",
-            effects: {
-                biodiversity: 5,
-                health: 8,
-                water: 10,
-                activity: 0
+                explanation:
+                    "La dispersione dei rifiuti non li fa scomparire: può semplicemente trasferirli in altre zone dell'ecosistema."
             },
-            explanation:
-                "Rimuovere i rifiuti può ridurre i rischi per gli organismi marini e migliorare la qualità dell'ambiente."
-        },
 
-        {
-            text: "⏳ Non intervenire: la corrente porterà via i rifiuti.",
-            effects: {
-                biodiversity: -8,
-                health: -8,
-                water: -12,
-                activity: 0
+            {
+                text: "♻️ Pulizia + programma per ridurre i rifiuti alla fonte.",
+
+                effects: {
+                    biodiversity: 8,
+                    health: 10,
+                    water: 12,
+                    activity: 2
+                },
+
+                explanation:
+                    "Intervenire sia sui rifiuti presenti sia sulle loro cause può ridurre il problema nel breve e nel lungo periodo."
+            }
+
+        ]
+    },
+
+
+    {
+        title: "🌡️ Acqua sempre più calda",
+
+        description:
+            "La temperatura dell'acqua sta aumentando e alcune specie marine stanno iniziando a spostarsi verso zone più fredde.",
+
+        options: [
+
+            {
+                text: "🌊 Proteggere le aree marine più vulnerabili.",
+
+                effects: {
+                    biodiversity: 7,
+                    health: 8,
+                    water: 0,
+                    activity: -3
+                },
+
+                explanation:
+                    "Ridurre altre pressioni sull'ecosistema può aumentare la sua capacità di affrontare condizioni ambientali sfavorevoli."
             },
-            explanation:
-                "La dispersione dei rifiuti non li fa scomparire: può semplicemente trasferirli in altre zone dell'ecosistema."
-        },
 
-        {
-            text: "♻️ Pulizia + programma per ridurre i rifiuti alla fonte.",
-            effects: {
-                biodiversity: 8,
-                health: 10,
-                water: 12,
-                activity: 2
+            {
+                text: "🏗️ Aumentare le attività turistiche per compensare le perdite.",
+
+                effects: {
+                    biodiversity: -8,
+                    health: -6,
+                    water: -3,
+                    activity: 8
+                },
+
+                explanation:
+                    "Un aumento non controllato delle attività può aggiungere ulteriori pressioni a un ecosistema già sotto stress."
             },
-            explanation:
-                "Intervenire sia sui rifiuti presenti sia sulle loro cause può ridurre il problema nel breve e nel lungo periodo."
-        }
 
-    ]
-},
+            {
+                text: "🔬 Monitorare temperatura e specie e limitare le attività nelle zone più colpite.",
+
+                effects: {
+                    biodiversity: 8,
+                    health: 7,
+                    water: 2,
+                    activity: 2
+                },
+
+                explanation:
+                    "Monitoraggio e gestione mirata permettono di individuare le aree più vulnerabili e ridurre le pressioni aggiuntive."
+            }
+
+        ]
+    },
 
 
-/* TURNO 3 */
+    {
+        title: "🧪 Problema di qualità dell'acqua",
 
-{
-    title: "🌡️ Acqua sempre più calda",
+        description:
+            "I controlli rilevano un aumento dell'inquinamento vicino alla foce di un fiume. Una parte dell'inquinamento potrebbe arrivare dalla terraferma.",
 
-    description:
-        "La temperatura dell'acqua sta aumentando e alcune specie marine stanno iniziando a spostarsi verso zone più fredde.",
+        options: [
 
-    options: [
+            {
+                text: "🔎 Cercare la fonte dell'inquinamento e intervenire.",
 
-        {
-            text: "🌊 Proteggere le aree marine più vulnerabili.",
-            effects: {
-                biodiversity: 7,
-                health: 8,
-                water: 0,
-                activity: -3
+                effects: {
+                    biodiversity: 7,
+                    health: 10,
+                    water: 12,
+                    activity: -2
+                },
+
+                explanation:
+                    "Individuare la fonte permette di intervenire alla causa invece di limitarsi a gestire le conseguenze."
             },
-            explanation:
-                "Ridurre altre pressioni sull'ecosistema può aumentare la sua capacità di affrontare condizioni ambientali sfavorevoli."
-        },
 
-        {
-            text: "🏗️ Aumentare le attività turistiche per compensare le perdite.",
-            effects: {
-                biodiversity: -8,
-                health: -6,
-                water: -3,
-                activity: 8
+            {
+                text: "🚧 Chiudere completamente la zona marina.",
+
+                effects: {
+                    biodiversity: 5,
+                    health: 7,
+                    water: 5,
+                    activity: -12
+                },
+
+                explanation:
+                    "Una chiusura può ridurre temporaneamente la pressione sull'area, ma non risolve necessariamente la fonte dell'inquinamento."
             },
-            explanation:
-                "Un aumento non controllato delle attività può aggiungere ulteriori pressioni a un ecosistema già sotto stress."
-        },
 
-        {
-            text: "🔬 Monitorare temperatura e specie e limitare le attività nelle zone più colpite.",
-            effects: {
-                biodiversity: 8,
-                health: 7,
-                water: 2,
-                activity: 2
+            {
+                text: "🤷 Non modificare nulla finché il problema non peggiora.",
+
+                effects: {
+                    biodiversity: -9,
+                    health: -10,
+                    water: -12,
+                    activity: 3
+                },
+
+                explanation:
+                    "Aspettare che l'inquinamento aumenti può permettere al problema di estendersi e rendere più difficile intervenire."
+            }
+
+        ]
+    },
+
+
+    {
+        title: "🐠 Ultima decisione",
+
+        description:
+            "La stagione turistica sta iniziando. La riserva è migliorata, ma devi decidere come gestire il turismo per il prossimo periodo.",
+
+        options: [
+
+            {
+                text: "🏖️ Nessun limite: più turisti significa più guadagni.",
+
+                effects: {
+                    biodiversity: -8,
+                    health: -7,
+                    water: -5,
+                    activity: 12
+                },
+
+                explanation:
+                    "Un turismo non regolamentato può aumentare la pressione su habitat, coste e risorse."
             },
-            explanation:
-                "Monitoraggio e gestione mirata permettono di individuare le aree più vulnerabili e ridurre le pressioni aggiuntive."
-        }
 
-    ]
-},
+            {
+                text: "🌿 Turismo regolamentato e aree sensibili protette.",
 
+                effects: {
+                    biodiversity: 8,
+                    health: 8,
+                    water: 5,
+                    activity: 7
+                },
 
-/* TURNO 4 */
-
-{
-    title: "🧪 Problema di qualità dell'acqua",
-
-    description:
-        "I controlli rilevano un aumento dell'inquinamento vicino alla foce di un fiume. Una parte dell'inquinamento potrebbe arrivare dalla terraferma.",
-
-    options: [
-
-        {
-            text: "🔎 Cercare la fonte dell'inquinamento e intervenire.",
-            effects: {
-                biodiversity: 7,
-                health: 10,
-                water: 12,
-                activity: -2
+                explanation:
+                    "Regolare i flussi e proteggere le aree sensibili può permettere di conciliare attività economiche e tutela dell'ecosistema."
             },
-            explanation:
-                "Individuare la fonte permette di intervenire alla causa invece di limitarsi a gestire le conseguenze."
-        },
 
-        {
-            text: "🚧 Chiudere completamente la zona marina.",
-            effects: {
-                biodiversity: 5,
-                health: 7,
-                water: 5,
-                activity: -12
-            },
-            explanation:
-                "Una chiusura può ridurre temporaneamente la pressione sull'area, ma non risolve necessariamente la fonte dell'inquinamento."
-        },
+            {
+                text: "🚫 Vietare completamente il turismo.",
 
-        {
-            text: "🤷 Non modificare nulla finché il problema non peggiora.",
-            effects: {
-                biodiversity: -9,
-                health: -10,
-                water: -12,
-                activity: 3
-            },
-            explanation:
-                "Aspettare che l'inquinamento aumenti può permettere al problema di estendersi e rendere più difficile intervenire."
-        }
+                effects: {
+                    biodiversity: 10,
+                    health: 8,
+                    water: 5,
+                    activity: -15
+                },
 
-    ]
-},
+                explanation:
+                    "Un divieto totale può ridurre molte pressioni, ma può avere conseguenze economiche e sociali significative."
+            }
 
-
-/* TURNO 5 */
-
-{
-    title: "🐠 Ultima decisione",
-
-    description:
-        "La stagione turistica sta iniziando. La riserva è migliorata, ma devi decidere come gestire il turismo per il prossimo periodo.",
-
-    options: [
-
-        {
-            text: "🏖️ Nessun limite: più turisti significa più guadagni.",
-            effects: {
-                biodiversity: -8,
-                health: -7,
-                water: -5,
-                activity: 12
-            },
-            explanation:
-                "Un turismo non regolamentato può aumentare la pressione su habitat, coste e risorse."
-        },
-
-        {
-            text: "🌿 Turismo regolamentato e aree sensibili protette.",
-            effects: {
-                biodiversity: 8,
-                health: 8,
-                water: 5,
-                activity: 7
-            },
-            explanation:
-                "Regolare i flussi e proteggere le aree sensibili può permettere di conciliare attività economiche e tutela dell'ecosistema."
-        },
-
-        {
-            text: "🚫 Vietare completamente il turismo.",
-            effects: {
-                biodiversity: 10,
-                health: 8,
-                water: 5,
-                activity: -15
-            },
-            explanation:
-                "Un divieto totale può ridurre molte pressioni, ma può avere conseguenze economiche e sociali significative."
-        }
-
-    ]
-}
+        ]
+    }
 
 ];
 
@@ -768,27 +805,16 @@ let stats = {
 
 function updateStats() {
 
-    document.getElementById(
-        "biodiversity"
-    ).innerText =
+    document.getElementById("biodiversity").innerText =
         stats.biodiversity;
 
-
-    document.getElementById(
-        "health"
-    ).innerText =
+    document.getElementById("health").innerText =
         stats.health;
 
-
-    document.getElementById(
-        "water"
-    ).innerText =
+    document.getElementById("water").innerText =
         stats.water;
 
-
-    document.getElementById(
-        "activity"
-    ).innerText =
+    document.getElementById("activity").innerText =
         stats.activity;
 
 }
@@ -811,69 +837,56 @@ function loadTurn() {
 
     chosen = false;
 
-
-    const event =
-        events[currentTurn];
+    const event = events[currentTurn];
 
 
-    document.getElementById(
-        "turn"
-    ).innerText =
+    document.getElementById("turn").innerText =
         "TURNO " +
         (currentTurn + 1) +
         " / 5";
 
 
-    document.getElementById(
-        "event"
-    ).innerText =
+    document.getElementById("event").innerText =
         event.title;
 
 
-    document.getElementById(
-        "description"
-    ).innerText =
+    document.getElementById("description").innerText =
         event.description;
 
 
-    document.getElementById(
-        "progress"
-    ).style.width =
+    document.getElementById("progress").style.width =
         (
-            ((currentTurn + 1) / 5)
-            * 100
+            ((currentTurn + 1) / events.length) *
+            100
         ) + "%";
 
 
     const options =
-        document.getElementById(
-            "options"
-        );
+        document.getElementById("options");
 
 
     options.innerHTML = "";
 
 
-    document.getElementById(
-        "feedback"
-    ).style.display =
+    document.getElementById("feedback").style.display =
         "none";
 
 
-    document.getElementById(
-        "next"
-    ).style.display =
+    document.getElementById("next").style.display =
         "none";
+
+
+    document.getElementById("next").innerText =
+        currentTurn === events.length - 1
+            ? "🏆 Vedi risultato"
+            : "Continua →";
 
 
     event.options.forEach(
-        function(option, index) {
-
+        function(option) {
 
             const button =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
 
             button.className =
@@ -888,15 +901,14 @@ function loadTurn() {
                 function() {
 
                     chooseOption(
-                        option
+                        option,
+                        button
                     );
 
                 };
 
 
-            options.appendChild(
-                button
-            );
+            options.appendChild(button);
 
         }
     );
@@ -904,13 +916,11 @@ function loadTurn() {
 }
 
 
-function chooseOption(option) {
-
+function chooseOption(option, selectedButton) {
 
     if (chosen) {
         return;
     }
-
 
     chosen = true;
 
@@ -946,42 +956,43 @@ function chooseOption(option) {
     updateStats();
 
 
-    document.getElementById(
-        "feedback"
-    ).innerHTML =
-        "💡 <strong>Conseguenza:</strong><br>" +
+    const allButtons =
+        document.querySelectorAll(".option");
+
+
+    allButtons.forEach(
+        function(button) {
+
+            button.disabled = true;
+
+        }
+    );
+
+
+    selectedButton.style.borderColor =
+        "#4fc3f7";
+
+
+    selectedButton.style.background =
+        "#204b5c";
+
+
+    document.getElementById("feedback").innerHTML =
+        "💡 <strong>Conseguenza:</strong><br><br>" +
         option.explanation;
 
 
-    document.getElementById(
-        "feedback"
-    ).style.display =
+    document.getElementById("feedback").style.display =
         "block";
 
 
-    document.getElementById(
-        "next"
-    ).style.display =
+    document.getElementById("next").style.display =
         "block";
-
-
-    if (
-        currentTurn ===
-        events.length - 1
-    ) {
-
-        document.getElementById(
-            "next"
-        ).innerText =
-            "🏆 Vedi risultato";
-
-    }
 
 }
 
 
 function nextTurn() {
-
 
     currentTurn++;
 
@@ -1004,19 +1015,16 @@ function nextTurn() {
 
 function showResult() {
 
-
-    document.getElementById(
-        "gameCard"
-    ).classList.add(
-        "hidden"
-    );
+    document.getElementById("gameCard")
+        .classList.add("hidden");
 
 
-    document.getElementById(
-        "resultCard"
-    ).classList.remove(
-        "hidden"
-    );
+    document.getElementById("resultCard")
+        .classList.remove("hidden");
+
+
+    document.getElementById("progress")
+        .style.width = "100%";
 
 
     const average =
@@ -1027,9 +1035,7 @@ function showResult() {
         ) / 3;
 
 
-    document.getElementById(
-        "finalScore"
-    ).innerText =
+    document.getElementById("finalScore").innerText =
         Math.round(average) +
         " / 100";
 
@@ -1043,19 +1049,25 @@ function showResult() {
             "🌟 Ecosistema in ottima salute! " +
             "Le tue decisioni hanno ridotto molte delle pressioni sull'ambiente.";
 
-    } else if (average >= 70) {
+    }
+
+    else if (average >= 70) {
 
         message =
             "🐠 Buon lavoro! " +
             "La riserva è in condizioni abbastanza positive, anche se ci sono ancora problemi da affrontare.";
 
-    } else if (average >= 50) {
+    }
+
+    else if (average >= 50) {
 
         message =
             "🌊 La riserva è sotto pressione. " +
             "Alcune delle tue decisioni hanno avuto conseguenze importanti sull'ecosistema.";
 
-    } else {
+    }
+
+    else {
 
         message =
             "⚠️ L'ecosistema è in difficoltà. " +
@@ -1064,10 +1076,44 @@ function showResult() {
     }
 
 
-    document.getElementById(
-        "message"
-    ).innerText =
+    document.getElementById("message").innerText =
         message;
+
+}
+
+
+function restartGame() {
+
+    currentTurn = 0;
+
+    chosen = false;
+
+
+    stats = {
+
+        biodiversity: 70,
+
+        health: 70,
+
+        water: 70,
+
+        activity: 70
+
+    };
+
+
+    updateStats();
+
+
+    document.getElementById("resultCard")
+        .classList.add("hidden");
+
+
+    document.getElementById("gameCard")
+        .classList.remove("hidden");
+
+
+    loadTurn();
 
 }
 
@@ -1076,9 +1122,8 @@ updateStats();
 
 loadTurn();
 
-
 </script>
 
 </body>
-
 </html>
+```
