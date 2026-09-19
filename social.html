@@ -46,6 +46,38 @@ header p {
     margin: 0;
 }
 
+/* LINGUE */
+
+.lingue {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.lingue button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    background: #263d32;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.lingue button:hover {
+    background: #43a047;
+    transform: translateY(-2px);
+}
+
+.lingue button.attiva {
+    background: #66bb6a;
+    color: #07140e;
+}
+
 /* CONTENITORE */
 
 .contenitore {
@@ -184,9 +216,27 @@ footer {
 
 <header>
 
-<h1>📱 EcoGame - Social</h1>
+<div class="lingue">
 
-<p>
+    <button id="itBtn" onclick="cambiaLingua('it')">
+        🇮🇹 Italiano
+    </button>
+
+    <button id="enBtn" onclick="cambiaLingua('en')">
+        🇬🇧 English
+    </button>
+
+    <button id="fiBtn" onclick="cambiaLingua('fi')">
+        🇫🇮 Suomi
+    </button>
+
+</div>
+
+<h1 id="titoloHeader">
+    📱 EcoGame - Social
+</h1>
+
+<p id="sottotitolo">
     Seguimi e aiutiamo insieme a proteggere il nostro pianeta! 🌍
 </p>
 
@@ -197,36 +247,38 @@ footer {
 
 <div class="social-box">
 
-<h2>🌱 Seguimi su TikTok!</h2>
+<h2 id="titoloSocial">
+    🌱 Seguimi su TikTok!
+</h2>
 
 <div class="username">
     🎵 @username561812
 </div>
 
-<p>
+<p id="testoPrincipale">
     🎬 Sul mio TikTok pubblico edit e video di sensibilizzazione
     dedicati alla protezione degli animali e del nostro pianeta.
 </p>
 
 <div class="info">
 
-<p>
+<p id="testoAnimali">
     🐾 Parlo dell'importanza di salvare e proteggere gli animali.
 </p>
 
-<p>
+<p id="testoTerra">
     🌍 Cerco di sensibilizzare le persone sulla protezione
     della Terra e dell'ambiente.
 </p>
 
-<p>
+<p id="testoInquinamento">
     ♻️ Parlo anche di inquinamento e di quanto sia importante
     prenderci cura del nostro pianeta.
 </p>
 
 </div>
 
-<p>
+<p id="testoFinale">
     ❤️ Se ti piace EcoGame e vuoi aiutare a diffondere
     questi messaggi, seguimi su TikTok!
 </p>
@@ -237,7 +289,8 @@ footer {
 <a
     href="https://www.tiktok.com/@username561812"
     target="_blank"
-    class="tiktok-btn">
+    class="tiktok-btn"
+    id="bottoneTikTok">
 
     🎵 Vai al mio TikTok
 
@@ -245,7 +298,8 @@ footer {
 
 <a
     href="index.html"
-    class="home-btn">
+    class="home-btn"
+    id="bottoneHome">
 
     🏠 Torna alla Home
 
@@ -260,12 +314,166 @@ footer {
 
 <footer>
 
-🌱 EcoGame — Imparare l'ecologia giocando
+<span id="footerTesto">
+    🌱 EcoGame — Imparare l'ecologia giocando
+</span>
 
 </footer>
 
 
 <script>
+
+/* =====================================================
+   SISTEMA CAMBIO LINGUA
+   ===================================================== */
+
+function cambiaLingua(lingua) {
+
+    if (lingua === "it") {
+
+        document.documentElement.lang = "it";
+
+        document.title = "EcoGame - Social 🌱";
+
+        document.getElementById("titoloHeader").textContent =
+            "📱 EcoGame - Social";
+
+        document.getElementById("sottotitolo").textContent =
+            "Seguimi e aiutiamo insieme a proteggere il nostro pianeta! 🌍";
+
+        document.getElementById("titoloSocial").textContent =
+            "🌱 Seguimi su TikTok!";
+
+        document.getElementById("testoPrincipale").textContent =
+            "🎬 Sul mio TikTok pubblico edit e video di sensibilizzazione dedicati alla protezione degli animali e del nostro pianeta.";
+
+        document.getElementById("testoAnimali").textContent =
+            "🐾 Parlo dell'importanza di salvare e proteggere gli animali.";
+
+        document.getElementById("testoTerra").textContent =
+            "🌍 Cerco di sensibilizzare le persone sulla protezione della Terra e dell'ambiente.";
+
+        document.getElementById("testoInquinamento").textContent =
+            "♻️ Parlo anche di inquinamento e di quanto sia importante prenderci cura del nostro pianeta.";
+
+        document.getElementById("testoFinale").textContent =
+            "❤️ Se ti piace EcoGame e vuoi aiutare a diffondere questi messaggi, seguimi su TikTok!";
+
+        document.getElementById("bottoneTikTok").textContent =
+            "🎵 Vai al mio TikTok";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Torna alla Home";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Imparare l'ecologia giocando";
+
+        document.getElementById("itBtn").classList.add("attiva");
+        document.getElementById("enBtn").classList.remove("attiva");
+        document.getElementById("fiBtn").classList.remove("attiva");
+    }
+
+
+    if (lingua === "en") {
+
+        document.documentElement.lang = "en";
+
+        document.title = "EcoGame - Social 🌱";
+
+        document.getElementById("titoloHeader").textContent =
+            "📱 EcoGame - Social";
+
+        document.getElementById("sottotitolo").textContent =
+            "Follow me and let's help protect our planet together! 🌍";
+
+        document.getElementById("titoloSocial").textContent =
+            "🌱 Follow me on TikTok!";
+
+        document.getElementById("testoPrincipale").textContent =
+            "🎬 On my TikTok I post edits and awareness videos dedicated to protecting animals and our planet.";
+
+        document.getElementById("testoAnimali").textContent =
+            "🐾 I talk about the importance of saving and protecting animals.";
+
+        document.getElementById("testoTerra").textContent =
+            "🌍 I try to raise awareness about protecting the Earth and the environment.";
+
+        document.getElementById("testoInquinamento").textContent =
+            "♻️ I also talk about pollution and how important it is to take care of our planet.";
+
+        document.getElementById("testoFinale").textContent =
+            "❤️ If you like EcoGame and want to help spread these messages, follow me on TikTok!";
+
+        document.getElementById("bottoneTikTok").textContent =
+            "🎵 Go to my TikTok";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Back to Home";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Learn about ecology while playing";
+
+        document.getElementById("itBtn").classList.remove("attiva");
+        document.getElementById("enBtn").classList.add("attiva");
+        document.getElementById("fiBtn").classList.remove("attiva");
+    }
+
+
+    if (lingua === "fi") {
+
+        document.documentElement.lang = "fi";
+
+        document.title = "EcoGame - Sosiaalinen media 🌱";
+
+        document.getElementById("titoloHeader").textContent =
+            "📱 EcoGame - Sosiaalinen media";
+
+        document.getElementById("sottotitolo").textContent =
+            "Seuraa minua ja autetaan yhdessä suojelemaan planeettaamme! 🌍";
+
+        document.getElementById("titoloSocial").textContent =
+            "🌱 Seuraa minua TikTokissa!";
+
+        document.getElementById("testoPrincipale").textContent =
+            "🎬 Julkaisen TikTokissani edit-videoita ja tietoisuusvideoita, jotka käsittelevät eläinten ja planeettamme suojelemista.";
+
+        document.getElementById("testoAnimali").textContent =
+            "🐾 Kerron eläinten pelastamisen ja suojelemisen tärkeydestä.";
+
+        document.getElementById("testoTerra").textContent =
+            "🌍 Haluan lisätä tietoisuutta maapallon ja ympäristön suojelemisesta.";
+
+        document.getElementById("testoInquinamento").textContent =
+            "♻️ Puhun myös saastumisesta ja siitä, kuinka tärkeää on pitää huolta planeetastamme.";
+
+        document.getElementById("testoFinale").textContent =
+            "❤️ Jos pidät EcoGamesta ja haluat auttaa levittämään näitä viestejä, seuraa minua TikTokissa!";
+
+        document.getElementById("bottoneTikTok").textContent =
+            "🎵 Siirry TikTokiini";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Takaisin etusivulle";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Opi ekologiasta pelaamalla";
+
+        document.getElementById("itBtn").classList.remove("attiva");
+        document.getElementById("enBtn").classList.remove("attiva");
+        document.getElementById("fiBtn").classList.add("attiva");
+    }
+
+}
+
+
+/* =====================================================
+   ITALIANO ATTIVO ALL'INIZIO
+   ===================================================== */
+
+document
+    .getElementById("itBtn")
+    .classList.add("attiva");
+
 
 /* =====================================================
    SOCIAL
