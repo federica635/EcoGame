@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -322,6 +321,7 @@
 
     <div
         class="menu"
+        id="menu"
         onclick="location.href='giochi.html'">
 
         🎮 Giochi
@@ -337,10 +337,7 @@
 
         <h1>🐾 Species Rescue</h1>
 
-        <p>
-            Proteggi le specie a rischio e scopri
-            cosa ha portato altre specie all'estinzione.
-        </p>
+        <p id="intro"></p>
 
     </div>
 
@@ -348,17 +345,17 @@
     <div class="stats">
 
         <div>
-            🐾 Specie salvate:
+            🐾 <span id="savedLabel">Specie salvate</span>:
             <span id="saved">0</span>
         </div>
 
         <div>
-            ⭐ Punti:
+            ⭐ <span id="scoreLabel">Punti</span>:
             <span id="score">0</span>
         </div>
 
         <div>
-            🧩 Missione:
+            🧩 <span id="missionLabel">Missione</span>:
             <span id="number">1/10</span>
         </div>
 
@@ -419,9 +416,6 @@
                 class="next"
                 id="next"
                 onclick="nextMission()">
-
-                Prossima missione →
-
             </button>
 
         </div>
@@ -441,11 +435,11 @@
                 🐾
             </div>
 
-            <h2>
+            <h2 id="resultTitle">
                 Programma completato!
             </h2>
 
-            <p>
+            <p id="resultDescription">
                 Hai completato tutte le 10 missioni.
             </p>
 
@@ -459,19 +453,15 @@
 
             <button
                 class="restart"
+                id="restartButton"
                 onclick="restartGame()">
-
-                🔄 Riprova
-
             </button>
 
 
             <button
                 class="back"
+                id="backButton"
                 onclick="location.href='giochi.html'">
-
-                🎮 Torna ai giochi
-
             </button>
 
         </div>
@@ -481,380 +471,1195 @@
 </div>
 
 
-<footer>
-
-    🌱 Proteggere la biodiversità significa
-    proteggere gli ecosistemi da cui dipendiamo.
-
-</footer>
+<footer id="footer"></footer>
 
 
 <script>
 
+/* =====================================================
+   LINGUA
+   ===================================================== */
+
+const lingua =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+/* =====================================================
+   TESTI GENERALI
+   ===================================================== */
+
+const testi = {
+
+    it: {
+
+        titolo: "🐾 Species Rescue",
+
+        intro:
+            "Proteggi le specie a rischio e scopri cosa ha portato altre specie all'estinzione.",
+
+        menu:
+            "🎮 Giochi",
+
+        alt:
+            "Animale",
+
+        specieSalvate:
+            "Specie salvate",
+
+        punti:
+            "Punti",
+
+        missione:
+            "Missione",
+
+        prossima:
+            "Prossima missione →",
+
+        risultato:
+            "🏆 Risultato finale",
+
+        programmaCompletato:
+            "Programma completato!",
+
+        descrizioneFinale:
+            "Hai completato tutte le 10 missioni.",
+
+        riprova:
+            "🔄 Riprova",
+
+        torna:
+            "🎮 Torna ai giochi",
+
+        riuscita:
+            "✅ <strong>Missione riuscita! +10 punti</strong><br><br>",
+
+        errata:
+            "❌ <strong>Risposta non corretta.</strong><br><br>",
+
+        rispostaCorretta:
+            "La risposta corretta era:",
+
+        messaggio100:
+            "🌟 Perfetto! Hai completato tutte le missioni e dimostrato un'ottima conoscenza della conservazione delle specie.",
+
+        messaggio70:
+            "🐾 Ottimo lavoro! Hai compreso molti dei principali problemi legati alla protezione della biodiversità.",
+
+        messaggio50:
+            "🌱 Buona base! Alcuni concetti sulla protezione delle specie possono ancora essere approfonditi.",
+
+        messaggio0:
+            "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni delle missioni.",
+
+        footer:
+            "🌱 Proteggere la biodiversità significa proteggere gli ecosistemi da cui dipendiamo."
+
+    },
+
+
+    en: {
+
+        titolo: "🐾 Species Rescue",
+
+        intro:
+            "Protect endangered species and discover what caused other species to become extinct.",
+
+        menu:
+            "🎮 Games",
+
+        alt:
+            "Animal",
+
+        specieSalvate:
+            "Species saved",
+
+        punti:
+            "Points",
+
+        missione:
+            "Mission",
+
+        prossima:
+            "Next mission →",
+
+        risultato:
+            "🏆 Final result",
+
+        programmaCompletato:
+            "Program completed!",
+
+        descrizioneFinale:
+            "You have completed all 10 missions.",
+
+        riprova:
+            "🔄 Try again",
+
+        torna:
+            "🎮 Back to games",
+
+        riuscita:
+            "✅ <strong>Mission accomplished! +10 points</strong><br><br>",
+
+        errata:
+            "❌ <strong>Incorrect answer.</strong><br><br>",
+
+        rispostaCorretta:
+            "The correct answer was:",
+
+        messaggio100:
+            "🌟 Perfect! You completed all the missions and demonstrated excellent knowledge of species conservation.",
+
+        messaggio70:
+            "🐾 Great job! You understood many of the main issues related to protecting biodiversity.",
+
+        messaggio50:
+            "🌱 Good foundation! Some concepts about species protection could still be explored further.",
+
+        messaggio0:
+            "🔎 There is still a lot to discover. Try again and pay attention to the mission explanations.",
+
+        footer:
+            "🌱 Protecting biodiversity means protecting the ecosystems we depend on."
+
+    },
+
+
+    fi: {
+
+        titolo: "🐾 Species Rescue",
+
+        intro:
+            "Suojele uhanalaisia lajeja ja tutustu syihin, jotka ovat johtaneet muiden lajien sukupuuttoon.",
+
+        menu:
+            "🎮 Pelit",
+
+        alt:
+            "Eläin",
+
+        specieSalvate:
+            "Pelastetut lajit",
+
+        punti:
+            "Pisteet",
+
+        missione:
+            "Tehtävä",
+
+        prossima:
+            "Seuraava tehtävä →",
+
+        risultato:
+            "🏆 Lopputulos",
+
+        programmaCompletato:
+            "Ohjelma suoritettu!",
+
+        descrizioneFinale:
+            "Olet suorittanut kaikki 10 tehtävää.",
+
+        riprova:
+            "🔄 Yritä uudelleen",
+
+        torna:
+            "🎮 Takaisin peleihin",
+
+        riuscita:
+            "✅ <strong>Tehtävä onnistui! +10 pistettä</strong><br><br>",
+
+        errata:
+            "❌ <strong>Väärä vastaus.</strong><br><br>",
+
+        rispostaCorretta:
+            "Oikea vastaus oli:",
+
+        messaggio100:
+            "🌟 Täydellistä! Suoritit kaikki tehtävät ja osoitit erinomaista tietämystä lajien suojelusta.",
+
+        messaggio70:
+            "🐾 Hienoa työtä! Ymmärsit monia luonnon monimuotoisuuden suojeluun liittyviä keskeisiä ongelmia.",
+
+        messaggio50:
+            "🌱 Hyvä perusta! Joitakin lajien suojeluun liittyviä käsitteitä voisi vielä syventää.",
+
+        messaggio0:
+            "🔎 Opittavaa on vielä paljon. Yritä uudelleen ja kiinnitä huomiota tehtävien selityksiin.",
+
+        footer:
+            "🌱 Luonnon monimuotoisuuden suojeleminen tarkoittaa niiden ekosysteemien suojelemista, joista olemme riippuvaisia."
+
+    }
+
+};
+
+
+/* =====================================================
+   MISSIONI
+   ===================================================== */
 
 const missions = [
 
     {
+
         image:
             "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟠 SPECIE A RISCHIO",
+        it: {
 
-        name:
-            "Elefante africano",
+            status: "🟠 SPECIE A RISCHIO",
 
-        info:
-            "Gli elefanti africani svolgono un ruolo importante negli ecosistemi. La perdita di habitat e il bracconaggio possono rappresentare gravi minacce.",
+            name: "Elefante africano",
 
-        mission:
-            "Una popolazione locale sta diminuendo. Quale intervento dovrebbe avere priorità?",
+            info:
+                "Gli elefanti africani svolgono un ruolo importante negli ecosistemi. La perdita di habitat e il bracconaggio possono rappresentare gravi minacce.",
 
-        options: [
+            mission:
+                "Una popolazione locale sta diminuendo. Quale intervento dovrebbe avere priorità?",
 
-            "Distruggere parte dell'habitat per costruire nuove strade.",
+            options: [
 
-            "Rafforzare la protezione contro il bracconaggio e tutelare l'habitat.",
+                "Distruggere parte dell'habitat per costruire nuove strade.",
 
-            "Aumentare il commercio di avorio.",
+                "Rafforzare la protezione contro il bracconaggio e tutelare l'habitat.",
 
-            "Ridurre le aree protette."
+                "Aumentare il commercio di avorio.",
 
-        ],
+                "Ridurre le aree protette."
 
-        correct: 1,
+            ],
 
-        explanation:
-            "Proteggere gli animali dal bracconaggio e conservare il loro habitat sono interventi fondamentali per la loro tutela."
+            explanation:
+                "Proteggere gli animali dal bracconaggio e conservare il loro habitat sono interventi fondamentali per la loro tutela."
+
+        },
+
+        en: {
+
+            status: "🟠 ENDANGERED SPECIES",
+
+            name: "African elephant",
+
+            info:
+                "African elephants play an important role in ecosystems. Habitat loss and poaching can pose serious threats.",
+
+            mission:
+                "A local population is declining. Which action should be given priority?",
+
+            options: [
+
+                "Destroy part of the habitat to build new roads.",
+
+                "Strengthen anti-poaching protection and protect the habitat.",
+
+                "Increase the ivory trade.",
+
+                "Reduce protected areas."
+
+            ],
+
+            explanation:
+                "Protecting animals from poaching and conserving their habitat are fundamental measures for their protection."
+
+        },
+
+        fi: {
+
+            status: "🟠 UHANALAINEN LAJI",
+
+            name: "Afrikannorsu",
+
+            info:
+                "Afrikannorsuilla on tärkeä rooli ekosysteemeissä. Elinympäristöjen häviäminen ja salametsästys voivat olla vakavia uhkia.",
+
+            mission:
+                "Paikallinen kanta on vähenemässä. Mille toimelle pitäisi antaa etusija?",
+
+            options: [
+
+                "Hävittää osa elinympäristöstä uusien teiden rakentamiseksi.",
+
+                "Tehostaa salametsästyksen vastaista suojelua ja suojella elinympäristöä.",
+
+                "Lisätä norsunluukauppaa.",
+
+                "Vähentää suojelualueita."
+
+            ],
+
+            explanation:
+                "Eläinten suojeleminen salametsästykseltä ja niiden elinympäristön säilyttäminen ovat keskeisiä suojelutoimia."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🔴 IN PERICOLO CRITICO",
+        it: {
 
-        name:
-            "Rinoceronte nero",
+            status: "🔴 IN PERICOLO CRITICO",
 
-        info:
-            "Il rinoceronte nero è stato fortemente colpito dal bracconaggio. La protezione delle popolazioni e degli habitat è essenziale.",
+            name: "Rinoceronte nero",
 
-        mission:
-            "Quale combinazione di interventi è più coerente con la conservazione?",
+            info:
+                "Il rinoceronte nero è stato fortemente colpito dal bracconaggio. La protezione delle popolazioni e degli habitat è essenziale.",
 
-        options: [
+            mission:
+                "Quale combinazione di interventi è più coerente con la conservazione?",
 
-            "Protezione dal bracconaggio + tutela dell'habitat.",
+            options: [
 
-            "Aumento del commercio illegale.",
+                "Protezione dal bracconaggio + tutela dell'habitat.",
 
-            "Riduzione dei controlli.",
+                "Aumento del commercio illegale.",
 
-            "Distruzione delle aree naturali."
+                "Riduzione dei controlli.",
 
-        ],
+                "Distruzione delle aree naturali."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "La protezione delle popolazioni e la conservazione degli habitat sono componenti fondamentali delle strategie di conservazione."
+            explanation:
+                "La protezione delle popolazioni e la conservazione degli habitat sono componenti fondamentali delle strategie di conservazione."
+
+        },
+
+        en: {
+
+            status: "🔴 CRITICALLY ENDANGERED",
+
+            name: "Black rhinoceros",
+
+            info:
+                "Black rhinoceroses have been severely affected by poaching. Protecting populations and habitats is essential.",
+
+            mission:
+                "Which combination of actions is most consistent with conservation?",
+
+            options: [
+
+                "Anti-poaching protection + habitat conservation.",
+
+                "Increase illegal trade.",
+
+                "Reduce monitoring and enforcement.",
+
+                "Destroy natural areas."
+
+            ],
+
+            explanation:
+                "Protecting populations and conserving habitats are fundamental components of conservation strategies."
+
+        },
+
+        fi: {
+
+            status: "🔴 ÄÄRIMMÄISEN UHANALAINEN",
+
+            name: "Musta sarvikuono",
+
+            info:
+                "Salametsästys on vaikuttanut voimakkaasti mustasarvikuonoihin. Kantojen ja elinympäristöjen suojelu on välttämätöntä.",
+
+            mission:
+                "Mikä toimenpiteiden yhdistelmä sopii parhaiten luonnonsuojeluun?",
+
+            options: [
+
+                "Salametsästyksen vastainen suojelu + elinympäristön suojelu.",
+
+                "Laittoman kaupan lisääminen.",
+
+                "Valvonnan vähentäminen.",
+
+                "Luonnonalueiden tuhoaminen."
+
+            ],
+
+            explanation:
+                "Kantojen suojeleminen ja elinympäristöjen säilyttäminen ovat luonnonsuojelustrategioiden keskeisiä osia."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟠 SPECIE MINACCIATA",
+        it: {
 
-        name:
-            "Tigre",
+            status: "🟠 SPECIE MINACCIATA",
 
-        info:
-            "Le tigri hanno bisogno di grandi territori e di popolazioni sufficienti di prede. La perdita e frammentazione dell'habitat rappresentano importanti minacce.",
+            name: "Tigre",
 
-        mission:
-            "Una strada sta dividendo un habitat forestale. Quale soluzione può ridurre il problema?",
+            info:
+                "Le tigri hanno bisogno di grandi territori e di popolazioni sufficienti di prede. La perdita e frammentazione dell'habitat rappresentano importanti minacce.",
 
-        options: [
+            mission:
+                "Una strada sta dividendo un habitat forestale. Quale soluzione può ridurre il problema?",
 
-            "Costruire corridoi ecologici e proteggere le aree naturali.",
+            options: [
 
-            "Eliminare tutta la vegetazione intorno alla strada.",
+                "Costruire corridoi ecologici e proteggere le aree naturali.",
 
-            "Dividere ulteriormente la foresta.",
+                "Eliminare tutta la vegetazione intorno alla strada.",
 
-            "Aumentare il traffico nella zona."
+                "Dividere ulteriormente la foresta.",
 
-        ],
+                "Aumentare il traffico nella zona."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "I corridoi ecologici possono favorire gli spostamenti degli animali tra aree di habitat separate."
+            explanation:
+                "I corridoi ecologici possono favorire gli spostamenti degli animali tra aree di habitat separate."
+
+        },
+
+        en: {
+
+            status: "🟠 THREATENED SPECIES",
+
+            name: "Tiger",
+
+            info:
+                "Tigers need large territories and sufficient prey populations. Habitat loss and fragmentation are major threats.",
+
+            mission:
+                "A road is dividing a forest habitat. Which solution could reduce the problem?",
+
+            options: [
+
+                "Build wildlife corridors and protect natural areas.",
+
+                "Remove all vegetation around the road.",
+
+                "Further divide the forest.",
+
+                "Increase traffic in the area."
+
+            ],
+
+            explanation:
+                "Wildlife corridors can help animals move between separate habitat areas."
+
+        },
+
+        fi: {
+
+            status: "🟠 UHATTU LAJI",
+
+            name: "Tiikeri",
+
+            info:
+                "Tiikerit tarvitsevat laajoja elinalueita ja riittävästi saaliseläimiä. Elinympäristöjen häviäminen ja pirstoutuminen ovat merkittäviä uhkia.",
+
+            mission:
+                "Tie jakaa metsäisen elinympäristön kahtia. Mikä ratkaisu voisi vähentää ongelmaa?",
+
+            options: [
+
+                "Rakentaa ekologisia käytäviä ja suojella luonnonalueita.",
+
+                "Poistaa kaikki kasvillisuus tien ympäriltä.",
+
+                "Pirstoa metsää entisestään.",
+
+                "Lisätä liikennettä alueella."
+
+            ],
+
+            explanation:
+                "Ekologiset käytävät voivat auttaa eläimiä siirtymään erillään olevien elinympäristöjen välillä."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🔴 SPECIE ESTINTA",
+        it: {
 
-        name:
-            "Dodo",
+            status: "🔴 SPECIE ESTINTA",
 
-        info:
-            "Il dodo viveva sull'isola di Mauritius e si estinse nel XVII secolo. La sua storia è collegata all'arrivo degli esseri umani e alle trasformazioni dell'ambiente.",
+            name: "Dodo",
 
-        mission:
-            "Qual è la lezione principale che possiamo ricavare dalla storia del dodo?",
+            info:
+                "Il dodo viveva sull'isola di Mauritius e si estinse nel XVII secolo. La sua storia è collegata all'arrivo degli esseri umani e alle trasformazioni dell'ambiente.",
 
-        options: [
+            mission:
+                "Qual è la lezione principale che possiamo ricavare dalla storia del dodo?",
 
-            "Le specie insulari possono essere particolarmente vulnerabili ai cambiamenti introdotti dall'uomo.",
+            options: [
 
-            "Le specie insulari non possono mai estinguersi.",
+                "Le specie insulari possono essere particolarmente vulnerabili ai cambiamenti introdotti dall'uomo.",
 
-            "L'estinzione del dodo è avvenuta recentemente.",
+                "Le specie insulari non possono mai estinguersi.",
 
-            "Il dodo è ancora una specie comune."
+                "L'estinzione del dodo è avvenuta recentemente.",
 
-        ],
+                "Il dodo è ancora una specie comune."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "Le specie insulari possono essere vulnerabili alla perdita di habitat, alle specie introdotte e alla pressione umana."
+            explanation:
+                "Le specie insulari possono essere vulnerabili alla perdita di habitat, alle specie introdotte e alla pressione umana."
+
+        },
+
+        en: {
+
+            status: "🔴 EXTINCT SPECIES",
+
+            name: "Dodo",
+
+            info:
+                "The dodo lived on the island of Mauritius and became extinct in the 17th century. Its history is connected to the arrival of humans and environmental changes.",
+
+            mission:
+                "What is the main lesson we can learn from the history of the dodo?",
+
+            options: [
+
+                "Island species can be particularly vulnerable to changes introduced by humans.",
+
+                "Island species can never become extinct.",
+
+                "The dodo became extinct recently.",
+
+                "The dodo is still a common species."
+
+            ],
+
+            explanation:
+                "Island species can be vulnerable to habitat loss, introduced species and human pressure."
+
+        },
+
+        fi: {
+
+            status: "🔴 SUKUPUUTTOON KUOLLUT LAJI",
+
+            name: "Dodo",
+
+            info:
+                "Dodo eli Mauritiuksen saarella ja kuoli sukupuuttoon 1600-luvulla. Sen historia liittyy ihmisten saapumiseen ja ympäristön muutoksiin.",
+
+            mission:
+                "Mikä on tärkein oppitunti, jonka voimme saada dodon historiasta?",
+
+            options: [
+
+                "Saarilajit voivat olla erityisen alttiita ihmisten aiheuttamille muutoksille.",
+
+                "Saarilajit eivät voi koskaan kuolla sukupuuttoon.",
+
+                "Dodo kuoli sukupuuttoon vasta äskettäin.",
+
+                "Dodo on edelleen yleinen laji."
+
+            ],
+
+            explanation:
+                "Saarilajit voivat olla alttiita elinympäristöjen häviämiselle, vieraslajeille ja ihmisen aiheuttamalle paineelle."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1531884070720-875c7622d4c2?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟢 SPECIE DA PROTEGGERE",
+        it: {
 
-        name:
-            "Gorilla",
+            status: "🟢 SPECIE DA PROTEGGERE",
 
-        info:
-            "I gorilla dipendono da habitat forestali. La perdita delle foreste e altre pressioni possono compromettere le popolazioni.",
+            name: "Gorilla",
 
-        mission:
-            "Quale azione aiuta maggiormente a proteggere una popolazione di gorilla?",
+            info:
+                "I gorilla dipendono da habitat forestali. La perdita delle foreste e altre pressioni possono compromettere le popolazioni.",
 
-        options: [
+            mission:
+                "Quale azione aiuta maggiormente a proteggere una popolazione di gorilla?",
 
-            "Proteggere e collegare gli habitat forestali.",
+            options: [
 
-            "Ridurre le aree forestali.",
+                "Proteggere e collegare gli habitat forestali.",
 
-            "Aumentare la frammentazione dell'habitat.",
+                "Ridurre le aree forestali.",
 
-            "Eliminare le aree protette."
+                "Aumentare la frammentazione dell'habitat.",
 
-        ],
+                "Eliminare le aree protette."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "La conservazione dell'habitat è una componente essenziale della protezione delle popolazioni di gorilla."
+            explanation:
+                "La conservazione dell'habitat è una componente essenziale della protezione delle popolazioni di gorilla."
+
+        },
+
+        en: {
+
+            status: "🟢 SPECIES TO PROTECT",
+
+            name: "Gorilla",
+
+            info:
+                "Gorillas depend on forest habitats. Forest loss and other pressures can threaten their populations.",
+
+            mission:
+                "Which action would help protect a gorilla population the most?",
+
+            options: [
+
+                "Protect and connect forest habitats.",
+
+                "Reduce forest areas.",
+
+                "Increase habitat fragmentation.",
+
+                "Remove protected areas."
+
+            ],
+
+            explanation:
+                "Habitat conservation is an essential part of protecting gorilla populations."
+
+        },
+
+        fi: {
+
+            status: "🟢 SUOJELTAVA LAJI",
+
+            name: "Gorilla",
+
+            info:
+                "Gorillat ovat riippuvaisia metsäisistä elinympäristöistä. Metsien häviäminen ja muut paineet voivat vaarantaa niiden kannat.",
+
+            mission:
+                "Mikä toimenpide auttaa parhaiten suojelemaan gorillakantaa?",
+
+            options: [
+
+                "Suojella ja yhdistää metsäisiä elinympäristöjä.",
+
+                "Vähentää metsäalueita.",
+
+                "Lisätä elinympäristöjen pirstoutumista.",
+
+                "Poistaa suojelualueet."
+
+            ],
+
+            explanation:
+                "Elinympäristöjen suojelu on olennainen osa gorillakantojen suojelua."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟠 VULNERABILE",
+        it: {
 
-        name:
-            "Orso polare",
+            status: "🟠 VULNERABILE",
 
-        info:
-            "Gli orsi polari dipendono fortemente dagli ecosistemi artici e dal ghiaccio marino per molte delle loro attività.",
+            name: "Orso polare",
 
-        mission:
-            "Quale cambiamento ambientale rappresenta una particolare minaccia per il loro habitat?",
+            info:
+                "Gli orsi polari dipendono fortemente dagli ecosistemi artici e dal ghiaccio marino per molte delle loro attività.",
 
-        options: [
+            mission:
+                "Quale cambiamento ambientale rappresenta una particolare minaccia per il loro habitat?",
 
-            "La perdita e riduzione del ghiaccio marino.",
+            options: [
 
-            "L'aumento delle foreste tropicali.",
+                "La perdita e riduzione del ghiaccio marino.",
 
-            "La diminuzione delle temperature artiche.",
+                "L'aumento delle foreste tropicali.",
 
-            "L'aumento della neve permanente in tutte le stagioni."
+                "La diminuzione delle temperature artiche.",
 
-        ],
+                "L'aumento della neve permanente in tutte le stagioni."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "La riduzione del ghiaccio marino modifica l'habitat artico e può rendere più difficili alcune attività fondamentali per gli orsi polari."
+            explanation:
+                "La riduzione del ghiaccio marino modifica l'habitat artico e può rendere più difficili alcune attività fondamentali per gli orsi polari."
+
+        },
+
+        en: {
+
+            status: "🟠 VULNERABLE",
+
+            name: "Polar bear",
+
+            info:
+                "Polar bears depend heavily on Arctic ecosystems and sea ice for many of their activities.",
+
+            mission:
+                "Which environmental change represents a particular threat to their habitat?",
+
+            options: [
+
+                "The loss and reduction of sea ice.",
+
+                "An increase in tropical forests.",
+
+                "A decrease in Arctic temperatures.",
+
+                "An increase in permanent snow in all seasons."
+
+            ],
+
+            explanation:
+                "The reduction of sea ice changes the Arctic habitat and can make some essential activities more difficult for polar bears."
+
+        },
+
+        fi: {
+
+            status: "🟠 VAARANTUNUT",
+
+            name: "Jääkarhu",
+
+            info:
+                "Jääkarhut ovat vahvasti riippuvaisia arktisista ekosysteemeistä ja merijäästä monissa toiminnoissaan.",
+
+            mission:
+                "Mikä ympäristön muutos muodostaa erityisen uhan niiden elinympäristölle?",
+
+            options: [
+
+                "Merijään väheneminen ja häviäminen.",
+
+                "Trooppisten metsien lisääntyminen.",
+
+                "Arktisten lämpötilojen laskeminen.",
+
+                "Pysyvän lumen lisääntyminen kaikkina vuodenaikoina."
+
+            ],
+
+            explanation:
+                "Merijään väheneminen muuttaa arktista elinympäristöä ja voi vaikeuttaa jääkarhujen tärkeitä toimintoja."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🔴 SPECIE ESTINTA",
+        it: {
 
-        name:
-            "Tilacino",
+            status: "🔴 SPECIE ESTINTA",
 
-        info:
-            "Il tilacino, conosciuto anche come tigre della Tasmania, è considerato estinto. L'ultimo individuo noto morì nel 1936.",
+            name: "Tilacino",
 
-        mission:
-            "Cosa significa che una specie è estinta?",
+            info:
+                "Il tilacino, conosciuto anche come tigre della Tasmania, è considerato estinto. L'ultimo individuo noto morì nel 1936.",
 
-        options: [
+            mission:
+                "Cosa significa che una specie è estinta?",
 
-            "Non esiste più alcun individuo della specie vivente.",
+            options: [
 
-            "Esistono pochi individui in natura.",
+                "Non esiste più alcun individuo della specie vivente.",
 
-            "La specie vive solamente negli zoo.",
+                "Esistono pochi individui in natura.",
 
-            "La specie si è trasferita in un altro continente."
+                "La specie vive solamente negli zoo.",
 
-        ],
+                "La specie si è trasferita in un altro continente."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "Una specie è considerata estinta quando non esistono più individui viventi della specie."
+            explanation:
+                "Una specie è considerata estinta quando non esistono più individui viventi della specie."
+
+        },
+
+        en: {
+
+            status: "🔴 EXTINCT SPECIES",
+
+            name: "Thylacine",
+
+            info:
+                "The thylacine, also known as the Tasmanian tiger, is considered extinct. The last known individual died in 1936.",
+
+            mission:
+                "What does it mean for a species to be extinct?",
+
+            options: [
+
+                "There are no living individuals of the species left.",
+
+                "Only a few individuals exist in the wild.",
+
+                "The species lives only in zoos.",
+
+                "The species has moved to another continent."
+
+            ],
+
+            explanation:
+                "A species is considered extinct when no living individuals of the species remain."
+
+        },
+
+        fi: {
+
+            status: "🔴 SUKUPUUTTOON KUOLLUT LAJI",
+
+            name: "Tasmaniantiikeri",
+
+            info:
+                "Tasmaniantiikeri eli tylakiini on kuollut sukupuuttoon. Viimeinen tunnettu yksilö kuoli vuonna 1936.",
+
+            mission:
+                "Mitä tarkoittaa, että laji on kuollut sukupuuttoon?",
+
+            options: [
+
+                "Lajista ei ole enää yhtään elävää yksilöä.",
+
+                "Luonnossa elää vain muutama yksilö.",
+
+                "Laji elää ainoastaan eläintarhoissa.",
+
+                "Laji on siirtynyt toiselle mantereelle."
+
+            ],
+
+            explanation:
+                "Laji katsotaan sukupuuttoon kuolleeksi, kun yhtään elävää yksilöä ei enää ole."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟠 SPECIE MINACCIATA",
+        it: {
 
-        name:
-            "Panda gigante",
+            status: "🟠 SPECIE MINACCIATA",
 
-        info:
-            "Il panda gigante dipende soprattutto dalle foreste di bambù. La conservazione dell'habitat è quindi particolarmente importante.",
+            name: "Panda gigante",
 
-        mission:
-            "Quale intervento può aiutare a mantenere una popolazione stabile?",
+            info:
+                "Il panda gigante dipende soprattutto dalle foreste di bambù. La conservazione dell'habitat è quindi particolarmente importante.",
 
-        options: [
+            mission:
+                "Quale intervento può aiutare a mantenere una popolazione stabile?",
 
-            "Proteggere l'habitat e mantenere collegamenti tra le aree forestali.",
+            options: [
 
-            "Distruggere le foreste di bambù.",
+                "Proteggere l'habitat e mantenere collegamenti tra le aree forestali.",
 
-            "Isolare completamente ogni popolazione.",
+                "Distruggere le foreste di bambù.",
 
-            "Ridurre le aree naturali."
+                "Isolare completamente ogni popolazione.",
 
-        ],
+                "Ridurre le aree naturali."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "La protezione e il collegamento degli habitat possono favorire la sopravvivenza delle popolazioni e la loro variabilità genetica."
+            explanation:
+                "La protezione e il collegamento degli habitat possono favorire la sopravvivenza delle popolazioni e la loro variabilità genetica."
+
+        },
+
+        en: {
+
+            status: "🟠 THREATENED SPECIES",
+
+            name: "Giant panda",
+
+            info:
+                "Giant pandas depend mainly on bamboo forests. Habitat conservation is therefore particularly important.",
+
+            mission:
+                "Which action can help maintain a stable population?",
+
+            options: [
+
+                "Protect the habitat and maintain connections between forest areas.",
+
+                "Destroy bamboo forests.",
+
+                "Completely isolate each population.",
+
+                "Reduce natural areas."
+
+            ],
+
+            explanation:
+                "Protecting and connecting habitats can support population survival and genetic diversity."
+
+        },
+
+        fi: {
+
+            status: "🟠 UHATTU LAJI",
+
+            name: "Isopanda",
+
+            info:
+                "Isopandat ovat riippuvaisia erityisesti bambumetsistä. Siksi elinympäristön suojelu on erittäin tärkeää.",
+
+            mission:
+                "Mikä toimenpide voi auttaa ylläpitämään vakaata kantaa?",
+
+            options: [
+
+                "Suojella elinympäristöä ja säilyttää metsäalueiden väliset yhteydet.",
+
+                "Hävittää bambumetsät.",
+
+                "Eristää jokainen kanta kokonaan.",
+
+                "Vähentää luonnonalueita."
+
+            ],
+
+            explanation:
+                "Elinympäristöjen suojeleminen ja yhdistäminen voi edistää kantojen säilymistä ja geneettistä monimuotoisuutta."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🟢 SPECIE DA CONSERVARE",
+        it: {
 
-        name:
-            "Leone africano",
+            status: "🟢 SPECIE DA CONSERVARE",
 
-        info:
-            "I leoni dipendono da habitat abbastanza estesi e da popolazioni di prede sufficienti. Anche il conflitto con le attività umane può rappresentare un problema.",
+            name: "Leone africano",
 
-        mission:
-            "Quale strategia può contribuire a ridurre il conflitto tra fauna selvatica e comunità locali?",
+            info:
+                "I leoni dipendono da habitat abbastanza estesi e da popolazioni di prede sufficienti. Anche il conflitto con le attività umane può rappresentare un problema.",
 
-        options: [
+            mission:
+                "Quale strategia può contribuire a ridurre il conflitto tra fauna selvatica e comunità locali?",
 
-            "Creare strategie di convivenza e proteggere gli habitat.",
+            options: [
 
-            "Eliminare tutti gli animali selvatici.",
+                "Creare strategie di convivenza e proteggere gli habitat.",
 
-            "Distruggere le aree protette.",
+                "Eliminare tutti gli animali selvatici.",
 
-            "Aumentare la frammentazione degli habitat."
+                "Distruggere le aree protette.",
 
-        ],
+                "Aumentare la frammentazione degli habitat."
 
-        correct: 0,
+            ],
 
-        explanation:
-            "La conservazione può includere strategie che proteggono gli habitat e tengono conto delle esigenze delle comunità locali."
+            explanation:
+                "La conservazione può includere strategie che proteggono gli habitat e tengono conto delle esigenze delle comunità locali."
+
+        },
+
+        en: {
+
+            status: "🟢 SPECIES TO CONSERVE",
+
+            name: "African lion",
+
+            info:
+                "Lions depend on sufficiently large habitats and adequate prey populations. Conflict with human activities can also be a problem.",
+
+            mission:
+                "Which strategy can help reduce conflict between wildlife and local communities?",
+
+            options: [
+
+                "Create coexistence strategies and protect habitats.",
+
+                "Eliminate all wild animals.",
+
+                "Destroy protected areas.",
+
+                "Increase habitat fragmentation."
+
+            ],
+
+            explanation:
+                "Conservation can include strategies that protect habitats while taking the needs of local communities into account."
+
+        },
+
+        fi: {
+
+            status: "🟢 SUOJELTAVA LAJI",
+
+            name: "Afrikanleijona",
+
+            info:
+                "Leijonat tarvitsevat riittävän laajoja elinympäristöjä ja riittävästi saaliseläimiä. Myös konfliktit ihmisen toiminnan kanssa voivat olla ongelma.",
+
+            mission:
+                "Millainen strategia voi auttaa vähentämään villieläinten ja paikallisten yhteisöjen välisiä konflikteja?",
+
+            options: [
+
+                "Luoda rinnakkaiseloa tukevia strategioita ja suojella elinympäristöjä.",
+
+                "Poistaa kaikki villieläimet.",
+
+                "Hävittää suojelualueet.",
+
+                "Lisätä elinympäristöjen pirstoutumista."
+
+            ],
+
+            explanation:
+                "Luonnonsuojeluun voi kuulua strategioita, jotka suojelevat elinympäristöjä ja ottavat samalla paikallisten yhteisöjen tarpeet huomioon."
+
+        }
 
     },
 
 
     {
+
         image:
             "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
 
-        status:
-            "🏆 MISSIONE FINALE",
+        it: {
 
-        name:
-            "La scelta del futuro",
+            status: "🏆 MISSIONE FINALE",
 
-        info:
-            "Hai imparato che la conservazione dipende da habitat, popolazioni, attività umane e condizioni ambientali.",
+            name: "La scelta del futuro",
 
-        mission:
-            "Quale principio è più importante quando si vuole proteggere una specie nel lungo periodo?",
+            info:
+                "Hai imparato che la conservazione dipende da habitat, popolazioni, attività umane e condizioni ambientali.",
 
-        options: [
+            mission:
+                "Quale principio è più importante quando si vuole proteggere una specie nel lungo periodo?",
 
-            "Agire solo quando rimangono pochissimi individui.",
+            options: [
 
-            "Proteggere habitat, ridurre le minacce e monitorare le popolazioni.",
+                "Agire solo quando rimangono pochissimi individui.",
 
-            "Concentrarsi esclusivamente sugli animali negli zoo.",
+                "Proteggere habitat, ridurre le minacce e monitorare le popolazioni.",
 
-            "Proteggere una singola specie ignorando tutto l'ecosistema."
+                "Concentrarsi esclusivamente sugli animali negli zoo.",
 
-        ],
+                "Proteggere una singola specie ignorando tutto l'ecosistema."
 
-        correct: 1,
+            ],
 
-        explanation:
-            "La conservazione efficace richiede generalmente un approccio ampio: proteggere gli habitat, ridurre le minacce e monitorare le popolazioni nel tempo."
+            correct: 1,
+
+            explanation:
+                "La conservazione efficace richiede generalmente un approccio ampio: proteggere gli habitat, ridurre le minacce e monitorare le popolazioni nel tempo."
+
+        },
+
+        en: {
+
+            status: "🏆 FINAL MISSION",
+
+            name: "The choice of the future",
+
+            info:
+                "You have learned that conservation depends on habitats, populations, human activities and environmental conditions.",
+
+            mission:
+                "Which principle is most important when protecting a species in the long term?",
+
+            options: [
+
+                "Act only when very few individuals remain.",
+
+                "Protect habitats, reduce threats and monitor populations.",
+
+                "Focus exclusively on animals in zoos.",
+
+                "Protect one species while ignoring the entire ecosystem."
+
+            ],
+
+            correct: 1,
+
+            explanation:
+                "Effective conservation generally requires a broad approach: protecting habitats, reducing threats and monitoring populations over time."
+
+        },
+
+        fi: {
+
+            status: "🏆 VIIMEINEN TEHTÄVÄ",
+
+            name: "Tulevaisuuden valinta",
+
+            info:
+                "Olet oppinut, että luonnonsuojelu riippuu elinympäristöistä, kannoista, ihmisen toiminnasta ja ympäristöolosuhteista.",
+
+            mission:
+                "Mikä periaate on tärkein, kun lajia halutaan suojella pitkällä aikavälillä?",
+
+            options: [
+
+                "Toimia vasta, kun jäljellä on hyvin vähän yksilöitä.",
+
+                "Suojella elinympäristöjä, vähentää uhkia ja seurata kantoja.",
+
+                "Keskittyä ainoastaan eläintarhoissa oleviin eläimiin.",
+
+                "Suojella yhtä lajia ja jättää koko ekosysteemi huomiotta."
+
+            ],
+
+            correct: 1,
+
+            explanation:
+                "Tehokas luonnonsuojelu edellyttää yleensä laajaa lähestymistapaa: elinympäristöjen suojelua, uhkien vähentämistä ja kantojen seurantaa ajan mittaan."
+
+        }
 
     }
 
 ];
 
+
+/* =====================================================
+   STATO DEL GIOCO
+   ===================================================== */
 
 let current = 0;
 let score = 0;
@@ -862,24 +1667,105 @@ let saved = 0;
 let answered = false;
 
 
+/* =====================================================
+   APPLICA TESTI GENERALI
+   ===================================================== */
+
+function applicaLingua() {
+
+    const t =
+        testiLingua();
+
+    document.documentElement.lang =
+        lingua;
+
+    document.title =
+        "🐾 Species Rescue - EcoGame";
+
+    document.querySelector(".title h1").innerText =
+        t.titolo;
+
+    document.getElementById("intro").innerText =
+        t.intro;
+
+    document.getElementById("menu").innerText =
+        t.menu;
+
+    document.getElementById("savedLabel").innerText =
+        t.specieSalvate;
+
+    document.getElementById("scoreLabel").innerText =
+        t.punti;
+
+    document.getElementById("missionLabel").innerText =
+        t.missione;
+
+    document.getElementById("resultTitle").innerText =
+        t.programmaCompletato;
+
+    document.getElementById("resultDescription").innerText =
+        t.descrizioneFinale;
+
+    document.getElementById("restartButton").innerText =
+        t.riprova;
+
+    document.getElementById("backButton").innerText =
+        t.torna;
+
+    document.getElementById("footer").innerText =
+        t.footer;
+
+    document.getElementById("animalImage").alt =
+        t.alt;
+
+}
+
+
+/* =====================================================
+   RECUPERA LINGUA
+   ===================================================== */
+
+function testiLingua() {
+
+    if (testi[lingua]) {
+        return testi[lingua];
+    }
+
+    return testi.it;
+
+}
+
+
+/* =====================================================
+   CARICA MISSIONE
+   ===================================================== */
+
 function loadMission() {
 
     answered = false;
 
-    const mission = missions[current];
+    const mission =
+        missions[current][lingua] || missions[current].it;
+
+    const t =
+        testiLingua();
 
 
     document.getElementById("animalImage").src =
-        mission.image;
+        missions[current].image;
+
 
     document.getElementById("status").innerText =
         mission.status;
 
+
     document.getElementById("animalName").innerText =
         mission.name;
 
+
     document.getElementById("info").innerText =
         mission.info;
+
 
     document.getElementById("mission").innerText =
         mission.mission;
@@ -896,14 +1782,15 @@ function loadMission() {
     document.getElementById("feedback").style.display =
         "none";
 
+
     document.getElementById("next").style.display =
         "none";
 
 
     document.getElementById("next").innerText =
         current === missions.length - 1
-            ? "🏆 Risultato finale"
-            : "Prossima missione →";
+            ? t.risultato
+            : t.prossima;
 
 
     const options =
@@ -918,15 +1805,18 @@ function loadMission() {
             const button =
                 document.createElement("button");
 
-            button.className = "option";
+            button.className =
+                "option";
 
-            button.innerText = option;
+            button.innerText =
+                option;
 
-            button.onclick = function() {
+            button.onclick =
+                function() {
 
-                checkAnswer(button, index);
+                    checkAnswer(button, index);
 
-            };
+                };
 
             options.appendChild(button);
 
@@ -935,6 +1825,10 @@ function loadMission() {
 
 }
 
+
+/* =====================================================
+   CONTROLLO RISPOSTA
+   ===================================================== */
 
 function checkAnswer(selected, index) {
 
@@ -946,7 +1840,8 @@ function checkAnswer(selected, index) {
 
 
     const mission =
-        missions[current];
+        missions[current][lingua] || missions[current].it;
+
 
     const all =
         document.querySelectorAll(".option");
@@ -959,7 +1854,13 @@ function checkAnswer(selected, index) {
     });
 
 
-    if (index === mission.correct) {
+    const correctIndex =
+        mission.correct !== undefined
+            ? mission.correct
+            : missions[current].it.correct;
+
+
+    if (index === correctIndex) {
 
         selected.classList.add("correct");
 
@@ -969,20 +1870,21 @@ function checkAnswer(selected, index) {
 
 
         document.getElementById("feedback").innerHTML =
-            "✅ <strong>Missione riuscita! +10 punti</strong><br><br>" +
+            testiLingua().riuscita +
             mission.explanation;
 
     } else {
 
         selected.classList.add("wrong");
 
-        all[mission.correct].classList.add("correct");
+        all[correctIndex].classList.add("correct");
 
 
         document.getElementById("feedback").innerHTML =
-            "❌ <strong>Risposta non corretta.</strong><br><br>" +
-            "La risposta corretta era: <strong>" +
-            mission.options[mission.correct] +
+            testiLingua().errata +
+            testiLingua().rispostaCorretta +
+            " <strong>" +
+            mission.options[correctIndex] +
             "</strong><br><br>" +
             mission.explanation;
 
@@ -1005,6 +1907,10 @@ function checkAnswer(selected, index) {
 }
 
 
+/* =====================================================
+   PROSSIMA MISSIONE
+   ===================================================== */
+
 function nextMission() {
 
     current++;
@@ -1022,6 +1928,10 @@ function nextMission() {
 
 }
 
+
+/* =====================================================
+   RISULTATO FINALE
+   ===================================================== */
 
 function showResult() {
 
@@ -1042,22 +1952,22 @@ function showResult() {
     if (score === 100) {
 
         message =
-            "🌟 Perfetto! Hai completato tutte le missioni e dimostrato un'ottima conoscenza della conservazione delle specie.";
+            testiLingua().messaggio100;
 
     } else if (score >= 70) {
 
         message =
-            "🐾 Ottimo lavoro! Hai compreso molti dei principali problemi legati alla protezione della biodiversità.";
+            testiLingua().messaggio70;
 
     } else if (score >= 50) {
 
         message =
-            "🌱 Buona base! Alcuni concetti sulla protezione delle specie possono ancora essere approfonditi.";
+            testiLingua().messaggio50;
 
     } else {
 
         message =
-            "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni delle missioni.";
+            testiLingua().messaggio0;
 
     }
 
@@ -1067,6 +1977,10 @@ function showResult() {
 
 }
 
+
+/* =====================================================
+   RIAVVIA
+   ===================================================== */
 
 function restartGame() {
 
@@ -1095,6 +2009,12 @@ function restartGame() {
 }
 
 
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+applicaLingua();
+
 loadMission();
 
 </script>
@@ -1102,4 +2022,3 @@ loadMission();
 </body>
 
 </html>
-```
