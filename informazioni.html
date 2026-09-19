@@ -43,6 +43,38 @@ header p {
     margin: 0;
 }
 
+/* SELETTORE LINGUA */
+
+.lingue {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.lingue button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    background: #263d32;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.lingue button:hover {
+    background: #43a047;
+    transform: translateY(-2px);
+}
+
+.lingue button.attiva {
+    background: #66bb6a;
+    color: #07140e;
+}
+
 /* NAVIGAZIONE */
 
 .navigazione {
@@ -218,20 +250,36 @@ footer {
 
 <header>
 
-```
 <h1>📚 EcoGame - Informazioni</h1>
 
 <p>
     Tutto ciò che devi sapere per comprendere
     gli argomenti dei quiz e dei giochi.
 </p>
-```
+
+<!-- LINGUE -->
+
+<div class="lingue">
+
+    <button id="itBtn" onclick="cambiaLingua('it')">
+        🇮🇹 Italiano
+    </button>
+
+    <button id="enBtn" onclick="cambiaLingua('en')">
+        🇬🇧 English
+    </button>
+
+    <button id="esBtn" onclick="cambiaLingua('es')">
+        🇪🇸 Español
+    </button>
+
+</div>
 
 </header>
 
+
 <div class="navigazione">
 
-```
 <button onclick="apriSezione('uso')">
     🧭 Come usare EcoGame
 </button>
@@ -271,15 +319,14 @@ footer {
 <button onclick="apriSezione('sostenibilita')">
     🌱 Sostenibilità
 </button>
-```
 
 </div>
+
 
 <div class="contenitore">
 
 <div class="introduzione">
 
-```
 <h2>🌍 Benvenuto nella guida di EcoGame!</h2>
 
 <p>
@@ -298,15 +345,14 @@ footer {
     💡 <strong>Consiglio:</strong> se non conosci una risposta
     durante un quiz, torna qui e ripassa l'argomento!
 </div>
-```
 
 </div>
+
 
 <!-- COME USARE -->
 
 <div class="sezione" id="uso">
 
-```
 <div class="titolo" onclick="toggle('uso')">
     🧭 Come usare EcoGame
 </div>
@@ -350,15 +396,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- CLIMA -->
 
 <div class="sezione" id="clima">
 
-```
 <div class="titolo" onclick="toggle('clima')">
     🌍 Cambiamento climatico ed effetto serra
 </div>
@@ -402,15 +447,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- BIODIVERSITÀ -->
 
 <div class="sezione" id="biodiversita">
 
-```
 <div class="titolo" onclick="toggle('biodiversita')">
     🌱 Ecosistemi e biodiversità
 </div>
@@ -450,15 +494,14 @@ footer {
     </p>
 
 </div>
-```
 
 </div>
+
 
 <!-- ANIMALI -->
 
 <div class="sezione" id="animali">
 
-```
 <div class="titolo" onclick="toggle('animali')">
     🐾 Animali, specie a rischio ed estinzioni
 </div>
@@ -506,15 +549,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- FORESTE E SUOLO -->
 
 <div class="sezione" id="foreste">
 
-```
 <div class="titolo" onclick="toggle('foreste')">
     🌳 Foreste e suolo
 </div>
@@ -545,15 +587,14 @@ footer {
     </p>
 
 </div>
-```
 
 </div>
+
 
 <!-- ACQUA -->
 
 <div class="sezione" id="acqua">
 
-```
 <div class="titolo" onclick="toggle('acqua')">
     💧 Acqua e ciclo dell'acqua
 </div>
@@ -603,15 +644,14 @@ footer {
     </p>
 
 </div>
-```
 
 </div>
+
 
 <!-- OCEANI -->
 
 <div class="sezione" id="oceani">
 
-```
 <div class="titolo" onclick="toggle('oceani')">
     🌊 Oceani
 </div>
@@ -650,15 +690,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- RIFIUTI -->
 
 <div class="sezione" id="rifiuti">
 
-```
 <div class="titolo" onclick="toggle('rifiuti')">
     ♻️ Rifiuti, riciclo ed economia circolare
 </div>
@@ -698,15 +737,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- ENERGIA -->
 
 <div class="sezione" id="energia">
 
-```
 <div class="titolo" onclick="toggle('energia')">
     ⚡ Energia e fonti energetiche
 </div>
@@ -750,15 +788,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- CICLI NATURALI -->
 
 <div class="sezione" id="cicli">
 
-```
 <div class="titolo" onclick="toggle('cicli')">
     🧪 Cicli del carbonio e dell'azoto
 </div>
@@ -797,15 +834,14 @@ footer {
     </p>
 
 </div>
-```
 
 </div>
+
 
 <!-- IMPOLLINATORI -->
 
 <div class="sezione" id="impollinatori">
 
-```
 <div class="titolo" onclick="toggle('impollinatori')">
     🐝 Impollinatori e catene alimentari
 </div>
@@ -847,15 +883,14 @@ footer {
     </p>
 
 </div>
-```
 
 </div>
+
 
 <!-- INQUINAMENTO -->
 
 <div class="sezione" id="inquinamento">
 
-```
 <div class="titolo" onclick="toggle('inquinamento')">
     🏭 Inquinamento
 </div>
@@ -890,15 +925,14 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <!-- SOSTENIBILITÀ -->
 
 <div class="sezione" id="sostenibilita">
 
-```
 <div class="titolo" onclick="toggle('sostenibilita')">
     🌱 Sviluppo sostenibile
 </div>
@@ -939,9 +973,9 @@ footer {
     </div>
 
 </div>
-```
 
 </div>
+
 
 <a class="home" onclick="tornaHome()">
     🏠 Torna al menu principale
@@ -949,15 +983,19 @@ footer {
 
 </div>
 
+
 <footer>
 
-```
 🌱 EcoGame — Imparare l'ecologia giocando
-```
 
 </footer>
 
+
 <script>
+
+/* =====================================================
+   FUNZIONI ORIGINALI DEL SITO
+   ===================================================== */
 
 function toggle(id) {
 
@@ -993,9 +1031,874 @@ function tornaHome() {
 }
 
 
-/* APRE AUTOMATICAMENTE LA PRIMA SEZIONE */
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
 
-document.querySelector("#uso .contenuto").classList.add("aperto");
+const traduzioni = {
+
+it: {
+
+"📚 EcoGame - Informazioni": "📚 EcoGame - Informazioni",
+
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.",
+
+"🧭 Come usare EcoGame":
+"🧭 Come usare EcoGame",
+
+"🌍 Clima":
+"🌍 Clima",
+
+"🌱 Biodiversità":
+"🌱 Biodiversità",
+
+"🐾 Animali":
+"🐾 Animali",
+
+"💧 Acqua":
+"💧 Acqua",
+
+"🌊 Oceani":
+"🌊 Oceani",
+
+"♻️ Rifiuti":
+"♻️ Rifiuti",
+
+"⚡ Energia":
+"⚡ Energia",
+
+"🏭 Inquinamento":
+"🏭 Inquinamento",
+
+"🌱 Sostenibilità":
+"🌱 Sostenibilità",
+
+"🌍 Benvenuto nella guida di EcoGame!":
+"🌍 Benvenuto nella guida di EcoGame!",
+
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.",
+
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.",
+
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!",
+
+"🧭 Come usare EcoGame":
+"🧭 Come usare EcoGame",
+
+"🏠 Menu principale":
+"🏠 Menu principale",
+
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"Dal menu principale puoi accedere alle diverse parti del progetto:",
+
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Mini-giochi – giochi interattivi.",
+
+"📚 Informazioni – questa enciclopedia.":
+"📚 Informazioni – questa enciclopedia.",
+
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Risultati – sezione dedicata ai punteggi.",
+
+"🎮 Come funzionano i giochi":
+"🎮 Come funzionano i giochi",
+
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.",
+
+"🧠 Come funziona il quiz":
+"🧠 Come funziona il quiz",
+
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.",
+
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.",
+
+"🌍 Cambiamento climatico ed effetto serra":
+"🌍 Cambiamento climatico ed effetto serra",
+
+"🌡️ Che cos'è il clima?":
+"🌡️ Che cos'è il clima?",
+
+"🔥 Effetto serra":
+"🔥 Effetto serra",
+
+"🏭 Attività umane":
+"🏭 Attività umane",
+
+"🌱 Ecosistemi e biodiversità":
+"🌱 Ecosistemi e biodiversità",
+
+"🌳 Che cos'è un ecosistema?":
+"🌳 Che cos'è un ecosistema?",
+
+"🧬 Biodiversità":
+"🧬 Biodiversità",
+
+"🛡️ Resilienza":
+"🛡️ Resilienza",
+
+"🔗 Reti trofiche":
+"🔗 Reti trofiche",
+
+"🐾 Animali, specie a rischio ed estinzioni":
+"🐾 Animali, specie a rischio ed estinzioni",
+
+"🐾 Che cos'è una specie?":
+"🐾 Che cos'è una specie?",
+
+"☠️ Estinzione":
+"☠️ Estinzione",
+
+"⚠️ Cause delle estinzioni":
+"⚠️ Cause delle estinzioni",
+
+"🛡️ Come proteggere le specie?":
+"🛡️ Come proteggere le specie?",
+
+"🌳 Foreste e suolo":
+"🌳 Foreste e suolo",
+
+"🌲 Perché le foreste sono importanti?":
+"🌲 Perché le foreste sono importanti?",
+
+"🌾 Erosione del suolo":
+"🌾 Erosione del suolo",
+
+"🌱 Conservazione":
+"🌱 Conservazione",
+
+"💧 Acqua e ciclo dell'acqua":
+"💧 Acqua e ciclo dell'acqua",
+
+"💧 Il ciclo dell'acqua":
+"💧 Il ciclo dell'acqua",
+
+"🚰 Spreco d'acqua":
+"🚰 Spreco d'acqua",
+
+"🧪 Inquinamento dell'acqua":
+"🧪 Inquinamento dell'acqua",
+
+"🌿 Eutrofizzazione":
+"🌿 Eutrofizzazione",
+
+"🌊 Oceani":
+"🌊 Oceani",
+
+"🌊 Perché gli oceani sono importanti?":
+"🌊 Perché gli oceani sono importanti?",
+
+"🧪 Acidificazione degli oceani":
+"🧪 Acidificazione degli oceani",
+
+"🐟 Pesca e biodiversità":
+"🐟 Pesca e biodiversità",
+
+"♻️ Rifiuti, riciclo ed economia circolare":
+"♻️ Rifiuti, riciclo ed economia circolare",
+
+"♻️ Economia circolare":
+"♻️ Economia circolare",
+
+"🔄 Strategie principali":
+"🔄 Strategie principali",
+
+"🗑️ Raccolta differenziata":
+"🗑️ Raccolta differenziata",
+
+"⚡ Energia e fonti energetiche":
+"⚡ Energia e fonti energetiche",
+
+"⚡ Che cos'è l'energia?":
+"⚡ Che cos'è l'energia?",
+
+"☀️ Fonti rinnovabili":
+"☀️ Fonti rinnovabili",
+
+"🛢️ Combustibili fossili":
+"🛢️ Combustibili fossili",
+
+"💡 Efficienza energetica":
+"💡 Efficienza energetica",
+
+"🧪 Cicli del carbonio e dell'azoto":
+"🧪 Cicli del carbonio e dell'azoto",
+
+"🌲 Ciclo del carbonio":
+"🌲 Ciclo del carbonio",
+
+"🌲 Pozzo di carbonio":
+"🌲 Pozzo di carbonio",
+
+"🧪 Ciclo dell'azoto":
+"🧪 Ciclo dell'azoto",
+
+"🦠 Fissazione dell'azoto":
+"🦠 Fissazione dell'azoto",
+
+"🐝 Impollinatori e catene alimentari":
+"🐝 Impollinatori e catene alimentari",
+
+"🐝 Impollinazione":
+"🐝 Impollinazione",
+
+"🌾 Agricoltura":
+"🌾 Agricoltura",
+
+"🐺 Catena alimentare":
+"🐺 Catena alimentare",
+
+"🌳 Predatori":
+"🌳 Predatori",
+
+"🏭 Inquinamento":
+"🏭 Inquinamento",
+
+"🏭 Inquinamento atmosferico":
+"🏭 Inquinamento atmosferico",
+
+"🚗 Fonti antropogeniche":
+"🚗 Fonti antropogeniche",
+
+"🌋 Fonti naturali":
+"🌋 Fonti naturali",
+
+"🌱 Sviluppo sostenibile":
+"🌱 Sviluppo sostenibile",
+
+"🌱 Che cos'è?":
+"🌱 Che cos'è?",
+
+"⚖️ Equilibrio":
+"⚖️ Equilibrio",
+
+"🌍 Esempi":
+"🌍 Esempi",
+
+"🏠 Torna al menu principale":
+"🏠 Torna al menu principale",
+
+"🌱 EcoGame — Imparare l'ecologia giocando":
+"🌱 EcoGame — Imparare l'ecologia giocando"
+
+},
+
+
+en: {
+
+"📚 EcoGame - Informazioni":
+"📚 EcoGame - Information",
+
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
+"Everything you need to know to understand the topics covered by the quizzes and games.",
+
+"🧭 Come usare EcoGame":
+"🧭 How to use EcoGame",
+
+"🌍 Clima":
+"🌍 Climate",
+
+"🌱 Biodiversità":
+"🌱 Biodiversity",
+
+"🐾 Animali":
+"🐾 Animals",
+
+"💧 Acqua":
+"💧 Water",
+
+"🌊 Oceani":
+"🌊 Oceans",
+
+"♻️ Rifiuti":
+"♻️ Waste",
+
+"⚡ Energia":
+"⚡ Energy",
+
+"🏭 Inquinamento":
+"🏭 Pollution",
+
+"🌱 Sostenibilità":
+"🌱 Sustainability",
+
+"🌍 Benvenuto nella guida di EcoGame!":
+"🌍 Welcome to the EcoGame guide!",
+
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
+"This section was created to help you study before taking the quizzes and mini-games.",
+
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"You do not need to memorize everything: read the topics that interest you and use the information to better understand the questions on the website.",
+
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Tip: if you don't know an answer during a quiz, come back here and review the topic!",
+
+"🏠 Menu principale":
+"🏠 Main menu",
+
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"From the main menu you can access the different parts of the project:",
+
+"🧠 Quiz ecologico – domande sull'ambiente.":
+"🧠 Environmental quiz – questions about the environment.",
+
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Mini-games – interactive games.",
+
+"📚 Informazioni – questa enciclopedia.":
+"📚 Information – this encyclopedia.",
+
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Results – section dedicated to scores.",
+
+"🎮 Come funzionano i giochi":
+"🎮 How the games work",
+
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Each game has its own rules. Carefully read the instructions at the beginning and try to understand the objective before starting.",
+
+"🧠 Come funziona il quiz":
+"🧠 How the quiz works",
+
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"The quiz contains multiple-choice questions. For each question you must choose an answer. After answering, an explanation is shown.",
+
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 The quiz explanations are important: they do not only show whether you were wrong, but also explain the scientific concept.",
+
+"🌍 Cambiamento climatico ed effetto serra":
+"🌍 Climate change and the greenhouse effect",
+
+"🌡️ Che cos'è il clima?":
+"🌡️ What is climate?",
+
+"🔥 Effetto serra":
+"🔥 Greenhouse effect",
+
+"🏭 Attività umane":
+"🏭 Human activities",
+
+"🌱 Ecosistemi e biodiversità":
+"🌱 Ecosystems and biodiversity",
+
+"🌳 Che cos'è un ecosistema?":
+"🌳 What is an ecosystem?",
+
+"🧬 Biodiversità":
+"🧬 Biodiversity",
+
+"🛡️ Resilienza":
+"🛡️ Resilience",
+
+"🔗 Reti trofiche":
+"🔗 Food webs",
+
+"🐾 Animali, specie a rischio ed estinzioni":
+"🐾 Animals, endangered species and extinctions",
+
+"🐾 Che cos'è una specie?":
+"🐾 What is a species?",
+
+"☠️ Estinzione":
+"☠️ Extinction",
+
+"⚠️ Cause delle estinzioni":
+"⚠️ Causes of extinction",
+
+"🛡️ Come proteggere le specie?":
+"🛡️ How to protect species?",
+
+"🌳 Foreste e suolo":
+"🌳 Forests and soil",
+
+"🌲 Perché le foreste sono importanti?":
+"🌲 Why are forests important?",
+
+"🌾 Erosione del suolo":
+"🌾 Soil erosion",
+
+"🌱 Conservazione":
+"🌱 Conservation",
+
+"💧 Acqua e ciclo dell'acqua":
+"💧 Water and the water cycle",
+
+"💧 Il ciclo dell'acqua":
+"💧 The water cycle",
+
+"🚰 Spreco d'acqua":
+"🚰 Water waste",
+
+"🧪 Inquinamento dell'acqua":
+"🧪 Water pollution",
+
+"🌿 Eutrofizzazione":
+"🌿 Eutrophication",
+
+"🌊 Oceani":
+"🌊 Oceans",
+
+"🌊 Perché gli oceani sono importanti?":
+"🌊 Why are oceans important?",
+
+"🧪 Acidificazione degli oceani":
+"🧪 Ocean acidification",
+
+"🐟 Pesca e biodiversità":
+"🐟 Fishing and biodiversity",
+
+"♻️ Rifiuti, riciclo ed economia circolare":
+"♻️ Waste, recycling and circular economy",
+
+"♻️ Economia circolare":
+"♻️ Circular economy",
+
+"🔄 Strategie principali":
+"🔄 Main strategies",
+
+"🗑️ Raccolta differenziata":
+"🗑️ Waste separation",
+
+"⚡ Energia e fonti energetiche":
+"⚡ Energy and energy sources",
+
+"⚡ Che cos'è l'energia?":
+"⚡ What is energy?",
+
+"☀️ Fonti rinnovabili":
+"☀️ Renewable sources",
+
+"🛢️ Combustibili fossili":
+"🛢️ Fossil fuels",
+
+"💡 Efficienza energetica":
+"💡 Energy efficiency",
+
+"🧪 Cicli del carbonio e dell'azoto":
+"🧪 Carbon and nitrogen cycles",
+
+"🌲 Ciclo del carbonio":
+"🌲 Carbon cycle",
+
+"🌲 Pozzo di carbonio":
+"🌲 Carbon sink",
+
+"🧪 Ciclo dell'azoto":
+"🧪 Nitrogen cycle",
+
+"🦠 Fissazione dell'azoto":
+"🦠 Nitrogen fixation",
+
+"🐝 Impollinatori e catene alimentari":
+"🐝 Pollinators and food chains",
+
+"🐝 Impollinazione":
+"🐝 Pollination",
+
+"🌾 Agricoltura":
+"🌾 Agriculture",
+
+"🐺 Catena alimentare":
+"🐺 Food chain",
+
+"🌳 Predatori":
+"🌳 Predators",
+
+"🏭 Inquinamento":
+"🏭 Pollution",
+
+"🏭 Inquinamento atmosferico":
+"🏭 Air pollution",
+
+"🚗 Fonti antropogeniche":
+"🚗 Human sources",
+
+"🌋 Fonti naturali":
+"🌋 Natural sources",
+
+"🌱 Sviluppo sostenibile":
+"🌱 Sustainable development",
+
+"🌱 Che cos'è?":
+"🌱 What is it?",
+
+"⚖️ Equilibrio":
+"⚖️ Balance",
+
+"🌍 Esempi":
+"🌍 Examples",
+
+"🏠 Torna al menu principale":
+"🏠 Back to main menu",
+
+"🌱 EcoGame — Imparare l'ecologia giocando":
+"🌱 EcoGame — Learn ecology by playing"
+
+},
+
+
+es: {
+
+"📚 EcoGame - Informazioni":
+"📚 EcoGame - Información",
+
+"Tutto ciò che devi sapere per comprendere gli argomenti dei quiz e dei giochi.":
+"Todo lo que necesitas saber para comprender los temas de los cuestionarios y juegos.",
+
+"🧭 Come usare EcoGame":
+"🧭 Cómo usar EcoGame",
+
+"🌍 Clima":
+"🌍 Clima",
+
+"🌱 Biodiversità":
+"🌱 Biodiversidad",
+
+"🐾 Animali":
+"🐾 Animales",
+
+"💧 Acqua":
+"💧 Agua",
+
+"🌊 Oceani":
+"🌊 Océanos",
+
+"♻️ Rifiuti":
+"♻️ Residuos",
+
+"⚡ Energia":
+"⚡ Energía",
+
+"🏭 Inquinamento":
+"🏭 Contaminación",
+
+"🌱 Sostenibilità":
+"🌱 Sostenibilidad",
+
+"🌍 Benvenuto nella guida di EcoGame!":
+"🌍 ¡Bienvenido a la guía de EcoGame!",
+
+"Questa sezione è stata creata per aiutarti a studiare prima di affrontare i quiz e i mini-giochi.":
+"Esta sección ha sido creada para ayudarte a estudiar antes de realizar los cuestionarios y minijuegos.",
+
+"Non è necessario imparare tutto a memoria: leggi gli argomenti che ti interessano e usa le informazioni per comprendere meglio le domande presenti nel sito.":
+"No es necesario memorizarlo todo: lee los temas que te interesen y utiliza la información para comprender mejor las preguntas del sitio.",
+
+"💡 Consiglio: se non conosci una risposta durante un quiz, torna qui e ripassa l'argomento!":
+"💡 Consejo: si no conoces una respuesta durante un cuestionario, vuelve aquí y repasa el tema.",
+
+"🏠 Menu principale":
+"🏠 Menú principal",
+
+"Dal menu principale puoi accedere alle diverse parti del progetto:":
+"Desde el menú principal puedes acceder a las diferentes partes del proyecto:",
+
+"🧠 Quiz ecologico – domande sull'ambiente.":
+"🧠 Cuestionario ecológico – preguntas sobre el medio ambiente.",
+
+"🎮 Mini-giochi – giochi interattivi.":
+"🎮 Minijuegos – juegos interactivos.",
+
+"📚 Informazioni – questa enciclopedia.":
+"📚 Información – esta enciclopedia.",
+
+"🏆 Risultati – sezione dedicata ai punteggi.":
+"🏆 Resultados – sección dedicada a las puntuaciones.",
+
+"🎮 Come funzionano i giochi":
+"🎮 Cómo funcionan los juegos",
+
+"Ogni gioco ha regole proprie. Leggi attentamente le istruzioni presenti all'inizio e cerca di comprendere l'obiettivo prima di iniziare.":
+"Cada juego tiene sus propias reglas. Lee atentamente las instrucciones del principio e intenta comprender el objetivo antes de comenzar.",
+
+"🧠 Come funziona il quiz":
+"🧠 Cómo funciona el cuestionario",
+
+"Il quiz contiene domande a risposta multipla. Per ogni domanda devi scegliere una risposta. Dopo aver risposto viene mostrata una spiegazione.":
+"El cuestionario contiene preguntas de opción múltiple. Para cada pregunta debes elegir una respuesta. Después de responder se muestra una explicación.",
+
+"📖 Le spiegazioni del quiz sono importanti: non mostrano soltanto se hai sbagliato, ma spiegano anche il concetto scientifico.":
+"📖 Las explicaciones del cuestionario son importantes: no solo muestran si te has equivocado, sino que también explican el concepto científico.",
+
+"🌍 Cambiamento climatico ed effetto serra":
+"🌍 Cambio climático y efecto invernadero",
+
+"🌡️ Che cos'è il clima?":
+"🌡️ ¿Qué es el clima?",
+
+"🔥 Effetto serra":
+"🔥 Efecto invernadero",
+
+"🏭 Attività umane":
+"🏭 Actividades humanas",
+
+"🌱 Ecosistemi e biodiversità":
+"🌱 Ecosistemas y biodiversidad",
+
+"🌳 Che cos'è un ecosistema?":
+"🌳 ¿Qué es un ecosistema?",
+
+"🧬 Biodiversità":
+"🧬 Biodiversidad",
+
+"🛡️ Resilienza":
+"🛡️ Resiliencia",
+
+"🔗 Reti trofiche":
+"🔗 Redes alimentarias",
+
+"🐾 Animali, specie a rischio ed estinzioni":
+"🐾 Animales, especies en riesgo y extinciones",
+
+"🐾 Che cos'è una specie?":
+"🐾 ¿Qué es una especie?",
+
+"☠️ Estinzione":
+"☠️ Extinción",
+
+"⚠️ Cause delle estinzioni":
+"⚠️ Causas de las extinciones",
+
+"🛡️ Come proteggere le specie?":
+"🛡️ ¿Cómo proteger las especies?",
+
+"🌳 Foreste e suolo":
+"🌳 Bosques y suelo",
+
+"🌲 Perché le foreste sono importanti?":
+"🌲 ¿Por qué son importantes los bosques?",
+
+"🌾 Erosione del suolo":
+"🌾 Erosión del suelo",
+
+"🌱 Conservazione":
+"🌱 Conservación",
+
+"💧 Acqua e ciclo dell'acqua":
+"💧 Agua y ciclo del agua",
+
+"💧 Il ciclo dell'acqua":
+"💧 El ciclo del agua",
+
+"🚰 Spreco d'acqua":
+"🚰 Desperdicio de agua",
+
+"🧪 Inquinamento dell'acqua":
+"🧪 Contaminación del agua",
+
+"🌿 Eutrofizzazione":
+"🌿 Eutrofización",
+
+"🌊 Oceani":
+"🌊 Océanos",
+
+"🌊 Perché gli oceani sono importanti?":
+"🌊 ¿Por qué son importantes los océanos?",
+
+"🧪 Acidificazione degli oceani":
+"🧪 Acidificación de los océanos",
+
+"🐟 Pesca e biodiversità":
+"🐟 Pesca y biodiversidad",
+
+"♻️ Rifiuti, riciclo ed economia circolare":
+"♻️ Residuos, reciclaje y economía circular",
+
+"♻️ Economia circolare":
+"♻️ Economía circular",
+
+"🔄 Strategie principali":
+"🔄 Estrategias principales",
+
+"🗑️ Raccolta differenziata":
+"🗑️ Separación de residuos",
+
+"⚡ Energia e fonti energetiche":
+"⚡ Energía y fuentes de energía",
+
+"⚡ Che cos'è l'energia?":
+"⚡ ¿Qué es la energía?",
+
+"☀️ Fonti rinnovabili":
+"☀️ Fuentes renovables",
+
+"🛢️ Combustibili fossili":
+"🛢️ Combustibles fósiles",
+
+"💡 Efficienza energetica":
+"💡 Eficiencia energética",
+
+"🧪 Cicli del carbonio e dell'azoto":
+"🧪 Ciclos del carbono y del nitrógeno",
+
+"🌲 Ciclo del carbonio":
+"🌲 Ciclo del carbono",
+
+"🌲 Pozzo di carbonio":
+"🌲 Sumidero de carbono",
+
+"🧪 Ciclo dell'azoto":
+"🧪 Ciclo del nitrógeno",
+
+"🦠 Fissazione dell'azoto":
+"🦠 Fijación del nitrógeno",
+
+"🐝 Impollinatori e catene alimentari":
+"🐝 Polinizadores y cadenas alimentarias",
+
+"🐝 Impollinazione":
+"🐝 Polinización",
+
+"🌾 Agricoltura":
+"🌾 Agricultura",
+
+"🐺 Catena alimentare":
+"🐺 Cadena alimentaria",
+
+"🌳 Predatori":
+"🌳 Depredadores",
+
+"🏭 Inquinamento":
+"🏭 Contaminación",
+
+"🏭 Inquinamento atmosferico":
+"🏭 Contaminación atmosférica",
+
+"🚗 Fonti antropogeniche":
+"🚗 Fuentes antropogénicas",
+
+"🌋 Fonti naturali":
+"🌋 Fuentes naturales",
+
+"🌱 Sviluppo sostenibile":
+"🌱 Desarrollo sostenible",
+
+"🌱 Che cos'è?":
+"🌱 ¿Qué es?",
+
+"⚖️ Equilibrio":
+"⚖️ Equilibrio",
+
+"🌍 Esempi":
+"🌍 Ejemplos",
+
+"🏠 Torna al menu principale":
+"🏠 Volver al menú principal",
+
+"🌱 EcoGame — Imparare l'ecologia giocando":
+"🌱 EcoGame — Aprender ecología jugando"
+
+}
+
+};
+
+
+/* =====================================================
+   SISTEMA CAMBIO LINGUA
+   ===================================================== */
+
+let linguaAttuale = "it";
+
+
+function normalizza(testo) {
+
+    return testo
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+function cambiaLingua(lingua) {
+
+    linguaAttuale = lingua;
+
+    const elementi = document.querySelectorAll(
+        "body *"
+    );
+
+    elementi.forEach(elemento => {
+
+        if (
+            elemento.children.length === 0 &&
+            elemento.tagName !== "SCRIPT" &&
+            elemento.tagName !== "STYLE"
+        ) {
+
+            const originale = normalizza(elemento.textContent);
+
+            if (
+                traduzioni[lingua] &&
+                traduzioni[lingua][originale]
+            ) {
+
+                elemento.textContent =
+                    traduzioni[lingua][originale];
+
+            }
+
+        }
+
+    });
+
+
+    /*
+       Aggiorna anche alcuni testi composti
+       presenti dentro elementi HTML.
+    */
+
+    document.documentElement.lang = lingua;
+
+
+    document.getElementById("itBtn")
+        .classList.remove("attiva");
+
+    document.getElementById("enBtn")
+        .classList.remove("attiva");
+
+    document.getElementById("esBtn")
+        .classList.remove("attiva");
+
+
+    if (lingua === "it") {
+        document.getElementById("itBtn")
+            .classList.add("attiva");
+    }
+
+    if (lingua === "en") {
+        document.getElementById("enBtn")
+            .classList.add("attiva");
+    }
+
+    if (lingua === "es") {
+        document.getElementById("esBtn")
+            .classList.add("attiva");
+    }
+
+}
+
+
+/* =====================================================
+   APRE AUTOMATICAMENTE LA PRIMA SEZIONE
+   ===================================================== */
+
+document
+    .querySelector("#uso .contenuto")
+    .classList.add("aperto");
+
+
+/* ITALIANO ATTIVO ALL'INIZIO */
+
+document
+    .getElementById("itBtn")
+    .classList.add("attiva");
 
 </script>
 
