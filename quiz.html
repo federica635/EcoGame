@@ -1,8 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoQuiz 🌍</title>
 
     <style>
@@ -18,12 +20,37 @@
         header {
             background: #2e7d32;
             color: white;
-            padding: 30px;
+            padding: 25px 20px 30px;
         }
 
         header h1 {
             font-size: 42px;
             margin: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+        .lingue {
+            margin-bottom: 15px;
+        }
+
+        .lingue button {
+            display: inline-block;
+            width: auto;
+            margin: 5px;
+            padding: 10px 15px;
+            background: white;
+            color: #173b22;
+            border: 2px solid #43a047;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .lingue button:hover {
+            background: #e8f5e9;
         }
 
         .quiz {
@@ -47,7 +74,7 @@
             margin: 25px;
         }
 
-        button {
+        .risposta {
             display: block;
             width: 90%;
             max-width: 550px;
@@ -61,7 +88,7 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .risposta:hover {
             background: #1b5e20;
         }
 
@@ -99,19 +126,33 @@
             font-weight: bold;
         }
 
+        #ricomincia {
+            background: #43a047;
+        }
+
     </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
+    <div class="lingue">
+
+        <button onclick="cambiaLingua('it')">🇮🇹 Italiano</button>
+
+        <button onclick="cambiaLingua('en')">🇬🇧 English</button>
+
+        <button onclick="cambiaLingua('fi')">🇫🇮 Suomi</button>
+
+    </div>
+
     <h1>🌍 EcoQuiz</h1>
 
-    <p>Ecologia e ambiente - Leggi prima le informazioni per approfondire l'argomento!</p>
+    <p id="sottotitolo">
+        Ecologia e ambiente - Leggi prima le informazioni per approfondire l'argomento!
+    </p>
 
 </header>
 
@@ -141,16 +182,21 @@
 
 <div class="quiz" id="finale">
 
-    <h2>🎉 Quiz completato!</h2>
+    <h2 id="titoloFinale">🎉 Quiz completato!</h2>
 
-    <p>Hai completato tutte le 20 domande.</p>
+    <p id="testoFinale">
+        Hai completato tutte le 20 domande.
+    </p>
 
     <p id="punteggioFinale"></p>
 
     <p id="messaggioFinale"></p>
 
-    <button onclick="ricomincia()">
+    <button id="ricomincia"
+            onclick="ricomincia()">
+
         🔄 Ricomincia
+
     </button>
 
 </div>
@@ -158,257 +204,834 @@
 
 <script>
 
+const traduzioni = {
 
-const domande = [
-
-    {
-        domanda: "🌡️ Perché l'aumento della CO₂ atmosferica può contribuire al riscaldamento globale?",
-        risposte: [
-            "Perché aumenta direttamente l'ossigeno",
-            "Perché assorbe parte della radiazione infrarossa terrestre",
-            "Perché blocca tutta la luce solare",
-            "Perché trasforma l'azoto in ossigeno"
-        ],
-        corretta: 1,
-        spiegazione: "La CO₂ è un gas serra e assorbe parte della radiazione infrarossa emessa dalla superficie terrestre, modificando il bilancio energetico del sistema climatico."
+    it: {
+        sottotitolo: "Ecologia e ambiente - Leggi prima le informazioni per approfondire l'argomento!",
+        prossima: "➡️ Prossima domanda",
+        finale: "🎉 Quiz completato!",
+        testoFinale: "Hai completato tutte le 20 domande.",
+        ricomincia: "🔄 Ricomincia",
+        domanda: "Domanda",
+        di: "di",
+        corretta: "✅ Risposta corretta! +10 punti",
+        sbagliata: "❌ Risposta sbagliata!",
+        spiegazione: "📚 Spiegazione: ",
+        eccellente: "🌟 Eccellente! Hai una preparazione molto solida.",
+        moltoBene: "🌱 Molto bene! Hai una buona preparazione.",
+        buonLavoro: "👍 Buon lavoro! Puoi approfondire alcuni argomenti.",
+        continua: "📚 Continua a studiare: hai molti concetti da scoprire!"
     },
 
-    {
-        domanda: "🌳 Cosa può succedere se diminuisce drasticamente una popolazione di predatori apicali?",
-        risposte: [
-            "Le popolazioni delle prede possono aumentare e modificare altri livelli trofici",
-            "L'ecosistema diventa automaticamente più stabile",
-            "La fotosintesi scompare",
-            "I decompositori scompaiono"
-        ],
-        corretta: 0,
-        spiegazione: "La diminuzione dei predatori può provocare una cascata trofica: aumentando, le prede possono esercitare una maggiore pressione sulle loro risorse."
+    en: {
+        sottotitolo: "Ecology and environment - Read the information first to learn more about the topic!",
+        prossima: "➡️ Next question",
+        finale: "🎉 Quiz completed!",
+        testoFinale: "You have completed all 20 questions.",
+        ricomincia: "🔄 Restart",
+        domanda: "Question",
+        di: "of",
+        corretta: "✅ Correct answer! +10 points",
+        sbagliata: "❌ Wrong answer!",
+        spiegazione: "📚 Explanation: ",
+        eccellente: "🌟 Excellent! You have a very solid knowledge.",
+        moltoBene: "🌱 Very good! You have a good understanding.",
+        buonLavoro: "👍 Good job! You can explore some topics further.",
+        continua: "📚 Keep studying: there are many concepts to discover!"
     },
 
-    {
-        domanda: "💧 Perché un eccesso di nitrati e fosfati può provocare eutrofizzazione?",
-        risposte: [
-            "Elimina immediatamente tutti i microrganismi",
-            "Favorisce la crescita algale e può portare a una diminuzione dell'ossigeno",
-            "Trasforma l'acqua dolce in acqua salata",
-            "Blocca completamente la fotosintesi"
-        ],
-        corretta: 1,
-        spiegazione: "L'eccesso di nutrienti può favorire la proliferazione delle alghe. La decomposizione della biomassa può poi consumare molto ossigeno nell'acqua."
-    },
-
-    {
-        domanda: "🌊 Che cosa indica l'acidificazione degli oceani?",
-        risposte: [
-            "Un aumento della temperatura degli oceani",
-            "Una diminuzione del pH dell'acqua marina legata anche all'assorbimento di CO₂",
-            "La trasformazione dell'acqua marina in acqua dolce",
-            "La scomparsa del sale"
-        ],
-        corretta: 1,
-        spiegazione: "L'assorbimento di CO₂ da parte degli oceani modifica gli equilibri chimici del sistema carbonato e contribuisce alla diminuzione del pH."
-    },
-
-    {
-        domanda: "♻️ Qual è un principio dell'economia circolare?",
-        risposte: [
-            "Aumentare il consumo di risorse vergini",
-            "Mantenere prodotti e materiali in uso il più a lungo possibile",
-            "Sostituire sempre gli oggetti invece di ripararli",
-            "Aumentare la produzione di rifiuti"
-        ],
-        corretta: 1,
-        spiegazione: "L'economia circolare mira a ridurre sprechi e consumo di risorse attraverso prevenzione, riuso, riparazione, riciclo e altre strategie."
-    },
-
-    {
-        domanda: "🧪 Nel ciclo dell'azoto, quale processo rende l'azoto atmosferico disponibile in forme utilizzabili dagli organismi?",
-        risposte: [
-            "Fissazione dell'azoto",
-            "Respirazione",
-            "Fermentazione",
-            "Combustione"
-        ],
-        corretta: 0,
-        spiegazione: "La fissazione dell'azoto converte l'azoto molecolare atmosferico in composti azotati che possono entrare nel ciclo biologico."
-    },
-
-    {
-        domanda: "🌱 Perché la biodiversità può aumentare la resilienza di un ecosistema?",
-        risposte: [
-            "Perché elimina ogni competizione",
-            "Perché specie diverse possono svolgere funzioni differenti e rispondere diversamente alle perturbazioni",
-            "Perché impedisce ogni cambiamento",
-            "Perché tutte le specie svolgono la stessa funzione"
-        ],
-        corretta: 1,
-        spiegazione: "Una maggiore diversità può fornire una varietà di funzioni ecologiche e aumentare la capacità dell'ecosistema di reagire a determinate perturbazioni."
-    },
-
-    {
-        domanda: "☀️ Qual è una differenza fondamentale tra energia solare e combustibili fossili?",
-        risposte: [
-            "La solare sfrutta un flusso rinnovabile, mentre i combustibili fossili utilizzano riserve finite",
-            "I combustibili fossili non producono emissioni",
-            "L'energia solare richiede sempre combustione",
-            "Sono equivalenti nel ciclo del carbonio"
-        ],
-        corretta: 0,
-        spiegazione: "L'energia solare deriva da un flusso rinnovabile. I combustibili fossili contengono carbonio immagazzinato geologicamente che viene liberato durante la combustione."
-    },
-
-    {
-        domanda: "🐝 Perché la perdita degli impollinatori può influenzare l'agricoltura?",
-        risposte: [
-            "Perché producono direttamente il suolo",
-            "Perché molte piante dipendono dall'impollinazione animale",
-            "Perché controllano la temperatura globale",
-            "Perché eliminano tutti i parassiti"
-        ],
-        corretta: 1,
-        spiegazione: "Molte piante, comprese alcune colture, dipendono in parte dagli animali impollinatori per la riproduzione."
-    },
-
-    {
-        domanda: "🏭 Quale rappresenta una fonte antropogenica di inquinamento atmosferico?",
-        risposte: [
-            "Un'eruzione vulcanica",
-            "Le emissioni derivanti dalla combustione di carburanti nelle attività umane",
-            "La fotosintesi",
-            "L'evaporazione naturale dell'acqua"
-        ],
-        corretta: 1,
-        spiegazione: "Trasporti, industrie e altri processi umani possono emettere diversi inquinanti atmosferici."
-    },
-
-    {
-        domanda: "🌍 Qual è la differenza principale tra clima e tempo meteorologico?",
-        risposte: [
-            "Sono la stessa cosa",
-            "Il tempo riguarda condizioni a breve termine, il clima riguarda caratteristiche statistiche su periodi più lunghi",
-            "Il clima cambia ogni ora",
-            "Il tempo riguarda solo la temperatura"
-        ],
-        corretta: 1,
-        spiegazione: "Il tempo meteorologico descrive condizioni atmosferiche in un determinato momento o breve periodo. Il clima riguarda statistiche e caratteristiche su periodi più lunghi."
-    },
-
-    {
-        domanda: "🌲 Che cos'è un pozzo di carbonio?",
-        risposte: [
-            "Un sistema che assorbe più carbonio di quanto ne rilasci nel periodo considerato",
-            "Una fonte che emette sempre più CO₂ di quanta ne assorba",
-            "Solo un deposito artificiale",
-            "Un fenomeno esclusivamente oceanico"
-        ],
-        corretta: 0,
-        spiegazione: "Un pozzo di carbonio è un sistema che, nel bilancio considerato, assorbe più carbonio di quanto ne rilasci."
-    },
-
-    {
-        domanda: "🐟 Perché la diminuzione di una specie alla base di una rete trofica può influenzare i predatori?",
-        risposte: [
-            "Perché gli organismi sono collegati attraverso il trasferimento di materia ed energia",
-            "Perché tutte le specie hanno lo stesso ruolo",
-            "Perché l'energia aumenta salendo nella rete trofica",
-            "Perché i predatori producono la biomassa vegetale"
-        ],
-        corretta: 0,
-        spiegazione: "Gli organismi sono collegati attraverso relazioni alimentari. Una variazione alla base della rete può quindi propagarsi verso livelli trofici superiori."
-    },
-
-    {
-        domanda: "⚡ Perché l'efficienza energetica è importante per la sostenibilità?",
-        risposte: [
-            "Permette di ottenere lo stesso servizio usando meno energia",
-            "Aumenta sempre il consumo",
-            "Elimina automaticamente tutte le emissioni",
-            "Rende inutili le fonti rinnovabili"
-        ],
-        corretta: 0,
-        spiegazione: "L'efficienza energetica permette di fornire un determinato servizio con un minore consumo di energia."
-    },
-
-    {
-        domanda: "🌾 Quale conseguenza può avere l'erosione del suolo?",
-        risposte: [
-            "Aumento permanente della fertilità",
-            "Perdita dello strato superficiale e della sostanza organica",
-            "Produzione automatica di nuovo suolo fertile",
-            "Eliminazione del ciclo dell'acqua"
-        ],
-        corretta: 1,
-        spiegazione: "L'erosione può rimuovere lo strato superficiale del suolo, spesso ricco di sostanza organica e nutrienti."
-    },
-
-    {
-        domanda: "🧬 Perché una popolazione con bassa variabilità genetica può essere più vulnerabile ai cambiamenti ambientali?",
-        risposte: [
-            "Perché presenta meno differenze genetiche su cui può agire la selezione naturale",
-            "Perché tutti gli individui diventano più forti",
-            "Perché la selezione naturale scompare",
-            "Perché la popolazione non può riprodursi"
-        ],
-        corretta: 0,
-        spiegazione: "La variabilità genetica aumenta la possibilità che alcuni individui possiedano caratteristiche favorevoli quando l'ambiente cambia."
-    },
-
-    {
-        domanda: "📊 Due città hanno la stessa popolazione, ma una consuma il doppio dell'energia pro capite. Cosa possiamo concludere?",
-        risposte: [
-            "Ha necessariamente il doppio delle emissioni",
-            "Ha un consumo pro capite maggiore, ma le emissioni dipendono anche dalle fonti energetiche e da altri fattori",
-            "Le emissioni sono necessariamente uguali",
-            "La seconda non produce emissioni"
-        ],
-        corretta: 1,
-        spiegazione: "Il consumo energetico è importante, ma le emissioni dipendono anche dal mix energetico, dalle tecnologie utilizzate e da altri fattori."
-    },
-
-    {
-        domanda: "🌊 Perché la perdita di habitat può ridurre la biodiversità?",
-        risposte: [
-            "Perché riduce o frammenta gli spazi e le risorse disponibili",
-            "Perché aumenta sempre il numero di habitat",
-            "Perché rende tutte le specie identiche",
-            "Perché elimina ogni interazione tra organismi"
-        ],
-        corretta: 0,
-        spiegazione: "La perdita e la frammentazione degli habitat possono ridurre spazio, risorse e possibilità di movimento delle popolazioni."
-    },
-
-    {
-        domanda: "🌡️ Quale affermazione descrive meglio il rapporto tra effetto serra naturale e cambiamento climatico antropogenico?",
-        risposte: [
-            "L'effetto serra naturale contribuisce a mantenere la Terra abitabile, mentre l'aumento antropogenico dei gas serra altera il bilancio energetico",
-            "L'effetto serra naturale è sempre dannoso",
-            "I gas serra non influenzano il bilancio energetico",
-            "Il cambiamento climatico dipende esclusivamente dai vulcani"
-        ],
-        corretta: 0,
-        spiegazione: "L'effetto serra naturale è fondamentale per la temperatura della Terra. L'aumento antropogenico dei gas serra modifica ulteriormente il bilancio energetico del sistema climatico."
-    },
-
-    {
-        domanda: "🌍 Quale idea è più coerente con il concetto di sviluppo sostenibile?",
-        risposte: [
-            "Soddisfare i bisogni presenti ignorando il futuro",
-            "Considerare aspetti ambientali, sociali ed economici nel lungo periodo",
-            "Bloccare qualsiasi attività economica",
-            "Usare tutte le risorse il più velocemente possibile"
-        ],
-        corretta: 1,
-        spiegazione: "Lo sviluppo sostenibile cerca di integrare dimensioni ambientali, sociali ed economiche considerando anche gli effetti sulle generazioni future."
+    fi: {
+        sottotitolo: "Ekologia ja ympäristö - Lue ensin tiedot ja tutustu aiheeseen!",
+        prossima: "➡️ Seuraava kysymys",
+        finale: "🎉 Tietovisa suoritettu!",
+        testoFinale: "Olet vastannut kaikkiin 20 kysymykseen.",
+        ricomincia: "🔄 Aloita uudelleen",
+        domanda: "Kysymys",
+        di: "/",
+        corretta: "✅ Oikea vastaus! +10 pistettä",
+        sbagliata: "❌ Väärä vastaus!",
+        spiegazione: "📚 Selitys: ",
+        eccellente: "🌟 Erinomaista! Sinulla on erittäin hyvät tiedot.",
+        moltoBene: "🌱 Erittäin hyvä! Sinulla on hyvät perustiedot.",
+        buonLavoro: "👍 Hyvää työtä! Voit vielä syventää tietojasi joistakin aiheista.",
+        continua: "📚 Jatka opiskelua: löydettävänä on vielä monia asioita!"
     }
 
-];
+};
 
+
+const domande = {
+
+    it: [
+
+        {
+            domanda: "🌡️ Perché l'aumento della CO₂ atmosferica può contribuire al riscaldamento globale?",
+            risposte: [
+                "Perché aumenta direttamente l'ossigeno",
+                "Perché assorbe parte della radiazione infrarossa terrestre",
+                "Perché blocca tutta la luce solare",
+                "Perché trasforma l'azoto in ossigeno"
+            ],
+            corretta: 1,
+            spiegazione: "La CO₂ è un gas serra e assorbe parte della radiazione infrarossa emessa dalla superficie terrestre, modificando il bilancio energetico del sistema climatico."
+        },
+
+        {
+            domanda: "🌳 Cosa può succedere se diminuisce drasticamente una popolazione di predatori apicali?",
+            risposte: [
+                "Le popolazioni delle prede possono aumentare e modificare altri livelli trofici",
+                "L'ecosistema diventa automaticamente più stabile",
+                "La fotosintesi scompare",
+                "I decompositori scompaiono"
+            ],
+            corretta: 0,
+            spiegazione: "La diminuzione dei predatori può provocare una cascata trofica: aumentando, le prede possono esercitare una maggiore pressione sulle loro risorse."
+        },
+
+        {
+            domanda: "💧 Perché un eccesso di nitrati e fosfati può provocare eutrofizzazione?",
+            risposte: [
+                "Elimina immediatamente tutti i microrganismi",
+                "Favorisce la crescita algale e può portare a una diminuzione dell'ossigeno",
+                "Trasforma l'acqua dolce in acqua salata",
+                "Blocca completamente la fotosintesi"
+            ],
+            corretta: 1,
+            spiegazione: "L'eccesso di nutrienti può favorire la proliferazione delle alghe. La decomposizione della biomassa può poi consumare molto ossigeno nell'acqua."
+        },
+
+        {
+            domanda: "🌊 Che cosa indica l'acidificazione degli oceani?",
+            risposte: [
+                "Un aumento della temperatura degli oceani",
+                "Una diminuzione del pH dell'acqua marina legata anche all'assorbimento di CO₂",
+                "La trasformazione dell'acqua marina in acqua dolce",
+                "La scomparsa del sale"
+            ],
+            corretta: 1,
+            spiegazione: "L'assorbimento di CO₂ da parte degli oceani modifica gli equilibri chimici del sistema carbonato e contribuisce alla diminuzione del pH."
+        },
+
+        {
+            domanda: "♻️ Qual è un principio dell'economia circolare?",
+            risposte: [
+                "Aumentare il consumo di risorse vergini",
+                "Mantenere prodotti e materiali in uso il più a lungo possibile",
+                "Sostituire sempre gli oggetti invece di ripararli",
+                "Aumentare la produzione di rifiuti"
+            ],
+            corretta: 1,
+            spiegazione: "L'economia circolare mira a ridurre sprechi e consumo di risorse attraverso prevenzione, riuso, riparazione, riciclo e altre strategie."
+        },
+
+        {
+            domanda: "🧪 Nel ciclo dell'azoto, quale processo rende l'azoto atmosferico disponibile in forme utilizzabili dagli organismi?",
+            risposte: [
+                "Fissazione dell'azoto",
+                "Respirazione",
+                "Fermentazione",
+                "Combustione"
+            ],
+            corretta: 0,
+            spiegazione: "La fissazione dell'azoto converte l'azoto molecolare atmosferico in composti azotati che possono entrare nel ciclo biologico."
+        },
+
+        {
+            domanda: "🌱 Perché la biodiversità può aumentare la resilienza di un ecosistema?",
+            risposte: [
+                "Perché elimina ogni competizione",
+                "Perché specie diverse possono svolgere funzioni differenti e rispondere diversamente alle perturbazioni",
+                "Perché impedisce ogni cambiamento",
+                "Perché tutte le specie svolgono la stessa funzione"
+            ],
+            corretta: 1,
+            spiegazione: "Una maggiore diversità può fornire una varietà di funzioni ecologiche e aumentare la capacità dell'ecosistema di reagire a determinate perturbazioni."
+        },
+
+        {
+            domanda: "☀️ Qual è una differenza fondamentale tra energia solare e combustibili fossili?",
+            risposte: [
+                "La solare sfrutta un flusso rinnovabile, mentre i combustibili fossili utilizzano riserve finite",
+                "I combustibili fossili non producono emissioni",
+                "L'energia solare richiede sempre combustione",
+                "Sono equivalenti nel ciclo del carbonio"
+            ],
+            corretta: 0,
+            spiegazione: "L'energia solare deriva da un flusso rinnovabile. I combustibili fossili contengono carbonio immagazzinato geologicamente che viene liberato durante la combustione."
+        },
+
+        {
+            domanda: "🐝 Perché la perdita degli impollinatori può influenzare l'agricoltura?",
+            risposte: [
+                "Perché producono direttamente il suolo",
+                "Perché molte piante dipendono dall'impollinazione animale",
+                "Perché controllano la temperatura globale",
+                "Perché eliminano tutti i parassiti"
+            ],
+            corretta: 1,
+            spiegazione: "Molte piante, comprese alcune colture, dipendono in parte dagli animali impollinatori per la riproduzione."
+        },
+
+        {
+            domanda: "🏭 Quale rappresenta una fonte antropogenica di inquinamento atmosferico?",
+            risposte: [
+                "Un'eruzione vulcanica",
+                "Le emissioni derivanti dalla combustione di carburanti nelle attività umane",
+                "La fotosintesi",
+                "L'evaporazione naturale dell'acqua"
+            ],
+            corretta: 1,
+            spiegazione: "Trasporti, industrie e altri processi umani possono emettere diversi inquinanti atmosferici."
+        },
+
+        {
+            domanda: "🌍 Qual è la differenza principale tra clima e tempo meteorologico?",
+            risposte: [
+                "Sono la stessa cosa",
+                "Il tempo riguarda condizioni a breve termine, il clima riguarda caratteristiche statistiche su periodi più lunghi",
+                "Il clima cambia ogni ora",
+                "Il tempo riguarda solo la temperatura"
+            ],
+            corretta: 1,
+            spiegazione: "Il tempo meteorologico descrive condizioni atmosferiche in un determinato momento o breve periodo. Il clima riguarda statistiche e caratteristiche su periodi più lunghi."
+        },
+
+        {
+            domanda: "🌲 Che cos'è un pozzo di carbonio?",
+            risposte: [
+                "Un sistema che assorbe più carbonio di quanto ne rilasci nel periodo considerato",
+                "Una fonte che emette sempre più CO₂ di quanta ne assorba",
+                "Solo un deposito artificiale",
+                "Un fenomeno esclusivamente oceanico"
+            ],
+            corretta: 0,
+            spiegazione: "Un pozzo di carbonio è un sistema che, nel bilancio considerato, assorbe più carbonio di quanto ne rilasci."
+        },
+
+        {
+            domanda: "🐟 Perché la diminuzione di una specie alla base di una rete trofica può influenzare i predatori?",
+            risposte: [
+                "Perché gli organismi sono collegati attraverso il trasferimento di materia ed energia",
+                "Perché tutte le specie hanno lo stesso ruolo",
+                "Perché l'energia aumenta salendo nella rete trofica",
+                "Perché i predatori producono la biomassa vegetale"
+            ],
+            corretta: 0,
+            spiegazione: "Gli organismi sono collegati attraverso relazioni alimentari. Una variazione alla base della rete può quindi propagarsi verso livelli trofici superiori."
+        },
+
+        {
+            domanda: "⚡ Perché l'efficienza energetica è importante per la sostenibilità?",
+            risposte: [
+                "Permette di ottenere lo stesso servizio usando meno energia",
+                "Aumenta sempre il consumo",
+                "Elimina automaticamente tutte le emissioni",
+                "Rende inutili le fonti rinnovabili"
+            ],
+            corretta: 0,
+            spiegazione: "L'efficienza energetica permette di fornire un determinato servizio con un minore consumo di energia."
+        },
+
+        {
+            domanda: "🌾 Quale conseguenza può avere l'erosione del suolo?",
+            risposte: [
+                "Aumento permanente della fertilità",
+                "Perdita dello strato superficiale e della sostanza organica",
+                "Produzione automatica di nuovo suolo fertile",
+                "Eliminazione del ciclo dell'acqua"
+            ],
+            corretta: 1,
+            spiegazione: "L'erosione può rimuovere lo strato superficiale del suolo, spesso ricco di sostanza organica e nutrienti."
+        },
+
+        {
+            domanda: "🧬 Perché una popolazione con bassa variabilità genetica può essere più vulnerabile ai cambiamenti ambientali?",
+            risposte: [
+                "Perché presenta meno differenze genetiche su cui può agire la selezione naturale",
+                "Perché tutti gli individui diventano più forti",
+                "Perché la selezione naturale scompare",
+                "Perché la popolazione non può riprodursi"
+            ],
+            corretta: 0,
+            spiegazione: "La variabilità genetica aumenta la possibilità che alcuni individui possiedano caratteristiche favorevoli quando l'ambiente cambia."
+        },
+
+        {
+            domanda: "📊 Due città hanno la stessa popolazione, ma una consuma il doppio dell'energia pro capite. Cosa possiamo concludere?",
+            risposte: [
+                "Ha necessariamente il doppio delle emissioni",
+                "Ha un consumo pro capite maggiore, ma le emissioni dipendono anche dalle fonti energetiche e da altri fattori",
+                "Le emissioni sono necessariamente uguali",
+                "La seconda non produce emissioni"
+            ],
+            corretta: 1,
+            spiegazione: "Il consumo energetico è importante, ma le emissioni dipendono anche dal mix energetico, dalle tecnologie utilizzate e da altri fattori."
+        },
+
+        {
+            domanda: "🌊 Perché la perdita di habitat può ridurre la biodiversità?",
+            risposte: [
+                "Perché riduce o frammenta gli spazi e le risorse disponibili",
+                "Perché aumenta sempre il numero di habitat",
+                "Perché rende tutte le specie identiche",
+                "Perché elimina ogni interazione tra organismi"
+            ],
+            corretta: 0,
+            spiegazione: "La perdita e la frammentazione degli habitat possono ridurre spazio, risorse e possibilità di movimento delle popolazioni."
+        },
+
+        {
+            domanda: "🌡️ Quale affermazione descrive meglio il rapporto tra effetto serra naturale e cambiamento climatico antropogenico?",
+            risposte: [
+                "L'effetto serra naturale contribuisce a mantenere la Terra abitabile, mentre l'aumento antropogenico dei gas serra altera il bilancio energetico",
+                "L'effetto serra naturale è sempre dannoso",
+                "I gas serra non influenzano il bilancio energetico",
+                "Il cambiamento climatico dipende esclusivamente dai vulcani"
+            ],
+            corretta: 0,
+            spiegazione: "L'effetto serra naturale è fondamentale per la temperatura della Terra. L'aumento antropogenico dei gas serra modifica ulteriormente il bilancio energetico del sistema climatico."
+        },
+
+        {
+            domanda: "🌍 Quale idea è più coerente con il concetto di sviluppo sostenibile?",
+            risposte: [
+                "Soddisfare i bisogni presenti ignorando il futuro",
+                "Considerare aspetti ambientali, sociali ed economici nel lungo periodo",
+                "Bloccare qualsiasi attività economica",
+                "Usare tutte le risorse il più velocemente possibile"
+            ],
+            corretta: 1,
+            spiegazione: "Lo sviluppo sostenibile cerca di integrare dimensioni ambientali, sociali ed economiche considerando anche gli effetti sulle generazioni future."
+        }
+
+    ],
+
+
+    en: [
+
+        {
+            domanda: "🌡️ Why can an increase in atmospheric CO₂ contribute to global warming?",
+            risposte: [
+                "Because it directly increases oxygen",
+                "Because it absorbs part of the Earth's infrared radiation",
+                "Because it blocks all sunlight",
+                "Because it turns nitrogen into oxygen"
+            ],
+            corretta: 1,
+            spiegazione: "CO₂ is a greenhouse gas and absorbs part of the infrared radiation emitted by Earth's surface, affecting the energy balance of the climate system."
+        },
+
+        {
+            domanda: "🌳 What can happen if a population of apex predators decreases drastically?",
+            risposte: [
+                "Prey populations may increase and affect other trophic levels",
+                "The ecosystem automatically becomes more stable",
+                "Photosynthesis disappears",
+                "Decomposers disappear"
+            ],
+            corretta: 0,
+            spiegazione: "A decrease in predators can cause a trophic cascade: increasing prey populations may put greater pressure on their resources."
+        },
+
+        {
+            domanda: "💧 Why can an excess of nitrates and phosphates cause eutrophication?",
+            risposte: [
+                "It immediately eliminates all microorganisms",
+                "It promotes algal growth and can lead to lower oxygen levels",
+                "It turns freshwater into saltwater",
+                "It completely stops photosynthesis"
+            ],
+            corretta: 1,
+            spiegazione: "Excess nutrients can promote algal growth. The decomposition of this biomass can then consume large amounts of oxygen in the water."
+        },
+
+        {
+            domanda: "🌊 What does ocean acidification mean?",
+            risposte: [
+                "An increase in ocean temperature",
+                "A decrease in seawater pH also related to CO₂ absorption",
+                "The transformation of seawater into freshwater",
+                "The disappearance of salt"
+            ],
+            corretta: 1,
+            spiegazione: "The absorption of CO₂ by the oceans changes the chemical balance of the carbonate system and contributes to a decrease in pH."
+        },
+
+        {
+            domanda: "♻️ What is a principle of the circular economy?",
+            risposte: [
+                "Increasing the use of virgin resources",
+                "Keeping products and materials in use for as long as possible",
+                "Always replacing objects instead of repairing them",
+                "Increasing waste production"
+            ],
+            corretta: 1,
+            spiegazione: "The circular economy aims to reduce waste and resource use through prevention, reuse, repair, recycling and other strategies."
+        },
+
+        {
+            domanda: "🧪 In the nitrogen cycle, which process makes atmospheric nitrogen available in forms that organisms can use?",
+            risposte: [
+                "Nitrogen fixation",
+                "Respiration",
+                "Fermentation",
+                "Combustion"
+            ],
+            corretta: 0,
+            spiegazione: "Nitrogen fixation converts atmospheric molecular nitrogen into nitrogen compounds that can enter the biological cycle."
+        },
+
+        {
+            domanda: "🌱 Why can biodiversity increase the resilience of an ecosystem?",
+            risposte: [
+                "Because it eliminates all competition",
+                "Because different species can perform different functions and respond differently to disturbances",
+                "Because it prevents all change",
+                "Because all species perform the same function"
+            ],
+            corretta: 1,
+            spiegazione: "Greater diversity can provide a variety of ecological functions and increase an ecosystem's ability to respond to certain disturbances."
+        },
+
+        {
+            domanda: "☀️ What is a fundamental difference between solar energy and fossil fuels?",
+            risposte: [
+                "Solar energy uses a renewable flow, while fossil fuels use finite reserves",
+                "Fossil fuels do not produce emissions",
+                "Solar energy always requires combustion",
+                "They are equivalent in the carbon cycle"
+            ],
+            corretta: 0,
+            spiegazione: "Solar energy comes from a renewable flow. Fossil fuels contain geologically stored carbon that is released during combustion."
+        },
+
+        {
+            domanda: "🐝 Why can the loss of pollinators affect agriculture?",
+            risposte: [
+                "Because they directly produce soil",
+                "Because many plants depend on animal pollination",
+                "Because they control global temperature",
+                "Because they eliminate all pests"
+            ],
+            corretta: 1,
+            spiegazione: "Many plants, including some crops, partly depend on animal pollinators for reproduction."
+        },
+
+        {
+            domanda: "🏭 Which is an anthropogenic source of air pollution?",
+            risposte: [
+                "A volcanic eruption",
+                "Emissions from fuel combustion in human activities",
+                "Photosynthesis",
+                "Natural evaporation of water"
+            ],
+            corretta: 1,
+            spiegazione: "Transport, industry and other human activities can release different air pollutants."
+        },
+
+        {
+            domanda: "🌍 What is the main difference between climate and weather?",
+            risposte: [
+                "They are the same thing",
+                "Weather concerns short-term conditions, while climate concerns statistical characteristics over longer periods",
+                "Climate changes every hour",
+                "Weather only concerns temperature"
+            ],
+            corretta: 1,
+            spiegazione: "Weather describes atmospheric conditions at a particular time or over a short period. Climate concerns statistics and characteristics over longer periods."
+        },
+
+        {
+            domanda: "🌲 What is a carbon sink?",
+            risposte: [
+                "A system that absorbs more carbon than it releases during the period considered",
+                "A source that always emits more CO₂ than it absorbs",
+                "Only an artificial storage facility",
+                "A phenomenon that occurs only in oceans"
+            ],
+            corretta: 0,
+            spiegazione: "A carbon sink is a system that, within the balance considered, absorbs more carbon than it releases."
+        },
+
+        {
+            domanda: "🐟 Why can a decrease in a species at the base of a food web affect predators?",
+            risposte: [
+                "Because organisms are connected through the transfer of matter and energy",
+                "Because all species have the same role",
+                "Because energy increases as it moves up the food web",
+                "Because predators produce plant biomass"
+            ],
+            corretta: 0,
+            spiegazione: "Organisms are connected through feeding relationships. A change at the base of a food web can therefore affect higher trophic levels."
+        },
+
+        {
+            domanda: "⚡ Why is energy efficiency important for sustainability?",
+            risposte: [
+                "It allows the same service to be provided using less energy",
+                "It always increases consumption",
+                "It automatically eliminates all emissions",
+                "It makes renewable energy unnecessary"
+            ],
+            corretta: 0,
+            spiegazione: "Energy efficiency allows a particular service to be provided with lower energy consumption."
+        },
+
+        {
+            domanda: "🌾 What consequence can soil erosion have?",
+            risposte: [
+                "A permanent increase in fertility",
+                "Loss of topsoil and organic matter",
+                "Automatic production of new fertile soil",
+                "Elimination of the water cycle"
+            ],
+            corretta: 1,
+            spiegazione: "Erosion can remove topsoil, which is often rich in organic matter and nutrients."
+        },
+
+        {
+            domanda: "🧬 Why can a population with low genetic variability be more vulnerable to environmental changes?",
+            risposte: [
+                "Because it has fewer genetic differences on which natural selection can act",
+                "Because all individuals become stronger",
+                "Because natural selection disappears",
+                "Because the population cannot reproduce"
+            ],
+            corretta: 0,
+            spiegazione: "Genetic variability increases the possibility that some individuals have traits that are advantageous when the environment changes."
+        },
+
+        {
+            domanda: "📊 Two cities have the same population, but one consumes twice as much energy per person. What can we conclude?",
+            risposte: [
+                "It necessarily has twice the emissions",
+                "It has higher energy consumption per person, but emissions also depend on energy sources and other factors",
+                "Their emissions are necessarily equal",
+                "The second city produces no emissions"
+            ],
+            corretta: 1,
+            spiegazione: "Energy consumption is important, but emissions also depend on the energy mix, technologies used and other factors."
+        },
+
+        {
+            domanda: "🌊 Why can habitat loss reduce biodiversity?",
+            risposte: [
+                "Because it reduces or fragments available space and resources",
+                "Because it always increases the number of habitats",
+                "Because it makes all species identical",
+                "Because it eliminates every interaction between organisms"
+            ],
+            corretta: 0,
+            spiegazione: "Habitat loss and fragmentation can reduce space, resources and movement opportunities for populations."
+        },
+
+        {
+            domanda: "🌡️ Which statement best describes the relationship between the natural greenhouse effect and human-caused climate change?",
+            risposte: [
+                "The natural greenhouse effect helps keep Earth habitable, while the human-caused increase in greenhouse gases alters the energy balance",
+                "The natural greenhouse effect is always harmful",
+                "Greenhouse gases do not affect the energy balance",
+                "Climate change is caused exclusively by volcanoes"
+            ],
+            corretta: 0,
+            spiegazione: "The natural greenhouse effect is essential for Earth's temperature. Human-caused increases in greenhouse gases further alter the energy balance of the climate system."
+        },
+
+        {
+            domanda: "🌍 Which idea best fits the concept of sustainable development?",
+            risposte: [
+                "Meeting present needs while ignoring the future",
+                "Considering environmental, social and economic aspects over the long term",
+                "Stopping all economic activity",
+                "Using all resources as quickly as possible"
+            ],
+            corretta: 1,
+            spiegazione: "Sustainable development seeks to integrate environmental, social and economic dimensions while considering effects on future generations."
+        }
+
+    ],
+
+
+    fi: [
+
+        {
+            domanda: "🌡️ Miksi ilmakehän CO₂-pitoisuuden kasvu voi edistää ilmaston lämpenemistä?",
+            risposte: [
+                "Koska se lisää suoraan hapen määrää",
+                "Koska se absorboi osan Maan lähettämästä infrapunasäteilystä",
+                "Koska se estää kaiken auringonvalon",
+                "Koska se muuttaa typen hapeksi"
+            ],
+            corretta: 1,
+            spiegazione: "CO₂ on kasvihuonekaasu, joka absorboi osan Maan pinnan lähettämästä infrapunasäteilystä ja vaikuttaa ilmastojärjestelmän energiatasapainoon."
+        },
+
+        {
+            domanda: "🌳 Mitä voi tapahtua, jos huippupetojen populaatio pienenee voimakkaasti?",
+            risposte: [
+                "Saaliiden määrä voi kasvaa ja vaikuttaa muihin ravintoverkon tasoihin",
+                "Ekosysteemi muuttuu automaattisesti vakaammaksi",
+                "Yhteyttäminen loppuu",
+                "Hajottajat katoavat"
+            ],
+            corretta: 0,
+            spiegazione: "Petojen väheneminen voi aiheuttaa ravintoverkossa ketjureaktion, jossa saaliseläinten määrän kasvu lisää painetta niiden ravintoresursseille."
+        },
+
+        {
+            domanda: "💧 Miksi nitraattien ja fosfaattien liiallinen määrä voi aiheuttaa rehevöitymistä?",
+            risposte: [
+                "Se poistaa välittömästi kaikki mikro-organismit",
+                "Se edistää levien kasvua ja voi vähentää veden happipitoisuutta",
+                "Se muuttaa makean veden suolaiseksi",
+                "Se estää kokonaan yhteyttämisen"
+            ],
+            corretta: 1,
+            spiegazione: "Liialliset ravinteet voivat edistää levien lisääntymistä. Biomassan hajottaminen voi tämän jälkeen kuluttaa paljon happea vedestä."
+        },
+
+        {
+            domanda: "🌊 Mitä valtamerten happamoituminen tarkoittaa?",
+            risposte: [
+                "Valtamerten lämpötilan nousua",
+                "Meriveden pH-arvon laskua, joka liittyy myös CO₂:n imeytymiseen",
+                "Meriveden muuttumista makeaksi vedeksi",
+                "Suolan katoamista"
+            ],
+            corretta: 1,
+            spiegazione: "Valtamerien absorboima CO₂ muuttaa karbonaattijärjestelmän kemiallista tasapainoa ja vaikuttaa meriveden pH-arvon laskuun."
+        },
+
+        {
+            domanda: "♻️ Mikä on yksi kiertotalouden periaate?",
+            risposte: [
+                "Neitseellisten luonnonvarojen käytön lisääminen",
+                "Tuotteiden ja materiaalien pitäminen käytössä mahdollisimman pitkään",
+                "Esineiden vaihtaminen aina korjaamisen sijaan",
+                "Jätteen määrän lisääminen"
+            ],
+            corretta: 1,
+            spiegazione: "Kiertotalouden tavoitteena on vähentää jätettä ja luonnonvarojen kulutusta esimerkiksi ehkäisyn, uudelleenkäytön, korjaamisen ja kierrätyksen avulla."
+        },
+
+        {
+            domanda: "🧪 Mikä prosessi tekee ilmakehän typestä eliöiden käyttöön sopivia yhdisteitä?",
+            risposte: [
+                "Typensidonta",
+                "Hengitys",
+                "Käyminen",
+                "Palaminen"
+            ],
+            corretta: 0,
+            spiegazione: "Typensidonta muuttaa ilmakehän molekyylityppeä typpiyhdisteiksi, jotka voivat osallistua biologiseen typen kiertoon."
+        },
+
+        {
+            domanda: "🌱 Miksi luonnon monimuotoisuus voi lisätä ekosysteemin palautumiskykyä?",
+            risposte: [
+                "Koska se poistaa kaiken kilpailun",
+                "Koska eri lajit voivat suorittaa erilaisia tehtäviä ja reagoida häiriöihin eri tavoin",
+                "Koska se estää kaikki muutokset",
+                "Koska kaikki lajit suorittavat saman tehtävän"
+            ],
+            corretta: 1,
+            spiegazione: "Suurempi monimuotoisuus voi tarjota erilaisia ekologisia toimintoja ja auttaa ekosysteemiä reagoimaan tiettyihin häiriöihin."
+        },
+
+        {
+            domanda: "☀️ Mikä on tärkeä ero aurinkoenergian ja fossiilisten polttoaineiden välillä?",
+            risposte: [
+                "Aurinkoenergia hyödyntää uusiutuvaa virtaa, kun taas fossiiliset polttoaineet perustuvat rajallisiin varantoihin",
+                "Fossiiliset polttoaineet eivät aiheuta päästöjä",
+                "Aurinkoenergia vaatii aina palamista",
+                "Ne ovat hiilen kierrossa samanarvoisia"
+            ],
+            corretta: 0,
+            spiegazione: "Aurinkoenergia perustuu uusiutuvaan energianlähteeseen. Fossiiliset polttoaineet sisältävät geologisesti varastoitunutta hiiltä, joka vapautuu palamisessa."
+        },
+
+        {
+            domanda: "🐝 Miksi pölyttäjien väheneminen voi vaikuttaa maatalouteen?",
+            risposte: [
+                "Koska ne tuottavat suoraan maaperää",
+                "Koska monet kasvit ovat riippuvaisia eläinten suorittamasta pölytyksestä",
+                "Koska ne säätelevät maapallon lämpötilaa",
+                "Koska ne poistavat kaikki tuholaiset"
+            ],
+            corretta: 1,
+            spiegazione: "Monet kasvit, mukaan lukien jotkin viljelykasvit, ovat osittain riippuvaisia eläinpölyttäjistä lisääntymisessään."
+        },
+
+        {
+            domanda: "🏭 Mikä on ihmisen toiminnasta peräisin oleva ilmansaasteiden lähde?",
+            risposte: [
+                "Tulivuorenpurkaus",
+                "Ihmisen toimintaan liittyvästä polttoaineiden palamisesta syntyvät päästöt",
+                "Yhteyttäminen",
+                "Veden luonnollinen haihtuminen"
+            ],
+            corretta: 1,
+            spiegazione: "Liikenne, teollisuus ja muut ihmisen toiminnot voivat vapauttaa erilaisia ilman epäpuhtauksia."
+        },
+
+        {
+            domanda: "🌍 Mikä on sään ja ilmaston tärkein ero?",
+            risposte: [
+                "Ne ovat sama asia",
+                "Sää kuvaa lyhytaikaisia olosuhteita, kun taas ilmasto kuvaa pidempien ajanjaksojen tilastollisia ominaisuuksia",
+                "Ilmasto muuttuu joka tunti",
+                "Sää tarkoittaa vain lämpötilaa"
+            ],
+            corretta: 1,
+            spiegazione: "Sää kuvaa ilmakehän olosuhteita tiettynä ajankohtana tai lyhyenä ajanjaksona. Ilmasto kuvaa pidemmän ajan tilastoja ja ominaisuuksia."
+        },
+
+        {
+            domanda: "🌲 Mikä on hiilinielu?",
+            risposte: [
+                "Järjestelmä, joka sitoo tarkastelujaksolla enemmän hiiltä kuin vapauttaa",
+                "Lähde, joka vapauttaa aina enemmän CO₂:ta kuin sitoo",
+                "Ainoastaan keinotekoinen varasto",
+                "Ilmiö, joka esiintyy vain valtamerissä"
+            ],
+            corretta: 0,
+            spiegazione: "Hiilinielu on järjestelmä, joka sitoo tarkastelun aikana enemmän hiiltä kuin vapauttaa."
+        },
+
+        {
+            domanda: "🐟 Miksi ravintoverkon pohjalla olevan lajin väheneminen voi vaikuttaa petoihin?",
+            risposte: [
+                "Koska eliöt ovat yhteydessä toisiinsa aineen ja energian siirtymisen kautta",
+                "Koska kaikilla lajeilla on sama tehtävä",
+                "Koska energia lisääntyy ravintoverkossa ylöspäin mentäessä",
+                "Koska pedot tuottavat kasvien biomassaa"
+            ],
+            corretta: 0,
+            spiegazione: "Eliöt ovat yhteydessä toisiinsa ravintosuhteiden kautta. Muutos ravintoverkon pohjalla voi siksi vaikuttaa ylempiin ravintotasoihin."
+        },
+
+        {
+            domanda: "⚡ Miksi energiatehokkuus on tärkeää kestävyyden kannalta?",
+            risposte: [
+                "Sen avulla sama palvelu voidaan tuottaa pienemmällä energiankulutuksella",
+                "Se lisää aina kulutusta",
+                "Se poistaa automaattisesti kaikki päästöt",
+                "Se tekee uusiutuvasta energiasta tarpeetonta"
+            ],
+            corretta: 0,
+            spiegazione: "Energiatehokkuuden avulla tietty palvelu voidaan tuottaa pienemmällä energiankulutuksella."
+        },
+
+        {
+            domanda: "🌾 Mitä seurausta maaperän eroosiolla voi olla?",
+            risposte: [
+                "Maaperän hedelmällisyyden pysyvä lisääntyminen",
+                "Pintamaan ja orgaanisen aineksen menetys",
+                "Uuden hedelmällisen maaperän automaattinen muodostuminen",
+                "Veden kierron poistuminen"
+            ],
+            corretta: 1,
+            spiegazione: "Eroosio voi poistaa pintamaata, joka sisältää usein paljon orgaanista ainesta ja ravinteita."
+        },
+
+        {
+            domanda: "🧬 Miksi vähäisen geneettisen vaihtelun omaava populaatio voi olla alttiimpi ympäristön muutoksille?",
+            risposte: [
+                "Koska luonnonvalinnalla on käytettävissään vähemmän geneettisiä eroja",
+                "Koska kaikki yksilöt muuttuvat vahvemmiksi",
+                "Koska luonnonvalinta katoaa",
+                "Koska populaatio ei voi lisääntyä"
+            ],
+            corretta: 0,
+            spiegazione: "Geneettinen vaihtelu lisää mahdollisuutta, että joillakin yksilöillä on ympäristön muuttuessa hyödyllisiä ominaisuuksia."
+        },
+
+        {
+            domanda: "📊 Kahdessa kaupungissa on sama väkiluku, mutta toinen kuluttaa kaksi kertaa enemmän energiaa henkilöä kohden. Mitä tästä voidaan päätellä?",
+            risposte: [
+                "Sen päästöt ovat välttämättä kaksinkertaiset",
+                "Sen energiankulutus henkilöä kohden on suurempi, mutta päästöihin vaikuttavat myös energialähteet ja muut tekijät",
+                "Päästöt ovat välttämättä yhtä suuret",
+                "Toinen kaupunki ei tuota lainkaan päästöjä"
+            ],
+            corretta: 1,
+            spiegazione: "Energiankulutus on tärkeä tekijä, mutta päästöihin vaikuttavat myös energialähteiden yhdistelmä, käytetyt teknologiat ja muut tekijät."
+        },
+
+        {
+            domanda: "🌊 Miksi elinympäristöjen häviäminen voi vähentää luonnon monimuotoisuutta?",
+            risposte: [
+                "Koska se vähentää tai pirstoo käytettävissä olevaa tilaa ja resursseja",
+                "Koska se lisää aina elinympäristöjen määrää",
+                "Koska se tekee kaikista lajeista samanlaisia",
+                "Koska se poistaa kaikki eliöiden väliset vuorovaikutukset"
+            ],
+            corretta: 0,
+            spiegazione: "Elinympäristöjen häviäminen ja pirstoutuminen voivat vähentää populaatioiden käytettävissä olevaa tilaa, resursseja ja liikkumismahdollisuuksia."
+        },
+
+        {
+            domanda: "🌡️ Mikä väite kuvaa parhaiten luonnollisen kasvihuoneilmiön ja ihmisen aiheuttaman ilmastonmuutoksen välistä suhdetta?",
+            risposte: [
+                "Luonnollinen kasvihuoneilmiö auttaa pitämään Maan elinkelpoisena, kun taas ihmisen aiheuttama kasvihuonekaasujen lisääntyminen muuttaa energiatasapainoa",
+                "Luonnollinen kasvihuoneilmiö on aina haitallinen",
+                "Kasvihuonekaasut eivät vaikuta energiatasapainoon",
+                "Ilmastonmuutos johtuu yksinomaan tulivuorista"
+            ],
+            corretta: 0,
+            spiegazione: "Luonnollinen kasvihuoneilmiö on tärkeä Maan lämpötilalle. Ihmisen aiheuttama kasvihuonekaasujen lisääntyminen muuttaa edelleen ilmastojärjestelmän energiatasapainoa."
+        },
+
+        {
+            domanda: "🌍 Mikä ajatus sopii parhaiten kestävän kehityksen käsitteeseen?",
+            risposte: [
+                "Nykyisten tarpeiden täyttäminen tulevaisuudesta välittämättä",
+                "Ympäristöllisten, sosiaalisten ja taloudellisten näkökulmien huomioiminen pitkällä aikavälillä",
+                "Kaiken taloudellisen toiminnan lopettaminen",
+                "Kaikkien luonnonvarojen käyttäminen mahdollisimman nopeasti"
+            ],
+            corretta: 1,
+            spiegazione: "Kestävä kehitys pyrkii yhdistämään ympäristölliset, sosiaaliset ja taloudelliset näkökulmat sekä huomioimaan vaikutukset tuleviin sukupolviin."
+        }
+
+    ]
+
+};
+
+
+let lingua = "it";
 
 let domandaAttuale = 0;
 
 let punteggio = 0;
 
 let rispostaData = false;
+
+
+function cambiaLingua(nuovaLingua) {
+
+    lingua = nuovaLingua;
+
+    document.documentElement.lang = lingua;
+
+    document.getElementById("sottotitolo").innerText =
+        traduzioni[lingua].sottotitolo;
+
+    document.getElementById("prossima").innerText =
+        traduzioni[lingua].prossima;
+
+    document.getElementById("titoloFinale").innerText =
+        traduzioni[lingua].finale;
+
+    document.getElementById("testoFinale").innerText =
+        traduzioni[lingua].testoFinale;
+
+    document.getElementById("ricomincia").innerText =
+        traduzioni[lingua].ricomincia;
+
+    mostraDomanda();
+
+}
 
 
 function mostraDomanda() {
@@ -422,12 +1045,14 @@ function mostraDomanda() {
     document.getElementById("prossima").style.display = "none";
 
 
-    const domanda = domande[domandaAttuale];
+    const domanda = domande[lingua][domandaAttuale];
 
 
     document.getElementById("numero").innerText =
-        "Domanda " + (domandaAttuale + 1) +
-        " di " + domande.length;
+        traduzioni[lingua].domanda + " " +
+        (domandaAttuale + 1) + " " +
+        traduzioni[lingua].di + " " +
+        domande[lingua].length;
 
 
     document.getElementById("domanda").innerText =
@@ -444,6 +1069,8 @@ function mostraDomanda() {
     domanda.risposte.forEach(function(risposta, indice) {
 
         const bottone = document.createElement("button");
+
+        bottone.className = "risposta";
 
         bottone.innerText = risposta;
 
@@ -466,7 +1093,7 @@ function controllaRisposta(indice) {
 
     rispostaData = true;
 
-    const domanda = domande[domandaAttuale];
+    const domanda = domande[lingua][domandaAttuale];
 
 
     if (indice === domanda.corretta) {
@@ -474,18 +1101,18 @@ function controllaRisposta(indice) {
         punteggio += 10;
 
         document.getElementById("risultato").innerText =
-            "✅ Risposta corretta! +10 punti";
+            traduzioni[lingua].corretta;
 
     } else {
 
         document.getElementById("risultato").innerText =
-            "❌ Risposta sbagliata!";
+            traduzioni[lingua].sbagliata;
 
     }
 
 
     document.getElementById("spiegazione").innerText =
-        "📚 Spiegazione: " + domanda.spiegazione;
+        traduzioni[lingua].spiegazione + domanda.spiegazione;
 
     document.getElementById("spiegazione").style.display =
         "block";
@@ -502,7 +1129,7 @@ function prossimaDomanda() {
     domandaAttuale++;
 
 
-    if (domandaAttuale < domande.length) {
+    if (domandaAttuale < domande[lingua].length) {
 
         mostraDomanda();
 
@@ -534,22 +1161,22 @@ function mostraRisultatoFinale() {
     if (punteggio >= 180) {
 
         messaggio =
-            "🌟 Eccellente! Hai una preparazione molto solida.";
+            traduzioni[lingua].eccellente;
 
     } else if (punteggio >= 140) {
 
         messaggio =
-            "🌱 Molto bene! Hai una buona preparazione.";
+            traduzioni[lingua].moltoBene;
 
     } else if (punteggio >= 100) {
 
         messaggio =
-            "👍 Buon lavoro! Puoi approfondire alcuni argomenti.";
+            traduzioni[lingua].buonLavoro;
 
     } else {
 
         messaggio =
-            "📚 Continua a studiare: hai molti concetti da scoprire!";
+            traduzioni[lingua].continua;
 
     }
 
@@ -566,13 +1193,11 @@ function ricomincia() {
 
     punteggio = 0;
 
-
     document.getElementById("finale").style.display =
         "none";
 
     document.getElementById("quiz").style.display =
         "block";
-
 
     mostraDomanda();
 
@@ -587,3 +1212,4 @@ mostraDomanda();
 </body>
 
 </html>
+```
