@@ -1,275 +1,314 @@
+```html
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>🐾 Species Rescue - EcoGame</title>
 
-<title>🐾 Species Rescue - EcoGame</title>
+    <style>
 
-<style>
+        * {
+            box-sizing: border-box;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #101914;
+            color: #edf5ef;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #101914;
-    color: #edf5ef;
-}
+        header {
+            background: #17271d;
+            border-bottom: 1px solid #3d5544;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-header {
-    background: #17271d;
-    border-bottom: 1px solid #3d5544;
-    padding: 18px 30px;
+        .logo {
+            color: #a5d6a7;
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .menu {
+            color: #c0cec3;
+            cursor: pointer;
+        }
 
-.logo {
-    color: #a5d6a7;
-    font-size: 24px;
-    font-weight: bold;
-}
+        .menu:hover {
+            color: #a5d6a7;
+        }
 
-.menu {
-    color: #c0cec3;
-    cursor: pointer;
-}
+        .container {
+            width: 94%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
 
-.container {
-    width: 94%;
-    max-width: 1000px;
-    margin: 30px auto;
-}
+        .title {
+            text-align: center;
+        }
 
-.title {
-    text-align: center;
-}
+        .title h1 {
+            color: #a5d6a7;
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
 
-.title h1 {
-    color: #a5d6a7;
-    font-size: 40px;
-    margin-bottom: 8px;
-}
+        .title p {
+            color: #becbc1;
+            line-height: 1.6;
+        }
 
-.title p {
-    color: #becbc1;
-    line-height: 1.6;
-}
+        .progress {
+            height: 8px;
+            background: #26382c;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 25px 0;
+        }
 
-.progress {
-    height: 8px;
-    background: #26382c;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 25px 0;
-}
+        .progress-bar {
+            width: 10%;
+            height: 100%;
+            background: #66bb6a;
+            transition: width 0.4s ease;
+        }
 
-.progress-bar {
-    width: 10%;
-    height: 100%;
-    background: #66bb6a;
-    transition: .4s;
-}
+        .card {
+            background: #17271d;
+            border: 1px solid #405746;
+            border-radius: 18px;
+            overflow: hidden;
+        }
 
-.card {
-    background: #17271d;
-    border: 1px solid #405746;
-    border-radius: 18px;
-    overflow: hidden;
-}
+        .animal-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+            background: #26382c;
+        }
 
-.animal-image {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    display: block;
-    background: #26382c;
-}
+        .content {
+            padding: 28px;
+        }
 
-.content {
-    padding: 28px;
-}
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #354b3a;
+            color: #c8e6c9;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
 
-.status {
-    display: inline-block;
-    padding: 7px 12px;
-    border-radius: 20px;
-    background: #354b3a;
-    color: #c8e6c9;
-    font-size: 13px;
-    margin-bottom: 10px;
-}
+        h2 {
+            color: #c8e6c9;
+            font-size: 28px;
+            margin: 8px 0;
+        }
 
-h2 {
-    color: #c8e6c9;
-    font-size: 28px;
-    margin: 8px 0;
-}
+        .info {
+            color: #c1cec4;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
 
-.info {
-    color: #c1cec4;
-    line-height: 1.7;
-    margin-bottom: 20px;
-}
+        .mission {
+            background: #203328;
+            border-left: 4px solid #66bb6a;
+            padding: 16px;
+            border-radius: 8px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
-.mission {
-    background: #203328;
-    border-left: 4px solid #66bb6a;
-    padding: 16px;
-    border-radius: 8px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
+        .options {
+            display: grid;
+            gap: 12px;
+        }
 
-.options {
-    display: grid;
-    gap: 12px;
-}
+        .option {
+            padding: 16px;
+            background: #203328;
+            color: white;
+            border: 2px solid #405746;
+            border-radius: 11px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
 
-.option {
-    padding: 16px;
+        .option:hover:not(:disabled) {
+            background: #294333;
+            border-color: #81c784;
+            transform: translateY(-2px);
+        }
 
-    background: #203328;
-    color: white;
+        .option:disabled {
+            cursor: default;
+        }
 
-    border: 2px solid #405746;
-    border-radius: 11px;
+        .option.correct {
+            background: #285236;
+            border-color: #66bb6a;
+        }
 
-    text-align: left;
-    font-size: 16px;
+        .option.wrong {
+            background: #542d2d;
+            border-color: #ef7777;
+        }
 
-    cursor: pointer;
-    transition: .15s;
-}
+        .feedback {
+            display: none;
+            margin-top: 20px;
+            padding: 17px;
+            background: #203328;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
 
-.option:hover {
-    background: #294333;
-    border-color: #81c784;
-}
+        .next {
+            display: none;
+            margin: 20px auto 0;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 10px;
+            background: #43a047;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-.option.correct {
-    background: #285236;
-    border-color: #66bb6a;
-}
+        .next:hover {
+            background: #2e7d32;
+        }
 
-.option.wrong {
-    background: #542d2d;
-    border-color: #ef7777;
-}
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 18px 0;
+            color: #b9c8bc;
+            flex-wrap: wrap;
+        }
 
-.feedback {
-    display: none;
+        .stats span {
+            color: #a5d6a7;
+            font-weight: bold;
+        }
 
-    margin-top: 20px;
-    padding: 17px;
+        .result {
+            padding: 40px;
+            text-align: center;
+        }
 
-    background: #203328;
-    border-radius: 10px;
+        .result-icon {
+            font-size: 75px;
+        }
 
-    line-height: 1.6;
-}
+        .result h2 {
+            color: #a5d6a7;
+            font-size: 32px;
+        }
 
-.next {
-    display: none;
+        .final-score {
+            font-size: 50px;
+            color: #ffd54f;
+            font-weight: bold;
+            margin: 15px;
+        }
 
-    margin: 20px auto 0;
+        #message {
+            color: #c8d8cb;
+            line-height: 1.6;
+        }
 
-    padding: 13px 25px;
+        .restart,
+        .back {
+            padding: 13px 22px;
+            margin: 8px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    border: none;
-    border-radius: 10px;
+        .restart {
+            background: #43a047;
+            color: white;
+        }
 
-    background: #43a047;
-    color: white;
+        .restart:hover {
+            background: #2e7d32;
+        }
 
-    font-size: 16px;
-    cursor: pointer;
-}
+        .back {
+            background: #455a64;
+            color: white;
+        }
 
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 18px 0;
-    color: #b9c8bc;
-}
+        .back:hover {
+            background: #263238;
+        }
 
-.stats span {
-    color: #a5d6a7;
-    font-weight: bold;
-}
+        .hidden {
+            display: none;
+        }
 
-.result {
-    padding: 40px;
-    text-align: center;
-}
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #81a889;
+        }
 
-.result-icon {
-    font-size: 75px;
-}
+        @media(max-width: 650px) {
 
-.result h2 {
-    color: #a5d6a7;
-    font-size: 32px;
-}
+            header {
+                padding: 16px 18px;
+            }
 
-.final-score {
-    font-size: 50px;
-    color: #ffd54f;
-    font-weight: bold;
-    margin: 15px;
-}
+            .logo {
+                font-size: 20px;
+            }
 
-.restart,
-.back {
-    padding: 13px 22px;
-    margin: 8px;
+            .title h1 {
+                font-size: 32px;
+            }
 
-    border: none;
-    border-radius: 10px;
+            .animal-image {
+                height: 220px;
+            }
 
-    cursor: pointer;
-    font-size: 16px;
-}
+            .content {
+                padding: 20px;
+            }
 
-.restart {
-    background: #43a047;
-    color: white;
-}
+            .stats {
+                gap: 12px;
+                font-size: 14px;
+            }
 
-.back {
-    background: #455a64;
-    color: white;
-}
+            .result {
+                padding: 25px 18px;
+            }
 
-.hidden {
-    display: none;
-}
+            .final-score {
+                font-size: 42px;
+            }
 
-@media(max-width: 650px) {
+        }
 
-    .animal-image {
-        height: 220px;
-    }
-
-    .content {
-        padding: 20px;
-    }
-
-    .stats {
-        gap: 15px;
-    }
-
-}
-
-</style>
+    </style>
 
 </head>
 
@@ -277,594 +316,549 @@ h2 {
 
 <header>
 
-```
-<div class="logo">
-    🌍 EcoGame
-</div>
+    <div class="logo">
+        🌍 EcoGame
+    </div>
 
-<div
-    class="menu"
-    onclick="location.href='giochi.html'">
+    <div
+        class="menu"
+        onclick="location.href='giochi.html'">
 
-    🎮 Giochi
+        🎮 Giochi
 
-</div>
-```
+    </div>
 
 </header>
 
+
 <div class="container">
 
-<div class="title">
+    <div class="title">
 
-```
-<h1>🐾 Species Rescue</h1>
+        <h1>🐾 Species Rescue</h1>
 
-<p>
-    Proteggi le specie a rischio e scopri
-    cosa ha portato altre specie all'estinzione.
-</p>
-```
+        <p>
+            Proteggi le specie a rischio e scopri
+            cosa ha portato altre specie all'estinzione.
+        </p>
 
-</div>
-
-<div class="stats">
-
-```
-<div>
-    🐾 Specie salvate:
-    <span id="saved">0</span>
-</div>
-
-<div>
-    ⭐ Punti:
-    <span id="score">0</span>
-</div>
-
-<div>
-    🧩 Missione:
-    <span id="number">1/10</span>
-</div>
-```
-
-</div>
-
-<div class="progress">
-
-```
-<div
-    class="progress-bar"
-    id="progress">
-
-</div>
-```
-
-</div>
-
-<div
-    class="card"
-    id="gameCard">
-
-<img
- class="animal-image"
- id="animalImage"
- alt="Animale">
-
-<div class="content">
-
-<div
-    class="status"
-    id="status">
-
-</div>
-
-<h2 id="animalName">
-</h2>
-
-<div
-    class="info"
-    id="info">
-
-</div>
-
-<div
-    class="mission"
-    id="mission">
-
-</div>
-
-<div
-    class="options"
-    id="options">
-
-</div>
-
-<div
-    class="feedback"
-    id="feedback">
-
-</div>
-
-<button
- class="next"
- id="next"
- onclick="nextMission()">
-
-```
-Prossima missione →
-```
-
-</button>
-
-</div>
-
-</div>
-
-<div
-    class="card hidden"
-    id="resultCard">
-
-<div class="result">
-
-```
-<div class="result-icon">
-    🐾
-</div>
-
-<h2>
-    Programma completato!
-</h2>
-
-<p>
-    Hai ottenuto:
-</p>
-
-<div
-    class="final-score"
-    id="finalScore">
-
-</div>
-
-<p id="message"></p>
+    </div>
 
 
-<button
-    class="restart"
-    onclick="location.reload()">
+    <div class="stats">
 
-    🔄 Riprova
+        <div>
+            🐾 Specie salvate:
+            <span id="saved">0</span>
+        </div>
 
-</button>
+        <div>
+            ⭐ Punti:
+            <span id="score">0</span>
+        </div>
+
+        <div>
+            🧩 Missione:
+            <span id="number">1/10</span>
+        </div>
+
+    </div>
 
 
-<button
-    class="back"
-    onclick="location.href='giochi.html'">
+    <div class="progress">
 
-    🎮 Torna ai giochi
+        <div
+            class="progress-bar"
+            id="progress">
+        </div>
 
-</button>
-```
+    </div>
+
+
+    <!-- GIOCO -->
+
+    <div
+        class="card"
+        id="gameCard">
+
+        <img
+            class="animal-image"
+            id="animalImage"
+            alt="Animale">
+
+        <div class="content">
+
+            <div
+                class="status"
+                id="status">
+            </div>
+
+            <h2 id="animalName"></h2>
+
+            <div
+                class="info"
+                id="info">
+            </div>
+
+            <div
+                class="mission"
+                id="mission">
+            </div>
+
+            <div
+                class="options"
+                id="options">
+            </div>
+
+            <div
+                class="feedback"
+                id="feedback">
+            </div>
+
+            <button
+                class="next"
+                id="next"
+                onclick="nextMission()">
+
+                Prossima missione →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RISULTATO FINALE -->
+
+    <div
+        class="card hidden"
+        id="resultCard">
+
+        <div class="result">
+
+            <div class="result-icon">
+                🐾
+            </div>
+
+            <h2>
+                Programma completato!
+            </h2>
+
+            <p>
+                Hai completato tutte le 10 missioni.
+            </p>
+
+            <div
+                class="final-score"
+                id="finalScore">
+            </div>
+
+            <p id="message"></p>
+
+
+            <button
+                class="restart"
+                onclick="restartGame()">
+
+                🔄 Riprova
+
+            </button>
+
+
+            <button
+                class="back"
+                onclick="location.href='giochi.html'">
+
+                🎮 Torna ai giochi
+
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
-</div>
+<footer>
+
+    🌱 Proteggere la biodiversità significa
+    proteggere gli ecosistemi da cui dipendiamo.
+
+</footer>
+
 
 <script>
 
 
 const missions = [
 
-/* 1 */
+    {
+        image:
+            "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
+        status:
+            "🟠 SPECIE A RISCHIO",
 
-    status:
-        "🟠 SPECIE A RISCHIO",
+        name:
+            "Elefante africano",
 
-    name:
-        "Elefante africano",
+        info:
+            "Gli elefanti africani svolgono un ruolo importante negli ecosistemi. La perdita di habitat e il bracconaggio possono rappresentare gravi minacce.",
 
-    info:
-        "Gli elefanti africani svolgono un ruolo importante negli ecosistemi. La perdita di habitat e il bracconaggio possono rappresentare gravi minacce.",
+        mission:
+            "Una popolazione locale sta diminuendo. Quale intervento dovrebbe avere priorità?",
 
-    mission:
-        "Una popolazione locale sta diminuendo. Quale intervento dovrebbe avere priorità?",
+        options: [
 
-    options: [
+            "Distruggere parte dell'habitat per costruire nuove strade.",
 
-        "Distruggere parte dell'habitat per costruire nuove strade.",
+            "Rafforzare la protezione contro il bracconaggio e tutelare l'habitat.",
 
-        "Rafforzare la protezione contro il bracconaggio e tutelare l'habitat.",
+            "Aumentare il commercio di avorio.",
 
-        "Aumentare il commercio di avorio.",
+            "Ridurre le aree protette."
 
-        "Ridurre le aree protette."
+        ],
 
-    ],
+        correct: 1,
 
-    correct: 1,
+        explanation:
+            "Proteggere gli animali dal bracconaggio e conservare il loro habitat sono interventi fondamentali per la loro tutela."
 
-    explanation:
-        "Proteggere gli animali dal bracconaggio e conservare il loro habitat sono interventi fondamentali per la loro tutela.",
+    },
 
-    points: 10
 
-},
+    {
+        image:
+            "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
+        status:
+            "🔴 IN PERICOLO CRITICO",
 
-/* 2 */
+        name:
+            "Rinoceronte nero",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+        info:
+            "Il rinoceronte nero è stato fortemente colpito dal bracconaggio. La protezione delle popolazioni e degli habitat è essenziale.",
 
-    status:
-        "🔴 IN PERICOLO CRITICO",
+        mission:
+            "Quale combinazione di interventi è più coerente con la conservazione?",
 
-    name:
-        "Rinoceronte nero",
+        options: [
 
-    info:
-        "Il rinoceronte nero è stato fortemente colpito dal bracconaggio. La protezione delle popolazioni e degli habitat è essenziale.",
+            "Protezione dal bracconaggio + tutela dell'habitat.",
 
-    mission:
-        "Quale combinazione di interventi è più coerente con la conservazione?",
+            "Aumento del commercio illegale.",
 
-    options: [
+            "Riduzione dei controlli.",
 
-        "Protezione dal bracconaggio + tutela dell'habitat.",
+            "Distruzione delle aree naturali."
 
-        "Aumento del commercio illegale.",
+        ],
 
-        "Riduzione dei controlli.",
+        correct: 0,
 
-        "Distruzione delle aree naturali."
+        explanation:
+            "La protezione delle popolazioni e la conservazione degli habitat sono componenti fondamentali delle strategie di conservazione."
 
-    ],
+    },
 
-    correct: 0,
 
-    explanation:
-        "La protezione delle popolazioni e la conservazione degli habitat sono componenti fondamentali delle strategie di conservazione.",
+    {
+        image:
+            "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
-    points: 10
+        status:
+            "🟠 SPECIE MINACCIATA",
 
-},
+        name:
+            "Tigre",
 
+        info:
+            "Le tigri hanno bisogno di grandi territori e di popolazioni sufficienti di prede. La perdita e frammentazione dell'habitat rappresentano importanti minacce.",
 
-/* 3 */
+        mission:
+            "Una strada sta dividendo un habitat forestale. Quale soluzione può ridurre il problema?",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+        options: [
 
-    status:
-        "🟠 SPECIE MINACCIATA",
+            "Costruire corridoi ecologici e proteggere le aree naturali.",
 
-    name:
-        "Tigre",
+            "Eliminare tutta la vegetazione intorno alla strada.",
 
-    info:
-        "Le tigri hanno bisogno di grandi territori e di popolazioni sufficienti di prede. La perdita e frammentazione dell'habitat rappresentano importanti minacce.",
+            "Dividere ulteriormente la foresta.",
 
-    mission:
-        "Una strada sta dividendo un habitat forestale. Quale soluzione può ridurre il problema?",
+            "Aumentare il traffico nella zona."
 
-    options: [
+        ],
 
-        "Costruire corridoi ecologici e proteggere le aree naturali.",
+        correct: 0,
 
-        "Eliminare tutta la vegetazione intorno alla strada.",
+        explanation:
+            "I corridoi ecologici possono favorire gli spostamenti degli animali tra aree di habitat separate."
 
-        "Dividere ulteriormente la foresta.",
+    },
 
-        "Aumentare il traffico nella zona."
 
-    ],
+    {
+        image:
+            "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
 
-    correct: 0,
+        status:
+            "🔴 SPECIE ESTINTA",
 
-    explanation:
-        "I corridoi ecologici possono favorire gli spostamenti degli animali tra aree di habitat separate.",
+        name:
+            "Dodo",
 
-    points: 10
+        info:
+            "Il dodo viveva sull'isola di Mauritius e si estinse nel XVII secolo. La sua storia è collegata all'arrivo degli esseri umani e alle trasformazioni dell'ambiente.",
 
-},
+        mission:
+            "Qual è la lezione principale che possiamo ricavare dalla storia del dodo?",
 
+        options: [
 
-/* 4 */
+            "Le specie insulari possono essere particolarmente vulnerabili ai cambiamenti introdotti dall'uomo.",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
+            "Le specie insulari non possono mai estinguersi.",
 
-    status:
-        "🔴 SPECIE ESTINTA",
+            "L'estinzione del dodo è avvenuta recentemente.",
 
-    name:
-        "Dodo",
+            "Il dodo è ancora una specie comune."
 
-    info:
-        "Il dodo viveva sull'isola di Mauritius e si estinse nel XVII secolo. La sua storia è collegata all'arrivo degli esseri umani e alle trasformazioni dell'ambiente.",
+        ],
 
-    mission:
-        "Qual è la lezione principale che possiamo ricavare dalla storia del dodo?",
+        correct: 0,
 
-    options: [
+        explanation:
+            "Le specie insulari possono essere vulnerabili alla perdita di habitat, alle specie introdotte e alla pressione umana."
 
-        "Le specie insulari possono essere particolarmente vulnerabili ai cambiamenti introdotti dall'uomo.",
+    },
 
-        "Le specie insulari non possono mai estinguersi.",
 
-        "L'estinzione del dodo è avvenuta recentemente.",
+    {
+        image:
+            "https://images.unsplash.com/photo-1531884070720-875c7622d4c2?auto=format&fit=crop&w=1200&q=80",
 
-        "Il dodo è ancora una specie comune."
+        status:
+            "🟢 SPECIE DA PROTEGGERE",
 
-    ],
+        name:
+            "Gorilla",
 
-    correct: 0,
+        info:
+            "I gorilla dipendono da habitat forestali. La perdita delle foreste e altre pressioni possono compromettere le popolazioni.",
 
-    explanation:
-        "Le specie insulari possono essere vulnerabili alla perdita di habitat, alle specie introdotte e alla pressione umana.",
+        mission:
+            "Quale azione aiuta maggiormente a proteggere una popolazione di gorilla?",
 
-    points: 10
+        options: [
 
-},
+            "Proteggere e collegare gli habitat forestali.",
 
+            "Ridurre le aree forestali.",
 
-/* 5 */
+            "Aumentare la frammentazione dell'habitat.",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1531884070720-875c7622d4c2?auto=format&fit=crop&w=1200&q=80",
+            "Eliminare le aree protette."
 
-    status:
-        "🟢 SPECIE DA PROTEGGERE",
+        ],
 
-    name:
-        "Gorilla",
+        correct: 0,
 
-    info:
-        "I gorilla dipendono da habitat forestali. La perdita delle foreste e altre pressioni possono compromettere le popolazioni.",
+        explanation:
+            "La conservazione dell'habitat è una componente essenziale della protezione delle popolazioni di gorilla."
 
-    mission:
-        "Quale azione aiuta maggiormente a proteggere una popolazione di gorilla?",
+    },
 
-    options: [
 
-        "Proteggere e collegare gli habitat forestali.",
+    {
+        image:
+            "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80",
 
-        "Ridurre le aree forestali.",
+        status:
+            "🟠 VULNERABILE",
 
-        "Aumentare la frammentazione dell'habitat.",
+        name:
+            "Orso polare",
 
-        "Eliminare le aree protette."
+        info:
+            "Gli orsi polari dipendono fortemente dagli ecosistemi artici e dal ghiaccio marino per molte delle loro attività.",
 
-    ],
+        mission:
+            "Quale cambiamento ambientale rappresenta una particolare minaccia per il loro habitat?",
 
-    correct: 0,
+        options: [
 
-    explanation:
-        "La conservazione dell'habitat è una componente essenziale della protezione delle popolazioni di gorilla.",
+            "La perdita e riduzione del ghiaccio marino.",
 
-    points: 10
+            "L'aumento delle foreste tropicali.",
 
-},
+            "La diminuzione delle temperature artiche.",
 
+            "L'aumento della neve permanente in tutte le stagioni."
 
-/* 6 */
+        ],
 
-{
-    image:
-        "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80",
+        correct: 0,
 
-    status:
-        "🟠 VULNERABILE",
+        explanation:
+            "La riduzione del ghiaccio marino modifica l'habitat artico e può rendere più difficili alcune attività fondamentali per gli orsi polari."
 
-    name:
-        "Orso polare",
+    },
 
-    info:
-        "Gli orsi polari dipendono fortemente dagli ecosistemi artici e dal ghiaccio marino per molte delle loro attività.",
 
-    mission:
-        "Quale cambiamento ambientale rappresenta una particolare minaccia per il loro habitat?",
+    {
+        image:
+            "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
 
-    options: [
+        status:
+            "🔴 SPECIE ESTINTA",
 
-        "La perdita e riduzione del ghiaccio marino.",
+        name:
+            "Tilacino",
 
-        "L'aumento delle foreste tropicali.",
+        info:
+            "Il tilacino, conosciuto anche come tigre della Tasmania, è considerato estinto. L'ultimo individuo noto morì nel 1936.",
 
-        "La diminuzione delle temperature artiche.",
+        mission:
+            "Cosa significa che una specie è estinta?",
 
-        "L'aumento della neve permanente in tutte le stagioni."
+        options: [
 
-    ],
+            "Non esiste più alcun individuo della specie vivente.",
 
-    correct: 0,
+            "Esistono pochi individui in natura.",
 
-    explanation:
-        "La riduzione del ghiaccio marino modifica l'habitat artico e può rendere più difficili alcune attività fondamentali per gli orsi polari.",
+            "La specie vive solamente negli zoo.",
 
-    points: 10
+            "La specie si è trasferita in un altro continente."
 
-},
+        ],
 
+        correct: 0,
 
-/* 7 */
+        explanation:
+            "Una specie è considerata estinta quando non esistono più individui viventi della specie."
 
-{
-    image:
-        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+    },
 
-    status:
-        "🔴 SPECIE ESTINTA",
 
-    name:
-        "Tilacino",
+    {
+        image:
+            "https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=1200&q=80",
 
-    info:
-        "Il tilacino, conosciuto anche come tigre della Tasmania, è considerato estinto. L'ultimo individuo noto morì nel 1936.",
+        status:
+            "🟠 SPECIE MINACCIATA",
 
-    mission:
-        "Cosa significa che una specie è estinta?",
+        name:
+            "Panda gigante",
 
-    options: [
+        info:
+            "Il panda gigante dipende soprattutto dalle foreste di bambù. La conservazione dell'habitat è quindi particolarmente importante.",
 
-        "Non esiste più alcun individuo della specie vivente.",
+        mission:
+            "Quale intervento può aiutare a mantenere una popolazione stabile?",
 
-        "Esistono pochi individui in natura.",
+        options: [
 
-        "La specie vive solamente negli zoo.",
+            "Proteggere l'habitat e mantenere collegamenti tra le aree forestali.",
 
-        "La specie si è trasferita in un altro continente."
+            "Distruggere le foreste di bambù.",
 
-    ],
+            "Isolare completamente ogni popolazione.",
 
-    correct: 0,
+            "Ridurre le aree naturali."
 
-    explanation:
-        "Una specie è considerata estinta quando non esistono più individui viventi della specie.",
+        ],
 
-    points: 10
+        correct: 0,
 
-},
+        explanation:
+            "La protezione e il collegamento degli habitat possono favorire la sopravvivenza delle popolazioni e la loro variabilità genetica."
 
+    },
 
-/* 8 */
 
-{
-    image:
-        "https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=1200&q=80",
+    {
+        image:
+            "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80",
 
-    status:
-        "🟠 SPECIE MINACCIATA",
+        status:
+            "🟢 SPECIE DA CONSERVARE",
 
-    name:
-        "Panda gigante",
+        name:
+            "Leone africano",
 
-    info:
-        "Il panda gigante dipende soprattutto dalle foreste di bambù. La conservazione dell'habitat è quindi particolarmente importante.",
+        info:
+            "I leoni dipendono da habitat abbastanza estesi e da popolazioni di prede sufficienti. Anche il conflitto con le attività umane può rappresentare un problema.",
 
-    mission:
-        "Quale intervento può aiutare a mantenere una popolazione stabile?",
+        mission:
+            "Quale strategia può contribuire a ridurre il conflitto tra fauna selvatica e comunità locali?",
 
-    options: [
+        options: [
 
-        "Proteggere l'habitat e mantenere collegamenti tra le aree forestali.",
+            "Creare strategie di convivenza e proteggere gli habitat.",
 
-        "Distruggere le foreste di bambù.",
+            "Eliminare tutti gli animali selvatici.",
 
-        "Isolare completamente ogni popolazione.",
+            "Distruggere le aree protette.",
 
-        "Ridurre le aree naturali."
+            "Aumentare la frammentazione degli habitat."
 
-    ],
+        ],
 
-    correct: 0,
+        correct: 0,
 
-    explanation:
-        "La protezione e il collegamento degli habitat possono favorire la sopravvivenza delle popolazioni e la loro variabilità genetica.",
+        explanation:
+            "La conservazione può includere strategie che proteggono gli habitat e tengono conto delle esigenze delle comunità locali."
 
-    points: 10
+    },
 
-},
 
+    {
+        image:
+            "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
 
-/* 9 */
+        status:
+            "🏆 MISSIONE FINALE",
 
-{
-    image:
-        "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80",
+        name:
+            "La scelta del futuro",
 
-    status:
-        "🟢 SPECIE DA CONSERVARE",
+        info:
+            "Hai imparato che la conservazione dipende da habitat, popolazioni, attività umane e condizioni ambientali.",
 
-    name:
-        "Leone africano",
+        mission:
+            "Quale principio è più importante quando si vuole proteggere una specie nel lungo periodo?",
 
-    info:
-        "I leoni dipendono da habitat abbastanza estesi e da popolazioni di prede sufficienti. Anche il conflitto con le attività umane può rappresentare un problema.",
+        options: [
 
-    mission:
-        "Quale strategia può contribuire a ridurre il conflitto tra fauna selvatica e comunità locali?",
+            "Agire solo quando rimangono pochissimi individui.",
 
-    options: [
+            "Proteggere habitat, ridurre le minacce e monitorare le popolazioni.",
 
-        "Creare strategie di convivenza e proteggere gli habitat.",
+            "Concentrarsi esclusivamente sugli animali negli zoo.",
 
-        "Eliminare tutti gli animali selvatici.",
+            "Proteggere una singola specie ignorando tutto l'ecosistema."
 
-        "Distruggere le aree protette.",
+        ],
 
-        "Aumentare la frammentazione degli habitat."
+        correct: 1,
 
-    ],
+        explanation:
+            "La conservazione efficace richiede generalmente un approccio ampio: proteggere gli habitat, ridurre le minacce e monitorare le popolazioni nel tempo."
 
-    correct: 0,
-
-    explanation:
-        "La conservazione può includere strategie che proteggono gli habitat e tengono conto delle esigenze delle comunità locali.",
-
-    points: 10
-
-},
-
-
-/* 10 */
-
-{
-    image:
-        "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=80",
-
-    status:
-        "🏆 MISSIONE FINALE",
-
-    name:
-        "La scelta del futuro",
-
-    info:
-        "Hai imparato che la conservazione dipende da habitat, popolazioni, attività umane e condizioni ambientali.",
-
-    mission:
-        "Quale principio è più importante quando si vuole proteggere una specie nel lungo periodo?",
-
-    options: [
-
-        "Agire solo quando rimangono pochissimi individui.",
-
-        "Proteggere habitat, ridurre le minacce e monitorare le popolazioni.",
-
-        "Concentrarsi esclusivamente sugli animali negli zoo.",
-
-        "Proteggere una singola specie ignorando tutto l'ecosistema."
-
-    ],
-
-    correct: 1,
-
-    explanation:
-        "La conservazione efficace richiede generalmente un approccio ampio: proteggere gli habitat, ridurre le minacce e monitorare le popolazioni nel tempo.",
-
-    points: 10
-
-}
+    }
 
 ];
 
 
 let current = 0;
-
 let score = 0;
-
 let saved = 0;
-
 let answered = false;
 
 
@@ -872,109 +866,69 @@ function loadMission() {
 
     answered = false;
 
-    const mission =
-        missions[current];
+    const mission = missions[current];
 
 
-    document.getElementById(
-        "animalImage"
-    ).src =
+    document.getElementById("animalImage").src =
         mission.image;
 
-
-    document.getElementById(
-        "status"
-    ).innerText =
+    document.getElementById("status").innerText =
         mission.status;
 
-
-    document.getElementById(
-        "animalName"
-    ).innerText =
+    document.getElementById("animalName").innerText =
         mission.name;
 
-
-    document.getElementById(
-        "info"
-    ).innerText =
+    document.getElementById("info").innerText =
         mission.info;
 
-
-    document.getElementById(
-        "mission"
-    ).innerText =
+    document.getElementById("mission").innerText =
         mission.mission;
 
 
-    document.getElementById(
-        "number"
-    ).innerText =
-        (current + 1) +
-        "/10";
+    document.getElementById("number").innerText =
+        (current + 1) + "/10";
 
 
-    document.getElementById(
-        "progress"
-    ).style.width =
-        (
-            ((current + 1) / 10) *
-            100
-        ) + "%";
+    document.getElementById("progress").style.width =
+        ((current + 1) / missions.length * 100) + "%";
 
 
-    document.getElementById(
-        "feedback"
-    ).style.display =
+    document.getElementById("feedback").style.display =
+        "none";
+
+    document.getElementById("next").style.display =
         "none";
 
 
-    document.getElementById(
-        "next"
-    ).style.display =
-        "none";
+    document.getElementById("next").innerText =
+        current === missions.length - 1
+            ? "🏆 Risultato finale"
+            : "Prossima missione →";
 
 
     const options =
-        document.getElementById(
-            "options"
-        );
+        document.getElementById("options");
 
-
-    options.innerHTML =
-        "";
+    options.innerHTML = "";
 
 
     mission.options.forEach(
         function(option, index) {
 
             const button =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
+            button.className = "option";
 
-            button.className =
-                "option";
+            button.innerText = option;
 
+            button.onclick = function() {
 
-            button.innerText =
-                option;
+                checkAnswer(button, index);
 
+            };
 
-            button.onclick =
-                function() {
-
-                    checkAnswer(
-                        button,
-                        index
-                    );
-
-                };
-
-
-            options.appendChild(
-                button
-            );
+            options.appendChild(button);
 
         }
     );
@@ -982,15 +936,11 @@ function loadMission() {
 }
 
 
-function checkAnswer(
-    selected,
-    index
-) {
+function checkAnswer(selected, index) {
 
     if (answered) {
         return;
     }
-
 
     answered = true;
 
@@ -998,104 +948,59 @@ function checkAnswer(
     const mission =
         missions[current];
 
-
     const all =
-        document.querySelectorAll(
-            ".option"
-        );
+        document.querySelectorAll(".option");
 
 
-    if (
-        index ===
-        mission.correct
-    ) {
+    all.forEach(function(button) {
 
-        selected.classList.add(
-            "correct"
-        );
+        button.disabled = true;
+
+    });
 
 
-        score +=
-            mission.points;
+    if (index === mission.correct) {
 
+        selected.classList.add("correct");
+
+        score += 10;
 
         saved++;
 
 
-        document.getElementById(
-            "feedback"
-        ).innerHTML =
-            "✅ <strong>Missione riuscita! +" +
-            mission.points +
-            " punti</strong><br><br>" +
+        document.getElementById("feedback").innerHTML =
+            "✅ <strong>Missione riuscita! +10 punti</strong><br><br>" +
             mission.explanation;
 
     } else {
 
-        selected.classList.add(
-            "wrong"
-        );
+        selected.classList.add("wrong");
+
+        all[mission.correct].classList.add("correct");
 
 
-        all[
-            mission.correct
-        ].classList.add(
-            "correct"
-        );
-
-
-        score += 2;
-
-
-        document.getElementById(
-            "feedback"
-        ).innerHTML =
-            "❌ <strong>Non era la scelta migliore.</strong><br><br>" +
+        document.getElementById("feedback").innerHTML =
+            "❌ <strong>Risposta non corretta.</strong><br><br>" +
             "La risposta corretta era: <strong>" +
-            mission.options[
-                mission.correct
-            ] +
+            mission.options[mission.correct] +
             "</strong><br><br>" +
             mission.explanation;
 
     }
 
 
-    document.getElementById(
-        "score"
-    ).innerText =
+    document.getElementById("score").innerText =
         score;
 
-
-    document.getElementById(
-        "saved"
-    ).innerText =
+    document.getElementById("saved").innerText =
         saved;
 
 
-    document.getElementById(
-        "feedback"
-    ).style.display =
+    document.getElementById("feedback").style.display =
         "block";
 
-
-    document.getElementById(
-        "next"
-    ).style.display =
+    document.getElementById("next").style.display =
         "block";
-
-
-    if (
-        current ===
-        missions.length - 1
-    ) {
-
-        document.getElementById(
-            "next"
-        ).innerText =
-            "🏆 Risultato finale";
-
-    }
 
 }
 
@@ -1105,10 +1010,7 @@ function nextMission() {
     current++;
 
 
-    if (
-        current <
-        missions.length
-    ) {
+    if (current < missions.length) {
 
         loadMission();
 
@@ -1123,39 +1025,29 @@ function nextMission() {
 
 function showResult() {
 
-    document.getElementById(
-        "gameCard"
-    ).classList.add(
-        "hidden"
-    );
+    document.getElementById("gameCard")
+        .classList.add("hidden");
+
+    document.getElementById("resultCard")
+        .classList.remove("hidden");
 
 
-    document.getElementById(
-        "resultCard"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "finalScore"
-    ).innerText =
-        score +
-        " / 100";
+    document.getElementById("finalScore").innerText =
+        score + " / 100";
 
 
     let message;
 
 
-    if (score >= 90) {
+    if (score === 100) {
 
         message =
-            "🌟 Eccellente! Hai dimostrato di conoscere bene i problemi legati alla conservazione delle specie.";
+            "🌟 Perfetto! Hai completato tutte le missioni e dimostrato un'ottima conoscenza della conservazione delle specie.";
 
     } else if (score >= 70) {
 
         message =
-            "🐾 Ottimo lavoro! Hai compreso molti dei principali strumenti della conservazione.";
+            "🐾 Ottimo lavoro! Hai compreso molti dei principali problemi legati alla protezione della biodiversità.";
 
     } else if (score >= 50) {
 
@@ -1165,24 +1057,49 @@ function showResult() {
     } else {
 
         message =
-            "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni.";
+            "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni delle missioni.";
 
     }
 
 
-    document.getElementById(
-        "message"
-    ).innerText =
+    document.getElementById("message").innerText =
         message;
+
+}
+
+
+function restartGame() {
+
+    current = 0;
+    score = 0;
+    saved = 0;
+    answered = false;
+
+
+    document.getElementById("score").innerText =
+        "0";
+
+    document.getElementById("saved").innerText =
+        "0";
+
+
+    document.getElementById("gameCard")
+        .classList.remove("hidden");
+
+    document.getElementById("resultCard")
+        .classList.add("hidden");
+
+
+    loadMission();
 
 }
 
 
 loadMission();
 
-
 </script>
 
 </body>
 
 </html>
+```
