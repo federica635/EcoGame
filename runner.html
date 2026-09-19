@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -159,19 +160,13 @@ header {
 
 .player {
     position: absolute;
-
     left: 90px;
     bottom: 60px;
-
     width: 70px;
     height: 65px;
-
     font-size: 55px;
-
     z-index: 5;
-
     user-select: none;
-
     transform: scaleX(-1);
 
     filter:
@@ -182,28 +177,21 @@ header {
 }
 
 
-/* CONTENITORE OSTACOLI */
+/* OSTACOLI */
 
 .obstacles {
     position: absolute;
-
     bottom: 60px;
     right: 0;
-
     width: 100%;
     height: 75px;
-
     pointer-events: none;
 }
 
-
-/* PRIMO OSTACOLO */
-
-.obstacle {
+.obstacle,
+.obstacle2 {
     position: absolute;
-
     bottom: 0;
-    right: -100px;
 
     width: 65px;
     height: 65px;
@@ -211,7 +199,6 @@ header {
     font-size: 50px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -224,32 +211,12 @@ header {
         );
 }
 
-
-/* SECONDO OSTACOLO */
+.obstacle {
+    right: -100px;
+}
 
 .obstacle2 {
-    position: absolute;
-
-    bottom: 0;
     right: -220px;
-
-    width: 65px;
-    height: 65px;
-
-    font-size: 50px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    user-select: none;
-
-    filter:
-        drop-shadow(
-            2px 3px 2px
-            rgba(0,0,0,0.3)
-        );
 }
 
 
@@ -257,7 +224,6 @@ header {
 
 .gameover {
     position: absolute;
-
     inset: 0;
 
     background:
@@ -266,7 +232,6 @@ header {
     display: none;
 
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
@@ -277,35 +242,27 @@ header {
 
 .gameover h2 {
     color: #ff8a80;
-
     font-size: 42px;
-
     margin: 5px;
 }
 
 .gameover p {
     color: #e0ebe2;
-
     font-size: 18px;
 }
 
 button {
     border: none;
-
     border-radius: 10px;
-
     padding: 13px 22px;
 
     background: #f9a825;
-
     color: #17251d;
 
     font-weight: bold;
-
     font-size: 16px;
 
     cursor: pointer;
-
     margin: 5px;
 }
 
@@ -315,21 +272,15 @@ button:hover {
 
 .help {
     text-align: center;
-
     margin-top: 20px;
-
     color: #aebdb1;
 }
 
 kbd {
     background: #26382b;
-
     border: 1px solid #526653;
-
     padding: 4px 9px;
-
     border-radius: 5px;
-
     color: white;
 }
 
@@ -369,7 +320,7 @@ kbd {
     🌍 EcoGame
 </div>
 
-<div class="info">
+<div class="info" data-testo="nomeGioco">
     🐝 Eco Bee Runner
 </div>
 
@@ -380,9 +331,11 @@ kbd {
 
 <div class="intro">
 
-    <h1>🐝 Eco Bee Runner</h1>
+    <h1 data-testo="titolo">
+        🐝 Eco Bee Runner
+    </h1>
 
-    <p>
+    <p data-testo="intro">
         Aiuta l'ape a ripulire il suo ambiente!
         <br>
         Salta i rifiuti e non farti colpire.
@@ -394,12 +347,12 @@ kbd {
 <div class="stats">
 
     <div class="stat">
-        Distanza:
+        <span data-testo="distanza">Distanza:</span>
         <span id="score">0</span> m
     </div>
 
     <div class="stat">
-        Record:
+        <span data-testo="record">Record:</span>
         <span id="record">0</span> m
     </div>
 
@@ -411,21 +364,17 @@ kbd {
     id="game"
     tabindex="0">
 
-
     <div class="sun">
         ☀️
     </div>
-
 
     <div class="cloud">
         ☁️
     </div>
 
-
     <div class="cloud2">
         ☁️
     </div>
-
 
     <div class="flower flower1">
         🌷
@@ -440,36 +389,25 @@ kbd {
     </div>
 
 
-    <!-- APE -->
-
     <div
         class="player"
         id="player">
-
         🐝
-
     </div>
 
-
-    <!-- OSTACOLI -->
 
     <div class="obstacles">
 
         <div
             class="obstacle"
             id="obstacle">
-
             🥫
-
         </div>
-
 
         <div
             class="obstacle2"
             id="obstacle2">
-
             📄
-
         </div>
 
     </div>
@@ -478,31 +416,35 @@ kbd {
     <div class="ground"></div>
 
 
-    <!-- GAME OVER -->
-
     <div
         class="gameover"
         id="gameover">
 
-        <h2>💥 Ops!</h2>
+        <h2 data-testo="gameoverTitolo">
+            💥 Ops!
+        </h2>
 
-        <p>
+        <p data-testo="gameoverTesto">
             L'ape ha incontrato della sporcizia!
         </p>
 
         <p>
-            Distanza:
+            <span data-testo="distanzaFinale">
+                Distanza:
+            </span>
+
             <strong id="finalScore">0</strong> m
         </p>
 
         <div>
 
-            <button onclick="restart()">
+            <button onclick="restart()" data-testo="riprova">
                 🔄 Riprova
             </button>
 
             <button
-                onclick="location.href='giochi.html'">
+                onclick="location.href='giochi.html'"
+                data-testo="menu">
 
                 🎮 Menu
 
@@ -512,17 +454,26 @@ kbd {
 
     </div>
 
-
 </div>
 
 
 <div class="help">
 
-    Premi
+    <span data-testo="premi">
+        Premi
+    </span>
+
     <kbd>SPAZIO</kbd>
-    o
+
+    <span data-testo="oppure">
+        o
+    </span>
+
     <kbd>↑</kbd>
-    per saltare.
+
+    <span data-testo="saltare">
+        per saltare.
+    </span>
 
 </div>
 
@@ -530,6 +481,174 @@ kbd {
 
 
 <script>
+
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
+
+const traduzioni = {
+
+    it: {
+
+        nomeGioco: "🐝 Eco Bee Runner",
+
+        titolo: "🐝 Eco Bee Runner",
+
+        intro:
+            "Aiuta l'ape a ripulire il suo ambiente!<br>Salta i rifiuti e non farti colpire.",
+
+        distanza: "Distanza:",
+
+        record: "Record:",
+
+        gameoverTitolo: "💥 Ops!",
+
+        gameoverTesto:
+            "L'ape ha incontrato della sporcizia!",
+
+        distanzaFinale: "Distanza:",
+
+        riprova: "🔄 Riprova",
+
+        menu: "🎮 Menu",
+
+        premi: "Premi",
+
+        oppure: "o",
+
+        saltare: "per saltare."
+
+    },
+
+
+    en: {
+
+        nomeGioco: "🐝 Eco Bee Runner",
+
+        titolo: "🐝 Eco Bee Runner",
+
+        intro:
+            "Help the bee clean up its environment!<br>Jump over the waste and don't get hit.",
+
+        distanza: "Distance:",
+
+        record: "Record:",
+
+        gameoverTitolo: "💥 Oops!",
+
+        gameoverTesto:
+            "The bee hit some waste!",
+
+        distanzaFinale: "Distance:",
+
+        riprova: "🔄 Try Again",
+
+        menu: "🎮 Menu",
+
+        premi: "Press",
+
+        oppure: "or",
+
+        saltare: "to jump."
+
+    },
+
+
+    fi: {
+
+        nomeGioco: "🐝 Eco Bee Runner",
+
+        titolo: "🐝 Eco Bee Runner",
+
+        intro:
+            "Auta mehiläistä siivoamaan ympäristöään!<br>Hyppää jätteiden yli ja vältä osumia.",
+
+        distanza: "Matka:",
+
+        record: "Ennätys:",
+
+        gameoverTitolo: "💥 Hups!",
+
+        gameoverTesto:
+            "Mehiläinen osui jätteeseen!",
+
+        distanzaFinale: "Matka:",
+
+        riprova: "🔄 Yritä uudelleen",
+
+        menu: "🎮 Valikko",
+
+        premi: "Paina",
+
+        oppure: "tai",
+
+        saltare: "hypätäksesi."
+
+    }
+
+};
+
+
+/* =====================================================
+   CARICA LINGUA SALVATA DA GIOCHI.HTML
+   ===================================================== */
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+const lingua =
+    Object.prototype.hasOwnProperty.call(
+        traduzioni,
+        linguaSalvata
+    )
+        ? linguaSalvata
+        : "it";
+
+
+/* =====================================================
+   APPLICA TRADUZIONE
+   ===================================================== */
+
+function applicaLingua() {
+
+    const testi =
+        traduzioni[lingua];
+
+    document.documentElement.lang =
+        lingua;
+
+
+    document
+        .querySelectorAll("[data-testo]")
+        .forEach(function(elemento) {
+
+            const chiave =
+                elemento.getAttribute("data-testo");
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    testi,
+                    chiave
+                )
+            ) {
+
+                elemento.innerHTML =
+                    testi[chiave];
+
+            }
+
+        });
+
+}
+
+
+applicaLingua();
+
+
+/* =====================================================
+   ELEMENTI DEL GIOCO
+   ===================================================== */
 
 const game =
     document.getElementById("game");
@@ -555,6 +674,10 @@ const gameover =
 const finalScore =
     document.getElementById("finalScore");
 
+
+/* =====================================================
+   VARIABILI
+   ===================================================== */
 
 let jumping = false;
 
@@ -609,9 +732,9 @@ recordElement.innerText =
     record;
 
 
-/*
- * RIFIUTO CASUALE
- */
+/* =====================================================
+   RIFIUTO CASUALE
+   ===================================================== */
 
 function rifiutoCasuale() {
 
@@ -625,16 +748,15 @@ function rifiutoCasuale() {
 }
 
 
-/*
- * SALTO
- */
+/* =====================================================
+   SALTO
+   ===================================================== */
 
 function jump() {
 
     if (!gameRunning) {
         return;
     }
-
 
     if (!jumping) {
 
@@ -647,9 +769,9 @@ function jump() {
 }
 
 
-/*
- * TASTIERA
- */
+/* =====================================================
+   TASTIERA
+   ===================================================== */
 
 document.addEventListener(
     "keydown",
@@ -670,9 +792,9 @@ document.addEventListener(
 );
 
 
-/*
- * CLICK
- */
+/* =====================================================
+   CLICK
+   ===================================================== */
 
 game.addEventListener(
     "mousedown",
@@ -680,9 +802,9 @@ game.addEventListener(
 );
 
 
-/*
- * TOUCH
- */
+/* =====================================================
+   TOUCH
+   ===================================================== */
 
 game.addEventListener(
     "touchstart",
@@ -690,9 +812,9 @@ game.addEventListener(
 );
 
 
-/*
- * COLLISIONE
- */
+/* =====================================================
+   COLLISIONE
+   ===================================================== */
 
 function collisione(a, b) {
 
@@ -716,9 +838,9 @@ function collisione(a, b) {
 }
 
 
-/*
- * GAME LOOP
- */
+/* =====================================================
+   GAME LOOP
+   ===================================================== */
 
 function gameLoop(timestamp) {
 
@@ -741,9 +863,7 @@ function gameLoop(timestamp) {
     if (gameRunning) {
 
 
-        /*
-         * SALTO
-         */
+        /* SALTO */
 
         if (jumping) {
 
@@ -771,9 +891,7 @@ function gameLoop(timestamp) {
             (60 + playerY) + "px";
 
 
-        /*
-         * PRIMO RIFIUTO
-         */
+        /* PRIMO RIFIUTO */
 
         obstacleX +=
             speed * delta;
@@ -783,9 +901,7 @@ function gameLoop(timestamp) {
             obstacleX + "px";
 
 
-        /*
-         * SECONDO RIFIUTO
-         */
+        /* SECONDO RIFIUTO */
 
         if (secondActive) {
 
@@ -798,9 +914,7 @@ function gameLoop(timestamp) {
         }
 
 
-        /*
-         * NUOVO GRUPPO DI RIFIUTI
-         */
+        /* NUOVO GRUPPO DI RIFIUTI */
 
         if (
             obstacleX >
@@ -820,10 +934,6 @@ function gameLoop(timestamp) {
             scoreElement.innerText =
                 score;
 
-
-            /*
-             * POSSIBILITÀ DI SECONDO OSTACOLO
-             */
 
             if (
                 score >= 60 &&
@@ -855,18 +965,12 @@ function gameLoop(timestamp) {
             }
 
 
-            /*
-             * AUMENTA LA VELOCITÀ
-             */
-
             speed += 0.13;
 
         }
 
 
-        /*
-         * COLLISIONE PRIMO OSTACOLO
-         */
+        /* COLLISIONE PRIMO OSTACOLO */
 
         if (
             collisione(
@@ -880,9 +984,7 @@ function gameLoop(timestamp) {
         }
 
 
-        /*
-         * COLLISIONE SECONDO OSTACOLO
-         */
+        /* COLLISIONE SECONDO OSTACOLO */
 
         if (
             secondActive &&
@@ -906,9 +1008,9 @@ function gameLoop(timestamp) {
 }
 
 
-/*
- * GAME OVER
- */
+/* =====================================================
+   GAME OVER
+   ===================================================== */
 
 function fine() {
 
@@ -942,9 +1044,9 @@ function fine() {
 }
 
 
-/*
- * RIAVVIA
- */
+/* =====================================================
+   RIAVVIA
+   ===================================================== */
 
 function restart() {
 
@@ -1014,3 +1116,4 @@ requestAnimationFrame(
 </body>
 
 </html>
+```
