@@ -1,8 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EcoSort - EcoGame</title>
 
 <style>
@@ -25,12 +27,41 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
     font-size: 26px;
     font-weight: bold;
     color: #81c784;
+}
+
+.headerDestra {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.lingua {
+    padding: 9px 12px;
+    border-radius: 9px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.menu {
+    background: #2e7d32;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.menu:hover {
+    background: #43a047;
 }
 
 .stats {
@@ -232,7 +263,10 @@ button {
 
     header {
         flex-direction: column;
-        gap: 15px;
+    }
+
+    .headerDestra {
+        flex-direction: column;
     }
 
     .stats {
@@ -248,28 +282,41 @@ button {
 
 <body>
 
-
 <header>
 
     <div class="logo">
         🌍 EcoGame
     </div>
 
-    <div class="stats">
+    <div class="headerDestra">
 
-        <div class="stat">
-            Punti:
-            <span id="punteggio">0</span>
-        </div>
+        <select class="lingua" id="lingua" onchange="cambiaLingua()">
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fi">🇫🇮 Suomi</option>
+        </select>
 
-        <div class="stat">
-            Combo:
-            <span id="combo">0</span>
-        </div>
+        <button class="menu" onclick="tornaMenu()">
+            🏠 <span data-testo="menu">Menu</span>
+        </button>
 
-        <div class="stat">
-            Tempo:
-            <span id="tempo">60</span>s
+        <div class="stats">
+
+            <div class="stat">
+                <span data-testo="punti">Punti</span>:
+                <span id="punteggio">0</span>
+            </div>
+
+            <div class="stat">
+                <span data-testo="combo">Combo</span>:
+                <span id="combo">0</span>
+            </div>
+
+            <div class="stat">
+                <span data-testo="tempo">Tempo</span>:
+                <span id="tempo">60</span>s
+            </div>
+
         </div>
 
     </div>
@@ -282,9 +329,11 @@ button {
 
     <div class="introduzione">
 
-        <h1>♻️ EcoSort</h1>
+        <h1 data-testo="titolo">
+            ♻️ EcoSort
+        </h1>
 
-        <p>
+        <p data-testo="introduzione">
             Una sfida sulla gestione dei rifiuti.
             Ragiona prima di rispondere: alcuni casi non sono così semplici.
         </p>
@@ -322,26 +371,26 @@ button {
         </div>
 
 
-        <div class="domanda">
+        <div class="domanda" data-testo="domanda">
             Qual è la gestione più appropriata?
         </div>
 
 
         <div class="opzioni">
 
-            <button class="opzione" onclick="rispondi(0)">
+            <button class="opzione" id="opzione0" onclick="rispondi(0)">
                 ♻️ Raccolta differenziata ordinaria
             </button>
 
-            <button class="opzione" onclick="rispondi(1)">
+            <button class="opzione" id="opzione1" onclick="rispondi(1)">
                 🗑️ Rifiuto indifferenziato
             </button>
 
-            <button class="opzione" onclick="rispondi(2)">
+            <button class="opzione" id="opzione2" onclick="rispondi(2)">
                 ⚠️ Raccolta specifica
             </button>
 
-            <button class="opzione" onclick="rispondi(3)">
+            <button class="opzione" id="opzione3" onclick="rispondi(3)">
                 🌱 Rifiuto organico
             </button>
 
@@ -355,7 +404,10 @@ button {
 
         <div class="azioni">
 
-            <button class="suggerimento" onclick="usaSuggerimento()">
+            <button
+                class="suggerimento"
+                onclick="usaSuggerimento()"
+                data-testo="suggerimento">
                 💡 Suggerimento
             </button>
 
@@ -366,7 +418,9 @@ button {
 
     <div class="card" id="fine">
 
-        <h1>🏁 Sfida completata</h1>
+        <h1 data-testo="fineTitolo">
+            🏁 Sfida completata
+        </h1>
 
         <div class="punteggioFinale" id="punteggioFinale">
             0
@@ -375,17 +429,17 @@ button {
         <div class="risultati">
 
             <div>
-                Risposte corrette:
+                <span data-testo="risposteCorrette">Risposte corrette</span>:
                 <strong id="corretteFinale">0</strong>/15
             </div>
 
             <div>
-                Tempo rimasto:
+                <span data-testo="tempoRimasto">Tempo rimasto</span>:
                 <strong id="tempoFinale">0</strong>s
             </div>
 
             <div>
-                Miglior combo:
+                <span data-testo="migliorCombo">Miglior combo</span>:
                 <strong id="comboFinale">0</strong>
             </div>
 
@@ -395,11 +449,11 @@ button {
         <div id="messaggio"></div>
 
 
-        <button class="btnFinale" onclick="ricomincia()">
+        <button class="btnFinale" onclick="ricomincia()" data-testo="nuovaPartita">
             🔄 Nuova partita
         </button>
 
-        <button class="btnFinale" onclick="tornaMenu()">
+        <button class="btnFinale" onclick="tornaMenu()" data-testo="tornaMenu">
             🏠 Torna al menu
         </button>
 
@@ -412,130 +466,967 @@ button {
 <script>
 
 
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
+
+const traduzioni = {
+
+    it: {
+
+        menu: "Menu",
+        punti: "Punti",
+        combo: "Combo",
+        tempo: "Tempo",
+
+        titolo: "♻️ EcoSort",
+
+        introduzione:
+            "Una sfida sulla gestione dei rifiuti. Ragiona prima di rispondere: alcuni casi non sono così semplici.",
+
+        domanda:
+            "Qual è la gestione più appropriata?",
+
+        opzione0:
+            "♻️ Raccolta differenziata ordinaria",
+
+        opzione1:
+            "🗑️ Rifiuto indifferenziato",
+
+        opzione2:
+            "⚠️ Raccolta specifica",
+
+        opzione3:
+            "🌱 Rifiuto organico",
+
+        suggerimento:
+            "💡 Suggerimento",
+
+        fineTitolo:
+            "🏁 Sfida completata",
+
+        risposteCorrette:
+            "Risposte corrette",
+
+        tempoRimasto:
+            "Tempo rimasto",
+
+        migliorCombo:
+            "Miglior combo",
+
+        nuovaPartita:
+            "🔄 Nuova partita",
+
+        tornaMenu:
+            "🏠 Torna al menu",
+
+        caso:
+            "Caso",
+
+        di:
+            "di",
+
+        corretto:
+            "✓ CORRETTO! +{punti} punti",
+
+        errore:
+            "✕ ERRORE! -50 punti",
+
+        suggerimentoEsaurito:
+            "Hai già utilizzato tutti i suggerimenti!",
+
+        suggerimentoTesto:
+            "💡 Pensa a quale tipo di rifiuto NON dovrebbe finire nei normali contenitori degli imballaggi.",
+
+        spiegazione:
+            "🔬 {testo}",
+
+        perfetto:
+            "🏆 Prestazione perfetta. Hai dimostrato un'ottima capacità di analizzare i rifiuti.",
+
+        ottimo:
+            "🌱 Ottimo risultato. Hai una buona conoscenza della gestione dei rifiuti.",
+
+        buono:
+            "👍 Buon risultato. Alcuni casi richiedono ancora un po' di attenzione.",
+
+        difficile:
+            "📚 Questa sfida era difficile. Riprovare può aiutarti a riconoscere meglio i diversi materiali."
+
+    },
+
+
+    en: {
+
+        menu: "Menu",
+        punti: "Points",
+        combo: "Combo",
+        tempo: "Time",
+
+        titolo: "♻️ EcoSort",
+
+        introduzione:
+            "A waste management challenge. Think before answering: some cases are not as simple as they seem.",
+
+        domanda:
+            "What is the most appropriate way to handle it?",
+
+        opzione0:
+            "♻️ Regular recycling",
+
+        opzione1:
+            "🗑️ General waste",
+
+        opzione2:
+            "⚠️ Special collection",
+
+        opzione3:
+            "🌱 Organic waste",
+
+        suggerimento:
+            "💡 Hint",
+
+        fineTitolo:
+            "🏁 Challenge completed",
+
+        risposteCorrette:
+            "Correct answers",
+
+        tempoRimasto:
+            "Time remaining",
+
+        migliorCombo:
+            "Best combo",
+
+        nuovaPartita:
+            "🔄 New game",
+
+        tornaMenu:
+            "🏠 Back to menu",
+
+        caso:
+            "Case",
+
+        di:
+            "of",
+
+        corretto:
+            "✓ CORRECT! +{punti} points",
+
+        errore:
+            "✕ WRONG! -50 points",
+
+        suggerimentoEsaurito:
+            "You have already used all your hints!",
+
+        suggerimentoTesto:
+            "💡 Think about which type of waste should NOT go into regular packaging recycling containers.",
+
+        spiegazione:
+            "🔬 {testo}",
+
+        perfetto:
+            "🏆 Perfect performance. You showed excellent ability to analyze waste.",
+
+        ottimo:
+            "🌱 Great result. You have a good understanding of waste management.",
+
+        buono:
+            "👍 Good result. Some cases still require a little more attention.",
+
+        difficile:
+            "📚 This challenge was difficult. Playing again can help you recognize different materials better."
+
+    },
+
+
+    fi: {
+
+        menu: "Valikko",
+        punti: "Pisteet",
+        combo: "Combo",
+        tempo: "Aika",
+
+        titolo: "♻️ EcoSort",
+
+        introduzione:
+            "Jätehuoltohaaste. Mieti ennen vastaamista: jotkin tapaukset eivät ole niin yksinkertaisia.",
+
+        domanda:
+            "Mikä on sopivin tapa käsitellä tämä jäte?",
+
+        opzione0:
+            "♻️ Tavallinen lajittelu",
+
+        opzione1:
+            "🗑️ Sekajäte",
+
+        opzione2:
+            "⚠️ Erilliskeräys",
+
+        opzione3:
+            "🌱 Biojäte",
+
+        suggerimento:
+            "💡 Vihje",
+
+        fineTitolo:
+            "🏁 Haaste suoritettu",
+
+        risposteCorrette:
+            "Oikeat vastaukset",
+
+        tempoRimasto:
+            "Jäljellä oleva aika",
+
+        migliorCombo:
+            "Paras combo",
+
+        nuovaPartita:
+            "🔄 Uusi peli",
+
+        tornaMenu:
+            "🏠 Takaisin valikkoon",
+
+        caso:
+            "Tapaus",
+
+        di:
+            "/",
+
+        corretto:
+            "✓ OIKEIN! +{punti} pistettä",
+
+        errore:
+            "✕ VÄÄRIN! -50 pistettä",
+
+        suggerimentoEsaurito:
+            "Olet jo käyttänyt kaikki vihjeet!",
+
+        suggerimentoTesto:
+            "💡 Mieti, minkä tyyppistä jätettä EI pitäisi laittaa tavallisiin pakkausjätteen keräysastioihin.",
+
+        spiegazione:
+            "🔬 {testo}",
+
+        perfetto:
+            "🏆 Täydellinen suoritus. Osoitit erinomaista kykyä analysoida jätteitä.",
+
+        ottimo:
+            "🌱 Hieno tulos. Sinulla on hyvät tiedot jätehuollosta.",
+
+        buono:
+            "👍 Hyvä tulos. Jotkin tapaukset vaativat vielä hieman enemmän huomiota.",
+
+        difficile:
+            "📚 Tämä haaste oli vaikea. Uudelleen pelaaminen voi auttaa tunnistamaan eri materiaalit paremmin."
+
+    }
+
+};
+
+
+/* =====================================================
+   CASI DEL GIOCO
+   ===================================================== */
+
 const casi = [
 
     {
         emoji: "🔋",
-        nome: "Batteria scarica",
-        descrizione: "Piccola batteria al litio proveniente da un dispositivo elettronico.",
+
+        nome: {
+            it: "Batteria scarica",
+            en: "Dead battery",
+            fi: "Tyhjä paristo"
+        },
+
+        descrizione: {
+            it: "Piccola batteria al litio proveniente da un dispositivo elettronico.",
+            en: "Small lithium battery from an electronic device.",
+            fi: "Pieni litiumakku elektronisesta laitteesta."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 2,
-        spiegazione: "Le batterie non devono essere trattate come normali rifiuti domestici. Devono essere conferite attraverso i sistemi di raccolta dedicati."
+
+        spiegazione: {
+            it: "Le batterie non devono essere trattate come normali rifiuti domestici. Devono essere conferite attraverso i sistemi di raccolta dedicati.",
+            en: "Batteries should not be treated as ordinary household waste. They should be taken to dedicated collection systems.",
+            fi: "Paristoja ei tule käsitellä tavallisena kotitalousjätteenä. Ne tulee toimittaa erillisiin keräyspisteisiin."
+        }
     },
+
 
     {
         emoji: "🧾",
-        nome: "Ricevuta fiscale",
-        descrizione: "Scontrino realizzato su carta termica.",
+
+        nome: {
+            it: "Ricevuta fiscale",
+            en: "Receipt",
+            fi: "Kuitti"
+        },
+
+        descrizione: {
+            it: "Scontrino realizzato su carta termica.",
+            en: "Receipt printed on thermal paper.",
+            fi: "Lämpöpaperille painettu kuitti."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 1,
-        spiegazione: "La carta termica degli scontrini non va normalmente conferita insieme alla carta da riciclo."
+
+        spiegazione: {
+            it: "La carta termica degli scontrini non va normalmente conferita insieme alla carta da riciclo.",
+            en: "Thermal receipt paper should generally not be placed with recyclable paper.",
+            fi: "Lämpöpaperia ei yleensä tule laittaa kierrätyspaperin joukkoon."
+        }
     },
+
 
     {
         emoji: "🍕",
-        nome: "Scatola della pizza",
-        descrizione: "Cartone con una parte pulita e una parte molto sporca di residui alimentari.",
+
+        nome: {
+            it: "Scatola della pizza",
+            en: "Pizza box",
+            fi: "Pizzalaatikko"
+        },
+
+        descrizione: {
+            it: "Cartone con una parte pulita e una parte molto sporca di residui alimentari.",
+            en: "Cardboard box with one clean part and one heavily food-stained part.",
+            fi: "Kartonkilaatikko, jossa on puhdas osa ja voimakkaasti ruoantähteiden likaama osa."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Le parti pulite possono essere gestite come carta secondo le regole locali; le parti contaminate dagli alimenti possono richiedere una gestione diversa. Separare le parti è importante."
+
+        spiegazione: {
+            it: "Le parti pulite possono essere gestite come carta secondo le regole locali; le parti contaminate dagli alimenti possono richiedere una gestione diversa. Separare le parti è importante.",
+            en: "Clean parts can be handled as paper according to local rules; food-contaminated parts may require different treatment. Separating the parts is important.",
+            fi: "Puhtaat osat voidaan käsitellä paperina paikallisten sääntöjen mukaan; ruoalla likaantuneet osat voivat vaatia eri käsittelyn. Osien erottaminen on tärkeää."
+        }
     },
+
 
     {
         emoji: "💡",
-        nome: "Lampadina LED",
-        descrizione: "Lampadina LED non più funzionante.",
+
+        nome: {
+            it: "Lampadina LED",
+            en: "LED light bulb",
+            fi: "LED-lamppu"
+        },
+
+        descrizione: {
+            it: "Lampadina LED non più funzionante.",
+            en: "Non-working LED light bulb.",
+            fi: "Toimimaton LED-lamppu."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 2,
-        spiegazione: "Le lampadine non vanno automaticamente nel contenitore del vetro domestico. I sistemi di raccolta dedicati permettono di recuperare correttamente materiali e componenti."
+
+        spiegazione: {
+            it: "Le lampadine non vanno automaticamente nel contenitore del vetro domestico. I sistemi di raccolta dedicati permettono di recuperare correttamente materiali e componenti.",
+            en: "Light bulbs should not automatically be placed in household glass recycling. Dedicated collection systems allow materials and components to be recovered correctly.",
+            fi: "Lamppuja ei tule automaattisesti laittaa kotitalouksien lasinkeräykseen. Erilliskeräyksellä materiaalit ja komponentit voidaan käsitellä oikein."
+        }
     },
+
 
     {
         emoji: "🥫",
-        nome: "Lattina in alluminio",
-        descrizione: "Lattina vuota e priva di residui significativi.",
+
+        nome: {
+            it: "Lattina in alluminio",
+            en: "Aluminium can",
+            fi: "Alumiinitölkki"
+        },
+
+        descrizione: {
+            it: "Lattina vuota e priva di residui significativi.",
+            en: "Empty can with no significant residue.",
+            fi: "Tyhjä tölkki, jossa ei ole merkittäviä jäämiä."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Le lattine metalliche possono essere avviate alla raccolta degli imballaggi metallici, secondo il sistema di raccolta del proprio Comune."
+
+        spiegazione: {
+            it: "Le lattine metalliche possono essere avviate alla raccolta degli imballaggi metallici, secondo il sistema di raccolta del proprio Comune.",
+            en: "Metal cans can be placed in the metal packaging collection according to the local collection system.",
+            fi: "Metallitölkit voidaan lajitella metallipakkausten keräykseen paikallisen järjestelmän mukaisesti."
+        }
     },
+
 
     {
         emoji: "🧴",
-        nome: "Flacone di detergente",
-        descrizione: "Contenitore vuoto in plastica, correttamente svuotato.",
+
+        nome: {
+            it: "Flacone di detergente",
+            en: "Cleaning product bottle",
+            fi: "Pesuainepullo"
+        },
+
+        descrizione: {
+            it: "Contenitore vuoto in plastica, correttamente svuotato.",
+            en: "Empty plastic container, properly emptied.",
+            fi: "Tyhjä muovipakkaus, joka on asianmukaisesti tyhjennetty."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Un flacone vuoto che costituisce un imballaggio può essere conferito nella raccolta degli imballaggi in plastica secondo le regole locali."
+
+        spiegazione: {
+            it: "Un flacone vuoto che costituisce un imballaggio può essere conferito nella raccolta degli imballaggi in plastica secondo le regole locali.",
+            en: "An empty bottle that is packaging can be placed in plastic packaging collection according to local rules.",
+            fi: "Tyhjä pakkausmuovipullo voidaan lajitella muovipakkausten keräykseen paikallisten sääntöjen mukaan."
+        }
     },
+
 
     {
         emoji: "🫙",
-        nome: "Barattolo di vetro",
-        descrizione: "Barattolo vuoto utilizzato per alimenti.",
+
+        nome: {
+            it: "Barattolo di vetro",
+            en: "Glass jar",
+            fi: "Lasipurkki"
+        },
+
+        descrizione: {
+            it: "Barattolo vuoto utilizzato per alimenti.",
+            en: "Empty jar used for food.",
+            fi: "Tyhjä elintarvikkeiden lasipurkki."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Il barattolo costituisce un imballaggio in vetro e può essere destinato alla relativa raccolta differenziata."
+
+        spiegazione: {
+            it: "Il barattolo costituisce un imballaggio in vetro e può essere destinato alla relativa raccolta differenziata.",
+            en: "The jar is glass packaging and can be placed in the corresponding recycling collection.",
+            fi: "Lasipurkki on lasipakkaus ja voidaan lajitella lasipakkausten keräykseen."
+        }
     },
+
 
     {
         emoji: "🪥",
-        nome: "Spazzolino da denti",
-        descrizione: "Spazzolino domestico completamente usurato.",
+
+        nome: {
+            it: "Spazzolino da denti",
+            en: "Toothbrush",
+            fi: "Hammasharja"
+        },
+
+        descrizione: {
+            it: "Spazzolino domestico completamente usurato.",
+            en: "Completely worn-out household toothbrush.",
+            fi: "Täysin kulunut hammasharja."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 1,
-        spiegazione: "Uno spazzolino comune non è generalmente un imballaggio e non va nella raccolta ordinaria degli imballaggi in plastica."
+
+        spiegazione: {
+            it: "Uno spazzolino comune non è generalmente un imballaggio e non va nella raccolta ordinaria degli imballaggi in plastica.",
+            en: "A regular toothbrush is generally not packaging and should not go into ordinary plastic packaging collection.",
+            fi: "Tavallinen hammasharja ei yleensä ole pakkaus, eikä sitä tule laittaa tavalliseen muovipakkausten keräykseen."
+        }
     },
+
 
     {
         emoji: "📦",
-        nome: "Scatola di cartone",
-        descrizione: "Scatola pulita utilizzata per una spedizione.",
+
+        nome: {
+            it: "Scatola di cartone",
+            en: "Cardboard box",
+            fi: "Kartonkilaatikko"
+        },
+
+        descrizione: {
+            it: "Scatola pulita utilizzata per una spedizione.",
+            en: "Clean cardboard box used for shipping.",
+            fi: "Puhdas lähetykseen käytetty kartonkilaatikko."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Il cartone pulito è normalmente destinato alla raccolta della carta e del cartone."
+
+        spiegazione: {
+            it: "Il cartone pulito è normalmente destinato alla raccolta della carta e del cartone.",
+            en: "Clean cardboard is normally placed in paper and cardboard recycling.",
+            fi: "Puhdas kartonki lajitellaan yleensä paperin ja kartongin keräykseen."
+        }
     },
+
 
     {
         emoji: "🧴",
-        nome: "Bottiglia di plastica",
-        descrizione: "Bottiglia per bevanda, vuota e schiacciata.",
+
+        nome: {
+            it: "Bottiglia di plastica",
+            en: "Plastic bottle",
+            fi: "Muovipullo"
+        },
+
+        descrizione: {
+            it: "Bottiglia per bevanda, vuota e schiacciata.",
+            en: "Empty and crushed beverage bottle.",
+            fi: "Tyhjä ja litistetty juomapullo."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 0,
-        spiegazione: "Le bottiglie di plastica per bevande sono imballaggi e possono essere conferite nella raccolta prevista per gli imballaggi in plastica."
+
+        spiegazione: {
+            it: "Le bottiglie di plastica per bevande sono imballaggi e possono essere conferite nella raccolta prevista per gli imballaggi in plastica.",
+            en: "Plastic beverage bottles are packaging and can be placed in the collection provided for plastic packaging.",
+            fi: "Muoviset juomapullot ovat pakkauksia ja voidaan lajitella muovipakkausten keräykseen."
+        }
     },
+
 
     {
         emoji: "🍌",
-        nome: "Buccia di banana",
-        descrizione: "Residuo organico proveniente dalla preparazione di un pasto.",
+
+        nome: {
+            it: "Buccia di banana",
+            en: "Banana peel",
+            fi: "Banaaninkuori"
+        },
+
+        descrizione: {
+            it: "Residuo organico proveniente dalla preparazione di un pasto.",
+            en: "Organic waste left from preparing a meal.",
+            fi: "Aterian valmistuksesta syntynyt biojäte."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 3,
-        spiegazione: "La buccia di banana è un residuo organico biodegradabile e può essere conferita nella raccolta dell'organico dove prevista."
+
+        spiegazione: {
+            it: "La buccia di banana è un residuo organico biodegradabile e può essere conferita nella raccolta dell'organico dove prevista.",
+            en: "A banana peel is biodegradable organic waste and can be placed in organic waste collection where available.",
+            fi: "Banaaninkuori on biohajoavaa biojätettä ja voidaan lajitella biojätteen keräykseen siellä, missä se on käytössä."
+        }
     },
+
 
     {
         emoji: "👕",
-        nome: "Vecchia maglietta",
-        descrizione: "Indumento ancora integro ma che non utilizzi più.",
+
+        nome: {
+            it: "Vecchia maglietta",
+            en: "Old T-shirt",
+            fi: "Vanha T-paita"
+        },
+
+        descrizione: {
+            it: "Indumento ancora integro ma che non utilizzi più.",
+            en: "An intact piece of clothing that you no longer use.",
+            fi: "Ehjä vaate, jota et enää käytä."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 2,
-        spiegazione: "I tessili possono essere raccolti attraverso sistemi dedicati, favorendo il riuso o il recupero delle fibre."
+
+        spiegazione: {
+            it: "I tessili possono essere raccolti attraverso sistemi dedicati, favorendo il riuso o il recupero delle fibre.",
+            en: "Textiles can be collected through dedicated systems, supporting reuse or fiber recovery.",
+            fi: "Tekstiilejä voidaan kerätä erillisiin keräysjärjestelmiin uudelleenkäyttöä tai kuitujen hyödyntämistä varten."
+        }
     },
+
 
     {
         emoji: "📱",
-        nome: "Vecchio smartphone",
-        descrizione: "Dispositivo elettronico non più utilizzato.",
+
+        nome: {
+            it: "Vecchio smartphone",
+            en: "Old smartphone",
+            fi: "Vanha älypuhelin"
+        },
+
+        descrizione: {
+            it: "Dispositivo elettronico non più utilizzato.",
+            en: "Electronic device that is no longer used.",
+            fi: "Käytöstä poistettu elektroninen laite."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 2,
-        spiegazione: "Uno smartphone è un'apparecchiatura elettrica/elettronica a fine vita e richiede una gestione specifica per permettere il recupero di materiali e componenti."
+
+        spiegazione: {
+            it: "Uno smartphone è un'apparecchiatura elettrica/elettronica a fine vita e richiede una gestione specifica per permettere il recupero di materiali e componenti.",
+            en: "A smartphone is end-of-life electrical/electronic equipment and requires specific handling to recover materials and components.",
+            fi: "Älypuhelin on käytöstä poistunut sähkö- ja elektroniikkalaite, joka vaatii erillisen käsittelyn materiaalien ja komponenttien talteenottamiseksi."
+        }
     },
+
 
     {
         emoji: "🪟",
-        nome: "Bicchiere di vetro rotto",
-        descrizione: "Bicchiere domestico danneggiato, non più utilizzabile.",
+
+        nome: {
+            it: "Bicchiere di vetro rotto",
+            en: "Broken glass",
+            fi: "Rikkoutunut lasilasi"
+        },
+
+        descrizione: {
+            it: "Bicchiere domestico danneggiato, non più utilizzabile.",
+            en: "Damaged household drinking glass that can no longer be used.",
+            fi: "Vaurioitunut juomalasi, jota ei voi enää käyttää."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 1,
-        spiegazione: "Il vetro degli oggetti non coincide necessariamente con il vetro degli imballaggi. Bicchieri e altri oggetti possono avere composizioni differenti e non vanno automaticamente nella raccolta del vetro."
+
+        spiegazione: {
+            it: "Il vetro degli oggetti non coincide necessariamente con il vetro degli imballaggi. Bicchieri e altri oggetti possono avere composizioni differenti e non vanno automaticamente nella raccolta del vetro.",
+            en: "Glass objects are not necessarily the same as glass packaging. Drinking glasses and other objects may have different compositions and should not automatically go into glass packaging collection.",
+            fi: "Esineiden lasi ei välttämättä ole samaa kuin lasipakkausten lasi. Juomalaseilla ja muilla esineillä voi olla erilainen koostumus, joten niitä ei tule automaattisesti laittaa lasipakkausten keräykseen."
+        }
     },
+
 
     {
         emoji: "☕",
-        nome: "Tazza in ceramica",
-        descrizione: "Vecchia tazza domestica completamente rotta.",
+
+        nome: {
+            it: "Tazza in ceramica",
+            en: "Ceramic cup",
+            fi: "Keraaminen kuppi"
+        },
+
+        descrizione: {
+            it: "Vecchia tazza domestica completamente rotta.",
+            en: "Old household ceramic cup that is completely broken.",
+            fi: "Vanha täysin rikkoutunut keraaminen kuppi."
+        },
+
+        opzioni: {
+            it: [
+                "♻️ Raccolta differenziata ordinaria",
+                "🗑️ Rifiuto indifferenziato",
+                "⚠️ Raccolta specifica",
+                "🌱 Rifiuto organico"
+            ],
+            en: [
+                "♻️ Regular recycling",
+                "🗑️ General waste",
+                "⚠️ Special collection",
+                "🌱 Organic waste"
+            ],
+            fi: [
+                "♻️ Tavallinen lajittelu",
+                "🗑️ Sekajäte",
+                "⚠️ Erilliskeräys",
+                "🌱 Biojäte"
+            ]
+        },
+
         corretta: 1,
-        spiegazione: "La ceramica non è un imballaggio in vetro e non deve essere confusa con il vetro destinato al riciclo degli imballaggi."
+
+        spiegazione: {
+            it: "La ceramica non è un imballaggio in vetro e non deve essere confusa con il vetro destinato al riciclo degli imballaggi.",
+            en: "Ceramic is not glass packaging and should not be confused with glass intended for packaging recycling.",
+            fi: "Keramiikka ei ole lasipakkaus, eikä sitä tule sekoittaa lasipakkausten kierrätykseen tarkoitettuun lasiin."
+        }
     }
 
 ];
 
+
+/* =====================================================
+   VARIABILI DEL GIOCO
+   ===================================================== */
 
 let indice = 0;
 let punteggio = 0;
@@ -548,23 +1439,119 @@ let suggerimenti = 2;
 let intervallo;
 
 
+/* =====================================================
+   LINGUA
+   ===================================================== */
+
+let linguaCorrente =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+if (!traduzioni[linguaCorrente]) {
+    linguaCorrente = "it";
+}
+
+
+function cambiaLingua() {
+
+    const selettore =
+        document.getElementById("lingua");
+
+    linguaCorrente =
+        selettore.value;
+
+    localStorage.setItem(
+        "linguaEcoGame",
+        linguaCorrente
+    );
+
+    document.documentElement.lang =
+        linguaCorrente;
+
+    applicaTraduzioni();
+
+    mostraCaso();
+
+}
+
+
+/* =====================================================
+   APPLICA TRADUZIONI
+   ===================================================== */
+
+function applicaTraduzioni() {
+
+    const testi =
+        traduzioni[linguaCorrente];
+
+    document
+        .querySelectorAll("[data-testo]")
+        .forEach(function(elemento) {
+
+            const chiave =
+                elemento.getAttribute("data-testo");
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    testi,
+                    chiave
+                )
+            ) {
+
+                elemento.innerText =
+                    testi[chiave];
+
+            }
+
+        });
+
+}
+
+
+/* =====================================================
+   MOSTRA CASO
+   ===================================================== */
+
 function mostraCaso() {
 
     rispostaData = false;
 
-    const caso = casi[indice];
+    const caso =
+        casi[indice];
+
+    const lingua =
+        linguaCorrente;
+
 
     document.getElementById("progressivo").innerText =
-        "Caso " + (indice + 1) + " di " + casi.length;
+        traduzioni[lingua].caso +
+        " " +
+        (indice + 1) +
+        " " +
+        traduzioni[lingua].di +
+        " " +
+        casi.length;
+
 
     document.getElementById("emoji").innerText =
         caso.emoji;
 
+
     document.getElementById("nome").innerText =
-        caso.nome;
+        caso.nome[lingua];
+
 
     document.getElementById("descrizione").innerText =
-        caso.descrizione;
+        caso.descrizione[lingua];
+
+
+    for (let i = 0; i < 4; i++) {
+
+        document.getElementById("opzione" + i).innerText =
+            caso.opzioni[lingua][i];
+
+    }
+
 
     document.getElementById("feedback").innerText =
         "";
@@ -575,6 +1562,10 @@ function mostraCaso() {
 }
 
 
+/* =====================================================
+   RISPOSTA
+   ===================================================== */
+
 function rispondi(scelta) {
 
     if (rispostaData) {
@@ -583,7 +1574,8 @@ function rispondi(scelta) {
 
     rispostaData = true;
 
-    const caso = casi[indice];
+    const caso =
+        casi[indice];
 
     const feedback =
         document.getElementById("feedback");
@@ -611,7 +1603,9 @@ function rispondi(scelta) {
         }
 
         feedback.innerText =
-            "✓ CORRETTO! +" + punti + " punti";
+            traduzioni[linguaCorrente]
+                .corretto
+                .replace("{punti}", punti);
 
         feedback.style.color =
             "#81c784";
@@ -624,7 +1618,7 @@ function rispondi(scelta) {
         combo = 0;
 
         feedback.innerText =
-            "✕ ERRORE! -50 punti";
+            traduzioni[linguaCorrente].errore;
 
         feedback.style.color =
             "#ef9a9a";
@@ -633,7 +1627,13 @@ function rispondi(scelta) {
 
 
     spiegazione.innerText =
-        "🔬 " + caso.spiegazione;
+        traduzioni[linguaCorrente]
+            .spiegazione
+            .replace(
+                "{testo}",
+                caso.spiegazione[linguaCorrente]
+            );
+
 
     spiegazione.style.display =
         "block";
@@ -651,15 +1651,23 @@ function rispondi(scelta) {
         indice++;
 
         if (indice < casi.length) {
+
             mostraCaso();
+
         } else {
+
             fine();
+
         }
 
     }, 1800);
 
 }
 
+
+/* =====================================================
+   SUGGERIMENTO
+   ===================================================== */
 
 function usaSuggerimento() {
 
@@ -669,7 +1677,10 @@ function usaSuggerimento() {
 
     if (suggerimenti <= 0) {
 
-        alert("Hai già utilizzato tutti i suggerimenti!");
+        alert(
+            traduzioni[linguaCorrente]
+                .suggerimentoEsaurito
+        );
 
         return;
     }
@@ -680,11 +1691,10 @@ function usaSuggerimento() {
         Math.max(0, punteggio - 25);
 
 
-    const caso = casi[indice];
-
-
     document.getElementById("feedback").innerText =
-        "💡 Pensa a quale tipo di rifiuto NON dovrebbe finire nei normali contenitori degli imballaggi.";
+        traduzioni[linguaCorrente]
+            .suggerimentoTesto;
+
 
     document.getElementById("feedback").style.color =
         "#ffcc80";
@@ -696,39 +1706,50 @@ function usaSuggerimento() {
 }
 
 
+/* =====================================================
+   TIMER
+   ===================================================== */
+
 function avviaTimer() {
 
-    intervallo = setInterval(function() {
+    clearInterval(intervallo);
 
-        tempo--;
+    intervallo =
+        setInterval(function() {
 
-        document.getElementById("tempo").innerText =
-            tempo;
+            tempo--;
 
-        document.getElementById("barraTempo").style.width =
-            (tempo / 60 * 100) + "%";
+            document.getElementById("tempo").innerText =
+                tempo;
 
-
-        if (tempo <= 10) {
-
-            document.getElementById("barraTempo").style.background =
-                "#ef5350";
-
-        }
+            document.getElementById("barraTempo").style.width =
+                (tempo / 60 * 100) + "%";
 
 
-        if (tempo <= 0) {
+            if (tempo <= 10) {
 
-            clearInterval(intervallo);
+                document.getElementById("barraTempo").style.background =
+                    "#ef5350";
 
-            fine();
+            }
 
-        }
 
-    }, 1000);
+            if (tempo <= 0) {
+
+                clearInterval(intervallo);
+
+                fine();
+
+            }
+
+        }, 1000);
 
 }
 
+
+/* =====================================================
+   FINE DEL GIOCO
+   ===================================================== */
 
 function fine() {
 
@@ -742,7 +1763,14 @@ function fine() {
 
 
     document.getElementById("punteggioFinale").innerText =
-        punteggio + " punti";
+        punteggio + " " +
+        (
+            linguaCorrente === "it"
+                ? "punti"
+                : linguaCorrente === "en"
+                    ? "points"
+                    : "pistettä"
+        );
 
 
     document.getElementById("corretteFinale").innerText =
@@ -755,30 +1783,38 @@ function fine() {
         migliorCombo;
 
 
+    const testi =
+        traduzioni[linguaCorrente];
+
+
     if (corrette === 15) {
 
         document.getElementById("messaggio").innerText =
-            "🏆 Prestazione perfetta. Hai dimostrato un'ottima capacità di analizzare i rifiuti.";
+            testi.perfetto;
 
     } else if (corrette >= 11) {
 
         document.getElementById("messaggio").innerText =
-            "🌱 Ottimo risultato. Hai una buona conoscenza della gestione dei rifiuti.";
+            testi.ottimo;
 
     } else if (corrette >= 8) {
 
         document.getElementById("messaggio").innerText =
-            "👍 Buon risultato. Alcuni casi richiedono ancora un po' di attenzione.";
+            testi.buono;
 
     } else {
 
         document.getElementById("messaggio").innerText =
-            "📚 Questa sfida era difficile. Riprovare può aiutarti a riconoscere meglio i diversi materiali.";
+            testi.difficile;
 
     }
 
 }
 
+
+/* =====================================================
+   RICOMINCIA
+   ===================================================== */
 
 function ricomincia() {
 
@@ -818,6 +1854,10 @@ function ricomincia() {
 }
 
 
+/* =====================================================
+   TORNA AL MENU
+   ===================================================== */
+
 function tornaMenu() {
 
     window.location.href =
@@ -826,13 +1866,24 @@ function tornaMenu() {
 }
 
 
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+document.getElementById("lingua").value =
+    linguaCorrente;
+
+document.documentElement.lang =
+    linguaCorrente;
+
+applicaTraduzioni();
+
 mostraCaso();
 
 avviaTimer();
 
-
 </script>
 
 </body>
-
 </html>
+```
