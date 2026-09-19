@@ -149,10 +149,17 @@ footer {
 
 <h1>🌍 EcoGame</h1>
 
-<p id="sottotitolo">
-    <p>Impara l'ecologia attraverso quiz e giochi!</p>
-<p>Visita il mio account social TikTok: @username561812</p>
-</p>
+<div id="sottotitolo">
+
+    <p id="fraseEcologia">
+        Impara l'ecologia attraverso quiz e giochi!
+    </p>
+
+    <p id="fraseTikTok">
+        Visita il mio account social TikTok: @username561812
+    </p>
+
+</div>
 
 </header>
 
@@ -281,8 +288,11 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "it";
 
-        document.getElementById("sottotitolo").textContent =
+        document.getElementById("fraseEcologia").textContent =
             "Impara l'ecologia attraverso quiz e giochi!";
+
+        document.getElementById("fraseTikTok").textContent =
+            "Visita il mio account social TikTok: @username561812";
 
         document.getElementById("titoloQuiz").textContent =
             "Quiz ecologico";
@@ -329,8 +339,11 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "en";
 
-        document.getElementById("sottotitolo").textContent =
+        document.getElementById("fraseEcologia").textContent =
             "Learn about ecology through quizzes and games!";
+
+        document.getElementById("fraseTikTok").textContent =
+            "Visit my TikTok social media account: @username561812";
 
         document.getElementById("titoloQuiz").textContent =
             "Ecology Quiz";
@@ -377,8 +390,11 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "fi";
 
-        document.getElementById("sottotitolo").textContent =
+        document.getElementById("fraseEcologia").textContent =
             "Opi ekologiasta tietovisojen ja pelien avulla!";
+
+        document.getElementById("fraseTikTok").textContent =
+            "Käy TikTok-sosiaalisen median tililläni: @username561812";
 
         document.getElementById("titoloQuiz").textContent =
             "Ekologiatietovisa";
