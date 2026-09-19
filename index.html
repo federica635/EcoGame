@@ -24,7 +24,7 @@ body {
 header {
     background: #2e7d32;
     color: white;
-    padding: 45px 20px;
+    padding: 30px 20px 45px;
 }
 
 header h1 {
@@ -34,6 +34,25 @@ header h1 {
 
 header p {
     font-size: 20px;
+}
+
+.lingue {
+    margin-bottom: 25px;
+}
+
+.lingue button {
+    background: white;
+    color: #173b22;
+    border: 2px solid #43a047;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.lingue button:hover {
+    background: #e8f5e9;
 }
 
 .contenitore {
@@ -73,7 +92,7 @@ header p {
     color: #555;
 }
 
-button {
+.scheda button {
     border: none;
     border-radius: 12px;
     padding: 14px 25px;
@@ -83,16 +102,12 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.scheda button:hover {
     background: #1b5e20;
 }
 
 .disponibile {
     border: 3px solid #43a047;
-}
-
-.prossimamente {
-    opacity: 0.65;
 }
 
 footer {
@@ -122,13 +137,24 @@ footer {
 
 <header>
 
+<div class="lingue">
+
+    <button onclick="cambiaLingua('it')">🇮🇹 Italiano</button>
+
+    <button onclick="cambiaLingua('en')">🇬🇧 English</button>
+
+    <button onclick="cambiaLingua('fi')">🇫🇮 Suomi</button>
+
+</div>
+
 <h1>🌍 EcoGame</h1>
 
-<p>
+<p id="sottotitolo">
     Impara l'ecologia attraverso quiz e giochi!
 </p>
 
 </header>
+
 
 <div class="contenitore">
 
@@ -143,16 +169,16 @@ footer {
             🧠
         </div>
 
-        <h2>
+        <h2 id="titoloQuiz">
             Quiz ecologico
         </h2>
 
-        <p>
+        <p id="testoQuiz">
             20 domande su ambiente, ecologia e clima
             per mettere alla prova le tue conoscenze.
         </p>
 
-        <button onclick="apriQuiz()">
+        <button onclick="apriQuiz()" id="bottoneQuiz">
             ▶️ Inizia il quiz
         </button>
 
@@ -167,16 +193,16 @@ footer {
             🎮
         </div>
 
-        <h2>
+        <h2 id="titoloGiochi">
             Mini-giochi
         </h2>
 
-        <p>
+        <p id="testoGiochi">
             10 giochi per mettere alla prova
             le tue conoscenze sull'ambiente.
         </p>
 
-        <button onclick="apriGiochi()">
+        <button onclick="apriGiochi()" id="bottoneGiochi">
             🎮 Vai ai giochi
         </button>
 
@@ -191,16 +217,16 @@ footer {
             📚
         </div>
 
-        <h2>
+        <h2 id="titoloInfo">
             Informazioni
         </h2>
 
-        <p>
+        <p id="testoInfo">
             Consulta la guida con tutte le
             informazioni necessarie per EcoGame.
         </p>
 
-        <button onclick="informazioni()">
+        <button onclick="informazioni()" id="bottoneInfo">
             📖 Leggi le informazioni
         </button>
 
@@ -215,16 +241,16 @@ footer {
             📖
         </div>
 
-        <h2>
+        <h2 id="titoloAgenda">
             Diario & Recensioni
         </h2>
 
-        <p>
+        <p id="testoAgenda">
             Scrivi le tue note personali
             e lascia una recensione su EcoGame.
         </p>
 
-        <button onclick="apriAgenda()">
+        <button onclick="apriAgenda()" id="bottoneAgenda">
             ✏️ Apri diario
         </button>
 
@@ -235,13 +261,165 @@ footer {
 
 </div>
 
+
 <footer>
 
-🌱 EcoGame — Imparare l'ecologia giocando
+<span id="footerTesto">
+    🌱 EcoGame — Imparare l'ecologia giocando
+</span>
 
 </footer>
 
+
 <script>
+
+
+function cambiaLingua(lingua) {
+
+    if (lingua === "it") {
+
+        document.documentElement.lang = "it";
+
+        document.getElementById("sottotitolo").textContent =
+            "Impara l'ecologia attraverso quiz e giochi!";
+
+        document.getElementById("titoloQuiz").textContent =
+            "Quiz ecologico";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 domande su ambiente, ecologia e clima per mettere alla prova le tue conoscenze.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Inizia il quiz";
+
+        document.getElementById("titoloGiochi").textContent =
+            "Mini-giochi";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 giochi per mettere alla prova le tue conoscenze sull'ambiente.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Vai ai giochi";
+
+        document.getElementById("titoloInfo").textContent =
+            "Informazioni";
+
+        document.getElementById("testoInfo").textContent =
+            "Consulta la guida con tutte le informazioni necessarie per EcoGame.";
+
+        document.getElementById("bottoneInfo").textContent =
+            "📖 Leggi le informazioni";
+
+        document.getElementById("titoloAgenda").textContent =
+            "Diario & Recensioni";
+
+        document.getElementById("testoAgenda").textContent =
+            "Scrivi le tue note personali e lascia una recensione su EcoGame.";
+
+        document.getElementById("bottoneAgenda").textContent =
+            "✏️ Apri diario";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Imparare l'ecologia giocando";
+    }
+
+
+    if (lingua === "en") {
+
+        document.documentElement.lang = "en";
+
+        document.getElementById("sottotitolo").textContent =
+            "Learn about ecology through quizzes and games!";
+
+        document.getElementById("titoloQuiz").textContent =
+            "Ecology Quiz";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 questions about the environment, ecology and climate to test your knowledge.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Start the quiz";
+
+        document.getElementById("titoloGiochi").textContent =
+            "Mini-games";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 games to test your knowledge about the environment.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Go to games";
+
+        document.getElementById("titoloInfo").textContent =
+            "Information";
+
+        document.getElementById("testoInfo").textContent =
+            "Read the guide with all the information you need about EcoGame.";
+
+        document.getElementById("bottoneInfo").textContent =
+            "📖 Read the information";
+
+        document.getElementById("titoloAgenda").textContent =
+            "Diary & Reviews";
+
+        document.getElementById("testoAgenda").textContent =
+            "Write your personal notes and leave a review about EcoGame.";
+
+        document.getElementById("bottoneAgenda").textContent =
+            "✏️ Open diary";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Learn about ecology while playing";
+    }
+
+
+    if (lingua === "fi") {
+
+        document.documentElement.lang = "fi";
+
+        document.getElementById("sottotitolo").textContent =
+            "Opi ekologiasta tietovisojen ja pelien avulla!";
+
+        document.getElementById("titoloQuiz").textContent =
+            "Ekologiatietovisa";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 kysymystä ympäristöstä, ekologiasta ja ilmastosta tietojesi testaamiseen.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Aloita tietovisa";
+
+        document.getElementById("titoloGiochi").textContent =
+            "Minipelit";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 peliä, joissa voit testata ympäristöön liittyviä tietojasi.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Siirry peleihin";
+
+        document.getElementById("titoloInfo").textContent =
+            "Tietoa";
+
+        document.getElementById("testoInfo").textContent =
+            "Lue opas ja tutustu kaikkiin EcoGameen liittyviin tietoihin.";
+
+        document.getElementById("bottoneInfo").textContent =
+            "📖 Lue tiedot";
+
+        document.getElementById("titoloAgenda").textContent =
+            "Päiväkirja & Arvostelut";
+
+        document.getElementById("testoAgenda").textContent =
+            "Kirjoita henkilökohtaisia muistiinpanoja ja jätä arvostelu EcoGamesta.";
+
+        document.getElementById("bottoneAgenda").textContent =
+            "✏️ Avaa päiväkirja";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Opi ekologiasta pelaamalla";
+    }
+
+}
 
 
 function apriQuiz() {
