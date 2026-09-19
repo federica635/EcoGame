@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>💧 Dove finisce l'acqua? - EcoGame</title>
 
 <style>
@@ -28,7 +28,6 @@ header {
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
 }
 
 .logo {
@@ -48,7 +47,7 @@ header {
 }
 
 .lingua {
-    padding: 9px;
+    padding: 9px 12px;
     border-radius: 9px;
     border: none;
     font-size: 14px;
@@ -120,7 +119,6 @@ header {
     color: #c2d1d6;
     line-height: 1.7;
     font-size: 17px;
-    margin-top: 10px;
 }
 
 .data-box {
@@ -149,10 +147,6 @@ header {
 }
 
 .data strong {
-    color: #e0f7fa;
-}
-
-.question {
     color: #e0f7fa;
 }
 
@@ -227,11 +221,6 @@ header {
     text-align: center;
 }
 
-#finale h2 {
-    color: #b3e5fc;
-    font-size: 32px;
-}
-
 .final-score {
     font-size: 60px;
     color: #81d4fa;
@@ -256,10 +245,6 @@ header {
     font-size: 16px;
 }
 
-.final-button:hover {
-    background: #03a9f4;
-}
-
 @media(max-width: 700px) {
 
     .options,
@@ -280,183 +265,188 @@ header {
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-```
-<div class="logo">
-    🌍 EcoGame
-</div>
-
-<div class="header-right">
-
-    <div class="progress">
-        <span id="testoCaso">Caso</span>
-        <span id="casoNumero">1</span> / 8
+    <div class="logo">
+        🌍 EcoGame
     </div>
 
-    <select class="lingua" id="lingua" onchange="cambiaLingua()">
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fi">🇫🇮 Suomi</option>
-    </select>
+    <div class="header-right">
 
-</div>
-```
+        <div class="progress">
+            <span id="testoCaso">Caso</span>
+            <span id="casoNumero">1</span> / 8
+        </div>
+
+        <select class="lingua" id="lingua" onchange="cambiaLingua()">
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fi">🇫🇮 Suomi</option>
+        </select>
+
+    </div>
 
 </header>
 
+
 <div class="container">
 
-```
-<div class="intro">
+    <div class="intro">
 
-    <h1 id="titoloGioco">
-        💧 Dove finisce l'acqua?
-    </h1>
+        <h1 id="titoloGioco">
+            💧 Dove finisce l'acqua?
+        </h1>
 
-    <p id="introTesto">
-        Un'indagine scientifica sulle risorse idriche.
-        <br>
-        Analizza i dati, trova gli indizi e individua
-        la causa del problema.
-    </p>
+        <p id="introGioco">
+            Un'indagine scientifica sulle risorse idriche.
+            <br>
+            Analizza i dati, trova gli indizi e individua
+            la causa del problema.
+        </p>
 
-</div>
+    </div>
 
 
-<div class="stats">
+    <div class="stats">
 
-    <div class="stat">
+        <div class="stat">
 
-        <div class="stat-title" id="testoRisolte">
-            🔎 Indagini risolte
+            <div class="stat-title" id="statRisolte">
+                🔎 Indagini risolte
+            </div>
+
+            <div class="stat-number">
+                <span id="risolte">0</span>
+            </div>
+
         </div>
 
-        <div class="stat-number">
-            <span id="risolte">0</span>
+
+        <div class="stat">
+
+            <div class="stat-title" id="statPunteggio">
+                🧠 Punteggio
+            </div>
+
+            <div class="stat-number">
+                <span id="punteggio">0</span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title" id="statCaso">
+                💧 Caso attuale
+            </div>
+
+            <div class="stat-number">
+                #<span id="casoStat">1</span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <div class="stat">
+    <div class="card" id="gioco">
 
-        <div class="stat-title" id="testoPunteggio">
-            🧠 Punteggio
+        <div class="case-title" id="titoloCaso"></div>
+
+        <div class="case-description" id="descrizioneCaso"></div>
+
+
+        <div class="data-box">
+
+            <h3 id="titoloDati">
+                📊 Dati dell'indagine
+            </h3>
+
+            <div class="data-grid" id="dati"></div>
+
         </div>
 
-        <div class="stat-number">
-            <span id="punteggio">0</span>
-        </div>
 
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-title" id="testoCasoAttuale">
-            💧 Caso attuale
-        </div>
-
-        <div class="stat-number">
-            #<span id="casoStat">1</span>
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card" id="gioco">
-
-    <div class="case-title" id="titoloCaso"></div>
-
-    <div class="case-description" id="descrizioneCaso"></div>
-
-    <div class="data-box">
-
-        <h3 id="titoloDati">
-            📊 Dati dell'indagine
+        <h3 id="domanda">
+            🔎 Quale spiegazione è più compatibile con i dati?
         </h3>
 
-        <div class="data-grid" id="dati"></div>
+
+        <div class="options" id="opzioni"></div>
+
+
+        <div id="feedback"></div>
+
+
+        <button id="next" onclick="prossimoCaso()">
+            ➡️ Prossima indagine
+        </button>
 
     </div>
 
 
-    <h3 class="question" id="domanda">
-        🔎 Quale spiegazione è più compatibile con i dati?
-    </h3>
+    <div class="card" id="finale">
+
+        <h2 id="titoloFinale">
+            🏆 Indagine completata
+        </h2>
+
+        <div class="final-score">
+            <span id="punteggioFinale">0</span> / 800
+        </div>
+
+        <p class="final-message" id="messaggioFinale"></p>
+
+        <button
+            class="final-button"
+            onclick="ricomincia()"
+            id="bottoneRicomincia">
+
+            🔄 Rifai l'indagine
+
+        </button>
 
 
-    <div class="options" id="opzioni"></div>
+        <button
+            class="final-button"
+            onclick="tornaGiochi()"
+            id="bottoneGiochi">
 
+            🎮 Torna ai giochi
 
-    <div id="feedback"></div>
+        </button>
 
-
-    <button id="next" onclick="prossimoCaso()">
-        ➡️ Prossima indagine
-    </button>
-
-</div>
-
-
-<div class="card" id="finale">
-
-    <h2 id="titoloFinale">
-        🏆 Indagine completata
-    </h2>
-
-    <div class="final-score">
-        <span id="punteggioFinale">0</span> / 800
     </div>
 
-    <p class="final-message" id="messaggioFinale"></p>
-
-    <button
-        class="final-button"
-        onclick="ricomincia()"
-        id="btnRicomincia">
-        🔄 Rifai l'indagine
-    </button>
-
-
-    <button
-        class="final-button"
-        onclick="tornaGiochi()"
-        id="btnGiochi">
-        🎮 Torna ai giochi
-    </button>
-
 </div>
-```
 
-</div>
 
 <script>
 
-/* =====================================================
-   TRADUZIONI
-===================================================== */
+/* =========================================================
+   LINGUA
+   ========================================================= */
 
 const traduzioni = {
 
     it: {
 
-        caso: "Caso",
-        titoloGioco: "💧 Dove finisce l'acqua?",
+        titolo: "💧 Dove finisce l'acqua?",
 
         intro:
             "Un'indagine scientifica sulle risorse idriche.<br>Analizza i dati, trova gli indizi e individua la causa del problema.",
 
+        caso: "Caso",
+
         risolte: "🔎 Indagini risolte",
+
         punteggio: "🧠 Punteggio",
+
         casoAttuale: "💧 Caso attuale",
 
         dati: "📊 Dati dell'indagine",
@@ -470,49 +460,56 @@ const traduzioni = {
         finale:
             "🏆 Indagine completata",
 
-        rifai:
+        ricomincia:
             "🔄 Rifai l'indagine",
 
-        giochi:
+        tornaGiochi:
             "🎮 Torna ai giochi",
 
-        risolta:
+        corretta:
             "Indagine risolta.",
 
-        nonCompatibile:
+        errata:
             "Ipotesi non compatibile.",
 
         punti:
             "punti",
 
-        corretta:
+        rispostaCorretta:
             "La risposta corretta era:",
 
-        messaggio800:
-            "🏆 Investigatore esperto. Hai interpretato correttamente tutti gli indizi e i dati.",
+        messaggiFinali: {
 
-        messaggio600:
-            "🔎 Ottimo lavoro. Hai individuato la maggior parte delle cause utilizzando i dati.",
+            perfetto:
+                "🏆 Investigatore esperto. Hai interpretato correttamente tutti gli indizi e i dati.",
 
-        messaggio400:
-            "🧠 Buona analisi, ma alcuni casi richiedevano maggiore attenzione ai dati.",
+            ottimo:
+                "🔎 Ottimo lavoro. Hai individuato la maggior parte delle cause utilizzando i dati.",
 
-        messaggio0:
-            "💧 L'indagine è stata difficile. Rileggi gli indizi e prova a cercare le relazioni tra i dati."
+            buono:
+                "🧠 Buona analisi, ma alcuni casi richiedevano maggiore attenzione ai dati.",
+
+            difficile:
+                "💧 L'indagine è stata difficile. Rileggi gli indizi e prova a cercare le relazioni tra i dati."
+
+        }
 
     },
 
 
     en: {
 
-        caso: "Case",
-        titoloGioco: "💧 Where Does the Water Go?",
+        titolo: "💧 Where Does the Water Go?",
 
         intro:
             "A scientific investigation into water resources.<br>Analyze the data, find the clues and identify the cause of the problem.",
 
+        caso: "Case",
+
         risolte: "🔎 Cases solved",
+
         punteggio: "🧠 Score",
+
         casoAttuale: "💧 Current case",
 
         dati: "📊 Investigation data",
@@ -526,49 +523,56 @@ const traduzioni = {
         finale:
             "🏆 Investigation completed",
 
-        rifai:
+        ricomincia:
             "🔄 Restart investigation",
 
-        giochi:
+        tornaGiochi:
             "🎮 Back to games",
 
-        risolta:
+        corretta:
             "Investigation solved.",
 
-        nonCompatibile:
-            "Hypothesis not supported by the data.",
+        errata:
+            "Hypothesis not supported.",
 
         punti:
             "points",
 
-        corretta:
+        rispostaCorretta:
             "The correct answer was:",
 
-        messaggio800:
-            "🏆 Expert investigator. You correctly interpreted all the clues and data.",
+        messaggiFinali: {
 
-        messaggio600:
-            "🔎 Great work. You identified most of the causes using the data.",
+            perfetto:
+                "🏆 Expert investigator. You correctly interpreted all the clues and data.",
 
-        messaggio400:
-            "🧠 Good analysis, but some cases required more attention to the data.",
+            ottimo:
+                "🔎 Excellent work. You identified most of the causes using the data.",
 
-        messaggio0:
-            "💧 The investigation was difficult. Review the clues and look for relationships between the data."
+            buono:
+                "🧠 Good analysis, but some cases required more careful attention to the data.",
+
+            difficile:
+                "💧 The investigation was difficult. Review the clues and try to find the relationships between the data."
+
+        }
 
     },
 
 
     fi: {
 
-        caso: "Tapaus",
-        titoloGioco: "💧 Minne vesi päätyy?",
+        titolo: "💧 Minne vesi päätyy?",
 
         intro:
-            "Tieteellinen tutkimus vesivaroista.<br>Analysoi tiedot, etsi vihjeet ja selvitä ongelman syy.",
+            "Tieteellinen tutkimus vesivaroista.<br>Analysoi tiedot, löydä vihjeet ja selvitä ongelman syy.",
+
+        caso: "Tapaus",
 
         risolte: "🔎 Ratkaistut tapaukset",
+
         punteggio: "🧠 Pisteet",
+
         casoAttuale: "💧 Nykyinen tapaus",
 
         dati: "📊 Tutkimustiedot",
@@ -580,619 +584,746 @@ const traduzioni = {
             "➡️ Seuraava tutkimus",
 
         finale:
-            "🏆 Tutkimus valmis",
+            "🏆 Tutkimus suoritettu",
 
-        rifai:
+        ricomincia:
             "🔄 Aloita tutkimus uudelleen",
 
-        giochi:
+        tornaGiochi:
             "🎮 Takaisin peleihin",
 
-        risolta:
+        corretta:
             "Tutkimus ratkaistu.",
 
-        nonCompatibile:
-            "Hypoteesi ei ole tietojen perusteella yhteensopiva.",
+        errata:
+            "Hypoteesi ei vastaa tietoja.",
 
         punti:
             "pistettä",
 
-        corretta:
+        rispostaCorretta:
             "Oikea vastaus oli:",
 
-        messaggio800:
-            "🏆 Asiantunteva tutkija. Tulkitsit kaikki vihjeet ja tiedot oikein.",
+        messaggiFinali: {
 
-        messaggio600:
-            "🔎 Hienoa työtä. Löysit useimmat syyt tietojen avulla.",
+            perfetto:
+                "🏆 Asiantunteva tutkija. Tulkitsit kaikki vihjeet ja tiedot oikein.",
 
-        messaggio400:
-            "🧠 Hyvä analyysi, mutta jotkin tapaukset vaativat tarkempaa tietojen tarkastelua.",
+            ottimo:
+                "🔎 Hienoa työtä. Löysit useimmat syyt tietojen avulla.",
 
-        messaggio0:
-            "💧 Tutkimus oli vaikea. Tutki vihjeet uudelleen ja etsi tietojen välisiä yhteyksiä."
+            buono:
+                "🧠 Hyvä analyysi, mutta jotkin tapaukset vaativat tarkempaa tietojen tarkastelua.",
+
+            difficile:
+                "💧 Tutkimus oli haastava. Lue vihjeet uudelleen ja etsi tietojen välisiä yhteyksiä."
+
+        }
 
     }
 
 };
 
 
-/* =====================================================
-   DATI DEI CASI
-===================================================== */
+/* =========================================================
+   CASI
+   ========================================================= */
 
-const casi = [
+const casi = {
+
+it: [
 
 {
-    titolo: {
-        it: "🔎 Caso 1 — La perdita invisibile",
-        en: "🔎 Case 1 — The Invisible Leak",
-        fi: "🔎 Tapaus 1 — Näkymätön vuoto"
-    },
+titolo: "🔎 Caso 1 — La perdita invisibile",
 
-    descrizione: {
-        it: "Il consumo registrato dagli abitanti sembra normale, ma l'acquedotto sta prelevando molta più acqua del previsto. Devi individuare dove potrebbe trovarsi il problema.",
-        en: "The recorded household consumption seems normal, but the water system is taking much more water than expected. You must identify where the problem could be.",
-        fi: "Asukkaiden kirjattu vedenkulutus näyttää normaalilta, mutta vesijohtoverkosto käyttää paljon enemmän vettä kuin odotettiin. Sinun on selvitettävä, missä ongelma voi olla."
-    },
+descrizione:
+"Il consumo registrato dagli abitanti sembra normale, ma l'acquedotto sta prelevando molta più acqua del previsto. Devi individuare dove potrebbe trovarsi il problema.",
 
-    dati: {
-        it: [
-            "Consumo domestico: +4%",
-            "Consumo industriale: +3%",
-            "Consumo agricolo: +6%",
-            "Acqua immessa nella rete: +29%",
-            "Acqua effettivamente fatturata: +5%",
-            "Segnalazioni di tubature rotte: 2"
-        ],
-        en: [
-            "Household consumption: +4%",
-            "Industrial consumption: +3%",
-            "Agricultural consumption: +6%",
-            "Water entering the network: +29%",
-            "Water actually billed: +5%",
-            "Reports of broken pipes: 2"
-        ],
-        fi: [
-            "Kotitalouksien kulutus: +4%",
-            "Teollisuuden kulutus: +3%",
-            "Maatalouden kulutus: +6%",
-            "Verkostoon syötetty vesi: +29%",
-            "Laskutettu vesi: +5%",
-            "Ilmoituksia rikkoutuneista putkista: 2"
-        ]
-    },
+dati: [
+"Consumo domestico: +4%",
+"Consumo industriale: +3%",
+"Consumo agricolo: +6%",
+"Acqua immessa nella rete: +29%",
+"Acqua effettivamente fatturata: +5%",
+"Segnalazioni di tubature rotte: 2"
+],
 
-    opzioni: {
-        it: [
-            "L'aumento dei consumi domestici",
-            "Una perdita nella rete di distribuzione",
-            "L'aumento della produzione agricola",
-            "Un errore nei contatori domestici"
-        ],
-        en: [
-            "The increase in household consumption",
-            "A leak in the distribution network",
-            "The increase in agricultural production",
-            "An error in household meters"
-        ],
-        fi: [
-            "Kotitalouksien kulutuksen kasvu",
-            "Vuoto vesijohtoverkostossa",
-            "Maataloustuotannon kasvu",
-            "Virhe kotitalouksien vesimittareissa"
-        ]
-    },
+opzioni: [
+"L'aumento dei consumi domestici",
+"Una perdita nella rete di distribuzione",
+"L'aumento della produzione agricola",
+"Un errore nei contatori domestici"
+],
 
-    corretta: 1,
+corretta: 1,
 
-    spiegazione: {
-        it: "La differenza tra acqua immessa nella rete e acqua effettivamente utilizzata indica una perdita significativa. In questo caso il dato più importante è il +29% di acqua immessa contro il solo +5% fatturato.",
-        en: "The difference between water entering the network and water actually used indicates a significant loss. The most important figure is the +29% entering the network compared with only +5% billed.",
-        fi: "Verkostoon syötetyn veden ja käytetyn veden välinen ero viittaa merkittävään hävikkiin. Tärkein tieto on verkostoon syötetyn veden +29 % verrattuna vain +5 % laskutettuun veteen."
-    }
+spiegazione:
+"La differenza tra acqua immessa nella rete e acqua effettivamente utilizzata indica una perdita significativa. In questo caso il dato più importante è il +29% di acqua immessa contro il solo +5% fatturato."
 },
 
-
 {
-    titolo: {
-        it: "🏠 Caso 2 — Il quartiere che consuma troppo",
-        en: "🏠 Case 2 — The Neighborhood That Uses Too Much",
-        fi: "🏠 Tapaus 2 — Liikaa vettä kuluttava kaupunginosa"
-    },
+titolo: "🏠 Caso 2 — Il quartiere che consuma troppo",
 
-    descrizione: {
-        it: "Due quartieri hanno popolazione e condizioni climatiche simili. Tuttavia uno consuma quasi il doppio dell'acqua. Analizza i dati.",
-        en: "Two neighborhoods have similar populations and climate conditions. However, one uses almost twice as much water. Analyze the data.",
-        fi: "Kahdessa kaupunginosassa on samanlainen väestö ja ilmasto. Toinen kuitenkin kuluttaa lähes kaksi kertaa enemmän vettä. Analysoi tiedot."
-    },
+descrizione:
+"Due quartieri hanno popolazione e condizioni climatiche simili. Tuttavia uno consuma quasi il doppio dell'acqua. Analizza i dati.",
 
-    dati: {
-        it: [
-            "Quartiere A: 145 L/persona/giorno",
-            "Quartiere B: 278 L/persona/giorno",
-            "Popolazione simile",
-            "Temperatura media identica",
-            "A ha edifici più recenti",
-            "B ha molte abitazioni costruite prima del 1980"
-        ],
-        en: [
-            "Neighborhood A: 145 L/person/day",
-            "Neighborhood B: 278 L/person/day",
-            "Similar population",
-            "Same average temperature",
-            "A has newer buildings",
-            "B has many homes built before 1980"
-        ],
-        fi: [
-            "Kaupunginosa A: 145 l/henkilö/päivä",
-            "Kaupunginosa B: 278 l/henkilö/päivä",
-            "Samanlainen väestö",
-            "Sama keskilämpötila",
-            "A:ssa on uudempia rakennuksia",
-            "B:ssä on paljon ennen vuotta 1980 rakennettuja asuntoja"
-        ]
-    },
+dati: [
+"Quartiere A: 145 L/persona/giorno",
+"Quartiere B: 278 L/persona/giorno",
+"Popolazione simile",
+"Temperatura media identica",
+"A ha edifici più recenti",
+"B ha molte abitazioni costruite prima del 1980"
+],
 
-    opzioni: {
-        it: [
-            "Il quartiere B potrebbe avere impianti domestici meno efficienti",
-            "Il quartiere A riceve più precipitazioni",
-            "Il quartiere B ha sicuramente più abitanti",
-            "La temperatura è la causa principale"
-        ],
-        en: [
-            "Neighborhood B may have less efficient household systems",
-            "Neighborhood A receives more rainfall",
-            "Neighborhood B definitely has more residents",
-            "Temperature is the main cause"
-        ],
-        fi: [
-            "Kaupunginosassa B voi olla tehottomampia kotitalouksien vesijärjestelmiä",
-            "Kaupunginosassa A sataa enemmän",
-            "Kaupunginosassa B on varmasti enemmän asukkaita",
-            "Lämpötila on pääasiallinen syy"
-        ]
-    },
+opzioni: [
+"Il quartiere B potrebbe avere impianti domestici meno efficienti",
+"Il quartiere A riceve più precipitazioni",
+"Il quartiere B ha sicuramente più abitanti",
+"La temperatura è la causa principale"
+],
 
-    corretta: 0,
+corretta: 0,
 
-    spiegazione: {
-        it: "Gli edifici più vecchi possono avere rubinetti, cassette di scarico e impianti meno efficienti. I dati sulla popolazione e sulla temperatura rendono meno plausibili le altre spiegazioni.",
-        en: "Older buildings may have less efficient taps, toilets and plumbing systems. The population and temperature data make the other explanations less plausible.",
-        fi: "Vanhemmissa rakennuksissa voi olla tehottomampia hanoja, wc-laitteita ja putkistoja. Väestöä ja lämpötilaa koskevat tiedot tekevät muista selityksistä vähemmän todennäköisiä."
-    }
+spiegazione:
+"Gli edifici più vecchi possono avere rubinetti, cassette di scarico e impianti meno efficienti. I dati sulla popolazione e sulla temperatura rendono meno plausibili le altre spiegazioni."
 },
 
-
 {
-    titolo: {
-        it: "🌾 Caso 3 — I campi assetati",
-        en: "🌾 Case 3 — Thirsty Fields",
-        fi: "🌾 Tapaus 3 — Janoinen peltoalue"
-    },
+titolo: "🌾 Caso 3 — I campi assetati",
 
-    descrizione: {
-        it: "Una zona agricola consuma una quantità d'acqua molto elevata. Non è però sufficiente sapere che l'agricoltura consuma molto: devi capire quale fattore può spiegare l'aumento.",
-        en: "An agricultural area uses a very large amount of water. It is not enough to know that agriculture uses a lot: you must identify which factor could explain the increase.",
-        fi: "Maatalousalue käyttää erittäin paljon vettä. Ei riitä, että tiedetään maatalouden kuluttavan paljon vettä: on selvitettävä, mikä tekijä voi selittää kasvun."
-    },
+descrizione:
+"Una zona agricola consuma una quantità d'acqua molto elevata. Non è però sufficiente sapere che l'agricoltura consuma molto: devi capire quale fattore può spiegare l'aumento.",
 
-    dati: {
-        it: [
-            "Acqua utilizzata: +38%",
-            "Superficie coltivata: +4%",
-            "Produzione agricola: +7%",
-            "Piogge: -31%",
-            "Temperatura media: +2,1 °C",
-            "Irrigazione a pioggia ancora prevalente"
-        ],
-        en: [
-            "Water used: +38%",
-            "Cultivated area: +4%",
-            "Agricultural production: +7%",
-            "Rainfall: -31%",
-            "Average temperature: +2.1 °C",
-            "Sprinkler irrigation still predominant"
-        ],
-        fi: [
-            "Käytetty vesi: +38%",
-            "Viljelyala: +4%",
-            "Maataloustuotanto: +7%",
-            "Sademäärä: -31%",
-            "Keskilämpötila: +2,1 °C",
-            "Sadetuskastelu edelleen yleisin"
-        ]
-    },
+dati: [
+"Acqua utilizzata: +38%",
+"Superficie coltivata: +4%",
+"Produzione agricola: +7%",
+"Piogge: -31%",
+"Temperatura media: +2,1 °C",
+"Irrigazione a pioggia ancora prevalente"
+],
 
-    opzioni: {
-        it: [
-            "L'aumento della superficie coltivata è sufficiente a spiegare tutto",
-            "La diminuzione delle piogge e l'aumento della domanda evaporativa possono aver aumentato l'irrigazione",
-            "La produzione agricola è diminuita",
-            "Il problema è sicuramente nelle abitazioni"
-        ],
-        en: [
-            "The increase in cultivated area is enough to explain everything",
-            "Lower rainfall and higher evaporative demand may have increased irrigation",
-            "Agricultural production decreased",
-            "The problem is definitely in households"
-        ],
-        fi: [
-            "Viljelyalan kasvu riittää selittämään kaiken",
-            "Sateiden väheneminen ja suurempi haihduntatarve ovat voineet lisätä kastelua",
-            "Maataloustuotanto väheni",
-            "Ongelma on varmasti kotitalouksissa"
-        ]
-    },
+opzioni: [
+"L'aumento della superficie coltivata è sufficiente a spiegare tutto",
+"La diminuzione delle piogge e l'aumento della domanda evaporativa possono aver aumentato l'irrigazione",
+"La produzione agricola è diminuita",
+"Il problema è sicuramente nelle abitazioni"
+],
 
-    corretta: 1,
+corretta: 1,
 
-    spiegazione: {
-        it: "La superficie coltivata è aumentata solo del 4%, mentre l'acqua utilizzata è aumentata del 38%. La combinazione tra meno precipitazioni, temperature maggiori e irrigazione poco efficiente è più coerente con i dati.",
-        en: "The cultivated area increased by only 4%, while water use increased by 38%. The combination of lower rainfall, higher temperatures and inefficient irrigation is more consistent with the data.",
-        fi: "Viljelyala kasvoi vain 4 %, kun taas veden käyttö kasvoi 38 %. Sateiden väheneminen, korkeampi lämpötila ja tehoton kastelu sopivat tietoihin paremmin."
-    }
+spiegazione:
+"La superficie coltivata è aumentata solo del 4%, mentre l'acqua utilizzata è aumentata del 38%. La combinazione tra meno precipitazioni, temperature maggiori e irrigazione poco efficiente è più coerente con i dati."
 },
 
-
 {
-    titolo: {
-        it: "🏭 Caso 4 — L'impianto industriale",
-        en: "🏭 Case 4 — The Industrial Plant",
-        fi: "🏭 Tapaus 4 — Teollisuuslaitos"
-    },
+titolo: "🏭 Caso 4 — L'impianto industriale",
 
-    descrizione: {
-        it: "Un impianto industriale segnala un aumento del prelievo idrico. Ma il numero di prodotti realizzati è quasi invariato.",
-        en: "An industrial plant reports an increase in water withdrawal. However, the number of products manufactured is almost unchanged.",
-        fi: "Teollisuuslaitos ilmoittaa vedenoton kasvaneen. Tuotettujen tuotteiden määrä on kuitenkin lähes ennallaan."
-    },
+descrizione:
+"Un impianto industriale segnala un aumento del prelievo idrico. Ma il numero di prodotti realizzati è quasi invariato.",
 
-    dati: {
-        it: [
-            "Produzione industriale: +2%",
-            "Prelievo d'acqua: +34%",
-            "Ore di funzionamento: +3%",
-            "Nuovo sistema di raffreddamento installato",
-            "Acqua restituita dopo il processo: -18%",
-            "Temperatura esterna: +1,8 °C"
-        ],
-        en: [
-            "Industrial production: +2%",
-            "Water withdrawal: +34%",
-            "Operating hours: +3%",
-            "New cooling system installed",
-            "Water returned after the process: -18%",
-            "Outside temperature: +1.8 °C"
-        ],
-        fi: [
-            "Teollisuustuotanto: +2%",
-            "Vedenotto: +34%",
-            "Käyttötunnit: +3%",
-            "Uusi jäähdytysjärjestelmä asennettu",
-            "Prosessin jälkeen palautettu vesi: -18%",
-            "Ulkolämpötila: +1,8 °C"
-        ]
-    },
+dati: [
+"Produzione industriale: +2%",
+"Prelievo d'acqua: +34%",
+"Ore di funzionamento: +3%",
+"Nuovo sistema di raffreddamento installato",
+"Acqua restituita dopo il processo: -18%",
+"Temperatura esterna: +1,8 °C"
+],
 
-    opzioni: {
-        it: [
-            "La produzione industriale spiega completamente l'aumento",
-            "Il nuovo sistema di raffreddamento potrebbe essere collegato al maggiore consumo",
-            "La temperatura esterna non può avere alcun effetto",
-            "L'acqua restituita è aumentata"
-        ],
-        en: [
-            "Industrial production completely explains the increase",
-            "The new cooling system could be linked to the higher consumption",
-            "Outside temperature cannot have any effect",
-            "The amount of returned water increased"
-        ],
-        fi: [
-            "Teollisuustuotanto selittää kasvun kokonaan",
-            "Uusi jäähdytysjärjestelmä voi liittyä suurempaan vedenkulutukseen",
-            "Ulkolämpötilalla ei voi olla mitään vaikutusta",
-            "Palautetun veden määrä kasvoi"
-        ]
-    },
+opzioni: [
+"La produzione industriale spiega completamente l'aumento",
+"Il nuovo sistema di raffreddamento potrebbe essere collegato al maggiore consumo",
+"La temperatura esterna non può avere alcun effetto",
+"L'acqua restituita è aumentata"
+],
 
-    corretta: 1,
+corretta: 1,
 
-    spiegazione: {
-        it: "La produzione è quasi invariata, mentre il prelievo cresce molto. Il nuovo sistema di raffreddamento e la diminuzione dell'acqua restituita sono indizi più direttamente collegati al cambiamento.",
-        en: "Production is almost unchanged, while water withdrawal increases significantly. The new cooling system and the decrease in returned water are clues more directly linked to the change.",
-        fi: "Tuotanto on lähes ennallaan, mutta vedenotto kasvaa huomattavasti. Uusi jäähdytysjärjestelmä ja palautetun veden väheneminen liittyvät muutokseen suoremmin."
-    }
+spiegazione:
+"La produzione è quasi invariata, mentre il prelievo cresce molto. Il nuovo sistema di raffreddamento e la diminuzione dell'acqua restituita sono indizi più direttamente collegati al cambiamento."
 },
 
-
 {
-    titolo: {
-        it: "🌡️ Caso 5 — La siccità",
-        en: "🌡️ Case 5 — The Drought",
-        fi: "🌡️ Tapaus 5 — Kuivuus"
-    },
+titolo: "🌡️ Caso 5 — La siccità",
 
-    descrizione: {
-        it: "La città ha consumato più acqua durante un'estate eccezionalmente calda. Ma il problema non riguarda soltanto i consumi domestici.",
-        en: "The city used more water during an exceptionally hot summer. But the problem is not limited to household consumption.",
-        fi: "Kaupunki kulutti enemmän vettä poikkeuksellisen kuuman kesän aikana. Ongelma ei kuitenkaan koske vain kotitalouksien kulutusta."
-    },
+descrizione:
+"La città ha consumato più acqua durante un'estate eccezionalmente calda. Ma il problema non riguarda soltanto i consumi domestici.",
 
-    dati: {
-        it: [
-            "Precipitazioni: -42%",
-            "Temperatura media: +3,4 °C",
-            "Acqua nei bacini: -37%",
-            "Consumo domestico: +9%",
-            "Irrigazione: +41%",
-            "Evaporazione stimata: +24%"
-        ],
-        en: [
-            "Rainfall: -42%",
-            "Average temperature: +3.4 °C",
-            "Water in reservoirs: -37%",
-            "Household consumption: +9%",
-            "Irrigation: +41%",
-            "Estimated evaporation: +24%"
-        ],
-        fi: [
-            "Sademäärä: -42%",
-            "Keskilämpötila: +3,4 °C",
-            "Veden määrä altaissa: -37%",
-            "Kotitalouksien kulutus: +9%",
-            "Kastelu: +41%",
-            "Arvioitu haihdunta: +24%"
-        ]
-    },
+dati: [
+"Precipitazioni: -42%",
+"Temperatura media: +3,4 °C",
+"Acqua nei bacini: -37%",
+"Consumo domestico: +9%",
+"Irrigazione: +41%",
+"Evaporazione stimata: +24%"
+],
 
-    opzioni: {
-        it: [
-            "Solo le famiglie sono responsabili",
-            "La diminuzione delle piogge e l'aumento dell'evaporazione hanno aumentato la pressione sulle risorse",
-            "La città ha ricevuto più acqua del normale",
-            "L'irrigazione è diminuita"
-        ],
-        en: [
-            "Only households are responsible",
-            "Lower rainfall and increased evaporation increased pressure on water resources",
-            "The city received more water than normal",
-            "Irrigation decreased"
-        ],
-        fi: [
-            "Vain kotitaloudet ovat vastuussa",
-            "Sateiden väheneminen ja haihdunnan lisääntyminen ovat lisänneet vesivarojen painetta",
-            "Kaupunki sai tavallista enemmän vettä",
-            "Kastelu väheni"
-        ]
-    },
+opzioni: [
+"Solo le famiglie sono responsabili",
+"La diminuzione delle piogge e l'aumento dell'evaporazione hanno aumentato la pressione sulle risorse",
+"La città ha ricevuto più acqua del normale",
+"L'irrigazione è diminuita"
+],
 
-    corretta: 1,
+corretta: 1,
 
-    spiegazione: {
-        it: "I dati mostrano una situazione di stress idrico: meno precipitazioni, maggiore temperatura, più evaporazione e forte aumento dell'irrigazione.",
-        en: "The data show water stress: lower rainfall, higher temperatures, increased evaporation and a strong increase in irrigation.",
-        fi: "Tiedot osoittavat vesistressiä: vähemmän sadetta, korkeampi lämpötila, suurempi haihdunta ja kastelun voimakas lisääntyminen."
-    }
+spiegazione:
+"I dati mostrano una situazione di stress idrico: meno precipitazioni, maggiore temperatura, più evaporazione e forte aumento dell'irrigazione."
 },
 
-
 {
-    titolo: {
-        it: "🧪 Caso 6 — Acqua potabile o contaminata?",
-        en: "🧪 Case 6 — Safe or Contaminated Water?",
-        fi: "🧪 Tapaus 6 — Juomakelpoista vai saastunutta vettä?"
-    },
+titolo: "🧪 Caso 6 — Acqua potabile o contaminata?",
 
-    descrizione: {
-        it: "In una zona agricola viene rilevata una concentrazione anomala di nitrati nell'acqua sotterranea. Devi individuare l'ipotesi più coerente.",
-        en: "An unusual concentration of nitrates is detected in groundwater in an agricultural area. You must identify the most consistent hypothesis.",
-        fi: "Maatalousalueen pohjavedestä havaitaan poikkeava nitraattipitoisuus. Sinun on löydettävä tietojen kanssa parhaiten yhteensopiva hypoteesi."
-    },
+descrizione:
+"In una zona agricola viene rilevata una concentrazione anomala di nitrati nell'acqua sotterranea. Devi individuare l'ipotesi più coerente.",
 
-    dati: {
-        it: [
-            "Nitrati nelle acque sotterranee: +46%",
-            "Nuovi impianti industriali: nessuno",
-            "Uso di fertilizzanti: +31%",
-            "Piogge intense dopo la fertilizzazione",
-            "Pozzi più contaminati vicino ai campi",
-            "Contaminazione molto minore nelle zone boschive"
-        ],
-        en: [
-            "Nitrates in groundwater: +46%",
-            "New industrial plants: none",
-            "Fertilizer use: +31%",
-            "Heavy rain after fertilization",
-            "Wells more contaminated near fields",
-            "Much lower contamination in wooded areas"
-        ],
-        fi: [
-            "Pohjaveden nitraatit: +46%",
-            "Uusia teollisuuslaitoksia: ei yhtään",
-            "Lannoitteiden käyttö: +31%",
-            "Voimakkaita sateita lannoituksen jälkeen",
-            "Kaivot ovat saastuneempia peltojen lähellä",
-            "Metsäalueilla saastuminen on paljon vähäisempää"
-        ]
-    },
+dati: [
+"Nitrati nelle acque sotterranee: +46%",
+"Nuovi impianti industriali: nessuno",
+"Uso di fertilizzanti: +31%",
+"Piogge intense dopo la fertilizzazione",
+"Pozzi più contaminati vicino ai campi",
+"Contaminazione molto minore nelle zone boschive"
+],
 
-    opzioni: {
-        it: [
-            "L'aumento dei fertilizzanti è compatibile con i dati",
-            "La contaminazione proviene sicuramente dal traffico",
-            "I boschi producono nitrati",
-            "La causa è necessariamente il consumo domestico"
-        ],
-        en: [
-            "The increase in fertilizer use is consistent with the data",
-            "The contamination definitely comes from traffic",
-            "Forests produce nitrates",
-            "The cause must be household consumption"
-        ],
-        fi: [
-            "Lannoitteiden käytön lisääntyminen sopii tietoihin",
-            "Saastuminen tulee varmasti liikenteestä",
-            "Metsät tuottavat nitraatteja",
-            "Syy on väistämättä kotitalouksien kulutus"
-        ]
-    },
+opzioni: [
+"L'aumento dei fertilizzanti è compatibile con i dati",
+"La contaminazione proviene sicuramente dal traffico",
+"I boschi producono nitrati",
+"La causa è necessariamente il consumo domestico"
+],
 
-    corretta: 0,
+corretta: 0,
 
-    spiegazione: {
-        it: "La vicinanza ai campi, l'aumento dei fertilizzanti e le piogge intense costituiscono un insieme di indizi coerenti con il trasporto dei nitrati verso le acque sotterranee.",
-        en: "The proximity to fields, increased fertilizer use and heavy rainfall form a consistent set of clues pointing to nitrate transport into groundwater.",
-        fi: "Peltojen läheisyys, lannoitteiden käytön lisääntyminen ja voimakkaat sateet muodostavat yhdessä vihjeitä, jotka sopivat nitraattien kulkeutumiseen pohjaveteen."
-    }
+spiegazione:
+"La vicinanza ai campi, l'aumento dei fertilizzanti e le piogge intense costituiscono un insieme di indizi coerenti con il trasporto dei nitrati verso le acque sotterranee."
 },
 
-
 {
-    titolo: {
-        it: "🗺️ Caso 7 — La zona critica",
-        en: "🗺️ Case 7 — The Critical Area",
-        fi: "🗺️ Tapaus 7 — Kriittinen alue"
-    },
+titolo: "🗺️ Caso 7 — La zona critica",
 
-    descrizione: {
-        it: "Una città è stata divisa in quattro zone. Devi stabilire quale richiede un intervento prioritario sulla rete idrica.",
-        en: "A city has been divided into four areas. You must determine which one requires priority intervention on the water network.",
-        fi: "Kaupunki on jaettu neljään alueeseen. Sinun on määritettävä, mikä alue tarvitsee kiireellisintä toimenpidettä vesiverkostossa."
-    },
+descrizione:
+"Una città è stata divisa in quattro zone. Devi stabilire quale richiede un intervento prioritario sulla rete idrica.",
 
-    dati: {
-        it: [
-            "Zona A: perdite 8% — pressione normale",
-            "Zona B: perdite 12% — pressione normale",
-            "Zona C: perdite 41% — pressione elevata",
-            "Zona D: perdite 10% — pressione bassa"
-        ],
-        en: [
-            "Area A: losses 8% — normal pressure",
-            "Area B: losses 12% — normal pressure",
-            "Area C: losses 41% — high pressure",
-            "Area D: losses 10% — low pressure"
-        ],
-        fi: [
-            "Alue A: hävikki 8 % — normaali paine",
-            "Alue B: hävikki 12 % — normaali paine",
-            "Alue C: hävikki 41 % — korkea paine",
-            "Alue D: hävikki 10 % — matala paine"
-        ]
-    },
+dati: [
+"Zona A: perdite 8% — pressione normale",
+"Zona B: perdite 12% — pressione normale",
+"Zona C: perdite 41% — pressione elevata",
+"Zona D: perdite 10% — pressione bassa"
+],
 
-    opzioni: {
-        it: [
-            "Zona A",
-            "Zona B",
-            "Zona C",
-            "Zona D"
-        ],
-        en: [
-            "Area A",
-            "Area B",
-            "Area C",
-            "Area D"
-        ],
-        fi: [
-            "Alue A",
-            "Alue B",
-            "Alue C",
-            "Alue D"
-        ]
-    },
+opzioni: [
+"Zona A",
+"Zona B",
+"Zona C",
+"Zona D"
+],
 
-    corretta: 2,
+corretta: 2,
 
-    spiegazione: {
-        it: "La Zona C presenta una perdita molto superiore alle altre e contemporaneamente una pressione elevata. Entrambi i dati indicano una possibile criticità della rete.",
-        en: "Area C has much higher losses than the others and also has high pressure. Both data points indicate a possible network problem.",
-        fi: "Alueella C on paljon suurempi hävikki kuin muilla alueilla ja samalla korkea paine. Molemmat tiedot viittaavat mahdolliseen verkoston ongelmaan."
-    }
+spiegazione:
+"La Zona C presenta una perdita molto superiore alle altre e contemporaneamente una pressione elevata. Entrambi i dati indicano una possibile criticità della rete."
 },
 
-
 {
-    titolo: {
-        it: "🏆 Caso 8 — Il caso finale",
-        en: "🏆 Case 8 — The Final Case",
-        fi: "🏆 Tapaus 8 — Lopullinen tapaus"
-    },
+titolo: "🏆 Caso 8 — Il caso finale",
 
-    descrizione: {
-        it: "Hai ricevuto il rapporto finale della città. Devi individuare quale intervento avrebbe probabilmente l'effetto maggiore sulla riduzione dello spreco idrico.",
-        en: "You have received the city's final report. You must identify which intervention would likely have the greatest effect on reducing water waste.",
-        fi: "Olet saanut kaupungin loppuraportin. Sinun on selvitettävä, millä toimenpiteellä olisi todennäköisesti suurin vaikutus vedenhukan vähentämiseen."
-    },
+descrizione:
+"Hai ricevuto il rapporto finale della città. Devi individuare quale intervento avrebbe probabilmente l'effetto maggiore sulla riduzione dello spreco idrico.",
 
-    dati: {
-        it: [
-            "Perdite rete: 29%",
-            "Agricoltura: 34% dei prelievi",
-            "Industria: 18% dei prelievi",
-            "Uso domestico: 19% dei prelievi",
-            "Irrigazione efficiente presente solo nel 22% dei campi",
-            "Rete urbana con molte tubature obsolete"
-        ],
-        en: [
-            "Network losses: 29%",
-            "Agriculture: 34% of withdrawals",
-            "Industry: 18% of withdrawals",
-            "Household use: 19% of withdrawals",
-            "Efficient irrigation present in only 22% of fields",
-            "Urban network with many obsolete pipes"
-        ],
-        fi: [
-            "Verkoston hävikki: 29%",
-            "Maatalous: 34 % vedenotosta",
-            "Teollisuus: 18 % vedenotosta",
-            "Kotitaloudet: 19 % vedenotosta",
-            "Tehokasta kastelua vain 22 %:lla pelloista",
-            "Kaupunkiverkostossa on paljon vanhentuneita putkia"
-        ]
-    },
+dati: [
+"Perdite rete: 29%",
+"Agricoltura: 34% dei prelievi",
+"Industria: 18% dei prelievi",
+"Uso domestico: 19% dei prelievi",
+"Irrigazione efficiente presente solo nel 22% dei campi",
+"Rete urbana con molte tubature obsolete"
+],
 
-    opzioni: {
-        it: [
-            "Concentrarsi esclusivamente sulle docce domestiche",
-            "Sostituire tutte le colture con altre specie",
-            "Ridurre le perdite della rete e migliorare l'efficienza dell'irrigazione",
-            "Costruire più fontane pubbliche"
-        ],
-        en: [
-            "Focus exclusively on household showers",
-            "Replace all crops with other species",
-            "Reduce network losses and improve irrigation efficiency",
-            "Build more public fountains"
-        ],
-        fi: [
-            "Keskittyä yksinomaan kotitalouksien suihkuihin",
-            "Korvata kaikki viljelykasvit muilla lajeilla",
-            "Vähentää verkoston hävikkiä ja parantaa kastelun tehokkuutta",
-            "Rakentaa lisää julkisia suihkulähteitä"
-        ]
-    },
+opzioni: [
+"Concentrarsi esclusivamente sulle docce domestiche",
+"Sostituire tutte le colture con altre specie",
+"Ridurre le perdite della rete e migliorare l'efficienza dell'irrigazione",
+"Costruire più fontane pubbliche"
+],
 
-    corretta: 2,
+corretta: 2,
 
-    spiegazione: {
-        it: "Il rapporto indica due grandi aree di inefficienza: le perdite della rete e l'irrigazione. Intervenire su entrambe affronta direttamente una parte significativa dello spreco.",
-        en: "The report identifies two major areas of inefficiency: network losses and irrigation. Addressing both directly tackles a significant part of the waste.",
-        fi: "Raportti osoittaa kaksi suurta tehottomuuden aluetta: verkoston hävikin ja kastelun. Molempiin puuttuminen vähentää suoraan merkittävää osaa vedenhukasta."
-    }
+spiegazione:
+"Il rapporto indica due grandi aree di inefficienza: le perdite della rete e l'irrigazione. Intervenire su entrambe affronta direttamente una parte significativa dello spreco."
 }
 
-];
+],
 
 
-/* =====================================================
-   VARIABILI
-===================================================== */
+en: [
 
-let linguaCorrente =
+{
+titolo: "🔎 Case 1 — The Invisible Leak",
+
+descrizione:
+"Recorded household consumption seems normal, but the water system is drawing much more water than expected. You must identify where the problem could be.",
+
+dati: [
+"Household consumption: +4%",
+"Industrial consumption: +3%",
+"Agricultural consumption: +6%",
+"Water entering the network: +29%",
+"Water actually billed: +5%",
+"Reports of broken pipes: 2"
+],
+
+opzioni: [
+"The increase in household consumption",
+"A leak in the distribution network",
+"The increase in agricultural production",
+"An error in household meters"
+],
+
+corretta: 1,
+
+spiegazione:
+"The difference between the water entering the network and the water actually used indicates a significant loss. The most important figure here is +29% water entering the network compared with only +5% billed."
+},
+
+{
+titolo: "🏠 Case 2 — The Neighborhood That Uses Too Much Water",
+
+descrizione:
+"Two neighborhoods have similar populations and climate conditions. However, one uses almost twice as much water. Analyze the data.",
+
+dati: [
+"Neighborhood A: 145 L/person/day",
+"Neighborhood B: 278 L/person/day",
+"Similar population",
+"Identical average temperature",
+"A has newer buildings",
+"B has many homes built before 1980"
+],
+
+opzioni: [
+"Neighborhood B may have less efficient household systems",
+"Neighborhood A receives more rainfall",
+"Neighborhood B definitely has more residents",
+"Temperature is the main cause"
+],
+
+corretta: 0,
+
+spiegazione:
+"Older buildings may have less efficient faucets, toilets and plumbing systems. The population and temperature data make the other explanations less plausible."
+},
+
+{
+titolo: "🌾 Case 3 — Thirsty Fields",
+
+descrizione:
+"An agricultural area uses a very large amount of water. However, it is not enough to know that agriculture uses a lot of water: you must identify the factor that could explain the increase.",
+
+dati: [
+"Water used: +38%",
+"Cultivated area: +4%",
+"Agricultural production: +7%",
+"Rainfall: -31%",
+"Average temperature: +2.1 °C",
+"Sprinkler irrigation still prevalent"
+],
+
+opzioni: [
+"The increase in cultivated area is enough to explain everything",
+"Lower rainfall and increased evaporative demand may have increased irrigation",
+"Agricultural production decreased",
+"The problem is definitely in households"
+],
+
+corretta: 1,
+
+spiegazione:
+"The cultivated area increased by only 4%, while water use increased by 38%. The combination of lower rainfall, higher temperatures and inefficient irrigation is more consistent with the data."
+},
+
+{
+titolo: "🏭 Case 4 — The Industrial Plant",
+
+descrizione:
+"An industrial plant reports an increase in water withdrawal. However, the number of products manufactured is almost unchanged.",
+
+dati: [
+"Industrial production: +2%",
+"Water withdrawal: +34%",
+"Operating hours: +3%",
+"New cooling system installed",
+"Water returned after processing: -18%",
+"Outdoor temperature: +1.8 °C"
+],
+
+opzioni: [
+"Industrial production completely explains the increase",
+"The new cooling system could be linked to the higher consumption",
+"Outdoor temperature cannot have any effect",
+"Returned water increased"
+],
+
+corretta: 1,
+
+spiegazione:
+"Production is almost unchanged, while water withdrawal increases significantly. The new cooling system and the decrease in returned water are more directly connected to the change."
+},
+
+{
+titolo: "🌡️ Case 5 — The Drought",
+
+descrizione:
+"The city used more water during an exceptionally hot summer. But the problem does not only concern household consumption.",
+
+dati: [
+"Rainfall: -42%",
+"Average temperature: +3.4 °C",
+"Water in reservoirs: -37%",
+"Household consumption: +9%",
+"Irrigation: +41%",
+"Estimated evaporation: +24%"
+],
+
+opzioni: [
+"Only households are responsible",
+"Lower rainfall and increased evaporation increased pressure on water resources",
+"The city received more water than normal",
+"Irrigation decreased"
+],
+
+corretta: 1,
+
+spiegazione:
+"The data show water stress: less rainfall, higher temperatures, more evaporation and a strong increase in irrigation."
+},
+
+{
+titolo: "🧪 Case 6 — Drinking Water or Contaminated Water?",
+
+descrizione:
+"In an agricultural area, an unusually high concentration of nitrates is detected in groundwater. You must identify the most consistent hypothesis.",
+
+dati: [
+"Nitrates in groundwater: +46%",
+"New industrial plants: none",
+"Fertilizer use: +31%",
+"Heavy rainfall after fertilization",
+"Wells more contaminated near fields",
+"Much lower contamination in forested areas"
+],
+
+opzioni: [
+"The increase in fertilizer use is consistent with the data",
+"The contamination definitely comes from traffic",
+"Forests produce nitrates",
+"The cause is necessarily household consumption"
+],
+
+corretta: 0,
+
+spiegazione:
+"The proximity to fields, increased fertilizer use and heavy rainfall form a set of clues consistent with nitrate transport into groundwater."
+},
+
+{
+titolo: "🗺️ Case 7 — The Critical Area",
+
+descrizione:
+"A city has been divided into four areas. You must determine which one requires priority action on the water network.",
+
+dati: [
+"Area A: 8% losses — normal pressure",
+"Area B: 12% losses — normal pressure",
+"Area C: 41% losses — high pressure",
+"Area D: 10% losses — low pressure"
+],
+
+opzioni: [
+"Area A",
+"Area B",
+"Area C",
+"Area D"
+],
+
+corretta: 2,
+
+spiegazione:
+"Area C has much higher losses than the others and, at the same time, high pressure. Both figures indicate a possible network problem."
+},
+
+{
+titolo: "🏆 Case 8 — The Final Case",
+
+descrizione:
+"You have received the city's final report. You must identify which intervention would probably have the greatest effect on reducing water waste.",
+
+dati: [
+"Network losses: 29%",
+"Agriculture: 34% of withdrawals",
+"Industry: 18% of withdrawals",
+"Household use: 19% of withdrawals",
+"Efficient irrigation present in only 22% of fields",
+"Urban network with many outdated pipes"
+],
+
+opzioni: [
+"Focus exclusively on household showers",
+"Replace all crops with different species",
+"Reduce network losses and improve irrigation efficiency",
+"Build more public fountains"
+],
+
+corretta: 2,
+
+spiegazione:
+"The report identifies two major areas of inefficiency: network losses and irrigation. Addressing both directly tackles a significant part of the water waste."
+}
+
+],
+
+
+fi: [
+
+{
+titolo: "🔎 Tapaus 1 — Näkymätön vuoto",
+
+descrizione:
+"Asukkaiden ilmoitettu vedenkulutus näyttää normaalilta, mutta vesijohtoverkkoon otetaan paljon enemmän vettä kuin odotettiin. Sinun on selvitettävä, missä ongelma voisi olla.",
+
+dati: [
+"Kotitalouksien kulutus: +4 %",
+"Teollisuuden kulutus: +3 %",
+"Maatalouden kulutus: +6 %",
+"Verkostoon syötetty vesi: +29 %",
+"Laskutettu vesi: +5 %",
+"Ilmoitetut rikkoutuneet putket: 2"
+],
+
+opzioni: [
+"Kotitalouksien kulutuksen kasvu",
+"Vuoto jakeluverkossa",
+"Maataloustuotannon kasvu",
+"Virhe kotitalouksien vesimittareissa"
+],
+
+corretta: 1,
+
+spiegazione:
+"Verkostoon syötetyn veden ja todellisen käytön välinen ero osoittaa merkittävää vedenhukkaa. Tärkein tieto tässä tapauksessa on verkostoon syötetyn veden +29 % verrattuna vain +5 %:iin laskutetussa vedessä."
+},
+
+{
+titolo: "🏠 Tapaus 2 — Liikaa vettä kuluttava kaupunginosa",
+
+descrizione:
+"Kahdessa kaupunginosassa on samanlainen väestö ja ilmasto-olosuhteet. Toinen kuluttaa kuitenkin lähes kaksi kertaa enemmän vettä. Analysoi tiedot.",
+
+dati: [
+"Kaupunginosa A: 145 l/henkilö/päivä",
+"Kaupunginosa B: 278 l/henkilö/päivä",
+"Samanlainen väestö",
+"Sama keskilämpötila",
+"A:ssa on uudempia rakennuksia",
+"B:ssä on paljon ennen vuotta 1980 rakennettuja asuntoja"
+],
+
+opzioni: [
+"B:ssä voi olla tehottomampia kotitalouksien vesijärjestelmiä",
+"A:ssa sataa enemmän",
+"B:ssä on varmasti enemmän asukkaita",
+"Lämpötila on tärkein syy"
+],
+
+corretta: 0,
+
+spiegazione:
+"Vanhemmissa rakennuksissa voi olla tehottomampia hanoja, wc-laitteita ja putkistoja. Väestöä ja lämpötilaa koskevat tiedot tekevät muista selityksistä vähemmän todennäköisiä."
+},
+
+{
+titolo: "🌾 Tapaus 3 — Janoinen pelto",
+
+descrizione:
+"Maatalousalue kuluttaa erittäin paljon vettä. Pelkkä tieto maatalouden suuresta vedenkulutuksesta ei kuitenkaan riitä: sinun on selvitettävä, mikä tekijä voi selittää kasvun.",
+
+dati: [
+"Käytetty vesi: +38 %",
+"Viljelyala: +4 %",
+"Maataloustuotanto: +7 %",
+"Sademäärä: -31 %",
+"Keskilämpötila: +2,1 °C",
+"Sadevesikastelu edelleen yleistä"
+],
+
+opzioni: [
+"Viljelyalan kasvu riittää selittämään kaiken",
+"Sateiden väheneminen ja lisääntynyt haihdunnan tarve ovat voineet lisätä kastelua",
+"Maataloustuotanto väheni",
+"Ongelma on varmasti kotitalouksissa"
+],
+
+corretta: 1,
+
+spiegazione:
+"Viljelyala kasvoi vain 4 %, mutta veden käyttö kasvoi 38 %. Vähäisemmän sademäärän, korkeampien lämpötilojen ja tehottoman kastelun yhdistelmä sopii tietoihin paremmin."
+},
+
+{
+titolo: "🏭 Tapaus 4 — Teollisuuslaitos",
+
+descrizione:
+"Teollisuuslaitos ilmoittaa vedenoton kasvaneen. Tuotettujen tuotteiden määrä on kuitenkin lähes ennallaan.",
+
+dati: [
+"Teollisuustuotanto: +2 %",
+"Vedenotto: +34 %",
+"Toimintatunnit: +3 %",
+"Uusi jäähdytysjärjestelmä asennettu",
+"Prosessin jälkeen palautettu vesi: -18 %",
+"Ulkolämpötila: +1,8 °C"
+],
+
+opzioni: [
+"Teollisuustuotanto selittää kasvun kokonaan",
+"Uusi jäähdytysjärjestelmä voi liittyä suurempaan kulutukseen",
+"Ulkolämpötilalla ei voi olla mitään vaikutusta",
+"Palautetun veden määrä kasvoi"
+],
+
+corretta: 1,
+
+spiegazione:
+"Tuotanto on lähes ennallaan, mutta vedenotto kasvaa huomattavasti. Uusi jäähdytysjärjestelmä ja palautetun veden määrän väheneminen liittyvät muutokseen suoremmin."
+},
+
+{
+titolo: "🌡️ Tapaus 5 — Kuivuus",
+
+descrizione:
+"Kaupunki kulutti enemmän vettä poikkeuksellisen kuuman kesän aikana. Ongelma ei kuitenkaan koske vain kotitalouksien kulutusta.",
+
+dati: [
+"Sademäärä: -42 %",
+"Keskilämpötila: +3,4 °C",
+"Vesialtaiden vesimäärä: -37 %",
+"Kotitalouksien kulutus: +9 %",
+"Kastelu: +41 %",
+"Arvioitu haihdunta: +24 %"
+],
+
+opzioni: [
+"Vain kotitaloudet ovat vastuussa",
+"Sateiden väheneminen ja lisääntynyt haihdunta ovat lisänneet vesivarojen kuormitusta",
+"Kaupunki sai tavallista enemmän vettä",
+"Kastelu väheni"
+],
+
+corretta: 1,
+
+spiegazione:
+"Tiedot osoittavat vesivaroihin kohdistuvaa stressiä: vähemmän sateita, korkeampi lämpötila, suurempi haihdunta ja kastelun voimakas lisääntyminen."
+},
+
+{
+titolo: "🧪 Tapaus 6 — Juomavettä vai saastunutta vettä?",
+
+descrizione:
+"Maatalousalueella pohjavedestä havaitaan poikkeavan suuri nitraattipitoisuus. Sinun on löydettävä tietojen kanssa parhaiten sopiva hypoteesi.",
+
+dati: [
+"Nitraatit pohjavedessä: +46 %",
+"Uusia teollisuuslaitoksia: ei",
+"Lannoitteiden käyttö: +31 %",
+"Voimakkaita sateita lannoituksen jälkeen",
+"Kaivot ovat saastuneempia peltojen lähellä",
+"Saastuminen on paljon vähäisempää metsäalueilla"
+],
+
+opzioni: [
+"Lannoitteiden käytön lisääntyminen sopii tietoihin",
+"Saastuminen johtuu varmasti liikenteestä",
+"Metsät tuottavat nitraatteja",
+"Syy on väistämättä kotitalouksien vedenkulutus"
+],
+
+corretta: 0,
+
+spiegazione:
+"Peltojen läheisyys, lannoitteiden käytön lisääntyminen ja voimakkaat sateet muodostavat vihjeiden kokonaisuuden, joka sopii nitraattien kulkeutumiseen pohjaveteen."
+},
+
+{
+titolo: "🗺️ Tapaus 7 — Kriittinen alue",
+
+descrizione:
+"Kaupunki on jaettu neljään alueeseen. Sinun on määritettävä, mikä alue tarvitsee ensisijaisesti toimenpiteitä vesiverkostossa.",
+
+dati: [
+"Alue A: hävikki 8 % — normaali paine",
+"Alue B: hävikki 12 % — normaali paine",
+"Alue C: hävikki 41 % — korkea paine",
+"Alue D: hävikki 10 % — matala paine"
+],
+
+opzioni: [
+"Alue A",
+"Alue B",
+"Alue C",
+"Alue D"
+],
+
+corretta: 2,
+
+spiegazione:
+"Alue C:n hävikki on paljon suurempi kuin muilla alueilla ja samalla paine on korkea. Molemmat tiedot viittaavat mahdolliseen verkoston ongelmaan."
+},
+
+{
+titolo: "🏆 Tapaus 8 — Lopullinen tapaus",
+
+descrizione:
+"Olet saanut kaupungin loppuraportin. Sinun on määritettävä, millä toimenpiteellä vedenhukan vähentämiseen olisi todennäköisesti suurin vaikutus.",
+
+dati: [
+"Verkoston hävikki: 29 %",
+"Maatalous: 34 % vedenotosta",
+"Teollisuus: 18 % vedenotosta",
+"Kotitaloudet: 19 % vedenotosta",
+"Tehokasta kastelua vain 22 %:lla pelloista",
+"Kaupunkiverkostossa on paljon vanhentuneita putkia"
+],
+
+opzioni: [
+"Keskittyä ainoastaan kotitalouksien suihkuihin",
+"Korvata kaikki viljelykasvit muilla lajeilla",
+"Vähentää verkoston hävikkiä ja parantaa kastelun tehokkuutta",
+"Rakentaa lisää julkisia suihkulähteitä"
+],
+
+corretta: 2,
+
+spiegazione:
+"Raportti osoittaa kaksi suurta tehottomuuden aluetta: verkoston hävikin ja kastelun. Molempiin puuttuminen vähentää suoraan merkittävää osaa vedenhukasta."
+}
+
+]
+
+};
+
+
+/* =========================================================
+   STATO DEL GIOCO
+   ========================================================= */
+
+let lingua =
     localStorage.getItem("linguaEcoGame") || "it";
+
+if (!traduzioni[lingua]) {
+    lingua = "it";
+}
 
 let caso = 0;
 let punteggio = 0;
@@ -1200,58 +1331,65 @@ let risolte = 0;
 let giaRisposto = false;
 
 
-/* =====================================================
+/* =========================================================
    CAMBIO LINGUA
-===================================================== */
+   ========================================================= */
 
 function cambiaLingua() {
 
     const selettore =
         document.getElementById("lingua");
 
-    linguaCorrente =
+    lingua =
         selettore.value;
+
+    if (!traduzioni[lingua]) {
+        lingua = "it";
+    }
 
     localStorage.setItem(
         "linguaEcoGame",
-        linguaCorrente
+        lingua
     );
 
-    aggiornaInterfaccia();
+    document.documentElement.lang =
+        lingua;
+
+    applicaTraduzione();
 
     caricaCaso();
 
 }
 
 
-/* =====================================================
-   AGGIORNA TESTI INTERFACCIA
-===================================================== */
+/* =========================================================
+   TESTI STATICI
+   ========================================================= */
 
-function aggiornaInterfaccia() {
+function applicaTraduzione() {
 
     const t =
-        traduzioni[linguaCorrente];
+        traduzioni[lingua];
 
-    document.documentElement.lang =
-        linguaCorrente;
+    document.getElementById("lingua").value =
+        lingua;
 
     document.getElementById("testoCaso").innerText =
         t.caso;
 
     document.getElementById("titoloGioco").innerText =
-        t.titoloGioco;
+        t.titolo;
 
-    document.getElementById("introTesto").innerHTML =
+    document.getElementById("introGioco").innerHTML =
         t.intro;
 
-    document.getElementById("testoRisolte").innerText =
+    document.getElementById("statRisolte").innerText =
         t.risolte;
 
-    document.getElementById("testoPunteggio").innerText =
+    document.getElementById("statPunteggio").innerText =
         t.punteggio;
 
-    document.getElementById("testoCasoAttuale").innerText =
+    document.getElementById("statCaso").innerText =
         t.casoAttuale;
 
     document.getElementById("titoloDati").innerText =
@@ -1266,29 +1404,32 @@ function aggiornaInterfaccia() {
     document.getElementById("titoloFinale").innerText =
         t.finale;
 
-    document.getElementById("btnRicomincia").innerText =
-        t.rifai;
+    document.getElementById("bottoneRicomincia").innerText =
+        t.ricomincia;
 
-    document.getElementById("btnGiochi").innerText =
-        t.giochi;
+    document.getElementById("bottoneGiochi").innerText =
+        t.tornaGiochi;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CARICA CASO
-===================================================== */
+   ========================================================= */
 
 function caricaCaso() {
 
     giaRisposto = false;
 
+    const listaCasi =
+        casi[lingua];
+
     const dati =
-        casi[caso];
+        listaCasi[caso];
 
-    const t =
-        traduzioni[linguaCorrente];
-
+    if (!dati) {
+        return;
+    }
 
     document.getElementById("casoNumero").innerText =
         caso + 1;
@@ -1296,13 +1437,11 @@ function caricaCaso() {
     document.getElementById("casoStat").innerText =
         caso + 1;
 
-
     document.getElementById("titoloCaso").innerText =
-        dati.titolo[linguaCorrente];
-
+        dati.titolo;
 
     document.getElementById("descrizioneCaso").innerText =
-        dati.descrizione[linguaCorrente];
+        dati.descrizione;
 
 
     const contenitoreDati =
@@ -1311,7 +1450,7 @@ function caricaCaso() {
     contenitoreDati.innerHTML = "";
 
 
-    dati.dati[linguaCorrente].forEach(function(elemento) {
+    dati.dati.forEach(function(elemento) {
 
         const div =
             document.createElement("div");
@@ -1333,7 +1472,7 @@ function caricaCaso() {
     contenitoreOpzioni.innerHTML = "";
 
 
-    dati.opzioni[linguaCorrente].forEach(function(elemento, indice) {
+    dati.opzioni.forEach(function(elemento, indice) {
 
         const button =
             document.createElement("button");
@@ -1341,16 +1480,23 @@ function caricaCaso() {
         button.className =
             "option";
 
-        button.innerHTML =
-            "<span>" +
-            String.fromCharCode(65 + indice) +
-            "</span>" +
-            elemento;
+        const lettera =
+            document.createElement("span");
 
-        button.onclick =
-            function() {
-                rispondi(indice);
-            };
+        lettera.innerText =
+            String.fromCharCode(65 + indice);
+
+        button.appendChild(lettera);
+
+        button.appendChild(
+            document.createTextNode(elemento)
+        );
+
+        button.onclick = function() {
+
+            rispondi(indice);
+
+        };
 
         contenitoreOpzioni.appendChild(button);
 
@@ -1366,9 +1512,9 @@ function caricaCaso() {
 }
 
 
-/* =====================================================
+/* =========================================================
    RISPOSTA
-===================================================== */
+   ========================================================= */
 
 function rispondi(scelta) {
 
@@ -1379,10 +1525,10 @@ function rispondi(scelta) {
     giaRisposto = true;
 
     const dati =
-        casi[caso];
+        casi[lingua][caso];
 
     const t =
-        traduzioni[linguaCorrente];
+        traduzioni[lingua];
 
     const feedback =
         document.getElementById("feedback");
@@ -1410,9 +1556,9 @@ function rispondi(scelta) {
 
         feedback.innerHTML =
             "✅ <strong>" +
-            t.risolta +
+            t.corretta +
             "</strong><br><br>" +
-            dati.spiegazione[linguaCorrente] +
+            dati.spiegazione +
             "<br><br>" +
             "<strong>+100 " +
             t.punti +
@@ -1425,12 +1571,12 @@ function rispondi(scelta) {
 
         feedback.innerHTML =
             "❌ <strong>" +
-            t.nonCompatibile +
+            t.errata +
             "</strong><br><br>" +
-            dati.spiegazione[linguaCorrente] +
+            dati.spiegazione +
             "<br><br>" +
             "<strong>" +
-            t.corretta +
+            t.rispostaCorretta +
             " " +
             String.fromCharCode(65 + dati.corretta) +
             "</strong>.";
@@ -1453,15 +1599,15 @@ function rispondi(scelta) {
 }
 
 
-/* =====================================================
-   PROSSIMO CASO
-===================================================== */
+/* =========================================================
+   CASO SUCCESSIVO
+   ========================================================= */
 
 function prossimoCaso() {
 
     caso++;
 
-    if (caso >= casi.length) {
+    if (caso >= casi[lingua].length) {
 
         fine();
 
@@ -1474,14 +1620,11 @@ function prossimoCaso() {
 }
 
 
-/* =====================================================
-   FINE
-===================================================== */
+/* =========================================================
+   FINE DEL GIOCO
+   ========================================================= */
 
 function fine() {
-
-    const t =
-        traduzioni[linguaCorrente];
 
     document.getElementById("gioco").style.display =
         "none";
@@ -1493,28 +1636,31 @@ function fine() {
         punteggio;
 
 
+    const t =
+        traduzioni[lingua];
+
     let messaggio;
 
 
     if (punteggio === 800) {
 
         messaggio =
-            t.messaggio800;
+            t.messaggiFinali.perfetto;
 
     } else if (punteggio >= 600) {
 
         messaggio =
-            t.messaggio600;
+            t.messaggiFinali.ottimo;
 
     } else if (punteggio >= 400) {
 
         messaggio =
-            t.messaggio400;
+            t.messaggiFinali.buono;
 
     } else {
 
         messaggio =
-            t.messaggio0;
+            t.messaggiFinali.difficile;
 
     }
 
@@ -1525,9 +1671,9 @@ function fine() {
 }
 
 
-/* =====================================================
+/* =========================================================
    RICOMINCIA
-===================================================== */
+   ========================================================= */
 
 function ricomincia() {
 
@@ -1536,6 +1682,8 @@ function ricomincia() {
     punteggio = 0;
 
     risolte = 0;
+
+    giaRisposto = false;
 
 
     document.getElementById("gioco").style.display =
@@ -1550,15 +1698,14 @@ function ricomincia() {
     document.getElementById("risolte").innerText =
         "0";
 
-
     caricaCaso();
 
 }
 
 
-/* =====================================================
+/* =========================================================
    TORNA AI GIOCHI
-===================================================== */
+   ========================================================= */
 
 function tornaGiochi() {
 
@@ -1568,14 +1715,17 @@ function tornaGiochi() {
 }
 
 
-/* =====================================================
+/* =========================================================
    AVVIO
-===================================================== */
+   ========================================================= */
 
 document.getElementById("lingua").value =
-    linguaCorrente;
+    lingua;
 
-aggiornaInterfaccia();
+document.documentElement.lang =
+    lingua;
+
+applicaTraduzione();
 
 caricaCaso();
 
