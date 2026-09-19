@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+<head>
+<meta charset="UTF-8">
+<title>💧 Dove finisce l'acqua? - EcoGame</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b1720;
+    color: #edf7fa;
+}
+
+header {
+    background: #102530;
+    border-bottom: 1px solid #31515e;
+    padding: 20px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #81d4fa;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.progress {
+    color: #b7cbd2;
+}
+
+.container {
+    width: 92%;
+    max-width: 1050px;
+    margin: 30px auto;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro h1 {
+    color: #81d4fa;
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.intro p {
+    color: #b7c9cf;
+    line-height: 1.6;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: #122934;
+    border: 1px solid #31515e;
+    border-radius: 15px;
+    padding: 17px;
+    text-align: center;
+}
+
+.stat-title {
+    color: #9eb5bd;
+    font-size: 14px;
+}
+
+.stat-number {
+    color: #81d4fa;
+    font-size: 27px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.card {
+    background: #12232b;
+    border: 1px solid #36515c;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.case-title {
+    color: #b3e5fc;
+    font-size: 25px;
+}
+
+.case-description {
+    color: #c2d1d6;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.data-box {
+    background: #0d1d25;
+    border: 1px solid #304b56;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 22px 0;
+}
+
+.data-box h3 {
+    color: #81d4fa;
+    margin-top: 0;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.data {
+    background: #172c35;
+    padding: 14px;
+    border-radius: 9px;
+}
+
+.data strong {
+    color: #e0f7fa;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.option {
+    background: #172c35;
+    border: 1px solid #42606b;
+    color: #e8f5f7;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 16px;
+}
+
+.option:hover {
+    background: #21404b;
+    border-color: #81d4fa;
+    transform: translateY(-2px);
+}
+
+.option span {
+    color: #81d4fa;
+    font-weight: bold;
+    font-size: 19px;
+    margin-right: 8px;
+}
+
+#feedback {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    line-height: 1.7;
+}
+
+.correct {
+    background: #123322;
+    border: 1px solid #4caf50;
+}
+
+.wrong {
+    background: #351b1b;
+    border: 1px solid #ef5350;
+}
+
+#next {
+    display: none;
+    margin: 20px auto 0;
+    padding: 13px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #0288d1;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#next:hover {
+    background: #03a9f4;
+}
+
+#finale {
+    display: none;
+    text-align: center;
+}
+
+.final-score {
+    font-size: 60px;
+    color: #81d4fa;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.final-message {
+    color: #c7d7dc;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.final-button {
+    background: #0288d1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 23px;
+    margin: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+@media(max-width: 700px) {
+
+    .options,
+    .data-grid,
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+```
+<div class="logo">
+    🌍 EcoGame
+</div>
+
+<div class="progress">
+    Caso <span id="casoNumero">1</span> / 8
+</div>
+```
+
+</header>
+
+<div class="container">
+
+```
+<div class="intro">
+
+    <h1>💧 Dove finisce l'acqua?</h1>
+
+    <p>
+        Un'indagine scientifica sulle risorse idriche.
+        <br>
+        Analizza i dati, trova gli indizi e individua
+        la causa del problema.
+    </p>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-title">
+            🔎 Indagini risolte
+        </div>
+
+        <div class="stat-number">
+            <span id="risolte">0</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            🧠 Punteggio
+        </div>
+
+        <div class="stat-number">
+            <span id="punteggio">0</span>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            💧 Caso attuale
+        </div>
+
+        <div class="stat-number">
+            #<span id="casoStat">1</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card" id="gioco">
+
+
+    <div class="case-title" id="titoloCaso"></div>
+
+
+    <div class="case-description" id="descrizioneCaso"></div>
+
+
+    <div class="data-box">
+
+        <h3>📊 Dati dell'indagine</h3>
+
+        <div class="data-grid" id="dati"></div>
+
+    </div>
+
+
+    <h3>
+        🔎 Quale spiegazione è più compatibile con i dati?
+    </h3>
+
+
+    <div class="options" id="opzioni"></div>
+
+
+    <div id="feedback"></div>
+
+
+    <button id="next" onclick="prossimoCaso()">
+        ➡️ Prossima indagine
+    </button>
+
+
+</div>
+
+
+<div class="card" id="finale">
+
+    <h2>🏆 Indagine completata</h2>
+
+    <div class="final-score">
+        <span id="punteggioFinale">0</span> / 800
+    </div>
+
+    <p class="final-message" id="messaggioFinale"></p>
+
+    <button
+        class="final-button"
+        onclick="ricomincia()">
+
+        🔄 Rifai l'indagine
+
+    </button>
+
+
+    <button
+        class="final-button"
+        onclick="tornaGiochi()">
+
+        🎮 Torna ai giochi
+
+    </button>
+
+</div>
+```
+
+</div>
+
+<script>
+
+
+const casi = [
+
+/* CASO 1 */
+
+{
+    titolo: "🔎 Caso 1 — La perdita invisibile",
+
+    descrizione:
+    "Il consumo registrato dagli abitanti sembra normale, ma l'acquedotto sta prelevando molta più acqua del previsto. Devi individuare dove potrebbe trovarsi il problema.",
+
+    dati: [
+        "Consumo domestico: +4%",
+        "Consumo industriale: +3%",
+        "Consumo agricolo: +6%",
+        "Acqua immessa nella rete: +29%",
+        "Acqua effettivamente fatturata: +5%",
+        "Segnalazioni di tubature rotte: 2"
+    ],
+
+    opzioni: [
+        "L'aumento dei consumi domestici",
+        "Una perdita nella rete di distribuzione",
+        "L'aumento della produzione agricola",
+        "Un errore nei contatori domestici"
+    ],
+
+    corretta: 1,
+
+    spiegazione:
+    "La differenza tra acqua immessa nella rete e acqua effettivamente utilizzata indica una perdita significativa. In questo caso il dato più importante è il +29% di acqua immessa contro il solo +5% fatturato."
+},
+
+
+/* CASO 2 */
+
+{
+    titolo: "🏠 Caso 2 — Il quartiere che consuma troppo",
+
+    descrizione:
+    "Due quartieri hanno popolazione e condizioni climatiche simili. Tuttavia uno consuma quasi il doppio dell'acqua. Analizza i dati.",
+
+    dati: [
+        "Quartiere A: 145 L/persona/giorno",
+        "Quartiere B: 278 L/persona/giorno",
+        "Popolazione simile",
+        "Temperatura media identica",
+        "A ha edifici più recenti",
+        "B ha molte abitazioni costruite prima del 1980"
+    ],
+
+    opzioni: [
+        "Il quartiere B potrebbe avere impianti domestici meno efficienti",
+        "Il quartiere A riceve più precipitazioni",
+        "Il quartiere B ha sicuramente più abitanti",
+        "La temperatura è la causa principale"
+    ],
+
+    corretta: 0,
+
+    spiegazione:
+    "Gli edifici più vecchi possono avere rubinetti, cassette di scarico e impianti meno efficienti. I dati sulla popolazione e sulla temperatura rendono meno plausibili le altre spiegazioni."
+},
+
+
+/* CASO 3 */
+
+{
+    titolo: "🌾 Caso 3 — I campi assetati",
+
+    descrizione:
+    "Una zona agricola consuma una quantità d'acqua molto elevata. Non è però sufficiente sapere che l'agricoltura consuma molto: devi capire quale fattore può spiegare l'aumento.",
+
+    dati: [
+        "Acqua utilizzata: +38%",
+        "Superficie coltivata: +4%",
+        "Produzione agricola: +7%",
+        "Piogge: -31%",
+        "Temperatura media: +2,1 °C",
+        "Irrigazione a pioggia ancora prevalente"
+    ],
+
+    opzioni: [
+        "L'aumento della superficie coltivata è sufficiente a spiegare tutto",
+        "La diminuzione delle piogge e l'aumento della domanda evaporativa possono aver aumentato l'irrigazione",
+        "La produzione agricola è diminuita",
+        "Il problema è sicuramente nelle abitazioni"
+    ],
+
+    corretta: 1,
+
+    spiegazione:
+    "La superficie coltivata è aumentata solo del 4%, mentre l'acqua utilizzata è aumentata del 38%. La combinazione tra meno precipitazioni, temperature maggiori e irrigazione poco efficiente è più coerente con i dati."
+},
+
+
+/* CASO 4 */
+
+{
+    titolo: "🏭 Caso 4 — L'impianto industriale",
+
+    descrizione:
+    "Un impianto industriale segnala un aumento del prelievo idrico. Ma il numero di prodotti realizzati è quasi invariato.",
+
+    dati: [
+        "Produzione industriale: +2%",
+        "Prelievo d'acqua: +34%",
+        "Ore di funzionamento: +3%",
+        "Nuovo sistema di raffreddamento installato",
+        "Acqua restituita dopo il processo: -18%",
+        "Temperatura esterna: +1,8 °C"
+    ],
+
+    opzioni: [
+        "La produzione industriale spiega completamente l'aumento",
+        "Il nuovo sistema di raffreddamento potrebbe essere collegato al maggiore consumo",
+        "La temperatura esterna non può avere alcun effetto",
+        "L'acqua restituita è aumentata"
+    ],
+
+    corretta: 1,
+
+    spiegazione:
+    "La produzione è quasi invariata, mentre il prelievo cresce molto. Il nuovo sistema di raffreddamento e la diminuzione dell'acqua restituita sono indizi più direttamente collegati al cambiamento."
+},
+
+
+/* CASO 5 */
+
+{
+    titolo: "🌡️ Caso 5 — La siccità",
+
+    descrizione:
+    "La città ha consumato più acqua durante un'estate eccezionalmente calda. Ma il problema non riguarda soltanto i consumi domestici.",
+
+    dati: [
+        "Precipitazioni: -42%",
+        "Temperatura media: +3,4 °C",
+        "Acqua nei bacini: -37%",
+        "Consumo domestico: +9%",
+        "Irrigazione: +41%",
+        "Evaporazione stimata: +24%"
+    ],
+
+    opzioni: [
+        "Solo le famiglie sono responsabili",
+        "La diminuzione delle piogge e l'aumento dell'evaporazione hanno aumentato la pressione sulle risorse",
+        "La città ha ricevuto più acqua del normale",
+        "L'irrigazione è diminuita"
+    ],
+
+    corretta: 1,
+
+    spiegazione:
+    "I dati mostrano una situazione di stress idrico: meno precipitazioni, maggiore temperatura, più evaporazione e forte aumento dell'irrigazione."
+},
+
+
+/* CASO 6 */
+
+{
+    titolo: "🧪 Caso 6 — Acqua potabile o contaminata?",
+
+    descrizione:
+    "In una zona agricola viene rilevata una concentrazione anomala di nitrati nell'acqua sotterranea. Devi individuare l'ipotesi più coerente.",
+
+    dati: [
+        "Nitrati nelle acque sotterranee: +46%",
+        "Nuovi impianti industriali: nessuno",
+        "Uso di fertilizzanti: +31%",
+        "Piogge intense dopo la fertilizzazione",
+        "Pozzi più contaminati vicino ai campi",
+        "Contaminazione molto minore nelle zone boschive"
+    ],
+
+    opzioni: [
+        "L'aumento dei fertilizzanti è compatibile con i dati",
+        "La contaminazione proviene sicuramente dal traffico",
+        "I boschi producono nitrati",
+        "La causa è necessariamente il consumo domestico"
+    ],
+
+    corretta: 0,
+
+    spiegazione:
+    "La vicinanza ai campi, l'aumento dei fertilizzanti e le piogge intense costituiscono un insieme di indizi coerenti con il trasporto dei nitrati verso le acque sotterranee."
+},
+
+
+/* CASO 7 */
+
+{
+    titolo: "🗺️ Caso 7 — La zona critica",
+
+    descrizione:
+    "Una città è stata divisa in quattro zone. Devi stabilire quale richiede un intervento prioritario sulla rete idrica.",
+
+    dati: [
+        "Zona A: perdite 8% — pressione normale",
+        "Zona B: perdite 12% — pressione normale",
+        "Zona C: perdite 41% — pressione elevata",
+        "Zona D: perdite 10% — pressione bassa"
+    ],
+
+    opzioni: [
+        "Zona A",
+        "Zona B",
+        "Zona C",
+        "Zona D"
+    ],
+
+    corretta: 2,
+
+    spiegazione:
+    "La Zona C presenta una perdita molto superiore alle altre e contemporaneamente una pressione elevata. Entrambi i dati indicano una possibile criticità della rete."
+},
+
+
+/* CASO 8 */
+
+{
+    titolo: "🏆 Caso 8 — Il caso finale",
+
+    descrizione:
+    "Hai ricevuto il rapporto finale della città. Devi individuare quale intervento avrebbe probabilmente l'effetto maggiore sulla riduzione dello spreco idrico.",
+
+    dati: [
+        "Perdite rete: 29%",
+        "Agricoltura: 34% dei prelievi",
+        "Industria: 18% dei prelievi",
+        "Uso domestico: 19% dei prelievi",
+        "Irrigazione efficiente presente solo nel 22% dei campi",
+        "Rete urbana con molte tubature obsolete"
+    ],
+
+    opzioni: [
+        "Concentrarsi esclusivamente sulle docce domestiche",
+        "Sostituire tutte le colture con altre specie",
+        "Ridurre le perdite della rete e migliorare l'efficienza dell'irrigazione",
+        "Costruire più fontane pubbliche"
+    ],
+
+    corretta: 2,
+
+    spiegazione:
+    "Il rapporto indica due grandi aree di inefficienza: le perdite della rete e l'irrigazione. Intervenire su entrambe affronta direttamente una parte significativa dello spreco."
+}
+
+];
+
+
+let caso = 0;
+
+let punteggio = 0;
+
+let risolte = 0;
+
+let giaRisposto = false;
+
+
+function caricaCaso() {
+
+    giaRisposto = false;
+
+    const dati = casi[caso];
+
+
+    document.getElementById("casoNumero").innerText =
+        caso + 1;
+
+    document.getElementById("casoStat").innerText =
+        caso + 1;
+
+
+    document.getElementById("titoloCaso").innerText =
+        dati.titolo;
+
+
+    document.getElementById("descrizioneCaso").innerText =
+        dadosafe(dati.descrizione);
+
+
+    const contenitoreDati =
+        document.getElementById("dati");
+
+    contenitoreDati.innerHTML = "";
+
+
+    dadosafeArray(dati.dati).forEach(function(elemento) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "data";
+
+        div.innerHTML =
+            elemento;
+
+        contenitoreDati.appendChild(div);
+
+    });
+
+
+    const contenitoreOpzioni =
+        document.getElementById("opzioni");
+
+    contenitoreOpzioni.innerHTML = "";
+
+
+    dadosafeArray(dati.opzioni).forEach(function(elemento, indice) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "option";
+
+        button.innerHTML =
+            "<span>" +
+            String.fromCharCode(65 + indice) +
+            "</span>" +
+            elemento;
+
+        button.onclick = function() {
+
+            rispondi(indice);
+
+        };
+
+        contenitoreOpzioni.appendChild(button);
+
+    });
+
+
+    document.getElementById("feedback").style.display =
+        "none";
+
+    document.getElementById("next").style.display =
+        "none";
+
+}
+
+
+function dadosafe(valore) {
+
+    return valore;
+
+}
+
+
+function dadosafeArray(valore) {
+
+    return valore;
+
+}
+
+
+function rispondi(scelta) {
+
+
+    if (giaRisposto) {
+        return;
+    }
+
+
+    giaRisposto = true;
+
+
+    const dati = casi[caso];
+
+    const feedback =
+        document.getElementById("feedback");
+
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+
+    buttons.forEach(function(button) {
+
+        button.style.cursor =
+            "default";
+
+    });
+
+
+    if (scelta === dadosafe(dati.corretta)) {
+
+
+        punteggio += 100;
+
+        risolte++;
+
+
+        feedback.className =
+            "correct";
+
+
+        feedback.innerHTML =
+            "✅ <strong>Indagine risolta.</strong><br><br>" +
+            dati.spiegazione +
+            "<br><br>" +
+            "<strong>+100 punti</strong>";
+
+
+    } else {
+
+
+        feedback.className =
+            "wrong";
+
+
+        feedback.innerHTML =
+            "❌ <strong>Ipotesi non compatibile.</strong><br><br>" +
+            dati.spiegazione +
+            "<br><br>" +
+            "La risposta corretta era: <strong>" +
+            String.fromCharCode(65 + dati.corretta) +
+            "</strong>.";
+
+
+    }
+
+
+    document.getElementById("punteggio").innerText =
+        punteggio;
+
+
+    document.getElementById("risolte").innerText =
+        risolte;
+
+
+    feedback.style.display =
+        "block";
+
+
+    document.getElementById("next").style.display =
+        "block";
+
+}
+
+
+function prossimoCaso() {
+
+
+    caso++;
+
+
+    if (caso >= casi.length) {
+
+        fine();
+
+        return;
+
+    }
+
+
+    caricaCaso();
+
+}
+
+
+function fine() {
+
+
+    document.getElementById("gioco").style.display =
+        "none";
+
+
+    document.getElementById("finale").style.display =
+        "block";
+
+
+    document.getElementById("punteggioFinale").innerText =
+        punteggio;
+
+
+    let messaggio;
+
+
+    if (punteggio === 800) {
+
+        messaggio =
+            "🏆 Investigatore esperto. Hai interpretato correttamente tutti gli indizi e i dati.";
+
+    } else if (punteggio >= 600) {
+
+        messaggio =
+            "🔎 Ottimo lavoro. Hai individuato la maggior parte delle cause utilizzando i dati.";
+
+    } else if (punteggio >= 400) {
+
+        messaggio =
+            "🧠 Buona analisi, ma alcuni casi richiedevano maggiore attenzione ai dati.";
+
+    } else {
+
+        messaggio =
+            "💧 L'indagine è stata difficile. Rileggi gli indizi e prova a cercare le relazioni tra i dati.";
+
+    }
+
+
+    document.getElementById("messaggioFinale").innerText =
+        messaggio;
+
+}
+
+
+function ricomincia() {
+
+
+    caso = 0;
+
+    punteggio = 0;
+
+    risolte = 0;
+
+
+    document.getElementById("gioco").style.display =
+        "block";
+
+
+    document.getElementById("finale").style.display =
+        "none";
+
+
+    document.getElementById("punteggio").innerText =
+        "0";
+
+
+    document.getElementById("risolte").innerText =
+        "0";
+
+
+    caricaCaso();
+
+}
+
+
+function tornaGiochi() {
+
+    window.location.href =
+        "giochi.html";
+
+}
+
+
+caricaCaso();
+
+
+</script>
+
+</body>
+
+</html>
