@@ -282,10 +282,14 @@ footer {
 <script>
 
 
+/* =====================================================
+   CAMBIO LINGUA
+   ===================================================== */
+
 function cambiaLingua(lingua) {
 
-    // SALVA LA LINGUA SCELTA
-    localStorage.setItem("linguaEcoGame", lingua);
+    /* Salva la lingua nel browser */
+    localStorage.setItem("ecoGameLingua", lingua);
 
 
     if (lingua === "it") {
@@ -443,23 +447,9 @@ function cambiaLingua(lingua) {
 }
 
 
-// Quando si apre la Home,
-// recupera la lingua precedentemente scelta.
-function caricaLingua() {
-
-    const linguaSalvata =
-        localStorage.getItem("linguaEcoGame");
-
-    if (linguaSalvata === "it" ||
-        linguaSalvata === "en" ||
-        linguaSalvata === "fi") {
-
-        cambiaLingua(linguaSalvata);
-
-    }
-
-}
-
+/* =====================================================
+   APERTURA DELLE PAGINE
+   ===================================================== */
 
 function apriQuiz() {
 
@@ -489,9 +479,18 @@ function apriAgenda() {
 }
 
 
-// Carica automaticamente la lingua salvata
-caricaLingua();
+/* =====================================================
+   CARICA LA LINGUA SALVATA
+   ===================================================== */
 
+window.onload = function() {
+
+    const linguaSalvata =
+        localStorage.getItem("ecoGameLingua") || "it";
+
+    cambiaLingua(linguaSalvata);
+
+};
 
 </script>
 
