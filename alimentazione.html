@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -28,6 +28,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -36,9 +38,29 @@ header {
     font-weight: bold;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.language {
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid #3d5945;
+    background: #20362a;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .menu {
     color: #bfd0c3;
     cursor: pointer;
+}
+
+.menu:hover {
+    color: #81c784;
 }
 
 .container {
@@ -234,9 +256,19 @@ h2 {
         padding: 20px;
     }
 
+    header {
+        padding: 15px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -247,21 +279,47 @@ h2 {
         🌍 EcoGame
     </div>
 
-    <div
-        class="menu"
-        onclick="location.href='giochi.html'">
+    <div class="header-right">
 
-        🎮 <span data-testo="giochi">Giochi</span>
+        <!-- SELETTORE LINGUA -->
+
+        <select
+            class="language"
+            id="languageSelector"
+            onchange="changeLanguage()">
+
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fi">🇫🇮 Suomi</option>
+
+        </select>
+
+
+        <!-- TORNA AI GIOCHI -->
+
+        <div
+            class="menu"
+            onclick="location.href='giochi.html'">
+
+            🎮 <span id="gamesButton">Giochi</span>
+
+        </div>
 
     </div>
 
 </header>
 
+
 <div class="container">
+
+
+    <!-- TITOLO -->
 
     <div class="title">
 
-        <h1>🍽️ Food Impact</h1>
+        <h1 id="gameTitle">
+            🍽️ Food Impact
+        </h1>
 
         <p id="intro">
             Costruisci un pasto cercando di trovare
@@ -271,33 +329,114 @@ h2 {
 
     </div>
 
+
+    <!-- STATISTICHE -->
+
     <div class="stats">
 
         <div class="stat">
-            <div class="stat-icon">💰</div>
-            <div class="stat-name" id="statCost">Costo</div>
-            <div class="stat-value" id="cost">0 €</div>
+
+            <div class="stat-icon">
+                💰
+            </div>
+
+            <div
+                class="stat-name"
+                id="statCost">
+
+                Costo
+
+            </div>
+
+            <div
+                class="stat-value"
+                id="cost">
+
+                0 €
+
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="stat-icon">🌡️</div>
-            <div class="stat-name" id="statClimate">Impatto climatico</div>
-            <div class="stat-value" id="climate">0</div>
-        </div>
 
         <div class="stat">
-            <div class="stat-icon">💧</div>
-            <div class="stat-name" id="statWater">Uso dell'acqua</div>
-            <div class="stat-value" id="water">0</div>
+
+            <div class="stat-icon">
+                🌡️
+            </div>
+
+            <div
+                class="stat-name"
+                id="statClimate">
+
+                Impatto climatico
+
+            </div>
+
+            <div
+                class="stat-value"
+                id="climate">
+
+                0
+
+            </div>
+
         </div>
 
+
         <div class="stat">
-            <div class="stat-icon">🗑️</div>
-            <div class="stat-name" id="statWaste">Rifiuti</div>
-            <div class="stat-value" id="waste">0</div>
+
+            <div class="stat-icon">
+                💧
+            </div>
+
+            <div
+                class="stat-name"
+                id="statWater">
+
+                Uso dell'acqua
+
+            </div>
+
+            <div
+                class="stat-value"
+                id="water">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🗑️
+            </div>
+
+            <div
+                class="stat-name"
+                id="statWaste">
+
+                Rifiuti
+
+            </div>
+
+            <div
+                class="stat-value"
+                id="waste">
+
+                0
+
+            </div>
+
         </div>
 
     </div>
+
+
+    <!-- GIOCO -->
 
     <div
         class="card"
@@ -311,22 +450,27 @@ h2 {
 
         </div>
 
+
         <h2 id="title"></h2>
+
 
         <div
             class="description"
             id="description">
         </div>
 
+
         <div
             class="options"
             id="options">
         </div>
 
+
         <div
             class="summary hidden"
             id="summary">
         </div>
+
 
         <button
             class="continue"
@@ -340,6 +484,9 @@ h2 {
 
     </div>
 
+
+    <!-- RISULTATO -->
+
     <div
         class="card hidden"
         id="resultCard">
@@ -350,20 +497,25 @@ h2 {
                 🍽️
             </div>
 
+
             <h2 id="resultTitle">
                 Il tuo pasto è pronto!
             </h2>
 
+
             <p id="resultIntro">
                 Hai ottenuto un punteggio ambientale di:
             </p>
+
 
             <div
                 class="final-score"
                 id="finalScore">
             </div>
 
+
             <p id="message"></p>
+
 
             <button
                 class="restart"
@@ -373,6 +525,7 @@ h2 {
                 🔄 Ricomincia
 
             </button>
+
 
             <button
                 class="back"
@@ -389,6 +542,7 @@ h2 {
 
 </div>
 
+
 <script>
 
 /* =====================================================
@@ -397,9 +551,16 @@ h2 {
 
 const traduzioni = {
 
+
+    /* =================================================
+       ITALIANO
+    ================================================= */
+
     it: {
 
         giochi: "Giochi",
+
+        titolo: "🍽️ Food Impact",
 
         intro:
             "Costruisci un pasto cercando di trovare il miglior equilibrio tra ambiente, costo e risorse.",
@@ -447,9 +608,16 @@ const traduzioni = {
 
     },
 
+
+    /* =================================================
+       INGLESE
+    ================================================= */
+
     en: {
 
         giochi: "Games",
+
+        titolo: "🍽️ Food Impact",
 
         intro:
             "Build a meal while trying to find the best balance between the environment, cost and resources.",
@@ -497,9 +665,16 @@ const traduzioni = {
 
     },
 
+
+    /* =================================================
+       FINLANDESE
+    ================================================= */
+
     fi: {
 
         giochi: "Pelit",
+
+        titolo: "🍽️ Food Impact",
 
         intro:
             "Rakenna ateria ja pyri löytämään paras tasapaino ympäristön, kustannusten ja resurssien välillä.",
@@ -551,389 +726,764 @@ const traduzioni = {
 
 
 /* =====================================================
-   LINGUA SALVATA
+   LINGUA CORRENTE
 ===================================================== */
 
-const linguaSalvata =
+let lingua =
     localStorage.getItem("linguaEcoGame") || "it";
 
 
-const lingua =
-    Object.prototype.hasOwnProperty.call(
+/*
+   Controlla che la lingua salvata esista.
+*/
+
+if (
+    !Object.prototype.hasOwnProperty.call(
         traduzioni,
-        linguaSalvata
+        lingua
     )
-        ? linguaSalvata
-        : "it";
+) {
 
+    lingua = "it";
 
-const testi =
-    traduzioni[lingua];
-
-
-document.documentElement.lang =
-    lingua;
+}
 
 
 /* =====================================================
    TESTI STATICI
 ===================================================== */
 
-document.getElementById("giochi").innerText =
-    testi.giochi;
+function updateStaticTexts() {
 
-document.getElementById("intro").innerText =
-    testi.intro;
-
-document.getElementById("statCost").innerText =
-    testi.costo;
-
-document.getElementById("statClimate").innerText =
-    testi.clima;
-
-document.getElementById("statWater").innerText =
-    testi.acqua;
-
-document.getElementById("statWaste").innerText =
-    testi.rifiuti;
-
-document.getElementById("continue").innerText =
-    testi.continua;
-
-document.getElementById("resultTitle").innerText =
-    testi.risultato;
-
-document.getElementById("resultIntro").innerText =
-    testi.risultatoIntro;
-
-document.getElementById("restartButton").innerText =
-    testi.ricomincia;
-
-document.getElementById("backButton").innerText =
-    testi.tornaGiochi;
+    const testi =
+        traduzioni[lingua];
 
 
-/* =========================
-   VARIABILI
-========================= */
-
-let step = 0;
-let selected = false;
-
-let stats = {
-    cost: 0,
-    climate: 0,
-    water: 0,
-    waste: 0
-};
+    document.documentElement.lang =
+        lingua;
 
 
-/* =========================
+    document.title =
+        testi.titolo + " - EcoGame";
+
+
+    document.getElementById("gameTitle").innerText =
+        testi.titolo;
+
+
+    document.getElementById("gamesButton").innerText =
+        testi.giochi;
+
+
+    document.getElementById("intro").innerText =
+        testi.intro;
+
+
+    document.getElementById("statCost").innerText =
+        testi.costo;
+
+
+    document.getElementById("statClimate").innerText =
+        testi.clima;
+
+
+    document.getElementById("statWater").innerText =
+        testi.acqua;
+
+
+    document.getElementById("statWaste").innerText =
+        testi.rifiuti;
+
+
+    document.getElementById("continue").innerText =
+        testi.continua;
+
+
+    document.getElementById("resultTitle").innerText =
+        testi.risultato;
+
+
+    document.getElementById("resultIntro").innerText =
+        testi.risultatoIntro;
+
+
+    document.getElementById("restartButton").innerText =
+        testi.ricomincia;
+
+
+    document.getElementById("backButton").innerText =
+        testi.tornaGiochi;
+
+}
+
+
+/* =====================================================
+   CAMBIO LINGUA
+===================================================== */
+
+function changeLanguage() {
+
+    const selector =
+        document.getElementById("languageSelector");
+
+
+    lingua =
+        selector.value;
+
+
+    /*
+       Salva la lingua.
+
+       Questa è LA STESSA chiave utilizzata
+       dalla pagina giochi.html.
+    */
+
+    localStorage.setItem(
+        "linguaEcoGame",
+        lingua
+    );
+
+
+    /*
+       Aggiorna tutti i testi statici.
+    */
+
+    updateStaticTexts();
+
+
+    /*
+       Se siamo ancora dentro il gioco,
+       ricarica la fase nella nuova lingua.
+    */
+
+    if (
+        !document
+            .getElementById("gameCard")
+            .classList.contains("hidden")
+    ) {
+
+        loadStep();
+
+    }
+
+
+    /*
+       Se il risultato è già visibile,
+       aggiorna anche il messaggio finale.
+    */
+
+    if (
+        !document
+            .getElementById("resultCard")
+            .classList.contains("hidden")
+    ) {
+
+        showResult();
+
+    }
+
+}
+
+
+/* =====================================================
+   IMPOSTA IL SELETTORE
+===================================================== */
+
+document.getElementById(
+    "languageSelector"
+).value = lingua;
+
+
+/* =====================================================
    FASI DEL GIOCO
-========================= */
+===================================================== */
 
 const steps = [
 
+
+    /* =================================================
+       FASE 1
+    ================================================= */
+
     {
+
         title: {
+
             it: "🥇 Scegli la fonte proteica",
+
             en: "🥇 Choose the protein source",
+
             fi: "🥇 Valitse proteiinin lähde"
+
         },
 
+
         description: {
-            it: "Devi scegliere una fonte proteica per il tuo pasto. Hai a disposizione quattro alternative con caratteristiche diverse.",
-            en: "You need to choose a protein source for your meal. You have four alternatives with different characteristics.",
-            fi: "Valitse ateriallesi proteiinin lähde. Käytettävissäsi on neljä vaihtoehtoa, joilla on erilaiset ominaisuudet."
+
+            it:
+                "Devi scegliere una fonte proteica per il tuo pasto. Hai a disposizione quattro alternative con caratteristiche diverse.",
+
+            en:
+                "You need to choose a protein source for your meal. You have four alternatives with different characteristics.",
+
+            fi:
+                "Valitse ateriallesi proteiinin lähde. Käytettävissäsi on neljä vaihtoehtoa, joilla on erilaiset ominaisuudet."
+
         },
+
 
         options: [
 
             {
+
                 text: {
+
                     it: "🥩 Manzo",
+
                     en: "🥩 Beef",
+
                     fi: "🥩 Naudanliha"
+
                 },
+
                 cost: 5,
+
                 climate: 9,
+
                 water: 8,
+
                 waste: 1
+
             },
 
+
             {
+
                 text: {
+
                     it: "🍗 Pollo",
+
                     en: "🍗 Chicken",
+
                     fi: "🍗 Kana"
+
                 },
+
                 cost: 4,
+
                 climate: 5,
+
                 water: 5,
+
                 waste: 1
+
             },
 
+
             {
+
                 text: {
+
                     it: "🐟 Pesce",
+
                     en: "🐟 Fish",
+
                     fi: "🐟 Kala"
+
                 },
+
                 cost: 5,
+
                 climate: 4,
+
                 water: 3,
+
                 waste: 2
+
             },
 
+
             {
+
                 text: {
+
                     it: "🫘 Legumi",
+
                     en: "🫘 Legumes",
+
                     fi: "🫘 Palkokasvit"
+
                 },
+
                 cost: 2,
+
                 climate: 1,
+
                 water: 1,
+
                 waste: 1
+
             }
 
         ]
+
     },
 
 
+    /* =================================================
+       FASE 2
+    ================================================= */
+
     {
+
         title: {
+
             it: "🥕 Scegli il contorno",
+
             en: "🥕 Choose the side dish",
+
             fi: "🥕 Valitse lisuke"
+
         },
 
+
         description: {
-            it: "Ora devi aggiungere un contorno. Considera non solo l'alimento, ma anche il modo in cui viene acquistato.",
-            en: "Now you need to add a side dish. Consider not only the food itself, but also how it is purchased.",
-            fi: "Nyt sinun on valittava lisuke. Huomioi ruoan lisäksi myös se, miten se ostetaan."
+
+            it:
+                "Ora devi aggiungere un contorno. Considera non solo l'alimento, ma anche il modo in cui viene acquistato.",
+
+            en:
+                "Now you need to add a side dish. Consider not only the food itself, but also how it is purchased.",
+
+            fi:
+                "Nyt sinun on valittava lisuke. Huomioi ruoan lisäksi myös se, miten se ostetaan."
+
         },
+
 
         options: [
 
             {
+
                 text: {
+
                     it: "🥔 Patate sfuse",
+
                     en: "🥔 Loose potatoes",
+
                     fi: "🥔 Irtoperunat"
+
                 },
+
                 cost: 2,
+
                 climate: 1,
+
                 water: 2,
+
                 waste: 0
+
             },
 
+
             {
+
                 text: {
+
                     it: "🥗 Verdure di stagione sfuse",
+
                     en: "🥗 Loose seasonal vegetables",
+
                     fi: "🥗 Irtonaiset kauden vihannekset"
+
                 },
+
                 cost: 3,
+
                 climate: 1,
+
                 water: 1,
+
                 waste: 0
+
             },
 
+
             {
+
                 text: {
+
                     it: "🥗 Verdure confezionate in plastica",
+
                     en: "🥗 Vegetables packaged in plastic",
+
                     fi: "🥗 Muoviin pakatut vihannekset"
+
                 },
+
                 cost: 3,
+
                 climate: 2,
+
                 water: 1,
+
                 waste: 3
+
             },
 
+
             {
+
                 text: {
+
                     it: "🥑 Avocado importato",
+
                     en: "🥑 Imported avocado",
+
                     fi: "🥑 Tuontiavokado"
+
                 },
+
                 cost: 4,
+
                 climate: 3,
+
                 water: 6,
+
                 waste: 1
+
             }
 
         ]
+
     },
 
 
+    /* =================================================
+       FASE 3
+    ================================================= */
+
     {
+
         title: {
+
             it: "🥤 Scegli la bevanda",
+
             en: "🥤 Choose the drink",
+
             fi: "🥤 Valitse juoma"
+
         },
 
+
         description: {
-            it: "Il pasto è quasi completo. Ora scegli cosa bere.",
-            en: "The meal is almost complete. Now choose what to drink.",
-            fi: "Ateria on melkein valmis. Valitse nyt juoma."
+
+            it:
+                "Il pasto è quasi completo. Ora scegli cosa bere.",
+
+            en:
+                "The meal is almost complete. Now choose what to drink.",
+
+            fi:
+                "Ateria on melkein valmis. Valitse nyt juoma."
+
         },
+
 
         options: [
 
             {
+
                 text: {
+
                     it: "🚰 Acqua del rubinetto",
+
                     en: "🚰 Tap water",
+
                     fi: "🚰 Hanavesi"
+
                 },
+
                 cost: 1,
+
                 climate: 0,
+
                 water: 0,
+
                 waste: 0
+
             },
 
+
             {
+
                 text: {
+
                     it: "🧴 Acqua in bottiglia di plastica",
+
                     en: "🧴 Bottled water in plastic",
+
                     fi: "🧴 Muovipulloon pakattu vesi"
+
                 },
+
                 cost: 2,
+
                 climate: 2,
+
                 water: 1,
+
                 waste: 3
+
             },
 
+
             {
+
                 text: {
+
                     it: "🥤 Bibita in lattina",
+
                     en: "🥤 Canned soft drink",
+
                     fi: "🥤 Tölkkiin pakattu virvoitusjuoma"
+
                 },
+
                 cost: 2,
+
                 climate: 2,
+
                 water: 1,
+
                 waste: 2
+
             },
 
+
             {
+
                 text: {
+
                     it: "🧃 Bevanda confezionata",
+
                     en: "🧃 Packaged drink",
+
                     fi: "🧃 Pakattu juoma"
+
                 },
+
                 cost: 2,
+
                 climate: 2,
+
                 water: 1,
+
                 waste: 3
+
             }
 
         ]
+
     },
 
 
+    /* =================================================
+       FASE 4
+    ================================================= */
+
     {
+
         title: {
+
             it: "🛒 La situazione finale",
+
             en: "🛒 The final decision",
+
             fi: "🛒 Lopullinen valinta"
+
         },
 
+
         description: {
-            it: "Hai preparato il pasto. Ora devi fare una scelta finale: puoi aggiungere un piccolo extra oppure cercare di ridurre gli sprechi.",
-            en: "You have prepared the meal. Now you must make a final choice: you can add a small extra or try to reduce waste.",
-            fi: "Olet valmistanut aterian. Nyt sinun on tehtävä viimeinen valinta: voit lisätä pienen lisän tai yrittää vähentää jätettä."
+
+            it:
+                "Hai preparato il pasto. Ora devi fare una scelta finale: puoi aggiungere un piccolo extra oppure cercare di ridurre gli sprechi.",
+
+            en:
+                "You have prepared the meal. Now you must make a final choice: you can add a small extra or try to reduce waste.",
+
+            fi:
+                "Olet valmistanut aterian. Nyt sinun on tehtävä viimeinen valinta: voit lisätä pienen lisän tai yrittää vähentää jätettä."
+
         },
+
 
         options: [
 
             {
+
                 text: {
+
                     it: "🍰 Aggiungere un dolce confezionato",
+
                     en: "🍰 Add a packaged dessert",
+
                     fi: "🍰 Lisää pakattu jälkiruoka"
+
                 },
+
                 cost: 3,
+
                 climate: 3,
+
                 water: 2,
+
                 waste: 3
+
             },
 
+
             {
+
                 text: {
+
                     it: "🍎 Scegliere un frutto di stagione",
+
                     en: "🍎 Choose a seasonal fruit",
+
                     fi: "🍎 Valitse kauden hedelmä"
+
                 },
+
                 cost: 1,
+
                 climate: 1,
+
                 water: 1,
+
                 waste: 0
+
             },
 
+
             {
+
                 text: {
+
                     it: "♻️ Non aggiungere nulla e ridurre gli sprechi",
+
                     en: "♻️ Add nothing and reduce waste",
+
                     fi: "♻️ Älä lisää mitään ja vähennä jätettä"
+
                 },
+
                 cost: 0,
+
                 climate: 0,
+
                 water: 0,
+
                 waste: -2
+
             },
 
+
             {
+
                 text: {
+
                     it: "🍫 Scegliere uno snack molto confezionato",
+
                     en: "🍫 Choose a heavily packaged snack",
+
                     fi: "🍫 Valitse runsaasti pakattu välipala"
+
                 },
+
                 cost: 2,
+
                 climate: 3,
+
                 water: 3,
+
                 waste: 4
+
             }
 
         ]
+
     }
 
 ];
 
 
-/* =========================
+/* =====================================================
+   VARIABILI
+===================================================== */
+
+let step = 0;
+
+let selected = false;
+
+
+let stats = {
+
+    cost: 0,
+
+    climate: 0,
+
+    water: 0,
+
+    waste: 0
+
+};
+
+
+/* =====================================================
    AGGIORNA LE STATISTICHE
-========================= */
+===================================================== */
 
 function updateStats() {
 
     document.getElementById("cost").innerText =
         stats.cost + " €";
 
+
     document.getElementById("climate").innerText =
         stats.climate;
+
 
     document.getElementById("water").innerText =
         stats.water;
 
+
     document.getElementById("waste").innerText =
-        Math.max(0, stats.waste);
+        Math.max(
+            0,
+            stats.waste
+        );
 
 }
 
 
-/* =========================
+/* =====================================================
    CARICA LA FASE
-========================= */
+===================================================== */
 
 function loadStep() {
 
     selected = false;
 
-    const current = steps[step];
+
+    const current =
+        steps[step];
+
+
+    const testi =
+        traduzioni[lingua];
+
 
     document.getElementById("step").innerText =
         testi.fase +
@@ -942,26 +1492,34 @@ function loadStep() {
         " / " +
         steps.length;
 
+
     document.getElementById("title").innerText =
         current.title[lingua];
+
 
     document.getElementById("description").innerText =
         current.description[lingua];
 
+
     const options =
         document.getElementById("options");
 
-    options.innerHTML = "";
+
+    options.innerHTML =
+        "";
+
 
     document.getElementById("continue").style.display =
         "none";
 
-    document.getElementById("summary").classList.add(
-        "hidden"
-    );
+
+    document.getElementById("summary")
+        .classList.add("hidden");
+
 
     document.getElementById("summary").innerHTML =
         "";
+
 
     current.options.forEach(
         function(option) {
@@ -969,11 +1527,14 @@ function loadStep() {
             const button =
                 document.createElement("button");
 
+
             button.className =
                 "option";
 
+
             button.innerText =
                 option.text[lingua];
+
 
             button.onclick =
                 function() {
@@ -985,7 +1546,10 @@ function loadStep() {
 
                 };
 
-            options.appendChild(button);
+
+            options.appendChild(
+                button
+            );
 
         }
     );
@@ -993,77 +1557,127 @@ function loadStep() {
 }
 
 
-/* =========================
+/* =====================================================
    SCELTA
-========================= */
+===================================================== */
 
-function chooseOption(option, button) {
+function chooseOption(
+    option,
+    button
+) {
 
     if (selected) {
         return;
     }
 
+
     selected = true;
 
-    stats.cost += option.cost;
-    stats.climate += option.climate;
-    stats.water += option.water;
-    stats.waste += option.waste;
 
-    button.classList.add("selected");
+    stats.cost +=
+        option.cost;
+
+
+    stats.climate +=
+        option.climate;
+
+
+    stats.water +=
+        option.water;
+
+
+    stats.waste +=
+        option.waste;
+
+
+    button.classList.add(
+        "selected"
+    );
+
 
     const all =
-        document.querySelectorAll(".option");
+        document.querySelectorAll(
+            ".option"
+        );
+
 
     all.forEach(
         function(item) {
 
-            item.classList.add("disabled");
+            item.classList.add(
+                "disabled"
+            );
 
         }
     );
 
+
     updateStats();
+
 
     document.getElementById("summary")
         .classList.remove("hidden");
+
 
     const wasteText =
         option.waste >= 0
             ? "+" + option.waste
             : option.waste;
 
+
+    const testi =
+        traduzioni[lingua];
+
+
     document.getElementById("summary").innerHTML =
+
         testi.impatto +
+
         "<br><br>" +
-        "🌡️ " + testi.climaShort + ": +" +
+
+        "🌡️ " +
+        testi.climaShort +
+        ": +" +
         option.climate +
+
         " &nbsp;&nbsp; " +
-        "💧 " + testi.acquaShort + ": +" +
+
+        "💧 " +
+        testi.acquaShort +
+        ": +" +
         option.water +
+
         " &nbsp;&nbsp; " +
-        "🗑️ " + testi.rifiutiShort + ": " +
+
+        "🗑️ " +
+        testi.rifiutiShort +
+        ": " +
         wasteText;
 
-    document.getElementById("continue").style.display =
+
+    document.getElementById("continue")
+        .style.display =
         "block";
 
 }
 
 
-/* =========================
+/* =====================================================
    FASE SUCCESSIVA
-========================= */
+===================================================== */
 
 function nextStep() {
 
     step++;
 
+
     if (step < steps.length) {
 
         loadStep();
 
-    } else {
+    }
+
+    else {
 
         showResult();
 
@@ -1072,103 +1686,185 @@ function nextStep() {
 }
 
 
-/* =========================
+/* =====================================================
    RISULTATO
-========================= */
+===================================================== */
 
 function showResult() {
 
     document.getElementById("gameCard")
         .classList.add("hidden");
 
+
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
+
     let score =
+
         100
+
         - stats.climate * 3
+
         - stats.water * 2
-        - Math.max(0, stats.waste) * 3
-        - Math.max(0, stats.cost - 10) * 2;
+
+        - Math.max(
+            0,
+            stats.waste
+        ) * 3
+
+        - Math.max(
+            0,
+            stats.cost - 10
+        ) * 2;
+
 
     score =
+
         Math.max(
+
             0,
+
             Math.min(
+
                 100,
+
                 Math.round(score)
+
             )
+
         );
 
-    document.getElementById("finalScore").innerText =
-        score + " / 100";
+
+    document.getElementById(
+        "finalScore"
+    ).innerText =
+
+        score +
+        " / 100";
+
+
+    const testi =
+        traduzioni[lingua];
+
 
     let message;
 
+
     if (score >= 85) {
 
-        message = testi.ottimo;
+        message =
+            testi.ottimo;
 
     }
 
     else if (score >= 70) {
 
-        message = testi.buono;
+        message =
+            testi.buono;
 
     }
 
     else if (score >= 50) {
 
-        message = testi.discreto;
+        message =
+            testi.discreto;
 
     }
 
     else {
 
-        message = testi.migliora;
+        message =
+            testi.migliora;
 
     }
 
-    document.getElementById("message").innerText =
+
+    document.getElementById(
+        "message"
+    ).innerText =
+
         message;
 
 }
 
 
-/* =========================
+/* =====================================================
    RICOMINCIA
-========================= */
+===================================================== */
 
 function restartGame() {
 
     step = 0;
+
     selected = false;
 
+
     stats = {
+
         cost: 0,
+
         climate: 0,
+
         water: 0,
+
         waste: 0
+
     };
+
 
     updateStats();
 
-    document.getElementById("resultCard")
+
+    document.getElementById(
+        "resultCard"
+    )
         .classList.add("hidden");
 
-    document.getElementById("gameCard")
+
+    document.getElementById(
+        "gameCard"
+    )
         .classList.remove("hidden");
+
 
     loadStep();
 
 }
 
 
-/* =========================
+/* =====================================================
    AVVIO
-========================= */
+===================================================== */
+
+
+/*
+   Imposta la lingua nel selettore.
+*/
+
+document.getElementById(
+    "languageSelector"
+).value = lingua;
+
+
+/*
+   Traduce i testi statici.
+*/
+
+updateStaticTexts();
+
+
+/*
+   Aggiorna le statistiche.
+*/
 
 updateStats();
+
+
+/*
+   Avvia il gioco nella lingua
+   salvata dal popup.
+*/
 
 loadStep();
 
@@ -1177,4 +1873,3 @@ loadStep();
 </body>
 
 </html>
-```
