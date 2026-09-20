@@ -117,6 +117,18 @@ footer {
     padding: 20px;
 }
 
+/* LINK TIKTOK */
+
+#fraseTikTok a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#fraseTikTok a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 700px) {
 
     .menu {
@@ -156,7 +168,9 @@ footer {
     </p>
 
     <p id="fraseTikTok">
-        Visita il mio account social TikTok: @ecogame2.0
+        <a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">
+            Visita il mio account TikTok: @ecogame2.0
+        </a>
     </p>
 
 </div>
@@ -299,8 +313,8 @@ function cambiaLingua(lingua) {
         document.getElementById("fraseEcologia").textContent =
             "Impara l'ecologia attraverso quiz e giochi!";
 
-        document.getElementById("fraseTikTok").textContent =
-            "Visita il mio account social TikTok: @ecogame2.0";
+        document.getElementById("fraseTikTok").innerHTML =
+            '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Visita il mio account TikTok: @ecogame2.0</a>';
 
         document.getElementById("titoloQuiz").textContent =
             "Quiz ecologico";
@@ -350,8 +364,8 @@ function cambiaLingua(lingua) {
         document.getElementById("fraseEcologia").textContent =
             "Learn about ecology through quizzes and games!";
 
-        document.getElementById("fraseTikTok").textContent =
-            "Visit my TikTok social media account: @ecogame2.0";
+        document.getElementById("fraseTikTok").innerHTML =
+            '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Visit my TikTok account: @ecogame2.0</a>';
 
         document.getElementById("titoloQuiz").textContent =
             "Ecology Quiz";
@@ -401,8 +415,8 @@ function cambiaLingua(lingua) {
         document.getElementById("fraseEcologia").textContent =
             "Opi ekologiasta tietovisojen ja pelien avulla!";
 
-        document.getElementById("fraseTikTok").textContent =
-            "Käy TikTok-sosiaalisen median tililläni: @ecogame2.0";
+        document.getElementById("fraseTikTok").innerHTML =
+            '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Käy TikTok-tililläni: @ecogame2.0</a>';
 
         document.getElementById("titoloQuiz").textContent =
             "Ekologiatietovisa";
