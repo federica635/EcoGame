@@ -25,7 +25,6 @@ header {
     background: #0d2633;
     border-bottom: 1px solid #31515e;
     padding: 18px 30px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -279,7 +278,6 @@ header {
 </style>
 </head>
 
-
 <body>
 
 <header>
@@ -298,7 +296,6 @@ header {
 
 </header>
 
-
 <div class="container">
 
     <div class="title">
@@ -311,7 +308,6 @@ header {
         </p>
 
     </div>
-
 
     <div class="stats">
 
@@ -335,7 +331,6 @@ header {
 
         </div>
 
-
         <div class="stat">
 
             <div class="stat-icon">
@@ -356,7 +351,6 @@ header {
 
         </div>
 
-
         <div class="stat">
 
             <div class="stat-icon">
@@ -376,7 +370,6 @@ header {
             </div>
 
         </div>
-
 
         <div class="stat">
 
@@ -400,7 +393,6 @@ header {
 
     </div>
 
-
     <div class="progress">
 
         <div
@@ -410,7 +402,6 @@ header {
 
     </div>
 
-
     <div
         class="card"
         id="gameCard">
@@ -418,35 +409,28 @@ header {
         <div
             class="turn"
             id="turn">
-
             TURNO 1 / 5
-
         </div>
-
 
         <div
             class="event"
             id="event">
         </div>
 
-
         <div
             class="description"
             id="description">
         </div>
-
 
         <div
             class="options"
             id="options">
         </div>
 
-
         <div
             class="feedback"
             id="feedback">
         </div>
-
 
         <button
             class="next"
@@ -459,7 +443,6 @@ header {
         </button>
 
     </div>
-
 
     <div
         class="card hidden"
@@ -509,7 +492,6 @@ header {
     </div>
 
 </div>
-
 
 <script>
 
@@ -572,7 +554,6 @@ const events = [
         ]
     },
 
-
     {
         title: "🧴 Plastica sulla costa",
 
@@ -625,7 +606,6 @@ const events = [
 
         ]
     },
-
 
     {
         title: "🌡️ Acqua sempre più calda",
@@ -680,7 +660,6 @@ const events = [
         ]
     },
 
-
     {
         title: "🧪 Problema di qualità dell'acqua",
 
@@ -733,7 +712,6 @@ const events = [
 
         ]
     },
-
 
     {
         title: "🐠 Ultima decisione",
@@ -799,12 +777,10 @@ let currentTurn = 0;
 let chosen = false;
 
 let stats = {
-
     biodiversity: 70,
     health: 70,
     water: 70,
     activity: 70
-
 };
 
 
@@ -830,7 +806,7 @@ function updateStats() {
 
 
 /* =========================
-   LIMITA I VALORI 0-100
+   LIMITA I VALORI TRA 0 E 100
 ========================= */
 
 function limit(value) {
@@ -856,21 +832,17 @@ function loadTurn() {
 
     const event = events[currentTurn];
 
-
     document.getElementById("turn").innerText =
         "TURNO " +
         (currentTurn + 1) +
         " / " +
         events.length;
 
-
     document.getElementById("event").innerText =
         event.title;
 
-
     document.getElementById("description").innerText =
         event.description;
-
 
     document.getElementById("progress").style.width =
         (
@@ -878,27 +850,21 @@ function loadTurn() {
             100
         ) + "%";
 
-
     const options =
         document.getElementById("options");
 
-
     options.innerHTML = "";
-
 
     document.getElementById("feedback").style.display =
         "none";
 
-
     document.getElementById("next").style.display =
         "none";
-
 
     document.getElementById("next").innerText =
         currentTurn === events.length - 1
             ? "🏆 Vedi risultato"
             : "Continua →";
-
 
     event.options.forEach(
         function(option) {
@@ -906,14 +872,11 @@ function loadTurn() {
             const button =
                 document.createElement("button");
 
-
             button.className =
                 "option";
 
-
             button.innerText =
                 option.text;
-
 
             button.onclick =
                 function() {
@@ -924,7 +887,6 @@ function loadTurn() {
                     );
 
                 };
-
 
             options.appendChild(button);
 
@@ -946,13 +908,11 @@ function chooseOption(option, selectedButton) {
 
     chosen = true;
 
-
     stats.biodiversity =
         limit(
             stats.biodiversity +
             option.effects.biodiversity
         );
-
 
     stats.health =
         limit(
@@ -960,13 +920,11 @@ function chooseOption(option, selectedButton) {
             option.effects.health
         );
 
-
     stats.water =
         limit(
             stats.water +
             option.effects.water
         );
-
 
     stats.activity =
         limit(
@@ -974,13 +932,10 @@ function chooseOption(option, selectedButton) {
             option.effects.activity
         );
 
-
     updateStats();
-
 
     const allButtons =
         document.querySelectorAll(".option");
-
 
     allButtons.forEach(
         function(button) {
@@ -990,23 +945,18 @@ function chooseOption(option, selectedButton) {
         }
     );
 
-
     selectedButton.style.borderColor =
         "#4fc3f7";
 
-
     selectedButton.style.background =
         "#204b5c";
-
 
     document.getElementById("feedback").innerHTML =
         "💡 <strong>Conseguenza:</strong><br><br>" +
         option.explanation;
 
-
     document.getElementById("feedback").style.display =
         "block";
-
 
     document.getElementById("next").style.display =
         "block";
@@ -1022,7 +972,6 @@ function nextTurn() {
 
     currentTurn++;
 
-
     if (
         currentTurn <
         events.length
@@ -1030,9 +979,7 @@ function nextTurn() {
 
         loadTurn();
 
-    }
-
-    else {
+    } else {
 
         showResult();
 
@@ -1050,14 +997,11 @@ function showResult() {
     document.getElementById("gameCard")
         .classList.add("hidden");
 
-
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
-
     document.getElementById("progress")
         .style.width = "100%";
-
 
     const average =
         (
@@ -1066,14 +1010,11 @@ function showResult() {
             stats.water
         ) / 3;
 
-
     document.getElementById("finalScore").innerText =
         Math.round(average) +
         " / 100";
 
-
     let message;
-
 
     if (average >= 85) {
 
@@ -1107,7 +1048,6 @@ function showResult() {
 
     }
 
-
     document.getElementById("message").innerText =
         message;
 
@@ -1124,30 +1064,22 @@ function restartGame() {
 
     chosen = false;
 
-
     stats = {
 
         biodiversity: 70,
-
         health: 70,
-
         water: 70,
-
         activity: 70
 
     };
 
-
     updateStats();
-
 
     document.getElementById("resultCard")
         .classList.add("hidden");
 
-
     document.getElementById("gameCard")
         .classList.remove("hidden");
-
 
     loadTurn();
 
