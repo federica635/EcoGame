@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -279,9 +278,11 @@ header {
 
     <div class="title">
 
-        <h1>🌍 Climate Challenge</h1>
+        <h1 id="gameTitle">
+            🌍 Climate Challenge
+        </h1>
 
-        <p>
+        <p id="gameDescription">
             20 sfide sul clima, sull'atmosfera
             e sui cambiamenti ambientali.
         </p>
@@ -300,12 +301,12 @@ header {
     <div class="info">
 
         <div>
-            Domanda:
+            <span id="questionLabel">Domanda:</span>
             <span id="questionNumber">1/20</span>
         </div>
 
         <div>
-            Punti:
+            <span id="scoreLabel">Punti:</span>
             <span id="score">0</span>
         </div>
 
@@ -360,11 +361,11 @@ header {
                 🌍
             </div>
 
-            <h2>
+            <h2 id="resultTitle">
                 Climate Challenge completata!
             </h2>
 
-            <p>
+            <p id="resultObtained">
                 Hai ottenuto:
             </p>
 
@@ -400,560 +401,1319 @@ header {
 
 </div>
 
+
 <script>
 
-const questions = [
+/* =====================================================
+   LINGUA
+   ===================================================== */
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+const lingua =
+    ["it", "en", "fi"].includes(linguaSalvata)
+        ? linguaSalvata
+        : "it";
+
+document.documentElement.lang = lingua;
+
+
+/* =====================================================
+   TESTI INTERFACCIA
+   ===================================================== */
+
+const testi = {
+
+    it: {
+
+        title: "🌍 Climate Challenge",
+
+        description:
+            "20 sfide sul clima, sull'atmosfera e sui cambiamenti ambientali.",
+
+        giochi: "🎮 Giochi",
+
+        domanda: "Domanda:",
+
+        punti: "Punti:",
+
+        prossima:
+            "Prossima sfida →",
+
+        risultato:
+            "🏆 Vedi risultato",
+
+        corretto:
+            "Corretto! +10 punti",
+
+        nonCorretto:
+            "Risposta non corretta. -5 punti",
+
+        rispostaCorretta:
+            "La risposta corretta era:",
+
+        completata:
+            "Climate Challenge completata!",
+
+        ottenuto:
+            "Hai ottenuto:",
+
+        riprova:
+            "🔄 Riprova",
+
+        torna:
+            "🎮 Torna ai giochi",
+
+        eccellente:
+            "🌟 Preparazione eccellente! Hai dimostrato di saper collegare diversi aspetti del sistema climatico.",
+
+        ottimo:
+            "👏 Ottimo risultato! Conosci bene i principali fenomeni climatici e atmosferici.",
+
+        buona:
+            "👍 Buona preparazione. Hai una base solida, ma alcuni concetti meritano un ripasso.",
+
+        discreto:
+            "📚 Discreto punto di partenza. Ripassando alcuni concetti potrai migliorare molto.",
+
+        imparare:
+            "🌱 C'è ancora da imparare! Riprova e usa le spiegazioni dopo ogni domanda per ripassare."
+
+    },
+
+
+    en: {
+
+        title:
+            "🌍 Climate Challenge",
+
+        description:
+            "20 challenges about climate, the atmosphere and environmental changes.",
+
+        giochi:
+            "🎮 Games",
+
+        domanda:
+            "Question:",
+
+        punti:
+            "Points:",
+
+        prossima:
+            "Next challenge →",
+
+        risultato:
+            "🏆 See result",
+
+        corretto:
+            "Correct! +10 points",
+
+        nonCorretto:
+            "Incorrect answer. -5 points",
+
+        rispostaCorretta:
+            "The correct answer was:",
+
+        completata:
+            "Climate Challenge completed!",
+
+        ottenuto:
+            "You scored:",
+
+        riprova:
+            "🔄 Try again",
+
+        torna:
+            "🎮 Back to games",
+
+        eccellente:
+            "🌟 Excellent preparation! You showed that you can connect different aspects of the climate system.",
+
+        ottimo:
+            "👏 Great result! You know the main climate and atmospheric phenomena well.",
+
+        buona:
+            "👍 Good preparation. You have a solid foundation, but some concepts deserve a review.",
+
+        discreto:
+            "📚 A good starting point. Reviewing some concepts will help you improve a lot.",
+
+        imparare:
+            "🌱 There is still more to learn! Try again and use the explanations after each question to review."
+
+    },
+
+
+    fi: {
+
+        title:
+            "🌍 Ilmastohaaste",
+
+        description:
+            "20 haastetta ilmastosta, ilmakehästä ja ympäristön muutoksista.",
+
+        giochi:
+            "🎮 Pelit",
+
+        domanda:
+            "Kysymys:",
+
+        punti:
+            "Pisteet:",
+
+        prossima:
+            "Seuraava haaste →",
+
+        risultato:
+            "🏆 Katso tulos",
+
+        corretto:
+            "Oikein! +10 pistettä",
+
+        nonCorretto:
+            "Väärä vastaus. -5 pistettä",
+
+        rispostaCorretta:
+            "Oikea vastaus oli:",
+
+        completata:
+            "Ilmastohaaste suoritettu!",
+
+        ottenuto:
+            "Sait:",
+
+        riprova:
+            "🔄 Yritä uudelleen",
+
+        torna:
+            "🎮 Takaisin peleihin",
+
+        eccellente:
+            "🌟 Erinomainen tulos! Osoitit ymmärtäväsi ilmastojärjestelmän eri osa-alueiden yhteyksiä.",
+
+        ottimo:
+            "👏 Hieno tulos! Tunnet tärkeimmät ilmastoon ja ilmakehään liittyvät ilmiöt hyvin.",
+
+        buona:
+            "👍 Hyvä valmistautuminen. Perustasi on vahva, mutta jotkin käsitteet kannattaa kerrata.",
+
+        discreto:
+            "📚 Hyvä lähtökohta. Kertaamalla joitakin käsitteitä voit kehittyä paljon.",
+
+        imparare:
+            "🌱 Opittavaa riittää vielä! Yritä uudelleen ja käytä kysymysten jälkeisiä selityksiä kertaamiseen."
+
+    }
+
+};
+
+
+const T =
+    testi[lingua];
+
+
+/* =====================================================
+   DOMANDE
+   ===================================================== */
+
+const questions = {
+
+
+it: [
 
 {
-    category: "EFFETTO SERRA",
-
-    question:
-        "Perché l'aumento della concentrazione di alcuni gas nell'atmosfera può aumentare la temperatura media terrestre?",
-
-    scenario:
-        "Immagina l'atmosfera come una coperta: una parte della radiazione emessa dalla superficie terrestre viene trattenuta dai gas serra.",
-
-    answers: [
-        "Perché i gas serra impediscono completamente alla luce solare di arrivare sulla Terra.",
-        "Perché assorbono e riemettono parte della radiazione infrarossa emessa dalla superficie.",
-        "Perché trasformano l'ossigeno dell'atmosfera direttamente in calore.",
-        "Perché fanno aumentare automaticamente la distanza tra Terra e Sole."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "I gas serra, come CO₂, metano e vapore acqueo, interagiscono con la radiazione infrarossa. Un aumento della loro concentrazione può rafforzare l'effetto serra naturale."
+category:"EFFETTO SERRA",
+question:"Perché l'aumento della concentrazione di alcuni gas nell'atmosfera può aumentare la temperatura media terrestre?",
+scenario:"Immagina l'atmosfera come una coperta: una parte della radiazione emessa dalla superficie terrestre viene trattenuta dai gas serra.",
+answers:[
+"Perché i gas serra impediscono completamente alla luce solare di arrivare sulla Terra.",
+"Perché assorbono e riemettono parte della radiazione infrarossa emessa dalla superficie.",
+"Perché trasformano l'ossigeno dell'atmosfera direttamente in calore.",
+"Perché fanno aumentare automaticamente la distanza tra Terra e Sole."
+],
+correct:1,
+explanation:"I gas serra, come CO₂, metano e vapore acqueo, interagiscono con la radiazione infrarossa. Un aumento della loro concentrazione può rafforzare l'effetto serra naturale."
 },
 
 {
-    category: "METEO E CLIMA",
-
-    question:
-        "Una città registra un inverno insolitamente freddo. Questo dato, da solo, dimostra che il cambiamento climatico si è fermato?",
-
-    scenario:
-        "Un singolo episodio meteorologico può essere molto diverso dalla tendenza osservata su periodi molto più lunghi.",
-
-    answers: [
-        "Sì, perché il clima dipende esclusivamente dalle temperature dell'anno corrente.",
-        "Sì, perché un raffreddamento locale annulla il riscaldamento globale.",
-        "No, perché clima e meteo descrivono scale temporali differenti.",
-        "No, perché il clima riguarda solamente gli oceani."
-    ],
-
-    correct: 2,
-
-    explanation:
-        "Il meteo descrive condizioni atmosferiche a breve termine. Il clima riguarda invece statistiche e tendenze osservate su periodi molto più lunghi."
+category:"METEO E CLIMA",
+question:"Una città registra un inverno insolitamente freddo. Questo dato, da solo, dimostra che il cambiamento climatico si è fermato?",
+scenario:"Un singolo episodio meteorologico può essere molto diverso dalla tendenza osservata su periodi molto più lunghi.",
+answers:[
+"Sì, perché il clima dipende esclusivamente dalle temperature dell'anno corrente.",
+"Sì, perché un raffreddamento locale annulla il riscaldamento globale.",
+"No, perché clima e meteo descrivono scale temporali differenti.",
+"No, perché il clima riguarda solamente gli oceani."
+],
+correct:2,
+explanation:"Il meteo descrive condizioni atmosferiche a breve termine. Il clima riguarda invece statistiche e tendenze osservate su periodi molto più lunghi."
 },
 
 {
-    category: "CO₂",
-
-    question:
-        "Quale situazione contribuisce direttamente all'aumento della CO₂ atmosferica?",
-
-    scenario:
-        "Considera una centrale elettrica che utilizza un combustibile fossile per produrre energia.",
-
-    answers: [
-        "La combustione del carbone.",
-        "La formazione delle nuvole.",
-        "La fotosintesi delle piante.",
-        "La condensazione del vapore acqueo."
-    ],
-
-    correct: 0,
-
-    explanation:
-        "La combustione di combustibili fossili libera carbonio precedentemente immagazzinato nel sottosuolo sotto forma di CO₂."
+category:"CO₂",
+question:"Quale situazione contribuisce direttamente all'aumento della CO₂ atmosferica?",
+scenario:"Considera una centrale elettrica che utilizza un combustibile fossile per produrre energia.",
+answers:[
+"La combustione del carbone.",
+"La formazione delle nuvole.",
+"La fotosintesi delle piante.",
+"La condensazione del vapore acqueo."
+],
+correct:0,
+explanation:"La combustione di combustibili fossili libera carbonio precedentemente immagazzinato nel sottosuolo sotto forma di CO₂."
 },
 
 {
-    category: "FORESTE",
-
-    question:
-        "Perché la perdita di grandi quantità di foreste può avere conseguenze sul clima?",
-
-    scenario:
-        "Le foreste non sono importanti soltanto come habitat: partecipano anche al ciclo del carbonio.",
-
-    answers: [
-        "Perché gli alberi producono direttamente tutto l'ossigeno dell'atmosfera.",
-        "Perché riduce la quantità di vegetazione capace di assorbire CO₂ e può liberare carbonio.",
-        "Perché elimina il campo magnetico terrestre.",
-        "Perché impedisce completamente la formazione delle precipitazioni."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Le foreste assorbono CO₂ attraverso la fotosintesi. La deforestazione può ridurre questo assorbimento e, in determinate condizioni, liberare carbonio immagazzinato nella vegetazione e nei suoli."
+category:"FORESTE",
+question:"Perché la perdita di grandi quantità di foreste può avere conseguenze sul clima?",
+scenario:"Le foreste non sono importanti soltanto come habitat: partecipano anche al ciclo del carbonio.",
+answers:[
+"Perché gli alberi producono direttamente tutto l'ossigeno dell'atmosfera.",
+"Perché riduce la quantità di vegetazione capace di assorbire CO₂ e può liberare carbonio.",
+"Perché elimina il campo magnetico terrestre.",
+"Perché impedisce completamente la formazione delle precipitazioni."
+],
+correct:1,
+explanation:"Le foreste assorbono CO₂ attraverso la fotosintesi. La deforestazione può ridurre questo assorbimento e, in determinate condizioni, liberare carbonio immagazzinato nella vegetazione e nei suoli."
 },
 
 {
-    category: "GHIACCIO",
-
-    question:
-        "Perché la perdita di ghiaccio marino può contribuire a un ulteriore riscaldamento?",
-
-    scenario:
-        "Confronta una superficie chiara come il ghiaccio con una superficie scura come l'oceano.",
-
-    answers: [
-        "Perché il ghiaccio produce CO₂ quando si scioglie.",
-        "Perché l'acqua oceanica riflette più luce del ghiaccio.",
-        "Perché una superficie più scura assorbe in genere più radiazione solare.",
-        "Perché il ghiaccio impedisce al vento di soffiare."
-    ],
-
-    correct: 2,
-
-    explanation:
-        "Il ghiaccio ha un'elevata riflettività. Quando diminuisce, superfici più scure come l'oceano possono assorbire più energia solare: questo è collegato all'effetto albedo."
+category:"GHIACCIO",
+question:"Perché la perdita di ghiaccio marino può contribuire a un ulteriore riscaldamento?",
+scenario:"Confronta una superficie chiara come il ghiaccio con una superficie scura come l'oceano.",
+answers:[
+"Perché il ghiaccio produce CO₂ quando si scioglie.",
+"Perché l'acqua oceanica riflette più luce del ghiaccio.",
+"Perché una superficie più scura assorbe in genere più radiazione solare.",
+"Perché il ghiaccio impedisce al vento di soffiare."
+],
+correct:2,
+explanation:"Il ghiaccio ha un'elevata riflettività. Quando diminuisce, superfici più scure come l'oceano possono assorbire più energia solare: questo è collegato all'effetto albedo."
 },
 
 {
-    category: "VERO O FALSO",
-
-    question:
-        "Vero o falso: il cambiamento climatico significa semplicemente che ogni giorno farà più caldo del giorno precedente.",
-
-    scenario:
-        "Il clima non descrive il singolo giorno, ma variazioni delle condizioni atmosferiche osservate su periodi lunghi.",
-
-    answers: [
-        "VERO",
-        "FALSO"
-    ],
-
-    correct: 1,
-
-    explanation:
-        "FALSO. Il cambiamento climatico riguarda variazioni delle condizioni climatiche nel lungo periodo. Possono comunque verificarsi giorni o periodi freddi anche in un clima che si sta riscaldando."
+category:"VERO O FALSO",
+question:"Vero o falso: il cambiamento climatico significa semplicemente che ogni giorno farà più caldo del giorno precedente.",
+scenario:"Il clima non descrive il singolo giorno, ma variazioni delle condizioni atmosferiche osservate su periodi lunghi.",
+answers:["VERO","FALSO"],
+correct:1,
+explanation:"FALSO. Il cambiamento climatico riguarda variazioni delle condizioni climatiche nel lungo periodo. Possono comunque verificarsi giorni o periodi freddi anche in un clima che si sta riscaldando."
 },
 
 {
-    category: "OCEANI",
-
-    question:
-        "Quale effetto può avere il riscaldamento degli oceani?",
-
-    scenario:
-        "Gli oceani assorbono una grande quantità del calore aggiuntivo presente nel sistema climatico.",
-
-    answers: [
-        "Nessun effetto, perché l'acqua non può accumulare calore.",
-        "Può contribuire all'espansione termica dell'acqua e influenzare gli ecosistemi marini.",
-        "Fa scomparire immediatamente tutto il ghiaccio terrestre.",
-        "Trasforma l'acqua salata in acqua dolce."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "L'acqua marina si espande quando si riscalda. Inoltre il riscaldamento degli oceani può avere conseguenze importanti sugli ecosistemi marini."
+category:"OCEANI",
+question:"Quale effetto può avere il riscaldamento degli oceani?",
+scenario:"Gli oceani assorbono una grande quantità del calore aggiuntivo presente nel sistema climatico.",
+answers:[
+"Nessun effetto, perché l'acqua non può accumulare calore.",
+"Può contribuire all'espansione termica dell'acqua e influenzare gli ecosistemi marini.",
+"Fa scomparire immediatamente tutto il ghiaccio terrestre.",
+"Trasforma l'acqua salata in acqua dolce."
+],
+correct:1,
+explanation:"L'acqua marina si espande quando si riscalda. Inoltre il riscaldamento degli oceani può avere conseguenze importanti sugli ecosistemi marini."
 },
 
 {
-    category: "BUCO DELL'OZONO",
-
-    question:
-        "Il buco dell'ozono e il cambiamento climatico sono esattamente lo stesso fenomeno?",
-
-    scenario:
-        "Entrambi riguardano l'atmosfera, ma coinvolgono processi differenti.",
-
-    answers: [
-        "Sì, sono semplicemente due nomi dello stesso fenomeno.",
-        "No, riguardano fenomeni diversi, anche se esistono alcune interazioni tra atmosfera e clima.",
-        "Sì, perché entrambi sono causati principalmente dalla CO₂.",
-        "No, perché il buco dell'ozono riguarda esclusivamente gli oceani."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Il buco dell'ozono riguarda soprattutto la riduzione dell'ozono stratosferico, mentre il cambiamento climatico è fortemente legato all'aumento dei gas serra. Sono fenomeni distinti."
+category:"BUCO DELL'OZONO",
+question:"Il buco dell'ozono e il cambiamento climatico sono esattamente lo stesso fenomeno?",
+scenario:"Entrambi riguardano l'atmosfera, ma coinvolgono processi differenti.",
+answers:[
+"Sì, sono semplicemente due nomi dello stesso fenomeno.",
+"No, riguardano fenomeni diversi, anche se esistono alcune interazioni tra atmosfera e clima.",
+"Sì, perché entrambi sono causati principalmente dalla CO₂.",
+"No, perché il buco dell'ozono riguarda esclusivamente gli oceani."
+],
+correct:1,
+explanation:"Il buco dell'ozono riguarda soprattutto la riduzione dell'ozono stratosferico, mentre il cambiamento climatico è fortemente legato all'aumento dei gas serra. Sono fenomeni distinti."
 },
 
 {
-    category: "BUCO DELL'OZONO",
-
-    question:
-        "Quale sostanza è stata storicamente importante nella distruzione dell'ozono stratosferico?",
-
-    scenario:
-        "Alcune sostanze utilizzate in passato in frigoriferi, aerosol e altri prodotti potevano raggiungere la stratosfera.",
-
-    answers: [
-        "Clorofluorocarburi (CFC).",
-        "Ossigeno molecolare.",
-        "Azoto atmosferico.",
-        "Anidride carbonica."
-    ],
-
-    correct: 0,
-
-    explanation:
-        "I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono."
+category:"BUCO DELL'OZONO",
+question:"Quale sostanza è stata storicamente importante nella distruzione dell'ozono stratosferico?",
+scenario:"Alcune sostanze utilizzate in passato in frigoriferi, aerosol e altri prodotti potevano raggiungere la stratosfera.",
+answers:[
+"Clorofluorocarburi (CFC).",
+"Ossigeno molecolare.",
+"Azoto atmosferico.",
+"Anidride carbonica."
+],
+correct:0,
+explanation:"I CFC possono liberare cloro nella stratosfera. Il cloro partecipa a reazioni che distruggono l'ozono."
 },
 
 {
-    category: "BUCO DELL'OZONO",
-
-    question:
-        "Perché lo strato di ozono è importante per la vita sulla Terra?",
-
-    scenario:
-        "Pensa a cosa potrebbe accadere se una quantità molto maggiore di radiazione ultravioletta raggiungesse la superficie.",
-
-    answers: [
-        "Perché produce tutto l'ossigeno respirato dagli esseri umani.",
-        "Perché assorbe una parte importante della radiazione ultravioletta proveniente dal Sole.",
-        "Perché impedisce completamente il riscaldamento globale.",
-        "Perché mantiene costante la quantità di CO₂."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole."
+category:"BUCO DELL'OZONO",
+question:"Perché lo strato di ozono è importante per la vita sulla Terra?",
+scenario:"Pensa a cosa potrebbe accadere se una quantità molto maggiore di radiazione ultravioletta raggiungesse la superficie.",
+answers:[
+"Perché produce tutto l'ossigeno respirato dagli esseri umani.",
+"Perché assorbe una parte importante della radiazione ultravioletta proveniente dal Sole.",
+"Perché impedisce completamente il riscaldamento globale.",
+"Perché mantiene costante la quantità di CO₂."
+],
+correct:1,
+explanation:"L'ozono stratosferico assorbe gran parte della radiazione ultravioletta dannosa proveniente dal Sole."
 },
 
 {
-    category: "ENERGIA",
-
-    question:
-        "Una città sostituisce una parte dell'elettricità prodotta da carbone con energia solare. Quale cambiamento è più direttamente atteso?",
-
-    scenario:
-        "Considera il caso in cui la nuova produzione solare sostituisca realmente una parte della produzione da combustibili fossili.",
-
-    answers: [
-        "Aumento diretto delle emissioni di CO₂ della centrale a carbone.",
-        "Riduzione delle emissioni associate alla produzione dell'elettricità sostituita.",
-        "Aumento della quantità di carbone necessaria.",
-        "Scomparsa dell'effetto serra naturale."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione."
+category:"ENERGIA",
+question:"Una città sostituisce una parte dell'elettricità prodotta da carbone con energia solare. Quale cambiamento è più direttamente atteso?",
+scenario:"Considera il caso in cui la nuova produzione solare sostituisca realmente una parte della produzione da combustibili fossili.",
+answers:[
+"Aumento diretto delle emissioni di CO₂ della centrale a carbone.",
+"Riduzione delle emissioni associate alla produzione dell'elettricità sostituita.",
+"Aumento della quantità di carbone necessaria.",
+"Scomparsa dell'effetto serra naturale."
+],
+correct:1,
+explanation:"Se l'elettricità solare sostituisce produzione da carbone, diminuiscono le emissioni associate a quella quota di produzione."
 },
 
 {
-    category: "VERO O FALSO",
-
-    question:
-        "Vero o falso: il vapore acqueo è un gas serra naturale.",
-
-    scenario:
-        "Il vapore acqueo è presente naturalmente nell'atmosfera e partecipa all'effetto serra.",
-
-    answers: [
-        "VERO",
-        "FALSO"
-    ],
-
-    correct: 0,
-
-    explanation:
-        "VERO. Il vapore acqueo è un gas serra naturale e svolge un ruolo importante nel sistema climatico."
+category:"VERO O FALSO",
+question:"Vero o falso: il vapore acqueo è un gas serra naturale.",
+scenario:"Il vapore acqueo è presente naturalmente nell'atmosfera e partecipa all'effetto serra.",
+answers:["VERO","FALSO"],
+correct:0,
+explanation:"VERO. Il vapore acqueo è un gas serra naturale e svolge un ruolo importante nel sistema climatico."
 },
 
 {
-    category: "TRASPORTI",
-
-    question:
-        "Due persone devono percorrere ogni giorno pochi chilometri in una città ben servita dai trasporti pubblici. Quale scelta può contribuire a ridurre le emissioni legate agli spostamenti?",
-
-    scenario:
-        "Considera il caso specifico descritto e le alternative realmente praticabili.",
-
-    answers: [
-        "Utilizzare sempre un'auto privata anche quando non è necessaria.",
-        "Valutare bicicletta, spostamenti a piedi o trasporto pubblico quando sono praticabili.",
-        "Lasciare il motore acceso durante tutto il tragitto.",
-        "Aumentare la distanza percorsa ogni giorno."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati."
+category:"TRASPORTI",
+question:"Due persone devono percorrere ogni giorno pochi chilometri in una città ben servita dai trasporti pubblici. Quale scelta può contribuire a ridurre le emissioni legate agli spostamenti?",
+scenario:"Considera il caso specifico descritto e le alternative realmente praticabili.",
+answers:[
+"Utilizzare sempre un'auto privata anche quando non è necessaria.",
+"Valutare bicicletta, spostamenti a piedi o trasporto pubblico quando sono praticabili.",
+"Lasciare il motore acceso durante tutto il tragitto.",
+"Aumentare la distanza percorsa ogni giorno."
+],
+correct:1,
+explanation:"Quando sono praticabili, mobilità attiva e trasporto pubblico possono ridurre l'uso di veicoli privati."
 },
 
 {
-    category: "ADATTAMENTO",
-
-    question:
-        "Una città costruisce aree verdi e sistemi per gestire meglio l'acqua piovana durante forti precipitazioni. Questa è principalmente una misura di:",
-
-    scenario:
-        "La città sta cercando di gestire alcuni rischi associati ai cambiamenti climatici.",
-
-    answers: [
-        "Adattamento.",
-        "Aumento delle emissioni.",
-        "Riduzione dello strato di ozono.",
-        "Combustione del carbonio."
-    ],
-
-    correct: 0,
-
-    explanation:
-        "L'adattamento comprende interventi che riducono i danni o i rischi associati agli effetti del cambiamento climatico."
+category:"ADATTAMENTO",
+question:"Una città costruisce aree verdi e sistemi per gestire meglio l'acqua piovana durante forti precipitazioni. Questa è principalmente una misura di:",
+scenario:"La città sta cercando di gestire alcuni rischi associati ai cambiamenti climatici.",
+answers:[
+"Adattamento.",
+"Aumento delle emissioni.",
+"Riduzione dello strato di ozono.",
+"Combustione del carbonio."
+],
+correct:0,
+explanation:"L'adattamento comprende interventi che riducono i danni o i rischi associati agli effetti del cambiamento climatico."
 },
 
 {
-    category: "MITIGAZIONE",
-
-    question:
-        "Quale delle seguenti è principalmente una misura di mitigazione?",
-
-    scenario:
-        "La mitigazione mira soprattutto a ridurre le cause del cambiamento climatico.",
-
-    answers: [
-        "Costruire barriere contro l'innalzamento del mare.",
-        "Installare sistemi di raffreddamento negli edifici durante le ondate di calore.",
-        "Ridurre le emissioni di gas serra.",
-        "Spostare una strada lontano da una zona soggetta ad allagamenti."
-    ],
-
-    correct: 2,
-
-    explanation:
-        "La mitigazione consiste soprattutto nel ridurre le emissioni di gas serra o aumentare la loro rimozione dall'atmosfera."
+category:"MITIGAZIONE",
+question:"Quale delle seguenti è principalmente una misura di mitigazione?",
+scenario:"La mitigazione mira soprattutto a ridurre le cause del cambiamento climatico.",
+answers:[
+"Costruire barriere contro l'innalzamento del mare.",
+"Installare sistemi di raffreddamento negli edifici durante le ondate di calore.",
+"Ridurre le emissioni di gas serra.",
+"Spostare una strada lontano da una zona soggetta ad allagamenti."
+],
+correct:2,
+explanation:"La mitigazione consiste soprattutto nel ridurre le emissioni di gas serra o aumentare la loro rimozione dall'atmosfera."
 },
 
 {
-    category: "CARBONIO",
-
-    question:
-        "Perché gli oceani sono importanti nel ciclo globale del carbonio?",
-
-    scenario:
-        "L'oceano scambia continuamente carbonio con l'atmosfera.",
-
-    answers: [
-        "Perché non contiene mai carbonio.",
-        "Perché assorbe e immagazzina una parte della CO₂ presente nel sistema Terra.",
-        "Perché trasforma tutta la CO₂ in ossigeno.",
-        "Perché elimina completamente le emissioni umane."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio."
+category:"CARBONIO",
+question:"Perché gli oceani sono importanti nel ciclo globale del carbonio?",
+scenario:"L'oceano scambia continuamente carbonio con l'atmosfera.",
+answers:[
+"Perché non contiene mai carbonio.",
+"Perché assorbe e immagazzina una parte della CO₂ presente nel sistema Terra.",
+"Perché trasforma tutta la CO₂ in ossigeno.",
+"Perché elimina completamente le emissioni umane."
+],
+correct:1,
+explanation:"Gli oceani assorbono una parte della CO₂ atmosferica e svolgono un ruolo importante nel ciclo globale del carbonio."
 },
 
 {
-    category: "EVENTI ESTREMI",
-
-    question:
-        "Quale affermazione descrive meglio il rapporto tra cambiamento climatico ed eventi estremi?",
-
-    scenario:
-        "Non significa che ogni singolo evento estremo sia causato esclusivamente dal cambiamento climatico.",
-
-    answers: [
-        "Il cambiamento climatico rende impossibili tutti gli eventi estremi naturali.",
-        "Il cambiamento climatico può modificare la probabilità o l'intensità di alcuni eventi estremi.",
-        "Ogni singola tempesta è causata direttamente dalla CO₂.",
-        "Gli eventi estremi non hanno alcun rapporto con il clima."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi."
+category:"EVENTI ESTREMI",
+question:"Quale affermazione descrive meglio il rapporto tra cambiamento climatico ed eventi estremi?",
+scenario:"Non significa che ogni singolo evento estremo sia causato esclusivamente dal cambiamento climatico.",
+answers:[
+"Il cambiamento climatico rende impossibili tutti gli eventi estremi naturali.",
+"Il cambiamento climatico può modificare la probabilità o l'intensità di alcuni eventi estremi.",
+"Ogni singola tempesta è causata direttamente dalla CO₂.",
+"Gli eventi estremi non hanno alcun rapporto con il clima."
+],
+correct:1,
+explanation:"Il cambiamento climatico può influenzare la probabilità, la durata o l'intensità di alcuni eventi estremi."
 },
 
 {
-    category: "ALBEDO",
-
-    question:
-        "Quale superficie tende generalmente a riflettere una maggiore quantità di radiazione solare?",
-
-    scenario:
-        "Confronta una superficie molto chiara con una superficie molto scura.",
-
-    answers: [
-        "Una superficie innevata e chiara.",
-        "Una superficie nera.",
-        "Una superficie asfaltata scura.",
-        "Una superficie oceanica molto scura."
-    ],
-
-    correct: 0,
-
-    explanation:
-        "Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore."
+category:"ALBEDO",
+question:"Quale superficie tende generalmente a riflettere una maggiore quantità di radiazione solare?",
+scenario:"Confronta una superficie molto chiara con una superficie molto scura.",
+answers:[
+"Una superficie innevata e chiara.",
+"Una superficie nera.",
+"Una superficie asfaltata scura.",
+"Una superficie oceanica molto scura."
+],
+correct:0,
+explanation:"Le superfici chiare, come neve e ghiaccio, hanno generalmente un'albedo maggiore."
 },
 
 {
-    category: "SCENARIO",
-
-    question:
-        "Una persona dice: 'Se piantiamo alberi, possiamo continuare a bruciare combustibili fossili senza problemi'. Qual è il problema principale di questo ragionamento?",
-
-    scenario:
-        "Gli alberi possono assorbire CO₂, ma il loro assorbimento è limitato e dipende da diversi fattori.",
-
-    answers: [
-        "Gli alberi non interagiscono mai con la CO₂.",
-        "Gli alberi possono assorbire carbonio, ma non rendono illimitate le emissioni fossili.",
-        "Gli alberi producono soltanto metano.",
-        "La CO₂ non può essere assorbita dalla vegetazione."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "La vegetazione può rimuovere e immagazzinare carbonio, ma questa capacità è limitata e non sostituisce automaticamente la riduzione delle emissioni alla fonte."
+category:"SCENARIO",
+question:"Una persona dice: 'Se piantiamo alberi, possiamo continuare a bruciare combustibili fossili senza problemi'. Qual è il problema principale di questo ragionamento?",
+scenario:"Gli alberi possono assorbire CO₂, ma il loro assorbimento è limitato e dipende da diversi fattori.",
+answers:[
+"Gli alberi non interagiscono mai con la CO₂.",
+"Gli alberi possono assorbire carbonio, ma non rendono illimitate le emissioni fossili.",
+"Gli alberi producono soltanto metano.",
+"La CO₂ non può essere assorbita dalla vegetazione."
+],
+correct:1,
+explanation:"La vegetazione può rimuovere e immagazzinare carbonio, ma questa capacità è limitata e non sostituisce automaticamente la riduzione delle emissioni alla fonte."
 },
 
 {
-    category: "SFIDA FINALE",
-
-    question:
-        "Quale affermazione distingue meglio tre problemi atmosferici diversi?",
-
-    scenario:
-        "Devi spiegare alla classe la differenza tra effetto serra, cambiamento climatico e riduzione dell'ozono stratosferico.",
-
-    answers: [
-        "Sono tutti lo stesso fenomeno e hanno esattamente le stesse cause.",
-        "L'effetto serra è un fenomeno naturale; il suo rafforzamento contribuisce al riscaldamento, mentre la riduzione dell'ozono stratosferico è un fenomeno distinto.",
-        "Il buco dell'ozono è causato direttamente dal traffico automobilistico e coincide con il riscaldamento globale.",
-        "Il cambiamento climatico dipende esclusivamente dall'ozono."
-    ],
-
-    correct: 1,
-
-    explanation:
-        "L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto."
+category:"SFIDA FINALE",
+question:"Quale affermazione distingue meglio tre problemi atmosferici diversi?",
+scenario:"Devi spiegare alla classe la differenza tra effetto serra, cambiamento climatico e riduzione dell'ozono stratosferico.",
+answers:[
+"Sono tutti lo stesso fenomeno e hanno esattamente le stesse cause.",
+"L'effetto serra è un fenomeno naturale; il suo rafforzamento contribuisce al riscaldamento, mentre la riduzione dell'ozono stratosferico è un fenomeno distinto.",
+"Il buco dell'ozono è causato direttamente dal traffico automobilistico e coincide con il riscaldamento globale.",
+"Il cambiamento climatico dipende esclusivamente dall'ozono."
+],
+correct:1,
+explanation:"L'effetto serra naturale è fondamentale per la vita. Il suo rafforzamento dovuto all'aumento dei gas serra contribuisce al riscaldamento globale e al cambiamento climatico. La riduzione dell'ozono stratosferico è invece un fenomeno distinto."
 }
 
-];
+],
+
+
+/* =====================================================
+   INGLESE
+   ===================================================== */
+
+en: [
+
+{
+category:"GREENHOUSE EFFECT",
+question:"Why can an increase in the concentration of some gases in the atmosphere increase Earth's average temperature?",
+scenario:"Imagine the atmosphere as a blanket: some of the radiation emitted by Earth's surface is retained by greenhouse gases.",
+answers:[
+"Because greenhouse gases completely prevent sunlight from reaching Earth.",
+"Because they absorb and re-emit part of the infrared radiation emitted by the surface.",
+"Because they directly transform atmospheric oxygen into heat.",
+"Because they automatically increase the distance between Earth and the Sun."
+],
+correct:1,
+explanation:"Greenhouse gases such as CO₂, methane and water vapor interact with infrared radiation. An increase in their concentration can strengthen the natural greenhouse effect."
+},
+
+{
+category:"WEATHER AND CLIMATE",
+question:"A city experiences an unusually cold winter. Does this alone prove that climate change has stopped?",
+scenario:"A single weather event can be very different from the trend observed over much longer periods.",
+answers:[
+"Yes, because climate depends exclusively on temperatures in the current year.",
+"Yes, because local cooling cancels global warming.",
+"No, because weather and climate describe different time scales.",
+"No, because climate only concerns oceans."
+],
+correct:2,
+explanation:"Weather describes short-term atmospheric conditions. Climate concerns statistics and trends observed over much longer periods."
+},
+
+{
+category:"CO₂",
+question:"Which situation directly contributes to an increase in atmospheric CO₂?",
+scenario:"Consider a power plant that uses a fossil fuel to produce energy.",
+answers:[
+"Burning coal.",
+"Cloud formation.",
+"Plant photosynthesis.",
+"Water vapor condensation."
+],
+correct:0,
+explanation:"Burning fossil fuels releases carbon that was previously stored underground in the form of CO₂."
+},
+
+{
+category:"FORESTS",
+question:"Why can the loss of large amounts of forest have consequences for the climate?",
+scenario:"Forests are important not only as habitats: they also participate in the carbon cycle.",
+answers:[
+"Because trees directly produce all the oxygen in the atmosphere.",
+"Because it reduces vegetation capable of absorbing CO₂ and can release stored carbon.",
+"Because it eliminates Earth's magnetic field.",
+"Because it completely prevents precipitation from forming."
+],
+correct:1,
+explanation:"Forests absorb CO₂ through photosynthesis. Deforestation can reduce this absorption and, under certain conditions, release carbon stored in vegetation and soils."
+},
+
+{
+category:"ICE",
+question:"Why can the loss of sea ice contribute to further warming?",
+scenario:"Compare a bright surface such as ice with a dark surface such as the ocean.",
+answers:[
+"Because ice produces CO₂ when it melts.",
+"Because ocean water reflects more light than ice.",
+"Because a darker surface generally absorbs more solar radiation.",
+"Because ice prevents wind from blowing."
+],
+correct:2,
+explanation:"Ice has high reflectivity. When it decreases, darker surfaces such as the ocean can absorb more solar energy. This is related to the albedo effect."
+},
+
+{
+category:"TRUE OR FALSE",
+question:"True or false: climate change simply means that every day will be hotter than the previous day.",
+scenario:"Climate does not describe a single day, but changes in atmospheric conditions observed over long periods.",
+answers:["TRUE","FALSE"],
+correct:1,
+explanation:"FALSE. Climate change concerns changes in climate conditions over the long term. Cold days or periods can still occur in a warming climate."
+},
+
+{
+category:"OCEANS",
+question:"What effect can ocean warming have?",
+scenario:"Oceans absorb a large amount of the additional heat present in the climate system.",
+answers:[
+"No effect, because water cannot store heat.",
+"It can contribute to thermal expansion of water and affect marine ecosystems.",
+"It immediately causes all land ice to disappear.",
+"It turns salt water into fresh water."
+],
+correct:1,
+explanation:"Seawater expands as it warms. Ocean warming can also have important consequences for marine ecosystems."
+},
+
+{
+category:"OZONE HOLE",
+question:"Are the ozone hole and climate change exactly the same phenomenon?",
+scenario:"Both concern the atmosphere, but they involve different processes.",
+answers:[
+"Yes, they are simply two names for the same phenomenon.",
+"No, they are different phenomena, although there are some interactions between the atmosphere and climate.",
+"Yes, because both are mainly caused by CO₂.",
+"No, because the ozone hole only concerns oceans."
+],
+correct:1,
+explanation:"The ozone hole mainly concerns the reduction of stratospheric ozone, while climate change is strongly linked to increasing greenhouse gases. They are distinct phenomena."
+},
+
+{
+category:"OZONE HOLE",
+question:"Which substance has historically been important in the destruction of stratospheric ozone?",
+scenario:"Some substances once used in refrigerators, aerosols and other products could reach the stratosphere.",
+answers:[
+"Chlorofluorocarbons (CFCs).",
+"Molecular oxygen.",
+"Atmospheric nitrogen.",
+"Carbon dioxide."
+],
+correct:0,
+explanation:"CFCs can release chlorine in the stratosphere. Chlorine participates in reactions that destroy ozone."
+},
+
+{
+category:"OZONE HOLE",
+question:"Why is the ozone layer important for life on Earth?",
+scenario:"Think about what could happen if a much larger amount of ultraviolet radiation reached the surface.",
+answers:[
+"Because it produces all the oxygen breathed by humans.",
+"Because it absorbs a significant part of the ultraviolet radiation coming from the Sun.",
+"Because it completely prevents global warming.",
+"Because it keeps the amount of CO₂ constant."
+],
+correct:1,
+explanation:"Stratospheric ozone absorbs much of the harmful ultraviolet radiation coming from the Sun."
+},
+
+{
+category:"ENERGY",
+question:"A city replaces part of its coal-generated electricity with solar energy. What change is most directly expected?",
+scenario:"Consider the case in which new solar generation actually replaces part of the electricity produced from fossil fuels.",
+answers:[
+"A direct increase in CO₂ emissions from the coal plant.",
+"A reduction in emissions associated with the replaced electricity production.",
+"An increase in the amount of coal required.",
+"The disappearance of the natural greenhouse effect."
+],
+correct:1,
+explanation:"If solar electricity replaces coal generation, emissions associated with that portion of electricity production decrease."
+},
+
+{
+category:"TRUE OR FALSE",
+question:"True or false: water vapor is a natural greenhouse gas.",
+scenario:"Water vapor occurs naturally in the atmosphere and contributes to the greenhouse effect.",
+answers:["TRUE","FALSE"],
+correct:0,
+explanation:"TRUE. Water vapor is a natural greenhouse gas and plays an important role in the climate system."
+},
+
+{
+category:"TRANSPORT",
+question:"Two people need to travel a few kilometers every day in a city well served by public transportation. Which choice can help reduce travel-related emissions?",
+scenario:"Consider the specific situation described and the alternatives that are actually practical.",
+answers:[
+"Always use a private car even when it is unnecessary.",
+"Consider cycling, walking or public transportation when practical.",
+"Keep the engine running throughout the entire trip.",
+"Increase the distance traveled every day."
+],
+correct:1,
+explanation:"When practical, active transportation and public transportation can reduce the use of private vehicles."
+},
+
+{
+category:"ADAPTATION",
+question:"A city creates green areas and systems to better manage rainwater during heavy rainfall. This is mainly a measure of:",
+scenario:"The city is trying to manage some risks associated with climate change.",
+answers:[
+"Adaptation.",
+"Increased emissions.",
+"Reduction of the ozone layer.",
+"Carbon combustion."
+],
+correct:0,
+explanation:"Adaptation includes actions that reduce damage or risks associated with the effects of climate change."
+},
+
+{
+category:"MITIGATION",
+question:"Which of the following is mainly a mitigation measure?",
+scenario:"Mitigation mainly aims to reduce the causes of climate change.",
+answers:[
+"Building barriers against sea-level rise.",
+"Installing cooling systems in buildings during heat waves.",
+"Reducing greenhouse gas emissions.",
+"Moving a road away from a flood-prone area."
+],
+correct:2,
+explanation:"Mitigation mainly consists of reducing greenhouse gas emissions or increasing their removal from the atmosphere."
+},
+
+{
+category:"CARBON",
+question:"Why are oceans important in the global carbon cycle?",
+scenario:"The ocean continuously exchanges carbon with the atmosphere.",
+answers:[
+"Because it never contains carbon.",
+"Because it absorbs and stores part of the CO₂ present in the Earth system.",
+"Because it transforms all CO₂ into oxygen.",
+"Because it completely eliminates human emissions."
+],
+correct:1,
+explanation:"Oceans absorb part of atmospheric CO₂ and play an important role in the global carbon cycle."
+},
+
+{
+category:"EXTREME EVENTS",
+question:"Which statement best describes the relationship between climate change and extreme events?",
+scenario:"This does not mean that every single extreme event is caused exclusively by climate change.",
+answers:[
+"Climate change makes all natural extreme events impossible.",
+"Climate change can change the probability or intensity of some extreme events.",
+"Every single storm is directly caused by CO₂.",
+"Extreme events have no relationship with climate."
+],
+correct:1,
+explanation:"Climate change can influence the probability, duration or intensity of some extreme events."
+},
+
+{
+category:"ALBEDO",
+question:"Which surface generally tends to reflect a greater amount of solar radiation?",
+scenario:"Compare a very bright surface with a very dark surface.",
+answers:[
+"A snowy and bright surface.",
+"A black surface.",
+"A dark asphalt surface.",
+"A very dark ocean surface."
+],
+correct:0,
+explanation:"Bright surfaces, such as snow and ice, generally have a higher albedo."
+},
+
+{
+category:"SCENARIO",
+question:"A person says: 'If we plant trees, we can continue burning fossil fuels without problems.' What is the main problem with this reasoning?",
+scenario:"Trees can absorb CO₂, but their absorption capacity is limited and depends on several factors.",
+answers:[
+"Trees never interact with CO₂.",
+"Trees can absorb carbon, but they do not make fossil-fuel emissions unlimited.",
+"Trees only produce methane.",
+"CO₂ cannot be absorbed by vegetation."
+],
+correct:1,
+explanation:"Vegetation can remove and store carbon, but this capacity is limited and does not automatically replace reducing emissions at their source."
+},
+
+{
+category:"FINAL CHALLENGE",
+question:"Which statement best distinguishes three different atmospheric problems?",
+scenario:"You need to explain to your class the difference between the greenhouse effect, climate change and the reduction of stratospheric ozone.",
+answers:[
+"They are all the same phenomenon and have exactly the same causes.",
+"The greenhouse effect is a natural phenomenon; its strengthening contributes to warming, while the reduction of stratospheric ozone is a distinct phenomenon.",
+"The ozone hole is directly caused by car traffic and is the same as global warming.",
+"Climate change depends exclusively on ozone."
+],
+correct:1,
+explanation:"The natural greenhouse effect is essential for life. Its strengthening due to increasing greenhouse gases contributes to global warming and climate change. The reduction of stratospheric ozone is a distinct phenomenon."
+}
+
+],
+
+
+/* =====================================================
+   FINLANDESE
+   ===================================================== */
+
+fi: [
+
+{
+category:"KASVIHUONEILMIÖ",
+question:"Miksi joidenkin kaasujen pitoisuuden kasvu ilmakehässä voi nostaa maapallon keskilämpötilaa?",
+scenario:"Kuvittele ilmakehä peittona: kasvihuonekaasut pidättävät osan Maan pinnan lähettämästä säteilystä.",
+answers:[
+"Koska kasvihuonekaasut estävät kokonaan auringonvalon pääsyn Maahan.",
+"Koska ne absorboivat ja lähettävät uudelleen osan pinnan lähettämästä infrapunasäteilystä.",
+"Koska ne muuttavat ilmakehän hapen suoraan lämmöksi.",
+"Koska ne kasvattavat automaattisesti Maan ja Auringon välistä etäisyyttä."
+],
+correct:1,
+explanation:"Kasvihuonekaasut, kuten CO₂, metaani ja vesihöyry, ovat vuorovaikutuksessa infrapunasäteilyn kanssa. Niiden pitoisuuden kasvu voi voimistaa luonnollista kasvihuoneilmiötä."
+},
+
+{
+category:"SÄÄ JA ILMASTO",
+question:"Kaupungissa koetaan epätavallisen kylmä talvi. Todistaako tämä yksin, että ilmastonmuutos on pysähtynyt?",
+scenario:"Yksittäinen sääilmiö voi poiketa paljon pidemmällä aikavälillä havaitusta kehityksestä.",
+answers:[
+"Kyllä, koska ilmasto riippuu yksinomaan kuluvan vuoden lämpötiloista.",
+"Kyllä, koska paikallinen viileneminen kumoaa maailmanlaajuisen lämpenemisen.",
+"Ei, koska sää ja ilmasto kuvaavat eri aikavälejä.",
+"Ei, koska ilmasto koskee vain valtameriä."
+],
+correct:2,
+explanation:"Sää kuvaa lyhytaikaisia ilmakehän olosuhteita. Ilmasto puolestaan perustuu paljon pidempien ajanjaksojen tilastoihin ja kehityssuuntiin."
+},
+
+{
+category:"CO₂",
+question:"Mikä tilanne lisää suoraan ilmakehän CO₂-pitoisuutta?",
+scenario:"Ajattele voimalaitosta, joka käyttää fossiilista polttoainetta energian tuottamiseen.",
+answers:[
+"Hiilen polttaminen.",
+"Pilvien muodostuminen.",
+"Kasvien yhteyttäminen.",
+"Vesihöyryn tiivistyminen."
+],
+correct:0,
+explanation:"Fossiilisten polttoaineiden polttaminen vapauttaa maan alle aiemmin varastoitunutta hiiltä CO₂-muodossa."
+},
+
+{
+category:"METSÄT",
+question:"Miksi suurten metsäalueiden menettäminen voi vaikuttaa ilmastoon?",
+scenario:"Metsät ovat tärkeitä paitsi elinympäristöinä myös osana hiilen kiertoa.",
+answers:[
+"Koska puut tuottavat suoraan kaiken ilmakehän hapen.",
+"Koska se vähentää CO₂:ta sitovan kasvillisuuden määrää ja voi vapauttaa hiiltä.",
+"Koska se poistaa Maan magneettikentän.",
+"Koska se estää kokonaan sateiden muodostumisen."
+],
+correct:1,
+explanation:"Metsät sitovat CO₂:ta yhteyttämisen avulla. Metsäkato voi vähentää tätä sitomista ja tietyissä olosuhteissa vapauttaa kasvillisuuteen ja maaperään varastoitunutta hiiltä."
+},
+
+{
+category:"JÄÄ",
+question:"Miksi merijään väheneminen voi voimistaa lämpenemistä?",
+scenario:"Vertaa vaaleaa pintaa, kuten jäätä, tummaan pintaan, kuten valtamereen.",
+answers:[
+"Koska jää tuottaa sulaessaan CO₂:ta.",
+"Koska merivesi heijastaa enemmän valoa kuin jää.",
+"Koska tummempi pinta absorboi yleensä enemmän auringon säteilyä.",
+"Koska jää estää tuulta puhaltamasta."
+],
+correct:2,
+explanation:"Jää heijastaa paljon säteilyä. Kun jäätä on vähemmän, tummemmat pinnat, kuten valtameri, voivat absorboida enemmän aurinkoenergiaa. Tätä kutsutaan albedo-vaikutukseksi."
+},
+
+{
+category:"TOTTA VAI TARUA",
+question:"Totta vai tarua: ilmastonmuutos tarkoittaa yksinkertaisesti sitä, että joka päivä on edellistä päivää lämpimämpi.",
+scenario:"Ilmasto ei kuvaa yksittäistä päivää vaan ilmakehän olosuhteiden muutoksia pitkällä aikavälillä.",
+answers:["TOTTA","TARUA"],
+correct:1,
+explanation:"TARUA. Ilmastonmuutos tarkoittaa ilmasto-olosuhteiden muutoksia pitkällä aikavälillä. Myös kylmiä päiviä tai jaksoja voi esiintyä lämpenevässä ilmastossa."
+},
+
+{
+category:"VALTAMERET",
+question:"Mitä vaikutuksia valtamerten lämpenemisellä voi olla?",
+scenario:"Valtameret absorboivat suuren osan ilmastojärjestelmään kertyvästä ylimääräisestä lämmöstä.",
+answers:[
+"Ei mitään, koska vesi ei voi varastoida lämpöä.",
+"Se voi aiheuttaa veden lämpölaajenemista ja vaikuttaa meriekosysteemeihin.",
+"Se sulattaa välittömästi kaiken maalla olevan jään.",
+"Se muuttaa suolaveden makeaksi vedeksi."
+],
+correct:1,
+explanation:"Merivesi laajenee lämmetessään. Valtamerten lämpenemisellä voi olla myös merkittäviä vaikutuksia meriekosysteemeihin."
+},
+
+{
+category:"OTSONIAUKKO",
+question:"Ovatko otsoniaukko ja ilmastonmuutos täsmälleen sama ilmiö?",
+scenario:"Molemmat liittyvät ilmakehään, mutta niihin liittyvät prosessit ovat erilaisia.",
+answers:[
+"Kyllä, ne ovat vain kaksi nimeä samalle ilmiölle.",
+"Ei, ne ovat eri ilmiöitä, vaikka ilmakehän ja ilmaston välillä on joitakin yhteyksiä.",
+"Kyllä, koska molemmat johtuvat pääasiassa CO₂:sta.",
+"Ei, koska otsoniaukko koskee vain valtameriä."
+],
+correct:1,
+explanation:"Otsoniaukko liittyy pääasiassa stratosfäärin otsonin vähenemiseen, kun taas ilmastonmuutos liittyy vahvasti kasvihuonekaasujen lisääntymiseen. Ne ovat eri ilmiöitä."
+},
+
+{
+category:"OTSONIAUKKO",
+question:"Mikä aine on historiallisesti ollut tärkeä stratosfäärin otsonin tuhoutumisessa?",
+scenario:"Joitakin aiemmin jääkaapeissa, aerosoleissa ja muissa tuotteissa käytettyjä aineita saattoi päätyä stratosfääriin.",
+answers:[
+"Kloorifluorihiilivedyt (CFC-yhdisteet).",
+"Molekyylinen happi.",
+"Ilmakehän typpi.",
+"Hiilidioksidi."
+],
+correct:0,
+explanation:"CFC-yhdisteet voivat vapauttaa klooria stratosfäärissä. Kloori osallistuu reaktioihin, jotka tuhoavat otsonia."
+},
+
+{
+category:"OTSONIAUKKO",
+question:"Miksi otsonikerros on tärkeä elämälle Maassa?",
+scenario:"Mieti, mitä voisi tapahtua, jos paljon suurempi määrä ultraviolettisäteilyä saavuttaisi Maan pinnan.",
+answers:[
+"Koska se tuottaa kaiken ihmisten hengittämän hapen.",
+"Koska se absorboi merkittävän osan Auringosta tulevasta ultraviolettisäteilystä.",
+"Koska se estää kokonaan ilmaston lämpenemisen.",
+"Koska se pitää CO₂-määrän vakiona."
+],
+correct:1,
+explanation:"Stratosfäärin otsoni absorboi suuren osan Auringosta tulevasta haitallisesta ultraviolettisäteilystä."
+},
+
+{
+category:"ENERGIA",
+question:"Kaupunki korvaa osan hiilellä tuotetusta sähköstä aurinkoenergialla. Mikä muutos on suorimmin odotettavissa?",
+scenario:"Oletetaan, että uusi aurinkosähkö todella korvaa osan fossiilisilla polttoaineilla tuotetusta sähköstä.",
+answers:[
+"Hiilivoimalan CO₂-päästöjen suora kasvu.",
+"Korvattuun sähköntuotantoon liittyvien päästöjen väheneminen.",
+"Tarvittavan hiilen määrän kasvu.",
+"Luonnollisen kasvihuoneilmiön katoaminen."
+],
+correct:1,
+explanation:"Jos aurinkosähkö korvaa hiilivoimalla tuotettua sähköä, kyseiseen sähköntuotannon osuuteen liittyvät päästöt vähenevät."
+},
+
+{
+category:"TOTTA VAI TARUA",
+question:"Totta vai tarua: vesihöyry on luonnollinen kasvihuonekaasu.",
+scenario:"Vesihöyryä esiintyy luonnostaan ilmakehässä ja se osallistuu kasvihuoneilmiöön.",
+answers:["TOTTA","TARUA"],
+correct:0,
+explanation:"TOTTA. Vesihöyry on luonnollinen kasvihuonekaasu ja sillä on tärkeä rooli ilmastojärjestelmässä."
+},
+
+{
+category:"LIIKENNE",
+question:"Kahden ihmisen täytyy matkustaa päivittäin muutama kilometri kaupungissa, jossa on hyvät julkiset liikenneyhteydet. Mikä valinta voi vähentää liikkumiseen liittyviä päästöjä?",
+scenario:"Huomioi kuvattu tilanne ja vaihtoehdot, jotka ovat käytännössä mahdollisia.",
+answers:[
+"Käyttää aina yksityisautoa, vaikka se ei olisi tarpeen.",
+"Harkita pyöräilyä, kävelyä tai joukkoliikennettä, kun ne ovat mahdollisia.",
+"Pitää moottori käynnissä koko matkan ajan.",
+"Lisätä päivittäin kuljettua matkaa."
+],
+correct:1,
+explanation:"Kun se on käytännössä mahdollista, aktiivinen liikkuminen ja joukkoliikenne voivat vähentää yksityisautojen käyttöä."
+},
+
+{
+category:"SOPEUTUMINEN",
+question:"Kaupunki rakentaa viheralueita ja järjestelmiä sadeveden parempaan hallintaan voimakkaiden sateiden aikana. Tämä on pääasiassa:",
+scenario:"Kaupunki pyrkii hallitsemaan joitakin ilmastonmuutokseen liittyviä riskejä.",
+answers:[
+"Sopeutumista.",
+"Päästöjen lisäämistä.",
+"Otsonikerroksen vähentämistä.",
+"Hiilen polttamista."
+],
+correct:0,
+explanation:"Sopeutuminen sisältää toimia, joilla vähennetään ilmastonmuutoksen vaikutuksiin liittyviä vahinkoja tai riskejä."
+},
+
+{
+category:"HILLINTÄ",
+question:"Mikä seuraavista on pääasiassa ilmastonmuutoksen hillintää?",
+scenario:"Hillinnällä pyritään ennen kaikkea vähentämään ilmastonmuutoksen syitä.",
+answers:[
+"Suojavallien rakentaminen merenpinnan nousua vastaan.",
+"Jäähdytysjärjestelmien asentaminen rakennuksiin helleaaltojen aikana.",
+"Kasvihuonekaasupäästöjen vähentäminen.",
+"Tien siirtäminen pois tulville alttiilta alueelta."
+],
+correct:2,
+explanation:"Hillintä tarkoittaa ennen kaikkea kasvihuonekaasupäästöjen vähentämistä tai niiden poistamisen lisäämistä ilmakehästä."
+},
+
+{
+category:"HIILI",
+question:"Miksi valtameret ovat tärkeitä maailmanlaajuisessa hiilen kierrossa?",
+scenario:"Valtameri vaihtaa jatkuvasti hiiltä ilmakehän kanssa.",
+answers:[
+"Koska se ei koskaan sisällä hiiltä.",
+"Koska se absorboi ja varastoi osan maapallon järjestelmässä olevasta CO₂:sta.",
+"Koska se muuttaa kaiken CO₂:n hapeksi.",
+"Koska se poistaa kokonaan ihmisen aiheuttamat päästöt."
+],
+correct:1,
+explanation:"Valtameret absorboivat osan ilmakehän CO₂:sta ja ovat tärkeä osa maailmanlaajuista hiilen kiertoa."
+},
+
+{
+category:"ÄÄRITAPAHTUMAT",
+question:"Mikä väite kuvaa parhaiten ilmastonmuutoksen ja äärimmäisten sääilmiöiden välistä suhdetta?",
+scenario:"Tämä ei tarkoita, että jokainen yksittäinen äärimmäinen tapahtuma johtuisi yksinomaan ilmastonmuutoksesta.",
+answers:[
+"Ilmastonmuutos tekee kaikki luonnolliset äärimmäiset sääilmiöt mahdottomiksi.",
+"Ilmastonmuutos voi muuttaa joidenkin äärimmäisten tapahtumien todennäköisyyttä tai voimakkuutta.",
+"Jokainen yksittäinen myrsky johtuu suoraan CO₂:sta.",
+"Äärimmäisillä tapahtumilla ei ole mitään yhteyttä ilmastoon."
+],
+correct:1,
+explanation:"Ilmastonmuutos voi vaikuttaa joidenkin äärimmäisten tapahtumien todennäköisyyteen, kestoon tai voimakkuuteen."
+},
+
+{
+category:"ALBEDO",
+question:"Mikä pinta heijastaa yleensä suuremman määrän auringon säteilyä?",
+scenario:"Vertaa hyvin vaaleaa pintaa hyvin tummaan pintaan.",
+answers:[
+"Luminen ja vaalea pinta.",
+"Musta pinta.",
+"Tumma asfalttipinta.",
+"Hyvin tumma meren pinta."
+],
+correct:0,
+explanation:"Vaaleilla pinnoilla, kuten lumella ja jäällä, on yleensä suurempi albedo."
+},
+
+{
+category:"TILANNE",
+question:"Henkilö sanoo: 'Jos istutamme puita, voimme jatkaa fossiilisten polttoaineiden polttamista ilman ongelmia.' Mikä on tämän ajattelun suurin ongelma?",
+scenario:"Puut voivat sitoa CO₂:ta, mutta niiden sitomiskyky on rajallinen ja riippuu useista tekijöistä.",
+answers:[
+"Puut eivät koskaan ole vuorovaikutuksessa CO₂:n kanssa.",
+"Puut voivat sitoa hiiltä, mutta ne eivät tee fossiilisten polttoaineiden päästöistä rajattomia.",
+"Puut tuottavat vain metaania.",
+"Kasvillisuus ei voi sitoa CO₂:ta."
+],
+correct:1,
+explanation:"Kasvillisuus voi poistaa ja varastoida hiiltä, mutta tämä kapasiteetti on rajallinen eikä se automaattisesti korvaa päästöjen vähentämistä niiden lähteellä."
+},
+
+{
+category:"LOPPUHAASTE",
+question:"Mikä väite erottaa parhaiten kolme erilaista ilmakehän ongelmaa?",
+scenario:"Sinun täytyy selittää luokalle kasvihuoneilmiön, ilmastonmuutoksen ja stratosfäärin otsonin vähenemisen erot.",
+answers:[
+"Ne ovat kaikki sama ilmiö ja niillä on täsmälleen samat syyt.",
+"Kasvihuoneilmiö on luonnollinen ilmiö; sen voimistuminen edistää lämpenemistä, kun taas stratosfäärin otsonin väheneminen on erillinen ilmiö.",
+"Otsoniaukko johtuu suoraan liikenteestä ja on sama asia kuin ilmaston lämpeneminen.",
+"Ilmastonmuutos johtuu yksinomaan otsonista."
+],
+correct:1,
+explanation:"Luonnollinen kasvihuoneilmiö on välttämätön elämälle. Kasvihuonekaasujen lisääntymisen aiheuttama kasvihuoneilmiön voimistuminen edistää maapallon lämpenemistä ja ilmastonmuutosta. Stratosfäärin otsonin väheneminen on puolestaan erillinen ilmiö."
+}
+
+]
+
+};
+
+
+/* =====================================================
+   TESTI PAGINA
+   ===================================================== */
+
+document.getElementById("gameTitle").innerText =
+    T.title;
+
+document.getElementById("gameDescription").innerText =
+    T.description;
+
+document.querySelector(".menu").innerText =
+    T.giochi;
+
+document.getElementById("questionLabel").innerText =
+    T.domanda;
+
+document.getElementById("scoreLabel").innerText =
+    T.punti;
+
+document.getElementById("next").innerText =
+    T.prossima;
+
+
+/* =====================================================
+   DOMANDE DELLA LINGUA SELEZIONATA
+   ===================================================== */
+
+const gameQuestions =
+    questions[lingua] || questions.it;
+
+
+/* =====================================================
+   VARIABILI
+   ===================================================== */
 
 let current = 0;
+
 let score = 0;
+
 let answered = false;
 
-const category = document.getElementById("category");
-const question = document.getElementById("question");
-const scenario = document.getElementById("scenario");
-const answers = document.getElementById("answers");
-const feedback = document.getElementById("feedback");
-const next = document.getElementById("next");
-const scoreElement = document.getElementById("score");
-const questionNumber = document.getElementById("questionNumber");
-const progressBar = document.getElementById("progressBar");
+
+const category =
+    document.getElementById("category");
+
+const question =
+    document.getElementById("question");
+
+const scenario =
+    document.getElementById("scenario");
+
+const answers =
+    document.getElementById("answers");
+
+const feedback =
+    document.getElementById("feedback");
+
+const next =
+    document.getElementById("next");
+
+const scoreElement =
+    document.getElementById("score");
+
+const questionNumber =
+    document.getElementById("questionNumber");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+
+/* =====================================================
+   CARICA DOMANDA
+   ===================================================== */
 
 function loadQuestion() {
 
     answered = false;
 
-    feedback.style.display = "none";
-    next.style.display = "none";
+    feedback.style.display =
+        "none";
 
-    const q = questions[current];
+    next.style.display =
+        "none";
 
-    category.innerText = q.category;
-    question.innerText = q.question;
-    scenario.innerText = q.scenario;
+    next.innerText =
+        T.prossima;
 
-    answers.innerHTML = "";
+
+    const q =
+        gameQuestions[current];
+
+
+    category.innerText =
+        q.category;
+
+    question.innerText =
+        q.question;
+
+    scenario.innerText =
+        q.scenario;
+
+
+    answers.innerHTML =
+        "";
+
 
     q.answers.forEach(function(answer, index) {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
-        button.className = "answer";
-        button.innerText = answer;
 
-        button.onclick = function() {
-            checkAnswer(button, index);
-        };
+        button.className =
+            "answer";
+
+
+        button.innerText =
+            answer;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(button, index);
+
+            };
+
 
         answers.appendChild(button);
 
     });
 
+
     questionNumber.innerText =
-        (current + 1) + "/" + questions.length;
+        (current + 1) +
+        "/" +
+        gameQuestions.length;
+
 
     progressBar.style.width =
-        ((current / questions.length) * 100) + "%";
+        ((current / gameQuestions.length) * 100) +
+        "%";
 
 }
+
+
+/* =====================================================
+   CONTROLLO RISPOSTA
+   ===================================================== */
 
 function checkAnswer(selected, index) {
 
     if (answered) {
+
         return;
+
     }
+
 
     answered = true;
 
-    const q = questions[current];
+
+    const q =
+        gameQuestions[current];
+
 
     const allAnswers =
         document.querySelectorAll(".answer");
 
+
     if (index === q.correct) {
 
-        selected.classList.add("correct");
+        selected.classList.add(
+            "correct"
+        );
+
 
         score += 10;
 
+
         feedback.innerHTML =
-            "✅ <strong>Corretto! +10 punti</strong><br><br>" +
+            "✅ <strong>" +
+            T.corretto +
+            "</strong><br><br>" +
             q.explanation;
 
-    } else {
+    }
 
-        selected.classList.add("wrong");
+    else {
 
-        allAnswers[q.correct].classList.add("correct");
+        selected.classList.add(
+            "wrong"
+        );
+
+
+        allAnswers[q.correct]
+            .classList.add("correct");
+
 
         score -= 5;
 
+
         feedback.innerHTML =
-            "❌ <strong>Risposta non corretta. -5 punti</strong><br><br>" +
-            "La risposta corretta era: <strong>" +
+            "❌ <strong>" +
+            T.nonCorretto +
+            "</strong><br><br>" +
+            T.rispostaCorretta +
+            " <strong>" +
             q.answers[q.correct] +
             "</strong><br><br>" +
             q.explanation;
 
     }
 
-    scoreElement.innerText = score;
 
-    feedback.style.display = "block";
-    next.style.display = "block";
+    scoreElement.innerText =
+        score;
 
-    if (current === questions.length - 1) {
-        next.innerText = "🏆 Vedi risultato";
+
+    feedback.style.display =
+        "block";
+
+
+    next.style.display =
+        "block";
+
+
+    if (
+        current ===
+        gameQuestions.length - 1
+    ) {
+
+        next.innerText =
+            T.risultato;
+
     }
 
 }
+
+
+/* =====================================================
+   PROSSIMA DOMANDA
+   ===================================================== */
 
 function nextQuestion() {
 
     current++;
 
-    if (current < questions.length) {
+
+    if (
+        current <
+        gameQuestions.length
+    ) {
 
         loadQuestion();
 
-    } else {
+    }
+
+    else {
 
         showResult();
 
@@ -961,57 +1721,107 @@ function nextQuestion() {
 
 }
 
+
+/* =====================================================
+   RISULTATO
+   ===================================================== */
+
 function showResult() {
 
-    document.getElementById("quizCard")
+    document
+        .getElementById("quizCard")
         .classList.add("hidden");
 
-    document.getElementById("resultCard")
+
+    document
+        .getElementById("resultCard")
         .classList.remove("hidden");
 
-    progressBar.style.width = "100%";
 
-    document.getElementById("finalScore").innerText =
+    progressBar.style.width =
+        "100%";
+
+
+    document
+        .getElementById("finalScore")
+        .innerText =
         score + " / 200";
 
+
+    document
+        .getElementById("resultTitle")
+        .innerText =
+        T.completata;
+
+
+    document
+        .getElementById("resultObtained")
+        .innerText =
+        T.ottenuto;
+
+
+    document
+        .querySelector(".restart")
+        .innerText =
+        T.riprova;
+
+
+    document
+        .querySelector(".back")
+        .innerText =
+        T.torna;
+
+
     let message;
+
 
     if (score >= 170) {
 
         message =
-            "🌟 Preparazione eccellente! " +
-            "Hai dimostrato di saper collegare diversi aspetti del sistema climatico.";
-
-    } else if (score >= 140) {
-
-        message =
-            "👏 Ottimo risultato! " +
-            "Conosci bene i principali fenomeni climatici e atmosferici.";
-
-    } else if (score >= 100) {
-
-        message =
-            "👍 Buona preparazione. " +
-            "Hai una base solida, ma alcuni concetti meritano un ripasso.";
-
-    } else if (score >= 60) {
-
-        message =
-            "📚 Discreto punto di partenza. " +
-            "Ripassando alcuni concetti potrai migliorare molto.";
-
-    } else {
-
-        message =
-            "🌱 C'è ancora da imparare! " +
-            "Riprova e usa le spiegazioni dopo ogni domanda per ripassare.";
+            T.eccellente;
 
     }
 
-    document.getElementById("resultMessage").innerText =
+    else if (score >= 140) {
+
+        message =
+            T.ottimo;
+
+    }
+
+    else if (score >= 100) {
+
+        message =
+            T.buona;
+
+    }
+
+    else if (score >= 60) {
+
+        message =
+            T.discreto;
+
+    }
+
+    else {
+
+        message =
+            T.imparare;
+
+    }
+
+
+    document
+        .getElementById("resultMessage")
+        .innerText =
         message;
 
 }
+
+
+/* =====================================================
+   AVVIO
+   ===================================================== */
 
 loadQuestion();
 
@@ -1019,4 +1829,3 @@ loadQuestion();
 
 </body>
 </html>
-```
