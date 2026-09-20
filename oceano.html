@@ -1,8 +1,10 @@
+```html
 <!DOCTYPE html>
 
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -39,22 +41,22 @@ header {
     font-weight: bold;
 }
 
-.destra {
+.menu-area {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.lingua {
-    padding: 9px 10px;
-    border-radius: 10px;
-    border: none;
-    font-size: 14px;
+.menu {
+    color: #b7cbd2;
     cursor: pointer;
 }
 
-.menu {
-    color: #b7cbd2;
+.lingua {
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -173,11 +175,6 @@ header {
     background: #204351;
 }
 
-.option:disabled {
-    cursor: default;
-    opacity: 0.85;
-}
-
 .feedback {
     margin-top: 22px;
     background: #17333f;
@@ -258,45 +255,13 @@ header {
         padding: 20px;
     }
 
-    .title h1 {
-        font-size: 32px;
-    }
-
-    .event {
-        font-size: 23px;
-    }
-
-}
-
-@media(max-width: 450px) {
-
     header {
-        padding: 16px 18px;
+        padding: 15px;
     }
 
-    .logo {
-        font-size: 20px;
-    }
-
-    .menu {
-        font-size: 14px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .stat {
-        padding: 12px 8px;
-    }
-
-    .destra {
-        gap: 7px;
-    }
-
-    .lingua {
-        font-size: 12px;
-        padding: 8px;
+    .menu-area {
+        width: 100%;
+        justify-content: flex-end;
     }
 
 }
@@ -309,47 +274,46 @@ header {
 
 <header>
 
-```
-<div class="logo">
-    🌍 EcoGame
-</div>
+    <div class="logo">
+        🌍 EcoGame
+    </div>
 
-<div class="destra">
+    <div class="menu-area">
 
-    <select
-        class="lingua"
-        id="lingua"
-        onchange="cambiaLingua()">
+        <select
+            class="lingua"
+            id="lingua"
+            onchange="cambiaLingua()">
 
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fi">🇫🇮 Suomi</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fi">🇫🇮 Suomi</option>
 
-    </select>
+        </select>
 
-    <div
-        class="menu"
-        onclick="location.href='giochi.html'">
+        <div
+            class="menu"
+            onclick="location.href='giochi.html'">
 
-        🎮 <span id="menuText">Giochi</span>
+            🎮 <span id="menuText">Giochi</span>
+
+        </div>
 
     </div>
 
-</div>
-```
-
 </header>
+
 
 <div class="container">
 
-```
+
 <div class="title">
 
     <h1 id="gameTitle">
         🌊 Ocean Rescue
     </h1>
 
-    <p id="intro">
+    <p id="gameIntro">
         Sei il responsabile di una riserva marina.
         Hai 5 turni per proteggere il suo equilibrio.
     </p>
@@ -466,6 +430,7 @@ header {
     <div
         class="progress-bar"
         id="progress">
+
     </div>
 
 </div>
@@ -487,24 +452,28 @@ header {
     <div
         class="event"
         id="event">
+
     </div>
 
 
     <div
         class="description"
         id="description">
+
     </div>
 
 
     <div
         class="options"
         id="options">
+
     </div>
 
 
     <div
         class="feedback"
         id="feedback">
+
     </div>
 
 
@@ -535,27 +504,33 @@ header {
             La tua gestione è terminata
         </h2>
 
-        <p id="resultDescription">
+        <p id="finalState">
             Stato finale della riserva:
         </p>
+
 
         <div
             class="final-score"
             id="finalScore">
+
         </div>
+
 
         <p id="message"></p>
 
+
         <br>
+
 
         <button
             class="restart"
-            onclick="restartGame()"
+            onclick="location.reload()"
             id="restartButton">
 
             🔄 Ricomincia
 
         </button>
+
 
         <button
             class="back"
@@ -569,43 +544,44 @@ header {
     </div>
 
 </div>
-```
+
 
 </div>
+
 
 <script>
 
 /* =====================================================
-   TRADUZIONI
-===================================================== */
+   TRADUZIONI INTERFACCIA
+   ===================================================== */
 
-const traduzioni = {
+const interfaccia = {
 
     it: {
 
         menu: "Giochi",
 
-        gameTitle: "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
             "Sei il responsabile di una riserva marina. Hai 5 turni per proteggere il suo equilibrio.",
 
         biodiversity: "Biodiversità",
+
         health: "Salute del mare",
+
         water: "Qualità acqua",
+
         activity: "Attività umane",
 
         turn: "TURNO",
 
-        consequence: "💡 <strong>Conseguenza:</strong>",
-
         continue: "Continua →",
-        resultButton: "🏆 Vedi risultato",
 
         resultTitle:
             "La tua gestione è terminata",
 
-        resultDescription:
+        finalState:
             "Stato finale della riserva:",
 
         restart:
@@ -614,288 +590,20 @@ const traduzioni = {
         back:
             "🎮 Torna ai giochi",
 
-        messages: {
-            excellent:
-                "🌟 Ecosistema in ottima salute! Le tue decisioni hanno ridotto molte delle pressioni sull'ambiente.",
+        consequence:
+            "💡 <strong>Conseguenza:</strong><br>",
 
-            good:
-                "🐠 Buon lavoro! La riserva è in condizioni abbastanza positive, anche se ci sono ancora problemi da affrontare.",
+        resultExcellent:
+            "🌟 Ecosistema in ottima salute! Le tue decisioni hanno ridotto molte delle pressioni sull'ambiente.",
 
-            medium:
-                "🌊 La riserva è sotto pressione. Alcune delle tue decisioni hanno avuto conseguenze importanti sull'ecosistema.",
+        resultGood:
+            "🐠 Buon lavoro! La riserva è in condizioni abbastanza positive, anche se ci sono ancora problemi da affrontare.",
 
-            low:
-                "⚠️ L'ecosistema è in difficoltà. Prova a considerare meglio le conseguenze a lungo termine delle tue decisioni."
-        },
+        resultMedium:
+            "🌊 La riserva è sotto pressione. Alcune delle tue decisioni hanno avuto conseguenze importanti sull'ecosistema.",
 
-        events: [
-
-            {
-                title: "🎣 Aumento della pesca",
-
-                description:
-                    "I pescatori locali chiedono di poter aumentare il numero di pesci catturati. La pesca è importante per l'economia della zona, ma alcune specie stanno diminuendo.",
-
-                options: [
-
-                    {
-                        text: "🚫 Creare una zona protetta dove la pesca è vietata.",
-
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 0,
-                            activity: -8
-                        },
-
-                        explanation:
-                            "Una zona protetta può favorire il recupero delle popolazioni ittiche, ma riduce temporaneamente l'attività di pesca nell'area."
-                    },
-
-                    {
-                        text: "🎣 Permettere l'aumento della pesca senza modifiche.",
-
-                        effects: {
-                            biodiversity: -10,
-                            health: -7,
-                            water: 0,
-                            activity: 10
-                        },
-
-                        explanation:
-                            "L'aumento della pressione di pesca può favorire l'economia nel breve periodo, ma può ridurre le popolazioni di alcune specie."
-                    },
-
-                    {
-                        text: "⚖️ Stabilire quote di pesca sostenibili.",
-
-                        effects: {
-                            biodiversity: 6,
-                            health: 5,
-                            water: 0,
-                            activity: 4
-                        },
-
-                        explanation:
-                            "Le quote possono cercare di mantenere un equilibrio tra attività economiche e conservazione delle popolazioni marine."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🧴 Plastica sulla costa",
-
-                description:
-                    "Dopo una forte mareggiata, sulla costa sono comparsi numerosi rifiuti di plastica. Devi decidere come intervenire.",
-
-                options: [
-
-                    {
-                        text: "🧹 Organizzare una grande pulizia della costa.",
-
-                        effects: {
-                            biodiversity: 5,
-                            health: 8,
-                            water: 10,
-                            activity: 0
-                        },
-
-                        explanation:
-                            "Rimuovere i rifiuti può ridurre i rischi per gli organismi marini e migliorare la qualità dell'ambiente."
-                    },
-
-                    {
-                        text: "⏳ Non intervenire: la corrente porterà via i rifiuti.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -8,
-                            water: -12,
-                            activity: 0
-                        },
-
-                        explanation:
-                            "La dispersione dei rifiuti non li fa scomparire: può semplicemente trasferirli in altre zone dell'ecosistema."
-                    },
-
-                    {
-                        text: "♻️ Pulizia + programma per ridurre i rifiuti alla fonte.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 10,
-                            water: 12,
-                            activity: 2
-                        },
-
-                        explanation:
-                            "Intervenire sia sui rifiuti presenti sia sulle loro cause può ridurre il problema nel breve e nel lungo periodo."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🌡️ Acqua sempre più calda",
-
-                description:
-                    "La temperatura dell'acqua sta aumentando e alcune specie marine stanno iniziando a spostarsi verso zone più fredde.",
-
-                options: [
-
-                    {
-                        text: "🌊 Proteggere le aree marine più vulnerabili.",
-
-                        effects: {
-                            biodiversity: 7,
-                            health: 8,
-                            water: 0,
-                            activity: -3
-                        },
-
-                        explanation:
-                            "Ridurre altre pressioni sull'ecosistema può aumentare la sua capacità di affrontare condizioni ambientali sfavorevoli."
-                    },
-
-                    {
-                        text: "🏗️ Aumentare le attività turistiche per compensare le perdite.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -6,
-                            water: -3,
-                            activity: 8
-                        },
-
-                        explanation:
-                            "Un aumento non controllato delle attività può aggiungere ulteriori pressioni a un ecosistema già sotto stress."
-                    },
-
-                    {
-                        text: "🔬 Monitorare temperatura e specie e limitare le attività nelle zone più colpite.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 7,
-                            water: 2,
-                            activity: 2
-                        },
-
-                        explanation:
-                            "Monitoraggio e gestione mirata permettono di individuare le aree più vulnerabili e ridurre le pressioni aggiuntive."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🧪 Problema di qualità dell'acqua",
-
-                description:
-                    "I controlli rilevano un aumento dell'inquinamento vicino alla foce di un fiume. Una parte dell'inquinamento potrebbe arrivare dalla terraferma.",
-
-                options: [
-
-                    {
-                        text: "🔎 Cercare la fonte dell'inquinamento e intervenire.",
-
-                        effects: {
-                            biodiversity: 7,
-                            health: 10,
-                            water: 12,
-                            activity: -2
-                        },
-
-                        explanation:
-                            "Individuare la fonte permette di intervenire alla causa invece di limitarsi a gestire le conseguenze."
-                    },
-
-                    {
-                        text: "🚧 Chiudere completamente la zona marina.",
-
-                        effects: {
-                            biodiversity: 5,
-                            health: 7,
-                            water: 5,
-                            activity: -12
-                        },
-
-                        explanation:
-                            "Una chiusura può ridurre temporaneamente la pressione sull'area, ma non risolve necessariamente la fonte dell'inquinamento."
-                    },
-
-                    {
-                        text: "🤷 Non modificare nulla finché il problema non peggiora.",
-
-                        effects: {
-                            biodiversity: -9,
-                            health: -10,
-                            water: -12,
-                            activity: 3
-                        },
-
-                        explanation:
-                            "Aspettare che l'inquinamento aumenti può permettere al problema di estendersi e rendere più difficile intervenire."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🐠 Ultima decisione",
-
-                description:
-                    "La stagione turistica sta iniziando. La riserva è migliorata, ma devi decidere come gestire il turismo per il prossimo periodo.",
-
-                options: [
-
-                    {
-                        text: "🏖️ Nessun limite: più turisti significa più guadagni.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -7,
-                            water: -5,
-                            activity: 12
-                        },
-
-                        explanation:
-                            "Un turismo non regolamentato può aumentare la pressione su habitat, coste e risorse."
-                    },
-
-                    {
-                        text: "🌿 Turismo regolamentato e aree sensibili protette.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 8,
-                            water: 5,
-                            activity: 7
-                        },
-
-                        explanation:
-                            "Regolare i flussi e proteggere le aree sensibili può permettere di conciliare attività economiche e tutela dell'ecosistema."
-                    },
-
-                    {
-                        text: "🚫 Vietare completamente il turismo.",
-
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 5,
-                            activity: -15
-                        },
-
-                        explanation:
-                            "Un divieto totale può ridurre molte pressioni, ma può avere conseguenze economiche e sociali significative."
-                    }
-
-                ]
-            }
-
-        ]
+        resultBad:
+            "⚠️ L'ecosistema è in difficoltà. Prova a considerare meglio le conseguenze a lungo termine delle tue decisioni."
 
     },
 
@@ -904,27 +612,27 @@ const traduzioni = {
 
         menu: "Games",
 
-        gameTitle: "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
             "You are responsible for a marine reserve. You have 5 turns to protect its balance.",
 
         biodiversity: "Biodiversity",
+
         health: "Ocean health",
+
         water: "Water quality",
+
         activity: "Human activity",
 
         turn: "TURN",
 
-        consequence: "💡 <strong>Consequence:</strong>",
-
         continue: "Continue →",
-        resultButton: "🏆 See result",
 
         resultTitle:
             "Your management has ended",
 
-        resultDescription:
+        finalState:
             "Final state of the reserve:",
 
         restart:
@@ -933,288 +641,20 @@ const traduzioni = {
         back:
             "🎮 Back to games",
 
-        messages: {
-            excellent:
-                "🌟 The ecosystem is in excellent health! Your decisions reduced many of the pressures on the environment.",
+        consequence:
+            "💡 <strong>Consequence:</strong><br>",
 
-            good:
-                "🐠 Good job! The reserve is in fairly positive condition, although there are still problems to address.",
+        resultExcellent:
+            "🌟 Ecosystem in excellent health! Your decisions reduced many pressures on the environment.",
 
-            medium:
-                "🌊 The reserve is under pressure. Some of your decisions had important consequences for the ecosystem.",
+        resultGood:
+            "🐠 Good job! The reserve is in fairly positive condition, although there are still problems to address.",
 
-            low:
-                "⚠️ The ecosystem is struggling. Try to consider the long-term consequences of your decisions."
-        },
+        resultMedium:
+            "🌊 The reserve is under pressure. Some of your decisions had important consequences for the ecosystem.",
 
-        events: [
-
-            {
-                title: "🎣 Increased fishing",
-
-                description:
-                    "Local fishermen are asking to increase the number of fish they can catch. Fishing is important for the local economy, but some species are declining.",
-
-                options: [
-
-                    {
-                        text: "🚫 Create a protected area where fishing is prohibited.",
-
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 0,
-                            activity: -8
-                        },
-
-                        explanation:
-                            "A protected area can help fish populations recover, but it temporarily reduces fishing activity in the area."
-                    },
-
-                    {
-                        text: "🎣 Allow increased fishing without changes.",
-
-                        effects: {
-                            biodiversity: -10,
-                            health: -7,
-                            water: 0,
-                            activity: 10
-                        },
-
-                        explanation:
-                            "Increased fishing pressure may support the economy in the short term, but it can reduce the populations of some species."
-                    },
-
-                    {
-                        text: "⚖️ Establish sustainable fishing quotas.",
-
-                        effects: {
-                            biodiversity: 6,
-                            health: 5,
-                            water: 0,
-                            activity: 4
-                        },
-
-                        explanation:
-                            "Fishing quotas can help maintain a balance between economic activity and the conservation of marine populations."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🧴 Plastic on the coast",
-
-                description:
-                    "After a strong storm, large amounts of plastic waste have appeared along the coast. You must decide how to respond.",
-
-                options: [
-
-                    {
-                        text: "🧹 Organize a large coastal cleanup.",
-
-                        effects: {
-                            biodiversity: 5,
-                            health: 8,
-                            water: 10,
-                            activity: 0
-                        },
-
-                        explanation:
-                            "Removing waste can reduce risks to marine organisms and improve environmental quality."
-                    },
-
-                    {
-                        text: "⏳ Do nothing: the current will carry the waste away.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -8,
-                            water: -12,
-                            activity: 0
-                        },
-
-                        explanation:
-                            "Waste does not disappear when it moves away: it may simply be transferred to other parts of the ecosystem."
-                    },
-
-                    {
-                        text: "♻️ Cleanup + a program to reduce waste at its source.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 10,
-                            water: 12,
-                            activity: 2
-                        },
-
-                        explanation:
-                            "Addressing both existing waste and its causes can reduce the problem in the short and long term."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🌡️ Warming water",
-
-                description:
-                    "Water temperatures are increasing and some marine species are beginning to move toward colder areas.",
-
-                options: [
-
-                    {
-                        text: "🌊 Protect the most vulnerable marine areas.",
-
-                        effects: {
-                            biodiversity: 7,
-                            health: 8,
-                            water: 0,
-                            activity: -3
-                        },
-
-                        explanation:
-                            "Reducing other pressures on the ecosystem can increase its ability to cope with unfavorable environmental conditions."
-                    },
-
-                    {
-                        text: "🏗️ Increase tourism activities to compensate for losses.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -6,
-                            water: -3,
-                            activity: 8
-                        },
-
-                        explanation:
-                            "Uncontrolled increases in activity can add further pressure to an ecosystem already under stress."
-                    },
-
-                    {
-                        text: "🔬 Monitor temperature and species and limit activities in the most affected areas.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 7,
-                            water: 2,
-                            activity: 2
-                        },
-
-                        explanation:
-                            "Monitoring and targeted management make it possible to identify vulnerable areas and reduce additional pressures."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🧪 Water quality problem",
-
-                description:
-                    "Tests detect increasing pollution near the mouth of a river. Some of the pollution may be coming from land.",
-
-                options: [
-
-                    {
-                        text: "🔎 Find the source of the pollution and intervene.",
-
-                        effects: {
-                            biodiversity: 7,
-                            health: 10,
-                            water: 12,
-                            activity: -2
-                        },
-
-                        explanation:
-                            "Identifying the source makes it possible to address the cause rather than only managing the consequences."
-                    },
-
-                    {
-                        text: "🚧 Completely close the marine area.",
-
-                        effects: {
-                            biodiversity: 5,
-                            health: 7,
-                            water: 5,
-                            activity: -12
-                        },
-
-                        explanation:
-                            "Closing the area can temporarily reduce pressure, but it does not necessarily solve the source of the pollution."
-                    },
-
-                    {
-                        text: "🤷 Do nothing until the problem gets worse.",
-
-                        effects: {
-                            biodiversity: -9,
-                            health: -10,
-                            water: -12,
-                            activity: 3
-                        },
-
-                        explanation:
-                            "Waiting for pollution to increase can allow the problem to spread and make intervention more difficult."
-                    }
-
-                ]
-            },
-
-            {
-                title: "🐠 Final decision",
-
-                description:
-                    "The tourist season is beginning. The reserve has improved, but you must decide how to manage tourism for the next period.",
-
-                options: [
-
-                    {
-                        text: "🏖️ No limits: more tourists means more income.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -7,
-                            water: -5,
-                            activity: 12
-                        },
-
-                        explanation:
-                            "Unregulated tourism can increase pressure on habitats, coasts and resources."
-                    },
-
-                    {
-                        text: "🌿 Regulated tourism and protected sensitive areas.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 8,
-                            water: 5,
-                            activity: 7
-                        },
-
-                        explanation:
-                            "Regulating visitor flows and protecting sensitive areas can help balance economic activity and ecosystem protection."
-                    },
-
-                    {
-                        text: "🚫 Completely ban tourism.",
-
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 5,
-                            activity: -15
-                        },
-
-                        explanation:
-                            "A total ban can reduce many pressures, but it can have significant economic and social consequences."
-                    }
-
-                ]
-            }
-
-        ]
+        resultBad:
+            "⚠️ The ecosystem is struggling. Try to consider the long-term consequences of your decisions more carefully."
 
     },
 
@@ -1223,27 +663,27 @@ const traduzioni = {
 
         menu: "Pelit",
 
-        gameTitle: "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
-            "Olet merensuojelualueen vastuuhenkilö. Sinulla on 5 vuoroa sen tasapainon suojelemiseksi.",
+            "Olet merensuojelualueen vastuuhenkilö. Sinulla on 5 vuoroa aikaa suojella sen tasapainoa.",
 
         biodiversity: "Luonnon monimuotoisuus",
-        health: "Meren terveys",
+
+        health: "Meren tila",
+
         water: "Veden laatu",
+
         activity: "Ihmisen toiminta",
 
         turn: "VUORO",
 
-        consequence: "💡 <strong>Seuraus:</strong>",
-
         continue: "Jatka →",
-        resultButton: "🏆 Katso tulos",
 
         resultTitle:
-            "Hallintasi on päättynyt",
+            "Hallintosi on päättynyt",
 
-        resultDescription:
+        finalState:
             "Suojelualueen lopullinen tila:",
 
         restart:
@@ -1252,349 +692,647 @@ const traduzioni = {
         back:
             "🎮 Takaisin peleihin",
 
-        messages: {
-            excellent:
-                "🌟 Ekosysteemi on erinomaisessa kunnossa! Päätöksesi vähensivät monia ympäristöön kohdistuvia paineita.",
+        consequence:
+            "💡 <strong>Seuraus:</strong><br>",
 
-            good:
-                "🐠 Hyvää työtä! Suojelualueen tila on melko hyvä, vaikka joitakin ongelmia on vielä ratkaistava.",
+        resultExcellent:
+            "🌟 Ekosysteemi on erittäin hyvässä kunnossa! Päätöksesi vähensivät monia ympäristöön kohdistuvia paineita.",
 
-            medium:
-                "🌊 Suojelualue on paineen alla. Joillakin päätöksilläsi oli merkittäviä vaikutuksia ekosysteemiin.",
+        resultGood:
+            "🐠 Hyvää työtä! Suojelualue on melko hyvässä kunnossa, vaikka ratkaistavia ongelmia on vielä.",
 
-            low:
-                "⚠️ Ekosysteemillä on vaikeuksia. Yritä huomioida päätöstesi pitkän aikavälin seuraukset."
+        resultMedium:
+            "🌊 Suojelualue on paineen alla. Jotkin päätöksesi vaikuttivat merkittävästi ekosysteemiin.",
+
+        resultBad:
+            "⚠️ Ekosysteemillä on vaikeuksia. Yritä ottaa päätöstesi pitkän aikavälin seuraukset paremmin huomioon."
+
+    }
+
+};
+
+
+/* =====================================================
+   EVENTI DEL GIOCO
+   ===================================================== */
+
+const events = [
+
+    {
+
+        title: {
+            it: "🎣 Aumento della pesca",
+            en: "🎣 Increase in fishing",
+            fi: "🎣 Kalastuksen lisääntyminen"
         },
 
-        events: [
+        description: {
+            it:
+                "I pescatori locali chiedono di poter aumentare il numero di pesci catturati. La pesca è importante per l'economia della zona, ma alcune specie stanno diminuendo.",
+
+            en:
+                "Local fishermen are asking to increase the number of fish they can catch. Fishing is important to the local economy, but some species are declining.",
+
+            fi:
+                "Paikalliset kalastajat haluavat lisätä pyydettävien kalojen määrää. Kalastus on tärkeää alueen taloudelle, mutta joidenkin lajien määrä vähenee."
+        },
+
+        options: [
 
             {
-                title: "🎣 Kalastuksen lisääntyminen",
+                text: {
+                    it: "🚫 Creare una zona protetta dove la pesca è vietata.",
+                    en: "🚫 Create a protected area where fishing is prohibited.",
+                    fi: "🚫 Perustetaan suojelualue, jolla kalastus on kielletty."
+                },
 
-                description:
-                    "Paikalliset kalastajat haluavat lisätä pyydettävien kalojen määrää. Kalastus on tärkeää paikalliselle taloudelle, mutta joidenkin lajien määrä on vähenemässä.",
+                effects: {
+                    biodiversity: 10,
+                    health: 8,
+                    water: 0,
+                    activity: -8
+                },
 
-                options: [
+                explanation: {
+                    it:
+                        "Una zona protetta può favorire il recupero delle popolazioni ittiche, ma riduce temporaneamente l'attività di pesca nell'area.",
 
-                    {
-                        text: "🚫 Perustetaan suojelualue, jolla kalastus on kielletty.",
+                    en:
+                        "A protected area can help fish populations recover, but it temporarily reduces fishing activity in the area.",
 
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 0,
-                            activity: -8
-                        },
+                    fi:
+                        "Suojelualue voi auttaa kalakantoja elpymään, mutta se vähentää väliaikaisesti kalastustoimintaa alueella."
+                }
 
-                        explanation:
-                            "Suojelualue voi auttaa kalakantoja elpymään, mutta se vähentää väliaikaisesti kalastustoimintaa alueella."
-                    },
-
-                    {
-                        text: "🎣 Sallitaan kalastuksen lisääminen ilman muutoksia.",
-
-                        effects: {
-                            biodiversity: -10,
-                            health: -7,
-                            water: 0,
-                            activity: 10
-                        },
-
-                        explanation:
-                            "Lisääntynyt kalastuspaine voi tukea taloutta lyhyellä aikavälillä, mutta se voi vähentää joidenkin lajien kantoja."
-                    },
-
-                    {
-                        text: "⚖️ Asetetaan kestävät kalastuskiintiöt.",
-
-                        effects: {
-                            biodiversity: 6,
-                            health: 5,
-                            water: 0,
-                            activity: 4
-                        },
-
-                        explanation:
-                            "Kalastuskiintiöt voivat auttaa säilyttämään tasapainon taloudellisen toiminnan ja merellisten lajien suojelun välillä."
-                    }
-
-                ]
             },
 
+
             {
-                title: "🧴 Muovia rannikolla",
+                text: {
+                    it: "🎣 Permettere l'aumento della pesca senza modifiche.",
+                    en: "🎣 Allow fishing to increase without restrictions.",
+                    fi: "🎣 Sallitaan kalastuksen lisääminen ilman muutoksia."
+                },
 
-                description:
-                    "Voimakkaan myrskyn jälkeen rannikolle on ajautunut paljon muovijätettä. Sinun on päätettävä, miten toimit.",
+                effects: {
+                    biodiversity: -10,
+                    health: -7,
+                    water: 0,
+                    activity: 10
+                },
 
-                options: [
+                explanation: {
+                    it:
+                        "L'aumento della pressione di pesca può favorire l'economia nel breve periodo, ma può ridurre le popolazioni di alcune specie.",
 
-                    {
-                        text: "🧹 Järjestetään suuri rantojen siivous.",
+                    en:
+                        "Increased fishing pressure may benefit the economy in the short term, but it can reduce the populations of some species.",
 
-                        effects: {
-                            biodiversity: 5,
-                            health: 8,
-                            water: 10,
-                            activity: 0
-                        },
+                    fi:
+                        "Kalastuspaineen lisääminen voi hyödyttää taloutta lyhyellä aikavälillä, mutta se voi vähentää joidenkin lajien kantoja."
+                }
 
-                        explanation:
-                            "Jätteen poistaminen voi vähentää riskejä merieliöille ja parantaa ympäristön laatua."
-                    },
-
-                    {
-                        text: "⏳ Ei tehdä mitään: virtaus kuljettaa jätteet pois.",
-
-                        effects: {
-                            biodiversity: -8,
-                            health: -8,
-                            water: -12,
-                            activity: 0
-                        },
-
-                        explanation:
-                            "Jäte ei katoa siirtyessään muualle, vaan se voi vain levitä ekosysteemin muihin osiin."
-                    },
-
-                    {
-                        text: "♻️ Siivous + ohjelma jätteen vähentämiseksi sen lähteellä.",
-
-                        effects: {
-                            biodiversity: 8,
-                            health: 10,
-                            water: 12,
-                            activity: 2
-                        },
-
-                        explanation:
-                            "Sekä olemassa olevan jätteen että sen aiheuttajien käsittely voi vähentää ongelmaa lyhyellä ja pitkällä aikavälillä."
-                    }
-
-                ]
             },
 
+
             {
-                title: "🌡️ Vesi lämpenee",
+                text: {
+                    it: "⚖️ Stabilire quote di pesca sostenibili.",
+                    en: "⚖️ Establish sustainable fishing quotas.",
+                    fi: "⚖️ Asetetaan kestävät kalastuskiintiöt."
+                },
 
-                description:
-                    "Veden lämpötila nousee ja jotkin merilajit alkavat siirtyä kylmemmille alueille.",
+                effects: {
+                    biodiversity: 6,
+                    health: 5,
+                    water: 0,
+                    activity: 4
+                },
 
-                options: [
+                explanation: {
+                    it:
+                        "Le quote possono cercare di mantenere un equilibrio tra attività economiche e conservazione delle popolazioni marine.",
 
-                    {
-                        text: "🌊 Suojellaan haavoittuvimpia merialueita.",
+                    en:
+                        "Quotas can help maintain a balance between economic activity and the conservation of marine populations.",
 
-                        effects: {
-                            biodiversity: 7,
-                            health: 8,
-                            water: 0,
-                            activity: -3
-                        },
+                    fi:
+                        "Kiintiöt voivat auttaa säilyttämään tasapainon taloudellisen toiminnan ja merellisten lajien suojelun välillä."
+                }
 
-                        explanation:
-                            "Muiden ekosysteemiin kohdistuvien paineiden vähentäminen voi parantaa sen kykyä selviytyä epäsuotuisista ympäristöolosuhteista."
-                    },
+            }
 
-                    {
-                        text: "🏗️ Lisätään matkailua menetysten kompensoimiseksi.",
+        ]
 
-                        effects: {
-                            biodiversity: -8,
-                            health: -6,
-                            water: -3,
-                            activity: 8
-                        },
+    },
 
-                        explanation:
-                            "Hallitsematon toiminnan lisääminen voi aiheuttaa lisäpaineita ekosysteemille, joka on jo stressaantunut."
-                    },
 
-                    {
-                        text: "🔬 Seurataan lämpötilaa ja lajeja ja rajoitetaan toimintaa eniten kärsineillä alueilla.",
+    {
 
-                        effects: {
-                            biodiversity: 8,
-                            health: 7,
-                            water: 2,
-                            activity: 2
-                        },
+        title: {
+            it: "🧴 Plastica sulla costa",
+            en: "🧴 Plastic on the coast",
+            fi: "🧴 Muovia rannikolla"
+        },
 
-                        explanation:
-                            "Seuranta ja kohdennettu hallinta auttavat tunnistamaan haavoittuvia alueita ja vähentämään lisäpaineita."
-                    }
+        description: {
+            it:
+                "Dopo una forte mareggiata, sulla costa sono comparsi numerosi rifiuti di plastica. Devi decidere come intervenire.",
 
-                ]
+            en:
+                "After a strong storm, a large amount of plastic waste has appeared along the coast. You must decide how to respond.",
+
+            fi:
+                "Voimakkaan myrskyn jälkeen rannikolle on päätynyt paljon muovijätettä. Sinun on päätettävä, miten tilanteeseen puututaan."
+        },
+
+        options: [
+
+            {
+                text: {
+                    it: "🧹 Organizzare una grande pulizia della costa.",
+                    en: "🧹 Organize a large coastal cleanup.",
+                    fi: "🧹 Järjestetään suuri rannikon siivous."
+                },
+
+                effects: {
+                    biodiversity: 5,
+                    health: 8,
+                    water: 10,
+                    activity: 0
+                },
+
+                explanation: {
+                    it:
+                        "Rimuovere i rifiuti può ridurre i rischi per gli organismi marini e migliorare la qualità dell'ambiente.",
+
+                    en:
+                        "Removing waste can reduce risks to marine organisms and improve environmental quality.",
+
+                    fi:
+                        "Jätteen poistaminen voi vähentää merieliöihin kohdistuvia riskejä ja parantaa ympäristön laatua."
+                }
+
             },
 
+
             {
-                title: "🧪 Vedenlaatuongelma",
+                text: {
+                    it: "⏳ Non intervenire: la corrente porterà via i rifiuti.",
+                    en: "⏳ Do nothing: the current will carry the waste away.",
+                    fi: "⏳ Ei tehdä mitään: virta kuljettaa jätteet pois."
+                },
 
-                description:
-                    "Tutkimukset osoittavat saastumisen lisääntyneen joen suulla. Osa saasteesta saattaa tulla maalta.",
+                effects: {
+                    biodiversity: -8,
+                    health: -8,
+                    water: -12,
+                    activity: 0
+                },
 
-                options: [
+                explanation: {
+                    it:
+                        "La dispersione dei rifiuti non li fa scomparire: può semplicemente trasferirli in altre zone dell'ecosistema.",
 
-                    {
-                        text: "🔎 Selvitetään saasteen lähde ja puututaan siihen.",
+                    en:
+                        "Dispersing waste does not make it disappear: it may simply move it to other parts of the ecosystem.",
 
-                        effects: {
-                            biodiversity: 7,
-                            health: 10,
-                            water: 12,
-                            activity: -2
-                        },
+                    fi:
+                        "Jätteen leviäminen ei hävitä sitä, vaan voi ainoastaan siirtää sen ekosysteemin muille alueille."
+                }
 
-                        explanation:
-                            "Lähteen selvittäminen mahdollistaa ongelman syyn käsittelyn eikä vain seurausten hallintaa."
-                    },
-
-                    {
-                        text: "🚧 Suljetaan merialue kokonaan.",
-
-                        effects: {
-                            biodiversity: 5,
-                            health: 7,
-                            water: 5,
-                            activity: -12
-                        },
-
-                        explanation:
-                            "Alueen sulkeminen voi väliaikaisesti vähentää painetta, mutta se ei välttämättä ratkaise saasteen lähdettä."
-                    },
-
-                    {
-                        text: "🤷 Ei tehdä muutoksia ennen kuin ongelma pahenee.",
-
-                        effects: {
-                            biodiversity: -9,
-                            health: -10,
-                            water: -12,
-                            activity: 3
-                        },
-
-                        explanation:
-                            "Saastumisen lisääntymisen odottaminen voi antaa ongelman levitä ja vaikeuttaa siihen puuttumista."
-                    }
-
-                ]
             },
 
+
             {
-                title: "🐠 Viimeinen päätös",
+                text: {
+                    it: "♻️ Pulizia + programma per ridurre i rifiuti alla fonte.",
+                    en: "♻️ Cleanup + a program to reduce waste at the source.",
+                    fi: "♻️ Siivous + ohjelma jätteen vähentämiseksi sen lähteellä."
+                },
 
-                description:
-                    "Matkailukausi alkaa. Suojelualue on parantunut, mutta sinun on päätettävä, miten matkailua hallitaan seuraavalla kaudella.",
+                effects: {
+                    biodiversity: 8,
+                    health: 10,
+                    water: 12,
+                    activity: 2
+                },
 
-                options: [
+                explanation: {
+                    it:
+                        "Intervenire sia sui rifiuti presenti sia sulle loro cause può ridurre il problema nel breve e nel lungo periodo.",
 
-                    {
-                        text: "🏖️ Ei rajoituksia: enemmän matkailijoita tarkoittaa enemmän tuloja.",
+                    en:
+                        "Addressing both existing waste and its causes can reduce the problem in the short and long term.",
 
-                        effects: {
-                            biodiversity: -8,
-                            health: -7,
-                            water: -5,
-                            activity: 12
-                        },
+                    fi:
+                        "Sekä olemassa olevan jätteen että sen syiden käsitteleminen voi vähentää ongelmaa lyhyellä ja pitkällä aikavälillä."
+                }
 
-                        explanation:
-                            "Sääntelemätön matkailu voi lisätä painetta elinympäristöihin, rannikkoihin ja luonnonvaroihin."
-                    },
+            }
 
-                    {
-                        text: "🌿 Säännelty matkailu ja herkkien alueiden suojelu.",
+        ]
 
-                        effects: {
-                            biodiversity: 8,
-                            health: 8,
-                            water: 5,
-                            activity: 7
-                        },
+    },
 
-                        explanation:
-                            "Matkailijavirtojen säätely ja herkkien alueiden suojeleminen voivat auttaa yhdistämään taloudellisen toiminnan ja ekosysteemin suojelun."
-                    },
 
-                    {
-                        text: "🚫 Kielletään matkailu kokonaan.",
+    {
 
-                        effects: {
-                            biodiversity: 10,
-                            health: 8,
-                            water: 5,
-                            activity: -15
-                        },
+        title: {
+            it: "🌡️ Acqua sempre più calda",
+            en: "🌡️ Increasingly warm water",
+            fi: "🌡️ Vesi lämpenee"
+        },
 
-                        explanation:
-                            "Täyskielto voi vähentää monia paineita, mutta sillä voi olla merkittäviä taloudellisia ja sosiaalisia seurauksia."
-                    }
+        description: {
+            it:
+                "La temperatura dell'acqua sta aumentando e alcune specie marine stanno iniziando a spostarsi verso zone più fredde.",
 
-                ]
+            en:
+                "Water temperatures are increasing and some marine species are beginning to move toward colder areas.",
+
+            fi:
+                "Veden lämpötila nousee ja jotkin merilajit alkavat siirtyä kylmemmille alueille."
+        },
+
+        options: [
+
+            {
+                text: {
+                    it: "🌊 Proteggere le aree marine più vulnerabili.",
+                    en: "🌊 Protect the most vulnerable marine areas.",
+                    fi: "🌊 Suojellaan haavoittuvimpia merialueita."
+                },
+
+                effects: {
+                    biodiversity: 7,
+                    health: 8,
+                    water: 0,
+                    activity: -3
+                },
+
+                explanation: {
+                    it:
+                        "Ridurre altre pressioni sull'ecosistema può aumentare la sua capacità di affrontare condizioni ambientali sfavorevoli.",
+
+                    en:
+                        "Reducing other pressures on the ecosystem can increase its ability to cope with unfavorable environmental conditions.",
+
+                    fi:
+                        "Muiden ekosysteemiin kohdistuvien paineiden vähentäminen voi parantaa sen kykyä selviytyä epäsuotuisista ympäristöolosuhteista."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🏗️ Aumentare le attività turistiche per compensare le perdite.",
+                    en: "🏗️ Increase tourism activities to compensate for losses.",
+                    fi: "🏗️ Lisätään matkailutoimintaa tappioiden korvaamiseksi."
+                },
+
+                effects: {
+                    biodiversity: -8,
+                    health: -6,
+                    water: -3,
+                    activity: 8
+                },
+
+                explanation: {
+                    it:
+                        "Un aumento non controllato delle attività può aggiungere ulteriori pressioni a un ecosistema già sotto stress.",
+
+                    en:
+                        "An uncontrolled increase in activity can add further pressure to an ecosystem already under stress.",
+
+                    fi:
+                        "Toiminnan hallitsematon lisääminen voi aiheuttaa lisäpainetta jo ennestään kuormittuneelle ekosysteemille."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🔬 Monitorare temperatura e specie e limitare le attività nelle zone più colpite.",
+                    en: "🔬 Monitor temperatures and species and limit activities in the most affected areas.",
+                    fi: "🔬 Seurataan lämpötilaa ja lajeja ja rajoitetaan toimintaa eniten kärsivillä alueilla."
+                },
+
+                effects: {
+                    biodiversity: 8,
+                    health: 7,
+                    water: 2,
+                    activity: 2
+                },
+
+                explanation: {
+                    it:
+                        "Monitoraggio e gestione mirata permettono di individuare le aree più vulnerabili e ridurre le pressioni aggiuntive.",
+
+                    en:
+                        "Monitoring and targeted management make it possible to identify the most vulnerable areas and reduce additional pressures.",
+
+                    fi:
+                        "Seuranta ja kohdennettu hallinta auttavat tunnistamaan haavoittuvimmat alueet ja vähentämään lisäpaineita."
+                }
+
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        title: {
+            it: "🧪 Problema di qualità dell'acqua",
+            en: "🧪 Water quality problem",
+            fi: "🧪 Vedenlaatuongelma"
+        },
+
+        description: {
+            it:
+                "I controlli rilevano un aumento dell'inquinamento vicino alla foce di un fiume. Una parte dell'inquinamento potrebbe arrivare dalla terraferma.",
+
+            en:
+                "Monitoring detects increased pollution near a river mouth. Some of the pollution may be coming from land.",
+
+            fi:
+                "Seuranta osoittaa saastumisen lisääntyneen joen suulla. Osa saasteista saattaa tulla mantereelta."
+        },
+
+        options: [
+
+            {
+                text: {
+                    it: "🔎 Cercare la fonte dell'inquinamento e intervenire.",
+                    en: "🔎 Find the source of the pollution and intervene.",
+                    fi: "🔎 Selvitetään saastumisen lähde ja puututaan siihen."
+                },
+
+                effects: {
+                    biodiversity: 7,
+                    health: 10,
+                    water: 12,
+                    activity: -2
+                },
+
+                explanation: {
+                    it:
+                        "Individuare la fonte permette di intervenire alla causa invece di limitarsi a gestire le conseguenze.",
+
+                    en:
+                        "Finding the source makes it possible to address the cause rather than only managing the consequences.",
+
+                    fi:
+                        "Lähteen selvittäminen mahdollistaa puuttumisen itse syyhyn sen sijaan, että käsiteltäisiin vain seurauksia."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🚧 Chiudere completamente la zona marina.",
+                    en: "🚧 Completely close the marine area.",
+                    fi: "🚧 Suljetaan merialue kokonaan."
+                },
+
+                effects: {
+                    biodiversity: 5,
+                    health: 7,
+                    water: 5,
+                    activity: -12
+                },
+
+                explanation: {
+                    it:
+                        "Una chiusura può ridurre temporaneamente la pressione sull'area, ma non risolve necessariamente la fonte dell'inquinamento.",
+
+                    en:
+                        "A closure can temporarily reduce pressure on the area, but it does not necessarily solve the source of the pollution.",
+
+                    fi:
+                        "Sulkeminen voi vähentää alueeseen kohdistuvaa painetta väliaikaisesti, mutta se ei välttämättä ratkaise saastumisen lähdettä."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🤷 Non modificare nulla finché il problema non peggiora.",
+                    en: "🤷 Do nothing until the problem gets worse.",
+                    fi: "🤷 Ei tehdä mitään ennen kuin ongelma pahenee."
+                },
+
+                effects: {
+                    biodiversity: -9,
+                    health: -10,
+                    water: -12,
+                    activity: 3
+                },
+
+                explanation: {
+                    it:
+                        "Aspettare che l'inquinamento aumenti può permettere al problema di estendersi e rendere più difficile intervenire.",
+
+                    en:
+                        "Waiting for pollution to increase may allow the problem to spread and make intervention more difficult.",
+
+                    fi:
+                        "Saastumisen lisääntymisen odottaminen voi antaa ongelman levitä ja vaikeuttaa siihen puuttumista."
+                }
+
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        title: {
+            it: "🐠 Ultima decisione",
+            en: "🐠 Final decision",
+            fi: "🐠 Viimeinen päätös"
+        },
+
+        description: {
+            it:
+                "La stagione turistica sta iniziando. La riserva è migliorata, ma devi decidere come gestire il turismo per il prossimo periodo.",
+
+            en:
+                "The tourist season is beginning. The reserve has improved, but you must decide how to manage tourism for the next period.",
+
+            fi:
+                "Matkailukausi on alkamassa. Suojelualue on parantunut, mutta sinun on päätettävä, miten matkailua hallitaan seuraavalla kaudella."
+        },
+
+        options: [
+
+            {
+                text: {
+                    it: "🏖️ Nessun limite: più turisti significa più guadagni.",
+                    en: "🏖️ No limits: more tourists means more income.",
+                    fi: "🏖️ Ei rajoituksia: enemmän turisteja tarkoittaa enemmän tuloja."
+                },
+
+                effects: {
+                    biodiversity: -8,
+                    health: -7,
+                    water: -5,
+                    activity: 12
+                },
+
+                explanation: {
+                    it:
+                        "Un turismo non regolamentato può aumentare la pressione su habitat, coste e risorse.",
+
+                    en:
+                        "Unregulated tourism can increase pressure on habitats, coastlines and resources.",
+
+                    fi:
+                        "Hallitsematon matkailu voi lisätä painetta elinympäristöihin, rannikkoihin ja luonnonvaroihin."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🌿 Turismo regolamentato e aree sensibili protette.",
+                    en: "🌿 Regulated tourism and protected sensitive areas.",
+                    fi: "🌿 Säännelty matkailu ja herkkien alueiden suojelu."
+                },
+
+                effects: {
+                    biodiversity: 8,
+                    health: 8,
+                    water: 5,
+                    activity: 7
+                },
+
+                explanation: {
+                    it:
+                        "Regolare i flussi e proteggere le aree sensibili può permettere di conciliare attività economiche e tutela dell'ecosistema.",
+
+                    en:
+                        "Managing visitor flows and protecting sensitive areas can help balance economic activity and ecosystem protection.",
+
+                    fi:
+                        "Kävijämäärien hallinta ja herkkien alueiden suojeleminen voivat auttaa yhdistämään taloudellisen toiminnan ja ekosysteemin suojelun."
+                }
+
+            },
+
+
+            {
+                text: {
+                    it: "🚫 Vietare completamente il turismo.",
+                    en: "🚫 Completely ban tourism.",
+                    fi: "🚫 Kielletään matkailu kokonaan."
+                },
+
+                effects: {
+                    biodiversity: 10,
+                    health: 8,
+                    water: 5,
+                    activity: -15
+                },
+
+                explanation: {
+                    it:
+                        "Un divieto totale può ridurre molte pressioni, ma può avere conseguenze economiche e sociali significative.",
+
+                    en:
+                        "A total ban can reduce many pressures, but it can have significant economic and social consequences.",
+
+                    fi:
+                        "Täydellinen kielto voi vähentää monia paineita, mutta sillä voi olla merkittäviä taloudellisia ja sosiaalisia seurauksia."
+                }
+
             }
 
         ]
 
     }
 
-};
+];
 
 
 /* =====================================================
-   VARIABILI DEL GIOCO
-===================================================== */
+   STATO DEL GIOCO
+   ===================================================== */
 
 let currentTurn = 0;
+
 let chosen = false;
 
 let stats = {
 
     biodiversity: 70,
+
     health: 70,
+
     water: 70,
+
     activity: 70
 
 };
 
 
 /* =====================================================
-   LINGUA CORRENTE
-===================================================== */
+   LINGUA
+   ===================================================== */
 
 let linguaCorrente =
     localStorage.getItem("linguaEcoGame") || "it";
 
 
+if (!interfaccia[linguaCorrente]) {
+
+    linguaCorrente = "it";
+
+}
+
+
+const selettoreLingua =
+    document.getElementById("lingua");
+
+
+selettoreLingua.value =
+    linguaCorrente;
+
+
 /* =====================================================
    CAMBIO LINGUA
-===================================================== */
+   ===================================================== */
 
 function cambiaLingua() {
 
-    const selettore =
-        document.getElementById("lingua");
-
     linguaCorrente =
-        selettore.value;
+        selettoreLingua.value;
 
-    if (
-        !Object.prototype.hasOwnProperty.call(
-            traduzioni,
-            linguaCorrente
-        )
-    ) {
+
+    if (!interfaccia[linguaCorrente]) {
 
         linguaCorrente = "it";
 
+        selettoreLingua.value = "it";
+
     }
+
 
     localStorage.setItem(
         "linguaEcoGame",
         linguaCorrente
     );
 
-    document.documentElement.lang =
-        linguaCorrente;
 
     applicaLingua();
 
@@ -1602,49 +1340,89 @@ function cambiaLingua() {
 
 
 /* =====================================================
-   APPLICA LA LINGUA
-===================================================== */
+   APPLICA LINGUA
+   ===================================================== */
 
 function applicaLingua() {
 
-    const testi =
-        traduzioni[linguaCorrente];
+    const t =
+        interfaccia[linguaCorrente];
 
-    document.getElementById("lingua").value =
+
+    document.documentElement.lang =
         linguaCorrente;
 
-    document.getElementById("menuText").innerText =
-        testi.menu;
 
-    document.getElementById("gameTitle").innerText =
-        testi.gameTitle;
+    document.title =
+        t.title +
+        " - EcoGame";
 
-    document.getElementById("intro").innerText =
-        testi.intro;
 
-    document.getElementById("biodiversityName").innerText =
-        testi.biodiversity;
+    document.getElementById(
+        "menuText"
+    ).innerText =
+        t.menu;
 
-    document.getElementById("healthName").innerText =
-        testi.health;
 
-    document.getElementById("waterName").innerText =
-        testi.water;
+    document.getElementById(
+        "gameTitle"
+    ).innerText =
+        t.title;
 
-    document.getElementById("activityName").innerText =
-        testi.activity;
 
-    document.getElementById("resultTitle").innerText =
-        testi.resultTitle;
+    document.getElementById(
+        "gameIntro"
+    ).innerText =
+        t.intro;
 
-    document.getElementById("resultDescription").innerText =
-        testi.resultDescription;
 
-    document.getElementById("restartButton").innerText =
-        testi.restart;
+    document.getElementById(
+        "biodiversityName"
+    ).innerText =
+        t.biodiversity;
 
-    document.getElementById("backButton").innerText =
-        testi.back;
+
+    document.getElementById(
+        "healthName"
+    ).innerText =
+        t.health;
+
+
+    document.getElementById(
+        "waterName"
+    ).innerText =
+        t.water;
+
+
+    document.getElementById(
+        "activityName"
+    ).innerText =
+        t.activity;
+
+
+    document.getElementById(
+        "resultTitle"
+    ).innerText =
+        t.resultTitle;
+
+
+    document.getElementById(
+        "finalState"
+    ).innerText =
+        t.finalState;
+
+
+    document.getElementById(
+        "restartButton"
+    ).innerText =
+        t.restart;
+
+
+    document.getElementById(
+        "backButton"
+    ).innerText =
+        t.back;
+
 
     loadTurn();
 
@@ -1652,29 +1430,36 @@ function applicaLingua() {
 
 
 /* =====================================================
-   AGGIORNA LE STATISTICHE
-===================================================== */
+   STATISTICHE
+   ===================================================== */
 
 function updateStats() {
 
-    document.getElementById("biodiversity").innerText =
+    document.getElementById(
+        "biodiversity"
+    ).innerText =
         stats.biodiversity;
 
-    document.getElementById("health").innerText =
+
+    document.getElementById(
+        "health"
+    ).innerText =
         stats.health;
 
-    document.getElementById("water").innerText =
+
+    document.getElementById(
+        "water"
+    ).innerText =
         stats.water;
 
-    document.getElementById("activity").innerText =
+
+    document.getElementById(
+        "activity"
+    ).innerText =
         stats.activity;
 
 }
 
-
-/* =====================================================
-   LIMITA I VALORI 0-100
-===================================================== */
 
 function limit(value) {
 
@@ -1691,68 +1476,85 @@ function limit(value) {
 
 /* =====================================================
    CARICA TURNO
-===================================================== */
+   ===================================================== */
 
 function loadTurn() {
 
     chosen = false;
 
-    const testi =
-        traduzioni[linguaCorrente];
 
     const event =
-        testi.events[currentTurn];
+        events[currentTurn];
 
 
-    document.getElementById("turn").innerText =
-        testi.turn +
+    const t =
+        interfaccia[linguaCorrente];
+
+
+    document.getElementById(
+        "turn"
+    ).innerText =
+        t.turn +
         " " +
         (currentTurn + 1) +
-        " / " +
-        testi.events.length;
+        " / 5";
 
 
-    document.getElementById("event").innerText =
-        event.title;
+    document.getElementById(
+        "event"
+    ).innerText =
+        event.title[linguaCorrente];
 
 
-    document.getElementById("description").innerText =
-        event.description;
+    document.getElementById(
+        "description"
+    ).innerText =
+        event.description[linguaCorrente];
 
 
-    document.getElementById("progress").style.width =
+    document.getElementById(
+        "progress"
+    ).style.width =
         (
-            ((currentTurn + 1) / testi.events.length) *
-            100
+            ((currentTurn + 1) / 5)
+            * 100
         ) + "%";
 
 
     const options =
-        document.getElementById("options");
+        document.getElementById(
+            "options"
+        );
 
 
     options.innerHTML = "";
 
 
-    document.getElementById("feedback").style.display =
+    document.getElementById(
+        "feedback"
+    ).style.display =
         "none";
 
 
-    document.getElementById("next").style.display =
+    document.getElementById(
+        "next"
+    ).style.display =
         "none";
 
 
-    document.getElementById("next").innerText =
-        currentTurn === testi.events.length - 1
-            ? testi.resultButton
-            : testi.continue;
+    document.getElementById(
+        "next"
+    ).innerText =
+        t.continue;
 
 
     event.options.forEach(
         function(option) {
 
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.className =
@@ -1760,21 +1562,22 @@ function loadTurn() {
 
 
             button.innerText =
-                option.text;
+                option.text[linguaCorrente];
 
 
             button.onclick =
                 function() {
 
                     chooseOption(
-                        option,
-                        button
+                        option
                     );
 
                 };
 
 
-            options.appendChild(button);
+            options.appendChild(
+                button
+            );
 
         }
     );
@@ -1783,14 +1586,15 @@ function loadTurn() {
 
 
 /* =====================================================
-   SCELTA DEL GIOCATORE
-===================================================== */
+   SCELTA OPZIONE
+   ===================================================== */
 
-function chooseOption(option, selectedButton) {
+function chooseOption(option) {
 
     if (chosen) {
         return;
     }
+
 
     chosen = true;
 
@@ -1826,50 +1630,54 @@ function chooseOption(option, selectedButton) {
     updateStats();
 
 
-    const allButtons =
-        document.querySelectorAll(".option");
+    const t =
+        interfaccia[linguaCorrente];
 
 
-    allButtons.forEach(
-        function(button) {
-
-            button.disabled = true;
-
-        }
-    );
+    document.getElementById(
+        "feedback"
+    ).innerHTML =
+        t.consequence +
+        option.explanation[linguaCorrente];
 
 
-    selectedButton.style.borderColor =
-        "#4fc3f7";
-
-
-    selectedButton.style.background =
-        "#204b5c";
-
-
-    const testi =
-        traduzioni[linguaCorrente];
-
-
-    document.getElementById("feedback").innerHTML =
-        testi.consequence +
-        "<br><br>" +
-        option.explanation;
-
-
-    document.getElementById("feedback").style.display =
+    document.getElementById(
+        "feedback"
+    ).style.display =
         "block";
 
 
-    document.getElementById("next").style.display =
+    document.getElementById(
+        "next"
+    ).style.display =
         "block";
+
+
+    if (
+        currentTurn ===
+        events.length - 1
+    ) {
+
+        document.getElementById(
+            "next"
+        ).innerText =
+            "🏆 " +
+            (
+                linguaCorrente === "it"
+                    ? "Vedi risultato"
+                    : linguaCorrente === "en"
+                        ? "See result"
+                        : "Näytä tulos"
+            );
+
+    }
 
 }
 
 
 /* =====================================================
    TURNO SUCCESSIVO
-===================================================== */
+   ===================================================== */
 
 function nextTurn() {
 
@@ -1878,14 +1686,12 @@ function nextTurn() {
 
     if (
         currentTurn <
-        traduzioni[linguaCorrente].events.length
+        events.length
     ) {
 
         loadTurn();
 
-    }
-
-    else {
+    } else {
 
         showResult();
 
@@ -1896,20 +1702,22 @@ function nextTurn() {
 
 /* =====================================================
    RISULTATO FINALE
-===================================================== */
+   ===================================================== */
 
 function showResult() {
 
-    document.getElementById("gameCard")
-        .classList.add("hidden");
+    document.getElementById(
+        "gameCard"
+    ).classList.add(
+        "hidden"
+    );
 
 
-    document.getElementById("resultCard")
-        .classList.remove("hidden");
-
-
-    document.getElementById("progress")
-        .style.width = "100%";
+    document.getElementById(
+        "resultCard"
+    ).classList.remove(
+        "hidden"
+    );
 
 
     const average =
@@ -1920,13 +1728,15 @@ function showResult() {
         ) / 3;
 
 
-    document.getElementById("finalScore").innerText =
+    document.getElementById(
+        "finalScore"
+    ).innerText =
         Math.round(average) +
         " / 100";
 
 
-    const testi =
-        traduzioni[linguaCorrente];
+    const t =
+        interfaccia[linguaCorrente];
 
 
     let message;
@@ -1935,112 +1745,37 @@ function showResult() {
     if (average >= 85) {
 
         message =
-            testi.messages.excellent;
+            t.resultExcellent;
 
-    }
-
-    else if (average >= 70) {
+    } else if (average >= 70) {
 
         message =
-            testi.messages.good;
+            t.resultGood;
 
-    }
-
-    else if (average >= 50) {
+    } else if (average >= 50) {
 
         message =
-            testi.messages.medium;
+            t.resultMedium;
 
-    }
-
-    else {
+    } else {
 
         message =
-            testi.messages.low;
+            t.resultBad;
 
     }
 
 
-    document.getElementById("message").innerText =
+    document.getElementById(
+        "message"
+    ).innerText =
         message;
 
 }
 
 
 /* =====================================================
-   RICOMINCIA
-===================================================== */
-
-function restartGame() {
-
-    currentTurn = 0;
-
-    chosen = false;
-
-
-    stats = {
-
-        biodiversity: 70,
-
-        health: 70,
-
-        water: 70,
-
-        activity: 70
-
-    };
-
-
-    updateStats();
-
-
-    document.getElementById("resultCard")
-        .classList.add("hidden");
-
-
-    document.getElementById("gameCard")
-        .classList.remove("hidden");
-
-
-    loadTurn();
-
-}
-
-
-/* =====================================================
-   AVVIO DEL GIOCO
-===================================================== */
-
-const selettoreLingua =
-    document.getElementById("lingua");
-
-
-if (
-    Object.prototype.hasOwnProperty.call(
-        traduzioni,
-        linguaCorrente
-    )
-) {
-
-    selettoreLingua.value =
-        linguaCorrente;
-
-}
-
-else {
-
-    linguaCorrente =
-        "it";
-
-    selettoreLingua.value =
-        "it";
-
-}
-
-
-document.documentElement.lang =
-    linguaCorrente;
-
+   AVVIO
+   ===================================================== */
 
 updateStats();
 
@@ -2049,4 +1784,6 @@ applicaLingua();
 </script>
 
 </body>
+
 </html>
+```
