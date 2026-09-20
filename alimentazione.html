@@ -251,7 +251,7 @@ h2 {
         class="menu"
         onclick="location.href='giochi.html'">
 
-        🎮 Giochi
+        🎮 <span data-testo="giochi">Giochi</span>
 
     </div>
 
@@ -263,7 +263,7 @@ h2 {
 
         <h1>🍽️ Food Impact</h1>
 
-        <p>
+        <p id="intro">
             Costruisci un pasto cercando di trovare
             il miglior equilibrio tra ambiente,
             costo e risorse.
@@ -275,25 +275,25 @@ h2 {
 
         <div class="stat">
             <div class="stat-icon">💰</div>
-            <div class="stat-name">Costo</div>
+            <div class="stat-name" id="statCost">Costo</div>
             <div class="stat-value" id="cost">0 €</div>
         </div>
 
         <div class="stat">
             <div class="stat-icon">🌡️</div>
-            <div class="stat-name">Impatto climatico</div>
+            <div class="stat-name" id="statClimate">Impatto climatico</div>
             <div class="stat-value" id="climate">0</div>
         </div>
 
         <div class="stat">
             <div class="stat-icon">💧</div>
-            <div class="stat-name">Uso dell'acqua</div>
+            <div class="stat-name" id="statWater">Uso dell'acqua</div>
             <div class="stat-value" id="water">0</div>
         </div>
 
         <div class="stat">
             <div class="stat-icon">🗑️</div>
-            <div class="stat-name">Rifiuti</div>
+            <div class="stat-name" id="statWaste">Rifiuti</div>
             <div class="stat-value" id="waste">0</div>
         </div>
 
@@ -350,11 +350,11 @@ h2 {
                 🍽️
             </div>
 
-            <h2>
+            <h2 id="resultTitle">
                 Il tuo pasto è pronto!
             </h2>
 
-            <p>
+            <p id="resultIntro">
                 Hai ottenuto un punteggio ambientale di:
             </p>
 
@@ -367,7 +367,8 @@ h2 {
 
             <button
                 class="restart"
-                onclick="restartGame()">
+                onclick="restartGame()"
+                id="restartButton">
 
                 🔄 Ricomincia
 
@@ -375,7 +376,8 @@ h2 {
 
             <button
                 class="back"
-                onclick="location.href='giochi.html'">
+                onclick="location.href='giochi.html'"
+                id="backButton">
 
                 🎮 Torna ai giochi
 
@@ -388,6 +390,228 @@ h2 {
 </div>
 
 <script>
+
+/* =====================================================
+   TRADUZIONI
+===================================================== */
+
+const traduzioni = {
+
+    it: {
+
+        giochi: "Giochi",
+
+        intro:
+            "Costruisci un pasto cercando di trovare il miglior equilibrio tra ambiente, costo e risorse.",
+
+        costo: "Costo",
+
+        clima: "Impatto climatico",
+
+        acqua: "Uso dell'acqua",
+
+        rifiuti: "Rifiuti",
+
+        fase: "FASE",
+
+        continua: "Continua →",
+
+        impatto: "📊 Impatto della scelta:",
+
+        risultato: "Il tuo pasto è pronto!",
+
+        risultatoIntro:
+            "Hai ottenuto un punteggio ambientale di:",
+
+        ricomincia: "🔄 Ricomincia",
+
+        tornaGiochi: "🎮 Torna ai giochi",
+
+        ottimo:
+            "🌱 Ottima scelta! Hai costruito un pasto con un impatto ambientale contenuto e hai gestito bene le risorse.",
+
+        buono:
+            "👏 Buon risultato! Il tuo pasto è abbastanza sostenibile, anche se alcune scelte potevano essere migliorate.",
+
+        discreto:
+            "🍽️ Risultato discreto. Alcune delle tue scelte hanno aumentato notevolmente l'impatto del pasto.",
+
+        migliora:
+            "🌍 C'è spazio per migliorare. Prova a confrontare le alternative e a considerare anche acqua e rifiuti, non solo il prezzo.",
+
+        climaShort: "Clima",
+
+        acquaShort: "Acqua",
+
+        rifiutiShort: "Rifiuti"
+
+    },
+
+    en: {
+
+        giochi: "Games",
+
+        intro:
+            "Build a meal while trying to find the best balance between the environment, cost and resources.",
+
+        costo: "Cost",
+
+        clima: "Climate impact",
+
+        acqua: "Water use",
+
+        rifiuti: "Waste",
+
+        fase: "STEP",
+
+        continua: "Continue →",
+
+        impatto: "📊 Choice impact:",
+
+        risultato: "Your meal is ready!",
+
+        risultatoIntro:
+            "You achieved an environmental score of:",
+
+        ricomincia: "🔄 Restart",
+
+        tornaGiochi: "🎮 Back to games",
+
+        ottimo:
+            "🌱 Great choice! You built a meal with a low environmental impact and managed resources well.",
+
+        buono:
+            "👏 Good result! Your meal is fairly sustainable, although some choices could have been improved.",
+
+        discreto:
+            "🍽️ Fair result. Some of your choices significantly increased the impact of the meal.",
+
+        migliora:
+            "🌍 There is room for improvement. Try comparing the alternatives and considering water and waste, not just the price.",
+
+        climaShort: "Climate",
+
+        acquaShort: "Water",
+
+        rifiutiShort: "Waste"
+
+    },
+
+    fi: {
+
+        giochi: "Pelit",
+
+        intro:
+            "Rakenna ateria ja pyri löytämään paras tasapaino ympäristön, kustannusten ja resurssien välillä.",
+
+        costo: "Hinta",
+
+        clima: "Ilmastovaikutus",
+
+        acqua: "Vedenkulutus",
+
+        rifiuti: "Jätteet",
+
+        fase: "VAIHE",
+
+        continua: "Jatka →",
+
+        impatto: "📊 Valinnan vaikutus:",
+
+        risultato: "Ateriasi on valmis!",
+
+        risultatoIntro:
+            "Sait ympäristöpisteet:",
+
+        ricomincia: "🔄 Aloita uudelleen",
+
+        tornaGiochi: "🎮 Takaisin peleihin",
+
+        ottimo:
+            "🌱 Erinomainen valinta! Rakensit aterian, jonka ympäristövaikutukset ovat vähäiset, ja käytit resursseja hyvin.",
+
+        buono:
+            "👏 Hyvä tulos! Ateriasi on melko kestävä, vaikka joitakin valintoja olisi voinut parantaa.",
+
+        discreto:
+            "🍽️ Kohtalainen tulos. Jotkin valintasi lisäsivät huomattavasti aterian ympäristövaikutuksia.",
+
+        migliora:
+            "🌍 Parantamisen varaa on. Vertaa vaihtoehtoja ja huomioi myös vedenkulutus ja jätteet, ei pelkästään hintaa.",
+
+        climaShort: "Ilmasto",
+
+        acquaShort: "Vesi",
+
+        rifiutiShort: "Jätteet"
+
+    }
+
+};
+
+
+/* =====================================================
+   LINGUA SALVATA
+===================================================== */
+
+const linguaSalvata =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+const lingua =
+    Object.prototype.hasOwnProperty.call(
+        traduzioni,
+        linguaSalvata
+    )
+        ? linguaSalvata
+        : "it";
+
+
+const testi =
+    traduzioni[lingua];
+
+
+document.documentElement.lang =
+    lingua;
+
+
+/* =====================================================
+   TESTI STATICI
+===================================================== */
+
+document.getElementById("giochi").innerText =
+    testi.giochi;
+
+document.getElementById("intro").innerText =
+    testi.intro;
+
+document.getElementById("statCost").innerText =
+    testi.costo;
+
+document.getElementById("statClimate").innerText =
+    testi.clima;
+
+document.getElementById("statWater").innerText =
+    testi.acqua;
+
+document.getElementById("statWaste").innerText =
+    testi.rifiuti;
+
+document.getElementById("continue").innerText =
+    testi.continua;
+
+document.getElementById("resultTitle").innerText =
+    testi.risultato;
+
+document.getElementById("resultIntro").innerText =
+    testi.risultatoIntro;
+
+document.getElementById("restartButton").innerText =
+    testi.ricomincia;
+
+document.getElementById("backButton").innerText =
+    testi.tornaGiochi;
+
 
 /* =========================
    VARIABILI
@@ -411,15 +635,26 @@ let stats = {
 const steps = [
 
     {
-        title: "🥇 Scegli la fonte proteica",
+        title: {
+            it: "🥇 Scegli la fonte proteica",
+            en: "🥇 Choose the protein source",
+            fi: "🥇 Valitse proteiinin lähde"
+        },
 
-        description:
-            "Devi scegliere una fonte proteica per il tuo pasto. Hai a disposizione quattro alternative con caratteristiche diverse.",
+        description: {
+            it: "Devi scegliere una fonte proteica per il tuo pasto. Hai a disposizione quattro alternative con caratteristiche diverse.",
+            en: "You need to choose a protein source for your meal. You have four alternatives with different characteristics.",
+            fi: "Valitse ateriallesi proteiinin lähde. Käytettävissäsi on neljä vaihtoehtoa, joilla on erilaiset ominaisuudet."
+        },
 
         options: [
 
             {
-                text: "🥩 Manzo",
+                text: {
+                    it: "🥩 Manzo",
+                    en: "🥩 Beef",
+                    fi: "🥩 Naudanliha"
+                },
                 cost: 5,
                 climate: 9,
                 water: 8,
@@ -427,7 +662,11 @@ const steps = [
             },
 
             {
-                text: "🍗 Pollo",
+                text: {
+                    it: "🍗 Pollo",
+                    en: "🍗 Chicken",
+                    fi: "🍗 Kana"
+                },
                 cost: 4,
                 climate: 5,
                 water: 5,
@@ -435,7 +674,11 @@ const steps = [
             },
 
             {
-                text: "🐟 Pesce",
+                text: {
+                    it: "🐟 Pesce",
+                    en: "🐟 Fish",
+                    fi: "🐟 Kala"
+                },
                 cost: 5,
                 climate: 4,
                 water: 3,
@@ -443,7 +686,11 @@ const steps = [
             },
 
             {
-                text: "🫘 Legumi",
+                text: {
+                    it: "🫘 Legumi",
+                    en: "🫘 Legumes",
+                    fi: "🫘 Palkokasvit"
+                },
                 cost: 2,
                 climate: 1,
                 water: 1,
@@ -453,16 +700,28 @@ const steps = [
         ]
     },
 
-    {
-        title: "🥕 Scegli il contorno",
 
-        description:
-            "Ora devi aggiungere un contorno. Considera non solo l'alimento, ma anche il modo in cui viene acquistato.",
+    {
+        title: {
+            it: "🥕 Scegli il contorno",
+            en: "🥕 Choose the side dish",
+            fi: "🥕 Valitse lisuke"
+        },
+
+        description: {
+            it: "Ora devi aggiungere un contorno. Considera non solo l'alimento, ma anche il modo in cui viene acquistato.",
+            en: "Now you need to add a side dish. Consider not only the food itself, but also how it is purchased.",
+            fi: "Nyt sinun on valittava lisuke. Huomioi ruoan lisäksi myös se, miten se ostetaan."
+        },
 
         options: [
 
             {
-                text: "🥔 Patate sfuse",
+                text: {
+                    it: "🥔 Patate sfuse",
+                    en: "🥔 Loose potatoes",
+                    fi: "🥔 Irtoperunat"
+                },
                 cost: 2,
                 climate: 1,
                 water: 2,
@@ -470,7 +729,11 @@ const steps = [
             },
 
             {
-                text: "🥗 Verdure di stagione sfuse",
+                text: {
+                    it: "🥗 Verdure di stagione sfuse",
+                    en: "🥗 Loose seasonal vegetables",
+                    fi: "🥗 Irtonaiset kauden vihannekset"
+                },
                 cost: 3,
                 climate: 1,
                 water: 1,
@@ -478,7 +741,11 @@ const steps = [
             },
 
             {
-                text: "🥗 Verdure confezionate in plastica",
+                text: {
+                    it: "🥗 Verdure confezionate in plastica",
+                    en: "🥗 Vegetables packaged in plastic",
+                    fi: "🥗 Muoviin pakatut vihannekset"
+                },
                 cost: 3,
                 climate: 2,
                 water: 1,
@@ -486,7 +753,11 @@ const steps = [
             },
 
             {
-                text: "🥑 Avocado importato",
+                text: {
+                    it: "🥑 Avocado importato",
+                    en: "🥑 Imported avocado",
+                    fi: "🥑 Tuontiavokado"
+                },
                 cost: 4,
                 climate: 3,
                 water: 6,
@@ -496,16 +767,28 @@ const steps = [
         ]
     },
 
-    {
-        title: "🥤 Scegli la bevanda",
 
-        description:
-            "Il pasto è quasi completo. Ora scegli cosa bere.",
+    {
+        title: {
+            it: "🥤 Scegli la bevanda",
+            en: "🥤 Choose the drink",
+            fi: "🥤 Valitse juoma"
+        },
+
+        description: {
+            it: "Il pasto è quasi completo. Ora scegli cosa bere.",
+            en: "The meal is almost complete. Now choose what to drink.",
+            fi: "Ateria on melkein valmis. Valitse nyt juoma."
+        },
 
         options: [
 
             {
-                text: "🚰 Acqua del rubinetto",
+                text: {
+                    it: "🚰 Acqua del rubinetto",
+                    en: "🚰 Tap water",
+                    fi: "🚰 Hanavesi"
+                },
                 cost: 1,
                 climate: 0,
                 water: 0,
@@ -513,7 +796,11 @@ const steps = [
             },
 
             {
-                text: "🧴 Acqua in bottiglia di plastica",
+                text: {
+                    it: "🧴 Acqua in bottiglia di plastica",
+                    en: "🧴 Bottled water in plastic",
+                    fi: "🧴 Muovipulloon pakattu vesi"
+                },
                 cost: 2,
                 climate: 2,
                 water: 1,
@@ -521,7 +808,11 @@ const steps = [
             },
 
             {
-                text: "🥤 Bibita in lattina",
+                text: {
+                    it: "🥤 Bibita in lattina",
+                    en: "🥤 Canned soft drink",
+                    fi: "🥤 Tölkkiin pakattu virvoitusjuoma"
+                },
                 cost: 2,
                 climate: 2,
                 water: 1,
@@ -529,7 +820,11 @@ const steps = [
             },
 
             {
-                text: "🧃 Bevanda confezionata",
+                text: {
+                    it: "🧃 Bevanda confezionata",
+                    en: "🧃 Packaged drink",
+                    fi: "🧃 Pakattu juoma"
+                },
                 cost: 2,
                 climate: 2,
                 water: 1,
@@ -539,16 +834,28 @@ const steps = [
         ]
     },
 
-    {
-        title: "🛒 La situazione finale",
 
-        description:
-            "Hai preparato il pasto. Ora devi fare una scelta finale: puoi aggiungere un piccolo extra oppure cercare di ridurre gli sprechi.",
+    {
+        title: {
+            it: "🛒 La situazione finale",
+            en: "🛒 The final decision",
+            fi: "🛒 Lopullinen valinta"
+        },
+
+        description: {
+            it: "Hai preparato il pasto. Ora devi fare una scelta finale: puoi aggiungere un piccolo extra oppure cercare di ridurre gli sprechi.",
+            en: "You have prepared the meal. Now you must make a final choice: you can add a small extra or try to reduce waste.",
+            fi: "Olet valmistanut aterian. Nyt sinun on tehtävä viimeinen valinta: voit lisätä pienen lisän tai yrittää vähentää jätettä."
+        },
 
         options: [
 
             {
-                text: "🍰 Aggiungere un dolce confezionato",
+                text: {
+                    it: "🍰 Aggiungere un dolce confezionato",
+                    en: "🍰 Add a packaged dessert",
+                    fi: "🍰 Lisää pakattu jälkiruoka"
+                },
                 cost: 3,
                 climate: 3,
                 water: 2,
@@ -556,7 +863,11 @@ const steps = [
             },
 
             {
-                text: "🍎 Scegliere un frutto di stagione",
+                text: {
+                    it: "🍎 Scegliere un frutto di stagione",
+                    en: "🍎 Choose a seasonal fruit",
+                    fi: "🍎 Valitse kauden hedelmä"
+                },
                 cost: 1,
                 climate: 1,
                 water: 1,
@@ -564,7 +875,11 @@ const steps = [
             },
 
             {
-                text: "♻️ Non aggiungere nulla e ridurre gli sprechi",
+                text: {
+                    it: "♻️ Non aggiungere nulla e ridurre gli sprechi",
+                    en: "♻️ Add nothing and reduce waste",
+                    fi: "♻️ Älä lisää mitään ja vähennä jätettä"
+                },
                 cost: 0,
                 climate: 0,
                 water: 0,
@@ -572,7 +887,11 @@ const steps = [
             },
 
             {
-                text: "🍫 Scegliere uno snack molto confezionato",
+                text: {
+                    it: "🍫 Scegliere uno snack molto confezionato",
+                    en: "🍫 Choose a heavily packaged snack",
+                    fi: "🍫 Valitse runsaasti pakattu välipala"
+                },
                 cost: 2,
                 climate: 3,
                 water: 3,
@@ -617,16 +936,17 @@ function loadStep() {
     const current = steps[step];
 
     document.getElementById("step").innerText =
-        "FASE " +
+        testi.fase +
+        " " +
         (step + 1) +
         " / " +
         steps.length;
 
     document.getElementById("title").innerText =
-        current.title;
+        current.title[lingua];
 
     document.getElementById("description").innerText =
-        current.description;
+        current.description[lingua];
 
     const options =
         document.getElementById("options");
@@ -653,7 +973,7 @@ function loadStep() {
                 "option";
 
             button.innerText =
-                option.text;
+                option.text[lingua];
 
             button.onclick =
                 function() {
@@ -714,12 +1034,16 @@ function chooseOption(option, button) {
             : option.waste;
 
     document.getElementById("summary").innerHTML =
-        "📊 <strong>Impatto della scelta:</strong><br><br>" +
-        "🌡️ Clima: +" + option.climate +
+        testi.impatto +
+        "<br><br>" +
+        "🌡️ " + testi.climaShort + ": +" +
+        option.climate +
         " &nbsp;&nbsp; " +
-        "💧 Acqua: +" + option.water +
+        "💧 " + testi.acquaShort + ": +" +
+        option.water +
         " &nbsp;&nbsp; " +
-        "🗑️ Rifiuti: " + wasteText;
+        "🗑️ " + testi.rifiutiShort + ": " +
+        wasteText;
 
     document.getElementById("continue").style.display =
         "block";
@@ -760,19 +1084,6 @@ function showResult() {
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
-    /*
-        Punteggio:
-
-        meno impatto = meglio
-
-        100 punti di base
-        penalità per:
-        - clima
-        - acqua
-        - rifiuti
-        - costo
-    */
-
     let score =
         100
         - stats.climate * 3
@@ -796,29 +1107,25 @@ function showResult() {
 
     if (score >= 85) {
 
-        message =
-            "🌱 Ottima scelta! Hai costruito un pasto con un impatto ambientale contenuto e hai gestito bene le risorse.";
+        message = testi.ottimo;
 
     }
 
     else if (score >= 70) {
 
-        message =
-            "👏 Buon risultato! Il tuo pasto è abbastanza sostenibile, anche se alcune scelte potevano essere migliorate.";
+        message = testi.buono;
 
     }
 
     else if (score >= 50) {
 
-        message =
-            "🍽️ Risultato discreto. Alcune delle tue scelte hanno aumentato notevolmente l'impatto del pasto.";
+        message = testi.discreto;
 
     }
 
     else {
 
-        message =
-            "🌍 C'è spazio per migliorare. Prova a confrontare le alternative e a considerare anche acqua e rifiuti, non solo il prezzo.";
+        message = testi.migliora;
 
     }
 
