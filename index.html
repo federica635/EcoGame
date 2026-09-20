@@ -284,6 +284,10 @@ footer {
 
 function cambiaLingua(lingua) {
 
+    // SALVA LA LINGUA SCELTA
+    localStorage.setItem("linguaEcoGame", lingua);
+
+
     if (lingua === "it") {
 
         document.documentElement.lang = "it";
@@ -439,6 +443,24 @@ function cambiaLingua(lingua) {
 }
 
 
+// Quando si apre la Home,
+// recupera la lingua precedentemente scelta.
+function caricaLingua() {
+
+    const linguaSalvata =
+        localStorage.getItem("linguaEcoGame");
+
+    if (linguaSalvata === "it" ||
+        linguaSalvata === "en" ||
+        linguaSalvata === "fi") {
+
+        cambiaLingua(linguaSalvata);
+
+    }
+
+}
+
+
 function apriQuiz() {
 
     window.location.href = "quiz.html";
@@ -465,6 +487,10 @@ function apriAgenda() {
     window.location.href = "agenda.html";
 
 }
+
+
+// Carica automaticamente la lingua salvata
+caricaLingua();
 
 
 </script>
