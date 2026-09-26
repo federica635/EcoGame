@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -21,6 +20,38 @@ body {
     text-align: center;
 }
 
+/* =====================================================
+   ACCOUNT
+   ===================================================== */
+
+.account-bar {
+    background: #1b5e20;
+    padding: 12px 20px;
+    text-align: right;
+}
+
+.account-bar button {
+    background: white;
+    color: #1b5e20;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.account-bar button:hover {
+    background: #e8f5e9;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
 header {
     background: #2e7d32;
     color: white;
@@ -35,6 +66,11 @@ header h1 {
 header p {
     font-size: 20px;
 }
+
+
+/* =====================================================
+   LINGUE
+   ===================================================== */
 
 .lingue {
     margin-bottom: 25px;
@@ -54,6 +90,11 @@ header p {
 .lingue button:hover {
     background: #e8f5e9;
 }
+
+
+/* =====================================================
+   CONTENITORE
+   ===================================================== */
 
 .contenitore {
     width: 90%;
@@ -110,6 +151,11 @@ header p {
     border: 3px solid #43a047;
 }
 
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
 footer {
     margin-top: 50px;
     background: #1b5e20;
@@ -117,7 +163,10 @@ footer {
     padding: 20px;
 }
 
-/* LINK TIKTOK */
+
+/* =====================================================
+   LINK TIKTOK
+   ===================================================== */
 
 #fraseTikTok a {
     color: white;
@@ -129,6 +178,11 @@ footer {
     text-decoration: underline;
 }
 
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
 @media (max-width: 700px) {
 
     .menu {
@@ -139,6 +193,10 @@ footer {
         font-size: 40px;
     }
 
+    .account-bar {
+        text-align: center;
+    }
+
 }
 
 </style>
@@ -147,19 +205,45 @@ footer {
 
 <body>
 
+
+<!-- =====================================================
+     ACCOUNT
+     ===================================================== -->
+
+<div class="account-bar">
+
+    <button onclick="apriAccount()" id="bottoneAccount">
+        👤 Accedi / Registrati
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
 <header>
 
 <div class="lingue">
 
-    <button onclick="cambiaLingua('it')">🇮🇹 Italiano</button>
+    <button onclick="cambiaLingua('it')">
+        🇮🇹 Italiano
+    </button>
 
-    <button onclick="cambiaLingua('en')">🇬🇧 English</button>
+    <button onclick="cambiaLingua('en')">
+        🇬🇧 English
+    </button>
 
-    <button onclick="cambiaLingua('fi')">🇫🇮 Suomi</button>
+    <button onclick="cambiaLingua('fi')">
+        🇫🇮 Suomi
+    </button>
 
 </div>
 
+
 <h1>🌍 EcoGame</h1>
+
 
 <div id="sottotitolo">
 
@@ -168,9 +252,15 @@ footer {
     </p>
 
     <p id="fraseTikTok">
-        <a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">
+
+        <a
+            href="https://www.tiktok.com/@ecogame2.0"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             Visita il mio account TikTok: @ecogame2.0
         </a>
+
     </p>
 
 </div>
@@ -178,12 +268,18 @@ footer {
 </header>
 
 
+<!-- =====================================================
+     CONTENUTO
+     ===================================================== -->
+
 <div class="contenitore">
 
 <div class="menu">
 
 
-    <!-- QUIZ -->
+    <!-- =================================================
+         QUIZ
+         ================================================= -->
 
     <div class="scheda disponibile">
 
@@ -200,14 +296,19 @@ footer {
             per mettere alla prova le tue conoscenze.
         </p>
 
-        <button onclick="apriQuiz()" id="bottoneQuiz">
+        <button
+            onclick="apriQuiz()"
+            id="bottoneQuiz"
+        >
             ▶️ Inizia il quiz
         </button>
 
     </div>
 
 
-    <!-- MINI-GIOCHI -->
+    <!-- =================================================
+         MINI-GIOCHI
+         ================================================= -->
 
     <div class="scheda disponibile">
 
@@ -224,14 +325,19 @@ footer {
             le tue conoscenze sull'ambiente.
         </p>
 
-        <button onclick="apriGiochi()" id="bottoneGiochi">
+        <button
+            onclick="apriGiochi()"
+            id="bottoneGiochi"
+        >
             🎮 Vai ai giochi
         </button>
 
     </div>
 
 
-    <!-- INFORMAZIONI -->
+    <!-- =================================================
+         INFORMAZIONI
+         ================================================= -->
 
     <div class="scheda disponibile">
 
@@ -248,14 +354,19 @@ footer {
             informazioni necessarie per EcoGame.
         </p>
 
-        <button onclick="informazioni()" id="bottoneInfo">
+        <button
+            onclick="informazioni()"
+            id="bottoneInfo"
+        >
             📖 Leggi le informazioni
         </button>
 
     </div>
 
 
-    <!-- DIARIO E RECENSIONI -->
+    <!-- =================================================
+         DIARIO E RECENSIONI
+         ================================================= -->
 
     <div class="scheda disponibile">
 
@@ -272,7 +383,10 @@ footer {
             e lascia una recensione su EcoGame.
         </p>
 
-        <button onclick="apriAgenda()" id="bottoneAgenda">
+        <button
+            onclick="apriAgenda()"
+            id="bottoneAgenda"
+        >
             ✏️ Apri diario
         </button>
 
@@ -283,6 +397,10 @@ footer {
 
 </div>
 
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
 
 <footer>
 
@@ -309,6 +427,9 @@ function cambiaLingua(lingua) {
     if (lingua === "it") {
 
         document.documentElement.lang = "it";
+
+        document.getElementById("bottoneAccount").textContent =
+            "👤 Accedi / Registrati";
 
         document.getElementById("fraseEcologia").textContent =
             "Impara l'ecologia attraverso quiz e giochi!";
@@ -361,6 +482,9 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "en";
 
+        document.getElementById("bottoneAccount").textContent =
+            "👤 Login / Sign up";
+
         document.getElementById("fraseEcologia").textContent =
             "Learn about ecology through quizzes and games!";
 
@@ -412,6 +536,9 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "fi";
 
+        document.getElementById("bottoneAccount").textContent =
+            "👤 Kirjaudu / Rekisteröidy";
+
         document.getElementById("fraseEcologia").textContent =
             "Opi ekologiasta tietovisojen ja pelien avulla!";
 
@@ -457,6 +584,17 @@ function cambiaLingua(lingua) {
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Opi ekologiasta pelaamalla";
     }
+
+}
+
+
+/* =====================================================
+   APERTURA ACCOUNT
+   ===================================================== */
+
+function apriAccount() {
+
+    window.location.href = "account.html";
 
 }
 
@@ -511,4 +649,3 @@ window.onload = function() {
 </body>
 
 </html>
-```
