@@ -918,14 +918,14 @@ async function controllaSessione() {
    AVVIO
 ===================================================== */
 
-window.onload = function() {
+window.onload = async function() {
 
     const lingua =
         localStorage.getItem("ecoGameLingua") || "it";
 
     cambiaLingua(lingua);
 
-    controllaSessione();
+    await controllaSessione();
 
 };
 
