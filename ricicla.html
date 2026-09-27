@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -272,6 +271,13 @@ button {
     margin-top: 10px;
 }
 
+#greenPointsSessione {
+    text-align: center;
+    color: #a5d6a7;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
 @media(max-width: 700px) {
 
     .opzioni {
@@ -353,6 +359,10 @@ button {
         </p>
 
         <div id="statoAccount"></div>
+
+        <div id="greenPointsSessione">
+            🌱 Green Points guadagnati in questa partita: 0
+        </div>
 
     </div>
 
@@ -436,30 +446,51 @@ button {
         <div class="risultati">
 
             <div>
-                <span data-testo="risposteCorrette">Risposte corrette</span>:
+                <span data-testo="risposteCorrette">
+                    Risposte corrette
+                </span>:
                 <strong id="corretteFinale">0</strong>/15
             </div>
 
             <div>
-                <span data-testo="tempoRimasto">Tempo rimasto</span>:
+                <span data-testo="tempoRimasto">
+                    Tempo rimasto
+                </span>:
                 <strong id="tempoFinale">0</strong>s
             </div>
 
             <div>
-                <span data-testo="migliorCombo">Miglior combo</span>:
+                <span data-testo="migliorCombo">
+                    Miglior combo
+                </span>:
                 <strong id="comboFinale">0</strong>
+            </div>
+
+            <div>
+                🌱 Green Points guadagnati:
+                <strong id="greenPointsFinale">0</strong>
             </div>
 
         </div>
 
         <div id="messaggio"></div>
 
-        <button class="btnFinale" onclick="ricomincia()" data-testo="nuovaPartita">
+        <button
+            class="btnFinale"
+            onclick="ricomincia()"
+            data-testo="nuovaPartita">
+
             🔄 Nuova partita
+
         </button>
 
-        <button class="btnFinale" onclick="tornaMenu()" data-testo="tornaMenu">
+        <button
+            class="btnFinale"
+            onclick="tornaMenu()"
+            data-testo="tornaMenu">
+
             🏠 Torna al menu
+
         </button>
 
     </div>
@@ -496,53 +527,78 @@ const traduzioni = {
         punti: "Punti",
         combo: "Combo",
         tempo: "Tempo",
+
         titolo: "♻️ EcoSort",
+
         introduzione:
             "Una sfida sulla gestione dei rifiuti. Ragiona prima di rispondere: alcuni casi non sono così semplici.",
+
         domanda:
             "Qual è la gestione più appropriata?",
+
         opzione0:
             "♻️ Raccolta differenziata ordinaria",
+
         opzione1:
             "🗑️ Rifiuto indifferenziato",
+
         opzione2:
             "⚠️ Raccolta specifica",
+
         opzione3:
             "🌱 Rifiuto organico",
+
         suggerimento:
             "💡 Suggerimento",
+
         fineTitolo:
             "🏁 Sfida completata",
+
         risposteCorrette:
             "Risposte corrette",
+
         tempoRimasto:
             "Tempo rimasto",
+
         migliorCombo:
             "Miglior combo",
+
         nuovaPartita:
             "🔄 Nuova partita",
+
         tornaMenu:
             "🏠 Torna al menu",
+
         caso:
             "Caso",
+
         di:
             "di",
+
         corretto:
             "✓ CORRETTO! +{punti} punti",
+
         errore:
             "✕ ERRORE! -50 punti",
+
         suggerimentoEsaurito:
             "Hai già utilizzato tutti i suggerimenti!",
+
         suggerimentoTesto:
             "💡 Pensa a quale tipo di rifiuto NON dovrebbe finire nei normali contenitori degli imballaggi.",
+
         spiegazione:
             "🔬 {testo}",
+
         perfetto:
             "🏆 Prestazione perfetta. Hai dimostrato un'ottima capacità di analizzare i rifiuti.",
+
         ottimo:
             "🌱 Ottimo risultato. Hai una buona conoscenza della gestione dei rifiuti.",
+
         buono:
             "👍 Buon risultato. Alcuni casi richiedono ancora un po' di attenzione.",
+
         difficile:
             "📚 Questa sfida era difficile. Riprovare può aiutarti a riconoscere meglio i diversi materiali."
     },
@@ -552,53 +608,78 @@ const traduzioni = {
         punti: "Points",
         combo: "Combo",
         tempo: "Time",
+
         titolo: "♻️ EcoSort",
+
         introduzione:
             "A waste management challenge. Think before answering: some cases are not as simple as they seem.",
+
         domanda:
             "What is the most appropriate way to handle it?",
+
         opzione0:
             "♻️ Regular recycling",
+
         opzione1:
             "🗑️ General waste",
+
         opzione2:
             "⚠️ Special collection",
+
         opzione3:
             "🌱 Organic waste",
+
         suggerimento:
             "💡 Hint",
+
         fineTitolo:
             "🏁 Challenge completed",
+
         risposteCorrette:
             "Correct answers",
+
         tempoRimasto:
             "Time remaining",
+
         migliorCombo:
             "Best combo",
+
         nuovaPartita:
             "🔄 New game",
+
         tornaMenu:
             "🏠 Back to menu",
+
         caso:
             "Case",
+
         di:
             "of",
+
         corretto:
             "✓ CORRECT! +{punti} points",
+
         errore:
             "✕ WRONG! -50 points",
+
         suggerimentoEsaurito:
             "You have already used all your hints!",
+
         suggerimentoTesto:
             "💡 Think about which type of waste should NOT go into regular packaging recycling containers.",
+
         spiegazione:
             "🔬 {testo}",
+
         perfetto:
             "🏆 Perfect performance. You showed excellent ability to analyze waste.",
+
         ottimo:
             "🌱 Great result. You have a good understanding of waste management.",
+
         buono:
             "👍 Good result. Some cases still require a little more attention.",
+
         difficile:
             "📚 This challenge was difficult. Playing again can help you recognize different materials better."
     },
@@ -608,53 +689,78 @@ const traduzioni = {
         punti: "Pisteet",
         combo: "Combo",
         tempo: "Aika",
+
         titolo: "♻️ EcoSort",
+
         introduzione:
             "Jätehuoltohaaste. Mieti ennen vastaamista: jotkin tapaukset eivät ole niin yksinkertaisia.",
+
         domanda:
             "Mikä on sopivin tapa käsitellä tämä jäte?",
+
         opzione0:
             "♻️ Tavallinen lajittelu",
+
         opzione1:
             "🗑️ Sekajäte",
+
         opzione2:
             "⚠️ Erilliskeräys",
+
         opzione3:
             "🌱 Biojäte",
+
         suggerimento:
             "💡 Vihje",
+
         fineTitolo:
             "🏁 Haaste suoritettu",
+
         risposteCorrette:
             "Oikeat vastaukset",
+
         tempoRimasto:
             "Jäljellä oleva aika",
+
         migliorCombo:
             "Paras combo",
+
         nuovaPartita:
             "🔄 Uusi peli",
+
         tornaMenu:
             "🏠 Takaisin valikkoon",
+
         caso:
             "Tapaus",
+
         di:
             "/",
+
         corretto:
             "✓ OIKEIN! +{punti} pistettä",
+
         errore:
             "✕ VÄÄRIN! -50 pistettä",
+
         suggerimentoEsaurito:
             "Olet jo käyttänyt kaikki vihjeet!",
+
         suggerimentoTesto:
             "💡 Mieti, minkä tyyppistä jätettä EI pitäisi laittaa tavallisiin pakkausjätteen keräysastioihin.",
+
         spiegazione:
             "🔬 {testo}",
+
         perfetto:
             "🏆 Täydellinen suoritus. Osoitit erinomaista kykyä analysoida jätteitä.",
+
         ottimo:
             "🌱 Hieno tulos. Sinulla on hyvät tiedot jätehuollosta.",
+
         buono:
             "👍 Hyvä tulos. Jotkin tapaukset vaativat vielä hieman enemmän huomiota.",
+
         difficile:
             "📚 Tämä haaste oli vaikea. Uudelleen pelaaminen voi auttaa tunnistamaan eri materiaalit paremmin."
     }
@@ -670,16 +776,19 @@ const casi = [
 
 {
 emoji:"🔋",
+
 nome:{
 it:"Batteria scarica",
 en:"Dead battery",
 fi:"Tyhjä paristo"
 },
+
 descrizione:{
 it:"Piccola batteria al litio proveniente da un dispositivo elettronico.",
 en:"Small lithium battery from an electronic device.",
 fi:"Pieni litiumakku elektronisesta laitteesta."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -687,12 +796,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -700,7 +811,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:2,
+
 spiegazione:{
 it:"Le batterie non devono essere trattate come normali rifiuti domestici. Devono essere conferite attraverso i sistemi di raccolta dedicati.",
 en:"Batteries should not be treated as ordinary household waste. They should be taken to dedicated collection systems.",
@@ -710,16 +823,19 @@ fi:"Paristoja ei tule käsitellä tavallisena kotitalousjätteenä. Ne tulee toi
 
 {
 emoji:"🧾",
+
 nome:{
 it:"Ricevuta fiscale",
 en:"Receipt",
 fi:"Kuitti"
 },
+
 descrizione:{
 it:"Scontrino realizzato su carta termica.",
 en:"Receipt printed on thermal paper.",
 fi:"Lämpöpaperille painettu kuitti."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -727,12 +843,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -740,7 +858,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:1,
+
 spiegazione:{
 it:"La carta termica degli scontrini non va normalmente conferita insieme alla carta da riciclo.",
 en:"Thermal receipt paper should generally not be placed with recyclable paper.",
@@ -750,16 +870,19 @@ fi:"Lämpöpaperia ei yleensä tule laittaa kierrätyspaperin joukkoon."
 
 {
 emoji:"🍕",
+
 nome:{
 it:"Scatola della pizza",
 en:"Pizza box",
 fi:"Pizzalaatikko"
 },
+
 descrizione:{
 it:"Cartone con una parte pulita e una parte molto sporca di residui alimentari.",
 en:"Cardboard box with one clean part and one heavily food-stained part.",
 fi:"Kartonkilaatikko, jossa on puhdas osa ja voimakkaasti ruoantähteiden likaama osa."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -767,12 +890,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -780,7 +905,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Le parti pulite possono essere gestite come carta secondo le regole locali; le parti contaminate dagli alimenti possono richiedere una gestione diversa. Separare le parti è importante.",
 en:"Clean parts can be handled as paper according to local rules; food-contaminated parts may require different treatment. Separating the parts is important.",
@@ -790,16 +917,19 @@ fi:"Puhtaat osat voidaan käsitellä paperina paikallisten sääntöjen mukaan; 
 
 {
 emoji:"💡",
+
 nome:{
 it:"Lampadina LED",
 en:"LED light bulb",
 fi:"LED-lamppu"
 },
+
 descrizione:{
 it:"Lampadina LED non più funzionante.",
 en:"Non-working LED light bulb.",
 fi:"Toimimaton LED-lamppu."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -807,12 +937,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -820,7 +952,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:2,
+
 spiegazione:{
 it:"Le lampadine non vanno automaticamente nel contenitore del vetro domestico. I sistemi di raccolta dedicati permettono di recuperare correttamente materiali e componenti.",
 en:"Light bulbs should not automatically be placed in household glass recycling. Dedicated collection systems allow materials and components to be recovered correctly.",
@@ -830,16 +964,19 @@ fi:"Lamppuja ei tule automaattisesti laittaa kotitalouksien lasinkeräykseen. Er
 
 {
 emoji:"🥫",
+
 nome:{
 it:"Lattina in alluminio",
 en:"Aluminium can",
 fi:"Alumiinitölkki"
 },
+
 descrizione:{
 it:"Lattina vuota e priva di residui significativi.",
 en:"Empty can with no significant residue.",
 fi:"Tyhjä tölkki, jossa ei ole merkittäviä jäämiä."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -847,12 +984,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -860,7 +999,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Le lattine metalliche possono essere avviate alla raccolta degli imballaggi metallici, secondo il sistema di raccolta del proprio Comune.",
 en:"Metal cans can be placed in the metal packaging collection according to the local collection system.",
@@ -870,16 +1011,19 @@ fi:"Metallitölkit voidaan lajitella metallipakkausten keräykseen paikallisen j
 
 {
 emoji:"🧴",
+
 nome:{
 it:"Flacone di detergente",
 en:"Cleaning product bottle",
 fi:"Pesuainepullo"
 },
+
 descrizione:{
 it:"Contenitore vuoto in plastica, correttamente svuotato.",
 en:"Empty plastic container, properly emptied.",
 fi:"Tyhjä muovipakkaus, joka on asianmukaisesti tyhjennetty."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -887,12 +1031,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -900,7 +1046,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Un flacone vuoto che costituisce un imballaggio può essere conferito nella raccolta degli imballaggi in plastica secondo le regole locali.",
 en:"An empty bottle that is packaging can be placed in plastic packaging collection according to local rules.",
@@ -910,16 +1058,19 @@ fi:"Tyhjä pakkausmuovipullo voidaan lajitella muovipakkausten keräykseen paika
 
 {
 emoji:"🫙",
+
 nome:{
 it:"Barattolo di vetro",
 en:"Glass jar",
 fi:"Lasipurkki"
 },
+
 descrizione:{
 it:"Barattolo vuoto utilizzato per alimenti.",
 en:"Empty jar used for food.",
 fi:"Tyhjä elintarvikkeiden lasipurkki."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -927,12 +1078,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -940,7 +1093,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Il barattolo costituisce un imballaggio in vetro e può essere destinato alla relativa raccolta differenziata.",
 en:"The jar is glass packaging and can be placed in the corresponding recycling collection.",
@@ -950,16 +1105,19 @@ fi:"Lasipurkki on lasipakkaus ja voidaan lajitella lasipakkausten keräykseen."
 
 {
 emoji:"🪥",
+
 nome:{
 it:"Spazzolino da denti",
 en:"Toothbrush",
 fi:"Hammasharja"
 },
+
 descrizione:{
 it:"Spazzolino domestico completamente usurato.",
 en:"Completely worn-out household toothbrush.",
 fi:"Täysin kulunut hammasharja."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -967,12 +1125,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -980,7 +1140,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:1,
+
 spiegazione:{
 it:"Uno spazzolino comune non è generalmente un imballaggio e non va nella raccolta ordinaria degli imballaggi in plastica.",
 en:"A regular toothbrush is generally not packaging and should not go into ordinary plastic packaging collection.",
@@ -990,16 +1152,19 @@ fi:"Tavallinen hammasharja ei yleensä ole pakkaus, eikä sitä tule laittaa tav
 
 {
 emoji:"📦",
+
 nome:{
 it:"Scatola di cartone",
 en:"Cardboard box",
 fi:"Kartonkilaatikko"
 },
+
 descrizione:{
 it:"Scatola pulita utilizzata per una spedizione.",
 en:"Clean cardboard box used for shipping.",
 fi:"Puhdas lähetykseen käytetty kartonkilaatikko."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1007,12 +1172,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1020,7 +1187,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Il cartone pulito è normalmente destinato alla raccolta della carta e del cartone.",
 en:"Clean cardboard is normally placed in paper and cardboard recycling.",
@@ -1030,16 +1199,19 @@ fi:"Puhdas kartonki lajitellaan yleensä paperin ja kartongin keräykseen."
 
 {
 emoji:"🧴",
+
 nome:{
 it:"Bottiglia di plastica",
 en:"Plastic bottle",
 fi:"Muovipullo"
 },
+
 descrizione:{
 it:"Bottiglia per bevanda, vuota e schiacciata.",
 en:"Empty and crushed beverage bottle.",
 fi:"Tyhjä ja litistetty juomapullo."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1047,12 +1219,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1060,7 +1234,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:0,
+
 spiegazione:{
 it:"Le bottiglie di plastica per bevande sono imballaggi e possono essere conferite nella raccolta prevista per gli imballaggi in plastica.",
 en:"Plastic beverage bottles are packaging and can be placed in the collection provided for plastic packaging.",
@@ -1070,16 +1246,19 @@ fi:"Muoviset juomapullot ovat pakkauksia ja voidaan lajitella muovipakkausten ke
 
 {
 emoji:"🍌",
+
 nome:{
 it:"Buccia di banana",
 en:"Banana peel",
 fi:"Banaaninkuori"
 },
+
 descrizione:{
 it:"Residuo organico proveniente dalla preparazione di un pasto.",
 en:"Organic waste left from preparing a meal.",
 fi:"Aterian valmistuksesta syntynyt biojäte."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1087,12 +1266,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1100,7 +1281,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:3,
+
 spiegazione:{
 it:"La buccia di banana è un residuo organico biodegradabile e può essere conferita nella raccolta dell'organico dove prevista.",
 en:"A banana peel is biodegradable organic waste and can be placed in organic waste collection where available.",
@@ -1110,16 +1293,19 @@ fi:"Banaaninkuori on biohajoavaa biojätettä ja voidaan lajitella biojätteen k
 
 {
 emoji:"👕",
+
 nome:{
 it:"Vecchia maglietta",
 en:"Old T-shirt",
 fi:"Vanha T-paita"
 },
+
 descrizione:{
 it:"Indumento ancora integro ma che non utilizzi più.",
 en:"An intact piece of clothing that you no longer use.",
 fi:"Ehjä vaate, jota et enää käytä."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1127,12 +1313,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1140,7 +1328,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:2,
+
 spiegazione:{
 it:"I tessili possono essere raccolti attraverso sistemi dedicati, favorendo il riuso o il recupero delle fibre.",
 en:"Textiles can be collected through dedicated systems, supporting reuse or fiber recovery.",
@@ -1150,16 +1340,19 @@ fi:"Tekstiilejä voidaan kerätä erillisiin keräysjärjestelmiin uudelleenkäy
 
 {
 emoji:"📱",
+
 nome:{
 it:"Vecchio smartphone",
 en:"Old smartphone",
 fi:"Vanha älypuhelin"
 },
+
 descrizione:{
 it:"Dispositivo elettronico non più utilizzato.",
 en:"Electronic device that is no longer used.",
 fi:"Käytöstä poistettu elektroninen laite."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1167,12 +1360,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1180,7 +1375,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:2,
+
 spiegazione:{
 it:"Uno smartphone è un'apparecchiatura elettrica/elettronica a fine vita e richiede una gestione specifica per permettere il recupero di materiali e componenti.",
 en:"A smartphone is end-of-life electrical/electronic equipment and requires specific handling to recover materials and components.",
@@ -1190,16 +1387,19 @@ fi:"Älypuhelin on käytöstä poistunut sähkö- ja elektroniikkalaite, joka va
 
 {
 emoji:"🪟",
+
 nome:{
 it:"Bicchiere di vetro rotto",
 en:"Broken glass",
 fi:"Rikkoutunut lasilasi"
 },
+
 descrizione:{
 it:"Bicchiere domestico danneggiato, non più utilizzabile.",
 en:"Damaged household drinking glass that can no longer be used.",
 fi:"Vaurioitunut juomalasi, jota ei voi enää käyttää."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1207,12 +1407,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1220,7 +1422,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:1,
+
 spiegazione:{
 it:"Il vetro degli oggetti non coincide necessariamente con il vetro degli imballaggi. Bicchieri e altri oggetti possono avere composizioni differenti e non vanno automaticamente nella raccolta del vetro.",
 en:"Glass objects are not necessarily the same as glass packaging. Drinking glasses and other objects may have different compositions and should not automatically go into glass packaging collection.",
@@ -1230,16 +1434,19 @@ fi:"Esineiden lasi ei välttämättä ole samaa kuin lasipakkausten lasi. Juomal
 
 {
 emoji:"☕",
+
 nome:{
 it:"Tazza in ceramica",
 en:"Ceramic cup",
 fi:"Keraaminen kuppi"
 },
+
 descrizione:{
 it:"Vecchia tazza domestica completamente rotta.",
 en:"Old household ceramic cup that is completely broken.",
 fi:"Vanha täysin rikkoutunut keraaminen kuppi."
 },
+
 opzioni:{
 it:[
 "♻️ Raccolta differenziata ordinaria",
@@ -1247,12 +1454,14 @@ it:[
 "⚠️ Raccolta specifica",
 "🌱 Rifiuto organico"
 ],
+
 en:[
 "♻️ Regular recycling",
 "🗑️ General waste",
 "⚠️ Special collection",
 "🌱 Organic waste"
 ],
+
 fi:[
 "♻️ Tavallinen lajittelu",
 "🗑️ Sekajäte",
@@ -1260,7 +1469,9 @@ fi:[
 "🌱 Biojäte"
 ]
 },
+
 corretta:1,
+
 spiegazione:{
 it:"La ceramica non è un imballaggio in vetro e non deve essere confusa con il vetro destinato al riciclo degli imballaggi.",
 en:"Ceramic is not glass packaging and should not be confused with glass intended for packaging recycling.",
@@ -1272,23 +1483,52 @@ fi:"Keramiikka ei ole lasipakkaus, eikä sitä tule sekoittaa lasipakkausten kie
 
 
 /* =====================================================
-   VARIABILI
+   VARIABILI DEL GIOCO
    ===================================================== */
 
 let indice = 0;
+
 let punteggio = 0;
+
 let combo = 0;
+
 let migliorCombo = 0;
+
 let corrette = 0;
+
 let tempo = 60;
+
 let rispostaData = false;
+
 let suggerimenti = 2;
+
 let intervallo;
 
 let utente = null;
+
 let profilo = null;
 
 let partitaId = null;
+
+
+/*
+   NUOVA VARIABILE
+
+   Tiene traccia dei Green Points guadagnati
+   nella partita corrente.
+
+   Ogni risposta corretta:
+   +10 Green Points
+*/
+
+let greenPointsPartita = 0;
+
+
+/*
+   Numero fisso di Green Points per risposta corretta.
+*/
+
+const GREEN_POINTS_RISPOSTA_CORRETTA = 10;
 
 
 /* =====================================================
@@ -1301,6 +1541,7 @@ let linguaCorrente =
 if (!traduzioni[linguaCorrente]) {
     linguaCorrente = "it";
 }
+
 
 function cambiaLingua() {
 
@@ -1319,12 +1560,14 @@ function cambiaLingua() {
         linguaCorrente;
 
     applicaTraduzioni();
+
     mostraCaso();
+
 }
 
 
 /* =====================================================
-   TRADUZIONI
+   APPLICA TRADUZIONI
    ===================================================== */
 
 function applicaTraduzioni() {
@@ -1368,11 +1611,19 @@ async function caricaUtente() {
             await supabaseClient.auth.getUser();
 
         if (risultato.error) {
+
             console.error(
                 "Errore recupero utente:",
                 risultato.error
             );
+
+            document.getElementById(
+                "statoAccount"
+            ).innerText =
+                "⚠️ Errore nel recupero dell'account.";
+
             return;
+
         }
 
         utente =
@@ -1383,9 +1634,10 @@ async function caricaUtente() {
             document.getElementById(
                 "statoAccount"
             ).innerText =
-                "⚠️ Nessun account autenticato: i punti non verranno salvati.";
+                "⚠️ Nessun account autenticato: i Green Points non verranno salvati.";
 
             return;
+
         }
 
         await caricaProfilo();
@@ -1396,6 +1648,11 @@ async function caricaUtente() {
             "Errore Supabase:",
             errore
         );
+
+        document.getElementById(
+            "statoAccount"
+        ).innerText =
+            "⚠️ Errore nella connessione all'account.";
 
     }
 
@@ -1428,6 +1685,7 @@ async function caricaProfilo() {
                 "⚠️ Impossibile recuperare il profilo.";
 
             return;
+
         }
 
         const dati =
@@ -1441,20 +1699,13 @@ async function caricaProfilo() {
                 "⚠️ Profilo non trovato.";
 
             return;
+
         }
 
         profilo =
             dati[0];
 
-        document.getElementById(
-            "statoAccount"
-        ).innerText =
-            "👤 " +
-            (profilo.profile_username || "EcoUser") +
-            " • 🌱 " +
-            profilo.profile_green_points +
-            " Green Points • Livello " +
-            profilo.profile_level;
+        mostraStatoAccount();
 
     } catch (errore) {
 
@@ -1469,14 +1720,93 @@ async function caricaProfilo() {
 
 
 /* =====================================================
+   MOSTRA STATO ACCOUNT
+   ===================================================== */
+
+function mostraStatoAccount() {
+
+    const elemento =
+        document.getElementById(
+            "statoAccount"
+        );
+
+    if (!utente) {
+
+        elemento.innerText =
+            "⚠️ Nessun account autenticato: i Green Points non verranno salvati.";
+
+        return;
+
+    }
+
+    const username =
+        profilo?.profile_username ||
+        utente.user_metadata?.username ||
+        "EcoUser";
+
+    const greenPoints =
+        profilo?.profile_green_points ?? 0;
+
+    const livello =
+        profilo?.profile_level ?? 1;
+
+    elemento.innerText =
+        "👤 " +
+        username +
+        " • 🌱 " +
+        greenPoints +
+        " Green Points • Livello " +
+        livello;
+
+}
+
+
+/* =====================================================
    SUPABASE - AGGIORNA GREEN POINTS
    ===================================================== */
 
 async function aggiornaGreenPoints(punti) {
 
+    /*
+       Se non c'è un utente autenticato,
+       non facciamo nessun accredito.
+    */
+
     if (!utente) {
+
+        console.warn(
+            "Nessun utente autenticato. Green Points non salvati."
+        );
+
         return false;
+
     }
+
+
+    /*
+       Sicurezza:
+
+       Questa funzione viene utilizzata
+       per aggiungere Green Points.
+
+       In questo gioco accettiamo solamente
+       valori positivi.
+
+       Quindi non verranno mai tolti
+       Green Points dal profilo.
+    */
+
+    if (!Number.isInteger(punti) || punti <= 0) {
+
+        console.error(
+            "Quantità Green Points non valida:",
+            punti
+        );
+
+        return false;
+
+    }
+
 
     try {
 
@@ -1488,6 +1818,7 @@ async function aggiornaGreenPoints(punti) {
                 }
             );
 
+
         if (risultato.error) {
 
             console.error(
@@ -1496,10 +1827,18 @@ async function aggiornaGreenPoints(punti) {
             );
 
             return false;
+
         }
+
 
         const dati =
             risultato.data;
+
+
+        /*
+           Aggiorniamo il profilo locale
+           con il risultato restituito da Supabase.
+        */
 
         if (dati && dati.length > 0) {
 
@@ -1515,32 +1854,23 @@ async function aggiornaGreenPoints(punti) {
 
             };
 
-            document.getElementById(
-                "statoAccount"
-            ).innerText =
-                "👤 " +
-                (
-                    profilo.profile_username ||
-                    utente.user_metadata?.username ||
-                    "EcoUser"
-                ) +
-                " • 🌱 " +
-                dati[0].new_green_points +
-                " Green Points • Livello " +
-                dati[0].new_level;
+            mostraStatoAccount();
 
         }
 
+
         return true;
+
 
     } catch (errore) {
 
         console.error(
-            "Errore RPC:",
+            "Errore RPC Green Points:",
             errore
         );
 
         return false;
+
     }
 
 }
@@ -1550,11 +1880,27 @@ async function aggiornaGreenPoints(punti) {
    CONTROLLO DOPPIO ACCREDITO
    ===================================================== */
 
+/*
+   Crea una chiave unica per ogni evento
+   della partita.
+
+   Esempio:
+
+   ecosort_IDPARTITA_risposta_0
+
+   significa:
+
+   partita X
+   risposta al caso 0
+*/
+
 function chiaveEvento(tipo, numeroCaso) {
 
     if (!partitaId) {
+
         partitaId =
             crypto.randomUUID();
+
     }
 
     return (
@@ -1569,6 +1915,10 @@ function chiaveEvento(tipo, numeroCaso) {
 }
 
 
+/*
+   Controlla se l'evento è già stato salvato.
+*/
+
 function eventoGiaSalvato(tipo, numeroCaso) {
 
     return sessionStorage.getItem(
@@ -1580,6 +1930,10 @@ function eventoGiaSalvato(tipo, numeroCaso) {
 
 }
 
+
+/*
+   Segna l'evento come già salvato.
+*/
 
 function segnaEventoSalvato(tipo, numeroCaso) {
 
@@ -1608,6 +1962,7 @@ function mostraCaso() {
     const lingua =
         linguaCorrente;
 
+
     document.getElementById(
         "progressivo"
     ).innerText =
@@ -1619,20 +1974,24 @@ function mostraCaso() {
         " " +
         casi.length;
 
+
     document.getElementById(
         "emoji"
     ).innerText =
         caso.emoji;
+
 
     document.getElementById(
         "nome"
     ).innerText =
         caso.nome[lingua];
 
+
     document.getElementById(
         "descrizione"
     ).innerText =
         caso.descrizione[lingua];
+
 
     for (let i = 0; i < 4; i++) {
 
@@ -1648,9 +2007,11 @@ function mostraCaso() {
 
     }
 
+
     document.getElementById(
         "feedback"
     ).innerText = "";
+
 
     document.getElementById(
         "spiegazione"
@@ -1665,52 +2026,115 @@ function mostraCaso() {
 
 async function rispondi(scelta) {
 
+    /*
+       Evita che l'utente possa cliccare
+       più volte sulla stessa domanda.
+    */
+
     if (rispostaData) {
         return;
     }
 
     rispostaData = true;
 
+
+    /*
+       Blocchiamo immediatamente i pulsanti.
+    */
+
     for (let i = 0; i < 4; i++) {
+
         document.getElementById(
             "opzione" + i
         ).disabled = true;
+
     }
+
 
     const caso =
         casi[indice];
+
 
     const feedback =
         document.getElementById(
             "feedback"
         );
 
+
     const spiegazione =
         document.getElementById(
             "spiegazione"
         );
 
-    let puntiDaSalvare = 0;
+
+    /*
+       Green Points da accreditare
+       per questa risposta.
+
+       Partiamo da 0.
+    */
+
+    let greenPointsDaSalvare = 0;
+
+
+    /* =================================================
+       RISPOSTA CORRETTA
+       ================================================= */
 
     if (scelta === caso.corretta) {
 
+        /*
+           Punteggio del gioco.
+
+           Questo NON è il Green Points.
+        */
+
         let punti = 100;
+
 
         combo++;
 
+
         if (combo >= 3) {
+
             punti *= 2;
+
         }
+
 
         punteggio += punti;
 
+
         corrette++;
 
+
         if (combo > migliorCombo) {
-            migliorCombo = combo;
+
+            migliorCombo =
+                combo;
+
         }
 
-        puntiDaSalvare = punti;
+
+        /*
+           QUI avviene la cosa importante:
+
+           ogni risposta corretta
+           = +10 Green Points
+        */
+
+        greenPointsDaSalvare =
+            GREEN_POINTS_RISPOSTA_CORRETTA;
+
+
+        /*
+           Aggiorniamo il totale Green Points
+           della partita.
+        */
+
+        greenPointsPartita +=
+            greenPointsDaSalvare;
+
 
         feedback.innerText =
             traduzioni[
@@ -1722,10 +2146,28 @@ async function rispondi(scelta) {
                     punti
                 );
 
+
         feedback.style.color =
             "#81c784";
 
-    } else {
+
+    }
+
+
+    /* =================================================
+       RISPOSTA SBAGLIATA
+       ================================================= */
+
+    else {
+
+        /*
+           Il punteggio del gioco perde 50 punti.
+
+           ATTENZIONE:
+
+           NON togliamo Green Points
+           dall'account.
+        */
 
         punteggio =
             Math.max(
@@ -1733,19 +2175,33 @@ async function rispondi(scelta) {
                 punteggio - 50
             );
 
+
         combo = 0;
 
-        puntiDaSalvare = -50;
+
+        /*
+           Nessun Green Point
+           per risposta sbagliata.
+        */
+
+        greenPointsDaSalvare = 0;
+
 
         feedback.innerText =
             traduzioni[
                 linguaCorrente
             ].errore;
 
+
         feedback.style.color =
             "#ef9a9a";
+
     }
 
+
+    /* =================================================
+       SPIEGAZIONE
+       ================================================= */
 
     spiegazione.innerText =
         traduzioni[
@@ -1759,13 +2215,20 @@ async function rispondi(scelta) {
                 ]
             );
 
+
     spiegazione.style.display =
         "block";
+
+
+    /* =================================================
+       AGGIORNA INTERFACCIA
+       ================================================= */
 
     document.getElementById(
         "punteggio"
     ).innerText =
         punteggio;
+
 
     document.getElementById(
         "combo"
@@ -1773,35 +2236,91 @@ async function rispondi(scelta) {
         combo;
 
 
+    document.getElementById(
+        "greenPointsSessione"
+    ).innerText =
+        "🌱 Green Points guadagnati in questa partita: " +
+        greenPointsPartita;
+
+
     /* =================================================
-       SALVATAGGIO SUPABASE
+       SALVATAGGIO GREEN POINTS
        ================================================= */
+
+    /*
+       L'indice identifica il caso corrente.
+    */
 
     const numeroCaso =
         indice;
 
+
+    /*
+       Accreditamento SOLO se:
+
+       1. la risposta è corretta
+       2. l'evento non è già stato salvato
+    */
+
     if (
+        greenPointsDaSalvare > 0 &&
         !eventoGiaSalvato(
-            "risposta",
+            "rispostaCorretta",
             numeroCaso
         )
     ) {
 
+        /*
+           Segniamo l'evento prima
+           della chiamata a Supabase.
+
+           In questo modo un doppio click
+           o un secondo tentativo non
+           crea un doppio accredito.
+        */
+
         segnaEventoSalvato(
-            "risposta",
+            "rispostaCorretta",
             numeroCaso
         );
 
-        await aggiornaGreenPoints(
-            puntiDaSalvare
-        );
+
+        /*
+           Accreditiamo +10 all'account.
+        */
+
+        const salvato =
+            await aggiornaGreenPoints(
+                greenPointsDaSalvare
+            );
+
+
+        /*
+           Se Supabase restituisce errore,
+           mostriamo un avviso nella console.
+
+           Il gioco continua comunque.
+        */
+
+        if (!salvato) {
+
+            console.warn(
+                "I Green Points di questa risposta non sono stati salvati."
+            );
+
+        }
 
     }
 
 
+    /* =================================================
+       PASSA AL CASO SUCCESSIVO
+       ================================================= */
+
     setTimeout(function() {
 
         indice++;
+
 
         if (indice < casi.length) {
 
@@ -1822,11 +2341,12 @@ async function rispondi(scelta) {
    SUGGERIMENTO
    ===================================================== */
 
-async function usaSuggerimento() {
+function usaSuggerimento() {
 
     if (rispostaData) {
         return;
     }
+
 
     if (suggerimenti <= 0) {
 
@@ -1837,15 +2357,26 @@ async function usaSuggerimento() {
         );
 
         return;
+
     }
 
+
     suggerimenti--;
+
+
+    /*
+       Il suggerimento continua a costare
+       25 punti del PUNTEGGIO DEL GIOCO.
+
+       Non modifica i Green Points dell'account.
+    */
 
     punteggio =
         Math.max(
             0,
             punteggio - 25
         );
+
 
     document.getElementById(
         "feedback"
@@ -1854,41 +2385,17 @@ async function usaSuggerimento() {
             linguaCorrente
         ].suggerimentoTesto;
 
+
     document.getElementById(
         "feedback"
     ).style.color =
         "#ffcc80";
 
+
     document.getElementById(
         "punteggio"
     ).innerText =
         punteggio;
-
-
-    /* =================================================
-       SALVA -25 GREEN POINTS
-       ================================================= */
-
-    const numeroCaso =
-        indice;
-
-    if (
-        !eventoGiaSalvato(
-            "suggerimento",
-            numeroCaso
-        )
-    ) {
-
-        segnaEventoSalvato(
-            "suggerimento",
-            numeroCaso
-        );
-
-        await aggiornaGreenPoints(
-            -25
-        );
-
-    }
 
 }
 
@@ -1901,21 +2408,25 @@ function avviaTimer() {
 
     clearInterval(intervallo);
 
+
     intervallo =
         setInterval(function() {
 
             tempo--;
+
 
             document.getElementById(
                 "tempo"
             ).innerText =
                 tempo;
 
+
             document.getElementById(
                 "barraTempo"
             ).style.width =
                 (tempo / 60 * 100) +
                 "%";
+
 
             if (tempo <= 10) {
 
@@ -1926,11 +2437,13 @@ function avviaTimer() {
 
             }
 
+
             if (tempo <= 0) {
 
                 clearInterval(
                     intervallo
                 );
+
 
                 fine();
 
@@ -1951,15 +2464,18 @@ function fine() {
         intervallo
     );
 
+
     document.getElementById(
         "gioco"
     ).style.display =
         "none";
 
+
     document.getElementById(
         "fine"
     ).style.display =
         "block";
+
 
     document.getElementById(
         "punteggioFinale"
@@ -1974,48 +2490,70 @@ function fine() {
                     : "pistettä"
         );
 
+
     document.getElementById(
         "corretteFinale"
     ).innerText =
         corrette;
+
 
     document.getElementById(
         "tempoFinale"
     ).innerText =
         tempo;
 
+
     document.getElementById(
         "comboFinale"
     ).innerText =
         migliorCombo;
+
+
+    /*
+       Mostriamo i Green Points
+       guadagnati nella partita.
+    */
+
+    document.getElementById(
+        "greenPointsFinale"
+    ).innerText =
+        greenPointsPartita;
+
 
     const testi =
         traduzioni[
             linguaCorrente
         ];
 
-    if (corrette === 15) {
+
+    if (corrette === casi.length) {
 
         document.getElementById(
             "messaggio"
         ).innerText =
             testi.perfetto;
 
-    } else if (corrette >= 11) {
+    }
+
+    else if (corrette >= 11) {
 
         document.getElementById(
             "messaggio"
         ).innerText =
             testi.ottimo;
 
-    } else if (corrette >= 8) {
+    }
+
+    else if (corrette >= 8) {
 
         document.getElementById(
             "messaggio"
         ).innerText =
             testi.buono;
 
-    } else {
+    }
+
+    else {
 
         document.getElementById(
             "messaggio"
@@ -2034,52 +2572,88 @@ function fine() {
 function ricomincia() {
 
     indice = 0;
+
     punteggio = 0;
+
     combo = 0;
+
     migliorCombo = 0;
+
     corrette = 0;
+
     tempo = 60;
+
     suggerimenti = 2;
+
+
+    /*
+       Nuova partita = nuovo ID.
+
+       Questo permette di accreditare nuovamente
+       i +10 Green Points nella nuova partita.
+    */
 
     partitaId =
         crypto.randomUUID();
+
+
+    /*
+       Reset Green Points della partita.
+    */
+
+    greenPointsPartita = 0;
+
 
     document.getElementById(
         "fine"
     ).style.display =
         "none";
 
+
     document.getElementById(
         "gioco"
     ).style.display =
         "block";
+
 
     document.getElementById(
         "punteggio"
     ).innerText =
         "0";
 
+
     document.getElementById(
         "combo"
     ).innerText =
         "0";
+
 
     document.getElementById(
         "tempo"
     ).innerText =
         "60";
 
+
+    document.getElementById(
+        "greenPointsSessione"
+    ).innerText =
+        "🌱 Green Points guadagnati in questa partita: 0";
+
+
     document.getElementById(
         "barraTempo"
     ).style.width =
         "100%";
+
 
     document.getElementById(
         "barraTempo"
     ).style.background =
         "#66bb6a";
 
+
     mostraCaso();
+
 
     avviaTimer();
 
@@ -2092,13 +2666,8 @@ function ricomincia() {
 
 function tornaMenu() {
 
-    /*
-       La Home di EcoGame è index.html.
-       Prima era menu.html, che non esisteva
-       e causava l'errore 404.
-    */
-
-    window.location.href = "index.html";
+    window.location.href =
+        "index.html";
 
 }
 
@@ -2112,22 +2681,40 @@ document.getElementById(
 ).value =
     linguaCorrente;
 
+
 document.documentElement.lang =
     linguaCorrente;
 
+
 applicaTraduzioni();
+
+
+/*
+   Creiamo un ID univoco per questa partita.
+*/
 
 partitaId =
     crypto.randomUUID();
 
+
+/*
+   Mostriamo il primo caso.
+*/
+
 mostraCaso();
+
+
+/*
+   Avviamo subito il timer.
+*/
 
 avviaTimer();
 
+
 /*
-   Carichiamo Supabase dopo aver avviato
-   il gioco, così il gioco non rimane
-   bloccato mentre recupera il profilo.
+   Recuperiamo l'account in background.
+
+   Il gioco non aspetta il caricamento del profilo.
 */
 
 caricaUtente();
@@ -2136,4 +2723,3 @@ caricaUtente();
 
 </body>
 </html>
-```
