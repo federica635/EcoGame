@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -1468,7 +1469,7 @@ async function caricaProfilo() {
 
 
 /* =====================================================
-   SUPABASE - AGGIUNGE / TOGLIE GREEN POINTS
+   SUPABASE - AGGIORNA GREEN POINTS
    ===================================================== */
 
 async function aggiornaGreenPoints(punti) {
@@ -2040,7 +2041,6 @@ function ricomincia() {
     tempo = 60;
     suggerimenti = 2;
 
-    /* Nuova partita = nuovo identificatore */
     partitaId =
         crypto.randomUUID();
 
@@ -2092,8 +2092,13 @@ function ricomincia() {
 
 function tornaMenu() {
 
-    window.location.href =
-        "menu.html";
+    /*
+       La Home di EcoGame è index.html.
+       Prima era menu.html, che non esisteva
+       e causava l'errore 404.
+    */
+
+    window.location.href = "index.html";
 
 }
 
@@ -2131,3 +2136,4 @@ caricaUtente();
 
 </body>
 </html>
+```
