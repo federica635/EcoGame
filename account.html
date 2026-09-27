@@ -3,186 +3,206 @@
 <html lang="it">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+```
 <title>EcoGame - Account 🌱</title>
 
 <style>
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #dcedc8, #e8f5e9);
-    color: #173b22;
-    min-height: 100vh;
-}
-
-header {
-    background: #2e7d32;
-    color: white;
-    text-align: center;
-    padding: 25px 20px;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 45px;
-}
-
-.lingue {
-    margin-bottom: 20px;
-}
-
-.lingue button {
-    background: white;
-    color: #173b22;
-    border: 2px solid #43a047;
-    margin: 5px;
-    padding: 9px 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.lingue button:hover {
-    background: #e8f5e9;
-}
-
-.contenitore {
-    width: 90%;
-    max-width: 500px;
-    margin: 40px auto;
-}
-
-.box {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-h2 {
-    text-align: center;
-    color: #2e7d32;
-}
-
-label {
-    display: block;
-    text-align: left;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 13px;
-    margin-top: 7px;
-    border: 1px solid #bbb;
-    border-radius: 10px;
-    font-size: 16px;
-}
-
-.azione {
-    width: 100%;
-    padding: 14px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 12px;
-    background: #43a047;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.azione:hover {
-    background: #1b5e20;
-}
-
-.azione:disabled {
-    background: #999;
-    cursor: not-allowed;
-}
-
-.cambio {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.cambio button {
-    border: none;
-    background: none;
-    color: #2e7d32;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 15px;
-}
-
-.cambio button:hover {
-    text-decoration: underline;
-}
-
-#messaggio {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-    line-height: 1.5;
-}
-
-.home {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    color: #1b5e20;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.home:hover {
-    text-decoration: underline;
-}
-
-.profilo {
-    display: none;
-    text-align: center;
-}
-
-.statistiche {
-    background: #e8f5e9;
-    border-radius: 15px;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.statistica {
-    font-size: 23px;
-    margin: 10px;
-    color: #1b5e20;
-}
-
-footer {
-    margin-top: 50px;
-    background: #1b5e20;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-@media (max-width: 600px) {
-
-    header h1 {
-        font-size: 38px;
+    * {
+        box-sizing: border-box;
     }
 
-    .box {
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #dcedc8, #e8f5e9);
+        color: #173b22;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #2e7d32;
+        color: white;
+        text-align: center;
         padding: 25px 20px;
     }
 
-}
+    header h1 {
+        margin: 0;
+        font-size: 45px;
+    }
 
+    .lingue {
+        margin-bottom: 20px;
+    }
+
+    .lingue button {
+        background: white;
+        color: #173b22;
+        border: 2px solid #43a047;
+        margin: 5px;
+        padding: 9px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .lingue button:hover {
+        background: #e8f5e9;
+    }
+
+    .contenitore {
+        width: 90%;
+        max-width: 500px;
+        margin: 40px auto;
+    }
+
+    .box {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+        text-align: center;
+        color: #2e7d32;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        margin-top: 7px;
+        border: 1px solid #bbb;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #43a047;
+        box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.15);
+    }
+
+    .azione {
+        width: 100%;
+        padding: 14px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 12px;
+        background: #43a047;
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .azione:hover {
+        background: #1b5e20;
+    }
+
+    .azione:disabled {
+        background: #999;
+        cursor: not-allowed;
+    }
+
+    .cambio {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .cambio button {
+        border: none;
+        background: none;
+        color: #2e7d32;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .cambio button:hover {
+        text-decoration: underline;
+    }
+
+    #messaggio {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+        line-height: 1.5;
+    }
+
+    .home {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: #1b5e20;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .home:hover {
+        text-decoration: underline;
+    }
+
+    .profilo {
+        display: none;
+        text-align: center;
+    }
+
+    .statistiche {
+        background: #e8f5e9;
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .statistica {
+        font-size: 23px;
+        margin: 15px 10px;
+        color: #1b5e20;
+    }
+
+    footer {
+        margin-top: 50px;
+        background: #1b5e20;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .errore {
+        color: #c62828;
+    }
+
+    .successo {
+        color: #2e7d32;
+    }
+
+    @media (max-width: 600px) {
+        header h1 {
+            font-size: 38px;
+        }
+
+        .box {
+            padding: 25px 20px;
+        }
+
+        .lingue button {
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+    }
 </style>
+```
 
 </head>
 
@@ -193,15 +213,15 @@ footer {
 ```
 <div class="lingue">
 
-    <button onclick="cambiaLingua('it')">
+    <button type="button" onclick="cambiaLingua('it')">
         🇮🇹 Italiano
     </button>
 
-    <button onclick="cambiaLingua('en')">
+    <button type="button" onclick="cambiaLingua('en')">
         🇬🇧 English
     </button>
 
-    <button onclick="cambiaLingua('fi')">
+    <button type="button" onclick="cambiaLingua('fi')">
         🇫🇮 Suomi
     </button>
 
@@ -214,211 +234,212 @@ footer {
 
 <div class="contenitore">
 
+```
 <div class="box">
 
-<!-- =========================
-     REGISTRAZIONE
-========================= -->
+    <!-- =========================
+         REGISTRAZIONE
+    ========================== -->
 
-<div id="registrazione">
+    <div id="registrazione">
 
-```
-<h2 id="titolo">
-    👤 Crea il tuo account
-</h2>
+        <h2 id="titolo">
+            👤 Crea il tuo account
+        </h2>
 
-<label id="labelUsername">
-    Username
-</label>
+        <label id="labelUsername" for="username">
+            Username
+        </label>
 
-<input
-    type="text"
-    id="username"
-    placeholder="Il tuo username"
-    autocomplete="username"
->
+        <input
+            type="text"
+            id="username"
+            placeholder="Il tuo username"
+            autocomplete="username"
+            maxlength="30"
+        >
 
-<label id="labelEmail">
-    Email
-</label>
+        <label id="labelEmail" for="email">
+            Email
+        </label>
 
-<input
-    type="email"
-    id="email"
-    placeholder="La tua email"
-    autocomplete="email"
->
+        <input
+            type="email"
+            id="email"
+            placeholder="La tua email"
+            autocomplete="email"
+        >
 
-<label id="labelPassword">
-    Password
-</label>
+        <label id="labelPassword" for="password">
+            Password
+        </label>
 
-<input
-    type="password"
-    id="password"
-    placeholder="La tua password"
-    autocomplete="new-password"
->
+        <input
+            type="password"
+            id="password"
+            placeholder="La tua password"
+            autocomplete="new-password"
+        >
 
-<button
-    class="azione"
-    onclick="registrati()"
-    id="bottoneRegistrati"
->
-    🌱 Crea account
-</button>
+        <button
+            type="button"
+            class="azione"
+            onclick="registrati()"
+            id="bottoneRegistrati"
+        >
+            🌱 Crea account
+        </button>
 
-<div class="cambio">
+        <div class="cambio">
 
-    <span id="giaAccount">
-        Hai già un account?
-    </span>
+            <span id="giaAccount">
+                Hai già un account?
+            </span>
 
-    <button
-        onclick="mostraLogin()"
-        id="vaiLogin"
-    >
-        Accedi
-    </button>
+            <button
+                type="button"
+                onclick="mostraLogin()"
+                id="vaiLogin"
+            >
+                Accedi
+            </button>
 
-</div>
-```
-
-</div>
-
-<!-- =========================
-     LOGIN
-========================= -->
-
-<div id="login" style="display:none;">
-
-```
-<h2 id="titoloLogin">
-    🔐 Accedi
-</h2>
-
-<label id="labelLoginEmail">
-    Email
-</label>
-
-<input
-    type="email"
-    id="loginEmail"
-    placeholder="La tua email"
-    autocomplete="email"
->
-
-<label id="labelLoginPassword">
-    Password
-</label>
-
-<input
-    type="password"
-    id="loginPassword"
-    placeholder="La tua password"
-    autocomplete="current-password"
->
-
-<button
-    class="azione"
-    onclick="accedi()"
-    id="bottoneAccedi"
->
-    🔐 Accedi
-</button>
-
-<div class="cambio">
-
-    <span id="nonAccount">
-        Non hai ancora un account?
-    </span>
-
-    <button
-        onclick="mostraRegistrazione()"
-        id="vaiRegistrazione"
-    >
-        Registrati
-    </button>
-
-</div>
-```
-
-</div>
-
-<!-- =========================
-     PROFILO
-========================= -->
-
-<div id="profilo" class="profilo">
-
-```
-<h2 id="titoloProfilo">
-    👤 Il mio profilo
-</h2>
-
-<p id="benvenuto">
-    Benvenuto!
-</p>
-
-<div class="statistiche">
-
-    <div class="statistica">
-
-        🌱
-
-        <span id="testoGreenPoints">
-            Green Points
-        </span>:
-
-        <strong id="greenPoints">
-            0
-        </strong>
+        </div>
 
     </div>
 
-    <div class="statistica">
 
-        🏆
+    <!-- =========================
+         LOGIN
+    ========================== -->
 
-        <span id="testoLivello">
-            Livello
-        </span>:
+    <div id="login" style="display:none;">
 
-        <strong id="livello">
-            1
-        </strong>
+        <h2 id="titoloLogin">
+            🔐 Accedi
+        </h2>
+
+        <label id="labelLoginEmail" for="loginEmail">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="La tua email"
+            autocomplete="email"
+        >
+
+        <label id="labelLoginPassword" for="loginPassword">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="La tua password"
+            autocomplete="current-password"
+        >
+
+        <button
+            type="button"
+            class="azione"
+            onclick="accedi()"
+            id="bottoneAccedi"
+        >
+            🔐 Accedi
+        </button>
+
+        <div class="cambio">
+
+            <span id="nonAccount">
+                Non hai ancora un account?
+            </span>
+
+            <button
+                type="button"
+                onclick="mostraRegistrazione()"
+                id="vaiRegistrazione"
+            >
+                Registrati
+            </button>
+
+        </div>
 
     </div>
 
+
+    <!-- =========================
+         PROFILO
+    ========================== -->
+
+    <div id="profilo" class="profilo">
+
+        <h2 id="titoloProfilo">
+            👤 Il mio profilo
+        </h2>
+
+        <p id="benvenuto">
+            Benvenuto!
+        </p>
+
+        <div class="statistiche">
+
+            <div class="statistica">
+
+                🌱
+
+                <span id="testoGreenPoints">
+                    Green Points
+                </span>:
+
+                <strong id="greenPoints">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="statistica">
+
+                🏆
+
+                <span id="testoLivello">
+                    Livello
+                </span>:
+
+                <strong id="livello">
+                    1
+                </strong>
+
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            class="azione"
+            onclick="logout()"
+            id="bottoneLogout"
+        >
+            🚪 Esci
+        </button>
+
+    </div>
+
+
+    <div id="messaggio"></div>
+
+
+    <a
+        href="index.html"
+        class="home"
+        id="home"
+    >
+        🏠 Torna a EcoGame
+    </a>
+
 </div>
-
-<button
-    class="azione"
-    onclick="logout()"
-    id="bottoneLogout"
->
-    🚪 Esci
-</button>
 ```
-
-</div>
-
-<div id="messaggio"></div>
-
-<a
-href="index.html"
-class="home"
-id="home"
-
->
-
-```
-🏠 Torna a EcoGame
-```
-
-</a>
-
-</div>
 
 </div>
 
@@ -428,762 +449,1192 @@ id="home"
 
 <!-- =========================
      SUPABASE
-========================= -->
+========================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const SUPABASE_URL =
-    "https://zrxssuigzisgpcdesjvc.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =========================
-   CAMBIO LINGUA
-========================= */
-
-function cambiaLingua(lingua) {
-
-    localStorage.setItem(
-        "ecoGameLingua",
-        lingua
-    );
-
-
-    if (lingua === "it") {
-
-        document.documentElement.lang = "it";
-
-        document.getElementById("titolo").textContent =
-            "👤 Crea il tuo account";
-
-        document.getElementById("labelUsername").textContent =
-            "Username";
-
-        document.getElementById("labelEmail").textContent =
-            "Email";
-
-        document.getElementById("labelPassword").textContent =
-            "Password";
-
-        document.getElementById("username").placeholder =
-            "Il tuo username";
-
-        document.getElementById("email").placeholder =
-            "La tua email";
-
-        document.getElementById("password").placeholder =
-            "La tua password";
-
-        document.getElementById("bottoneRegistrati").textContent =
-            "🌱 Crea account";
-
-        document.getElementById("giaAccount").textContent =
-            "Hai già un account?";
-
-        document.getElementById("vaiLogin").textContent =
-            "Accedi";
-
-        document.getElementById("titoloLogin").textContent =
-            "🔐 Accedi";
-
-        document.getElementById("labelLoginEmail").textContent =
-            "Email";
-
-        document.getElementById("labelLoginPassword").textContent =
-            "Password";
-
-        document.getElementById("loginEmail").placeholder =
-            "La tua email";
-
-        document.getElementById("loginPassword").placeholder =
-            "La tua password";
-
-        document.getElementById("bottoneAccedi").textContent =
-            "🔐 Accedi";
-
-        document.getElementById("nonAccount").textContent =
-            "Non hai ancora un account?";
-
-        document.getElementById("vaiRegistrazione").textContent =
-            "Registrati";
-
-        document.getElementById("titoloProfilo").textContent =
-            "👤 Il mio profilo";
-
-        document.getElementById("testoGreenPoints").textContent =
-            "Green Points";
-
-        document.getElementById("testoLivello").textContent =
-            "Livello";
-
-        document.getElementById("bottoneLogout").textContent =
-            "🚪 Esci";
-
-        document.getElementById("home").textContent =
-            "🏠 Torna a EcoGame";
-
-        document.getElementById("footer").textContent =
-            "🌱 EcoGame — Imparare l'ecologia giocando";
-    }
-
-
-    if (lingua === "en") {
-
-        document.documentElement.lang = "en";
-
-        document.getElementById("titolo").textContent =
-            "👤 Create your account";
-
-        document.getElementById("labelUsername").textContent =
-            "Username";
-
-        document.getElementById("labelEmail").textContent =
-            "Email";
-
-        document.getElementById("labelPassword").textContent =
-            "Password";
-
-        document.getElementById("username").placeholder =
-            "Your username";
-
-        document.getElementById("email").placeholder =
-            "Your email";
-
-        document.getElementById("password").placeholder =
-            "Your password";
-
-        document.getElementById("bottoneRegistrati").textContent =
-            "🌱 Create account";
-
-        document.getElementById("giaAccount").textContent =
-            "Already have an account?";
-
-        document.getElementById("vaiLogin").textContent =
-            "Login";
-
-        document.getElementById("titoloLogin").textContent =
-            "🔐 Login";
-
-        document.getElementById("labelLoginEmail").textContent =
-            "Email";
-
-        document.getElementById("labelLoginPassword").textContent =
-            "Password";
-
-        document.getElementById("loginEmail").placeholder =
-            "Your email";
-
-        document.getElementById("loginPassword").placeholder =
-            "Your password";
-
-        document.getElementById("bottoneAccedi").textContent =
-            "🔐 Login";
-
-        document.getElementById("nonAccount").textContent =
-            "Don't have an account yet?";
-
-        document.getElementById("vaiRegistrazione").textContent =
-            "Sign up";
-
-        document.getElementById("titoloProfilo").textContent =
-            "👤 My profile";
-
-        document.getElementById("testoGreenPoints").textContent =
-            "Green Points";
-
-        document.getElementById("testoLivello").textContent =
-            "Level";
-
-        document.getElementById("bottoneLogout").textContent =
-            "🚪 Logout";
-
-        document.getElementById("home").textContent =
-            "🏠 Back to EcoGame";
-
-        document.getElementById("footer").textContent =
-            "🌱 EcoGame — Learn about ecology while playing";
-    }
-
-
-    if (lingua === "fi") {
-
-        document.documentElement.lang = "fi";
-
-        document.getElementById("titolo").textContent =
-            "👤 Luo käyttäjätili";
-
-        document.getElementById("labelUsername").textContent =
-            "Käyttäjänimi";
-
-        document.getElementById("labelEmail").textContent =
-            "Sähköposti";
-
-        document.getElementById("labelPassword").textContent =
-            "Salasana";
-
-        document.getElementById("username").placeholder =
-            "Käyttäjänimesi";
-
-        document.getElementById("email").placeholder =
-            "Sähköpostiosoitteesi";
-
-        document.getElementById("password").placeholder =
-            "Salasanasi";
-
-        document.getElementById("bottoneRegistrati").textContent =
-            "🌱 Luo tili";
-
-        document.getElementById("giaAccount").textContent =
-            "Onko sinulla jo tili?";
-
-        document.getElementById("vaiLogin").textContent =
-            "Kirjaudu";
-
-        document.getElementById("titoloLogin").textContent =
-            "🔐 Kirjaudu";
-
-        document.getElementById("labelLoginEmail").textContent =
-            "Sähköposti";
-
-        document.getElementById("labelLoginPassword").textContent =
-            "Salasana";
-
-        document.getElementById("loginEmail").placeholder =
-            "Sähköpostiosoitteesi";
-
-        document.getElementById("loginPassword").placeholder =
-            "Salasanasi";
-
-        document.getElementById("bottoneAccedi").textContent =
-            "🔐 Kirjaudu";
-
-        document.getElementById("nonAccount").textContent =
-            "Eikö sinulla ole vielä tiliä?";
-
-        document.getElementById("vaiRegistrazione").textContent =
-            "Rekisteröidy";
-
-        document.getElementById("titoloProfilo").textContent =
-            "👤 Oma profiili";
-
-        document.getElementById("testoGreenPoints").textContent =
-            "Green Points";
-
-        document.getElementById("testoLivello").textContent =
-            "Taso";
-
-        document.getElementById("bottoneLogout").textContent =
-            "🚪 Kirjaudu ulos";
-
-        document.getElementById("home").textContent =
-            "🏠 Takaisin EcoGameen";
-
-        document.getElementById("footer").textContent =
-            "🌱 EcoGame — Opi ekologiasta pelaamalla";
-    }
-
-}
-
-
-/* =========================
-   MESSAGGI TRADOTTI
-========================= */
-
-function messaggioTradotto(
-    italiano,
-    inglese,
-    finlandese
-) {
-
-    const lingua =
-        localStorage.getItem("ecoGameLingua") || "it";
-
-    if (lingua === "en") {
-        return inglese;
-    }
-
-    if (lingua === "fi") {
-        return finlandese;
-    }
-
-    return italiano;
-}
-
-
-/* =========================
-   REGISTRAZIONE
-========================= */
-
-async function registrati() {
-
-    const username =
-        document.getElementById("username").value.trim();
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const password =
-        document.getElementById("password").value;
-
-
-    if (!username || !email || !password) {
-
-        mostraMessaggio(
-            messaggioTradotto(
-                "⚠️ Compila tutti i campi.",
-                "⚠️ Please fill in all fields.",
-                "⚠️ Täytä kaikki kentät."
-            )
+    /* =========================
+       SUPABASE
+    ========================== */
+
+    const SUPABASE_URL =
+        "https://zrxssuigzisgpcdesjvc.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
         );
 
-        return;
-    }
 
+    /* =========================
+       TRADUZIONI
+    ========================== */
 
-    if (password.length < 6) {
+    function cambiaLingua(lingua) {
 
-        mostraMessaggio(
-            messaggioTradotto(
-                "⚠️ La password deve contenere almeno 6 caratteri.",
-                "⚠️ Password must contain at least 6 characters.",
-                "⚠️ Salasanassa täytyy olla vähintään 6 merkkiä."
-            )
+        localStorage.setItem(
+            "ecoGameLingua",
+            lingua
         );
 
-        return;
-    }
+        if (lingua === "it") {
 
+            document.documentElement.lang = "it";
 
-    mostraMessaggio(
-        messaggioTradotto(
-            "🌱 Creazione account...",
-            "🌱 Creating account...",
-            "🌱 Tiliä luodaan..."
-        )
-    );
+            document.getElementById("titolo").textContent =
+                "👤 Crea il tuo account";
 
+            document.getElementById("labelUsername").textContent =
+                "Username";
 
-    const bottone =
-        document.getElementById("bottoneRegistrati");
+            document.getElementById("labelEmail").textContent =
+                "Email";
 
-    bottone.disabled = true;
+            document.getElementById("labelPassword").textContent =
+                "Password";
 
+            document.getElementById("username").placeholder =
+                "Il tuo username";
 
-    try {
+            document.getElementById("email").placeholder =
+                "La tua email";
 
-        const { data, error } =
-            await supabaseClient.auth.signUp({
+            document.getElementById("password").placeholder =
+                "La tua password";
 
-                email: email,
+            document.getElementById("bottoneRegistrati").textContent =
+                "🌱 Crea account";
 
-                password: password,
+            document.getElementById("giaAccount").textContent =
+                "Hai già un account?";
 
-                options: {
+            document.getElementById("vaiLogin").textContent =
+                "Accedi";
 
-                    emailRedirectTo:
-                        "https://federica635.github.io/EcoGame/account.html",
+            document.getElementById("titoloLogin").textContent =
+                "🔐 Accedi";
 
-                    data: {
-                        username: username
-                    }
+            document.getElementById("labelLoginEmail").textContent =
+                "Email";
 
-                }
+            document.getElementById("labelLoginPassword").textContent =
+                "Password";
 
-            });
+            document.getElementById("loginEmail").placeholder =
+                "La tua email";
 
+            document.getElementById("loginPassword").placeholder =
+                "La tua password";
 
-        if (error) {
+            document.getElementById("bottoneAccedi").textContent =
+                "🔐 Accedi";
 
-            console.error(error);
+            document.getElementById("nonAccount").textContent =
+                "Non hai ancora un account?";
 
-            mostraMessaggio(
-                "❌ " + error.message
-            );
+            document.getElementById("vaiRegistrazione").textContent =
+                "Registrati";
 
-            bottone.disabled = false;
+            document.getElementById("titoloProfilo").textContent =
+                "👤 Il mio profilo";
+
+            document.getElementById("testoGreenPoints").textContent =
+                "Green Points";
+
+            document.getElementById("testoLivello").textContent =
+                "Livello";
+
+            document.getElementById("bottoneLogout").textContent =
+                "🚪 Esci";
+
+            document.getElementById("home").textContent =
+                "🏠 Torna a EcoGame";
+
+            document.getElementById("footer").textContent =
+                "🌱 EcoGame — Imparare l'ecologia giocando";
 
             return;
         }
 
 
-        if (!data.session) {
+        if (lingua === "en") {
+
+            document.documentElement.lang = "en";
+
+            document.getElementById("titolo").textContent =
+                "👤 Create your account";
+
+            document.getElementById("labelUsername").textContent =
+                "Username";
+
+            document.getElementById("labelEmail").textContent =
+                "Email";
+
+            document.getElementById("labelPassword").textContent =
+                "Password";
+
+            document.getElementById("username").placeholder =
+                "Your username";
+
+            document.getElementById("email").placeholder =
+                "Your email";
+
+            document.getElementById("password").placeholder =
+                "Your password";
+
+            document.getElementById("bottoneRegistrati").textContent =
+                "🌱 Create account";
+
+            document.getElementById("giaAccount").textContent =
+                "Already have an account?";
+
+            document.getElementById("vaiLogin").textContent =
+                "Login";
+
+            document.getElementById("titoloLogin").textContent =
+                "🔐 Login";
+
+            document.getElementById("labelLoginEmail").textContent =
+                "Email";
+
+            document.getElementById("labelLoginPassword").textContent =
+                "Password";
+
+            document.getElementById("loginEmail").placeholder =
+                "Your email";
+
+            document.getElementById("loginPassword").placeholder =
+                "Your password";
+
+            document.getElementById("bottoneAccedi").textContent =
+                "🔐 Login";
+
+            document.getElementById("nonAccount").textContent =
+                "Don't have an account yet?";
+
+            document.getElementById("vaiRegistrazione").textContent =
+                "Sign up";
+
+            document.getElementById("titoloProfilo").textContent =
+                "👤 My profile";
+
+            document.getElementById("testoGreenPoints").textContent =
+                "Green Points";
+
+            document.getElementById("testoLivello").textContent =
+                "Level";
+
+            document.getElementById("bottoneLogout").textContent =
+                "🚪 Logout";
+
+            document.getElementById("home").textContent =
+                "🏠 Back to EcoGame";
+
+            document.getElementById("footer").textContent =
+                "🌱 EcoGame — Learn about ecology while playing";
+
+            return;
+        }
+
+
+        if (lingua === "fi") {
+
+            document.documentElement.lang = "fi";
+
+            document.getElementById("titolo").textContent =
+                "👤 Luo käyttäjätili";
+
+            document.getElementById("labelUsername").textContent =
+                "Käyttäjänimi";
+
+            document.getElementById("labelEmail").textContent =
+                "Sähköposti";
+
+            document.getElementById("labelPassword").textContent =
+                "Salasana";
+
+            document.getElementById("username").placeholder =
+                "Käyttäjänimesi";
+
+            document.getElementById("email").placeholder =
+                "Sähköpostiosoitteesi";
+
+            document.getElementById("password").placeholder =
+                "Salasanasi";
+
+            document.getElementById("bottoneRegistrati").textContent =
+                "🌱 Luo tili";
+
+            document.getElementById("giaAccount").textContent =
+                "Onko sinulla jo tili?";
+
+            document.getElementById("vaiLogin").textContent =
+                "Kirjaudu";
+
+            document.getElementById("titoloLogin").textContent =
+                "🔐 Kirjaudu";
+
+            document.getElementById("labelLoginEmail").textContent =
+                "Sähköposti";
+
+            document.getElementById("labelLoginPassword").textContent =
+                "Salasana";
+
+            document.getElementById("loginEmail").placeholder =
+                "Sähköpostiosoitteesi";
+
+            document.getElementById("loginPassword").placeholder =
+                "Salasanasi";
+
+            document.getElementById("bottoneAccedi").textContent =
+                "🔐 Kirjaudu";
+
+            document.getElementById("nonAccount").textContent =
+                "Eikö sinulla ole vielä tiliä?";
+
+            document.getElementById("vaiRegistrazione").textContent =
+                "Rekisteröidy";
+
+            document.getElementById("titoloProfilo").textContent =
+                "👤 Oma profiili";
+
+            document.getElementById("testoGreenPoints").textContent =
+                "Green Points";
+
+            document.getElementById("testoLivello").textContent =
+                "Taso";
+
+            document.getElementById("bottoneLogout").textContent =
+                "🚪 Kirjaudu ulos";
+
+            document.getElementById("home").textContent =
+                "🏠 Takaisin EcoGameen";
+
+            document.getElementById("footer").textContent =
+                "🌱 EcoGame — Opi ekologiasta pelaamalla";
+        }
+    }
+
+
+    function messaggioTradotto(
+        italiano,
+        inglese,
+        finlandese
+    ) {
+
+        const lingua =
+            localStorage.getItem("ecoGameLingua") || "it";
+
+        if (lingua === "en") {
+            return inglese;
+        }
+
+        if (lingua === "fi") {
+            return finlandese;
+        }
+
+        return italiano;
+    }
+
+
+    /* =========================
+       REGISTRAZIONE
+    ========================== */
+
+    async function registrati() {
+
+        const username =
+            document.getElementById("username")
+                .value
+                .trim();
+
+        const email =
+            document.getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            document.getElementById("password")
+                .value;
+
+
+        if (!username || !email || !password) {
 
             mostraMessaggio(
                 messaggioTradotto(
-                    "✅ Account creato! Controlla la tua email e clicca sul link di conferma.",
-                    "✅ Account created! Check your email and click the confirmation link.",
-                    "✅ Tili luotu! Tarkista sähköpostisi ja napsauta vahvistuslinkkiä."
-                )
+                    "⚠️ Compila tutti i campi.",
+                    "⚠️ Please fill in all fields.",
+                    "⚠️ Täytä kaikki kentät."
+                ),
+                false
             );
 
-        } else {
+            return;
+        }
+
+
+        if (username.length < 3) {
 
             mostraMessaggio(
                 messaggioTradotto(
-                    "✅ Account creato e accesso effettuato!",
-                    "✅ Account created and logged in!",
-                    "✅ Tili luotu ja kirjautuminen onnistui!"
-                )
+                    "⚠️ Lo username deve contenere almeno 3 caratteri.",
+                    "⚠️ Username must contain at least 3 characters.",
+                    "⚠️ Käyttäjänimessä täytyy olla vähintään 3 merkkiä."
+                ),
+                false
             );
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "⚠️ La password deve contenere almeno 6 caratteri.",
+                    "⚠️ Password must contain at least 6 characters.",
+                    "⚠️ Salasanassa täytyy olla vähintään 6 merkkiä."
+                ),
+                false
+            );
+
+            return;
+        }
+
+
+        const bottone =
+            document.getElementById("bottoneRegistrati");
+
+        bottone.disabled = true;
+
+
+        mostraMessaggio(
+            messaggioTradotto(
+                "🌱 Creazione account...",
+                "🌱 Creating account...",
+                "🌱 Tiliä luodaan..."
+            ),
+            true
+        );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        emailRedirectTo:
+                            "https://federica635.github.io/EcoGame/account.html",
+
+                        data: {
+                            username: username
+                        }
+                    }
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Errore registrazione:",
+                    error
+                );
+
+                mostraMessaggio(
+                    messaggioErroreSupabase(error),
+                    false
+                );
+
+                bottone.disabled = false;
+
+                return;
+            }
+
+
+            /*
+             * Se la conferma email è attiva,
+             * Supabase normalmente non crea subito
+             * una sessione.
+             */
+
+            if (!data.session) {
+
+                mostraMessaggio(
+                    messaggioTradotto(
+                        "✅ Account creato! Controlla la tua email e clicca sul link di conferma.",
+                        "✅ Account created! Check your email and click the confirmation link.",
+                        "✅ Tili luotu! Tarkista sähköpostisi ja napsauta vahvistuslinkkiä."
+                    ),
+                    true
+                );
+
+            } else {
+
+                /*
+                 * Se la conferma email non è richiesta,
+                 * l'utente viene autenticato subito.
+                 */
+
+                mostraMessaggio(
+                    messaggioTradotto(
+                        "✅ Account creato e accesso effettuato!",
+                        "✅ Account created and logged in!",
+                        "✅ Tili luotu ja kirjautuminen onnistui!"
+                    ),
+                    true
+                );
+
+                await creaProfiloSeNecessario(
+                    data.user,
+                    username
+                );
+
+                await mostraProfilo();
+            }
+
+
+        } catch (errore) {
+
+            console.error(
+                "Errore inatteso:",
+                errore
+            );
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "❌ Si è verificato un errore durante la registrazione.",
+                    "❌ An error occurred during registration.",
+                    "❌ Rekisteröinnissä tapahtui virhe."
+                ),
+                false
+            );
+        }
+
+
+        bottone.disabled = false;
+    }
+
+
+    /* =========================
+       CREAZIONE PROFILO
+    ========================== */
+
+    async function creaProfiloSeNecessario(
+        user,
+        username
+    ) {
+
+        if (!user) {
+            return;
+        }
+
+
+        const {
+            data: profiloEsistente,
+            error: erroreRicerca
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("id")
+                .eq("id", user.id)
+                .maybeSingle();
+
+
+        if (erroreRicerca) {
+
+            console.error(
+                "Errore ricerca profilo:",
+                erroreRicerca
+            );
+
+            return;
+        }
+
+
+        if (profiloEsistente) {
+            return;
+        }
+
+
+        const {
+            error: erroreCreazione
+        } =
+            await supabaseClient
+                .from("profiles")
+                .insert({
+
+                    id: user.id,
+
+                    username:
+                        username ||
+                        user.user_metadata?.username ||
+                        "EcoPlayer",
+
+                    green_points: 0,
+
+                    level: 1
+                });
+
+
+        if (erroreCreazione) {
+
+            console.error(
+                "Errore creazione profilo:",
+                erroreCreazione
+            );
+        }
+    }
+
+
+    /* =========================
+       LOGIN
+    ========================== */
+
+    async function accedi() {
+
+        const email =
+            document.getElementById("loginEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            document.getElementById("loginPassword")
+                .value;
+
+
+        if (!email || !password) {
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "⚠️ Inserisci email e password.",
+                    "⚠️ Enter your email and password.",
+                    "⚠️ Syötä sähköpostiosoitteesi ja salasanasi."
+                ),
+                false
+            );
+
+            return;
+        }
+
+
+        const bottone =
+            document.getElementById("bottoneAccedi");
+
+        bottone.disabled = true;
+
+
+        mostraMessaggio(
+            messaggioTradotto(
+                "🔐 Accesso...",
+                "🔐 Logging in...",
+                "🔐 Kirjaudutaan..."
+            ),
+            true
+        );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: password
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Errore login:",
+                    error
+                );
+
+                mostraMessaggio(
+                    messaggioErroreSupabase(error),
+                    false
+                );
+
+                bottone.disabled = false;
+
+                return;
+            }
+
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "✅ Accesso effettuato!",
+                    "✅ Login successful!",
+                    "✅ Kirjautuminen onnistui!"
+                ),
+                true
+            );
+
+
+            /*
+             * Se per qualche motivo il profilo non esiste,
+             * proviamo a crearlo usando lo username salvato
+             * nei metadata dell'utente.
+             */
+
+            if (data.user) {
+
+                const username =
+                    data.user.user_metadata?.username ||
+                    data.user.email?.split("@")[0] ||
+                    "EcoPlayer";
+
+                await creaProfiloSeNecessario(
+                    data.user,
+                    username
+                );
+            }
+
 
             await mostraProfilo();
+
+
+        } catch (errore) {
+
+            console.error(
+                "Errore inatteso:",
+                errore
+            );
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "❌ Errore durante l'accesso.",
+                    "❌ Login error.",
+                    "❌ Kirjautumisessa tapahtui virhe."
+                ),
+                false
+            );
         }
 
 
-    } catch (errore) {
-
-        console.error(errore);
-
-        mostraMessaggio(
-            messaggioTradotto(
-                "❌ Si è verificato un errore durante la registrazione.",
-                "❌ An error occurred during registration.",
-                "❌ Rekisteröinnissä tapahtui virhe."
-            )
-        );
+        bottone.disabled = false;
     }
 
 
-    bottone.disabled = false;
-}
+    /* =========================
+       PROFILO
+    ========================== */
+
+    async function mostraProfilo() {
+
+        const {
+            data: {
+                user
+            },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
 
 
-/* =========================
-   LOGIN
-========================= */
+        if (userError || !user) {
 
-async function accedi() {
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-    const password =
-        document.getElementById("loginPassword").value;
-
-
-    if (!email || !password) {
-
-        mostraMessaggio(
-            messaggioTradotto(
-                "⚠️ Inserisci email e password.",
-                "⚠️ Enter your email and password.",
-                "⚠️ Syötä sähköpostiosoitteesi ja salasanasi."
-            )
-        );
-
-        return;
-    }
-
-
-    mostraMessaggio(
-        messaggioTradotto(
-            "🔐 Accesso...",
-            "🔐 Logging in...",
-            "🔐 Kirjaudutaan..."
-        )
-    );
-
-
-    const bottone =
-        document.getElementById("bottoneAccedi");
-
-    bottone.disabled = true;
-
-
-    try {
-
-        const { error } =
-            await supabaseClient.auth.signInWithPassword({
-
-                email: email,
-                password: password
-
-            });
-
-
-        if (error) {
-
-            console.error(error);
-
-            mostraMessaggio(
-                "❌ " + error.message
+            console.error(
+                "Utente non trovato:",
+                userError
             );
-
-            bottone.disabled = false;
 
             return;
         }
 
 
-        mostraMessaggio(
-            messaggioTradotto(
-                "✅ Accesso effettuato!",
-                "✅ Login successful!",
-                "✅ Kirjautuminen onnistui!"
-            )
-        );
+        /*
+         * Recuperiamo il profilo.
+         */
+
+        let {
+            data: profilo,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "username, green_points, level"
+                )
+                .eq("id", user.id)
+                .maybeSingle();
 
 
-        await mostraProfilo();
+        /*
+         * Se il profilo non esiste,
+         * lo creiamo automaticamente.
+         */
+
+        if (!profilo && !error) {
+
+            const username =
+                user.user_metadata?.username ||
+                user.email?.split("@")[0] ||
+                "EcoPlayer";
 
 
-    } catch (errore) {
+            await creaProfiloSeNecessario(
+                user,
+                username
+            );
 
-        console.error(errore);
 
-        mostraMessaggio(
-            messaggioTradotto(
-                "❌ Errore durante l'accesso.",
-                "❌ Login error.",
-                "❌ Kirjautumisessa tapahtui virhe."
-            )
-        );
+            const risultato =
+                await supabaseClient
+                    .from("profiles")
+                    .select(
+                        "username, green_points, level"
+                    )
+                    .eq("id", user.id)
+                    .maybeSingle();
+
+
+            profilo =
+                risultato.data;
+
+            error =
+                risultato.error;
+        }
+
+
+        if (error) {
+
+            console.error(
+                "Errore caricamento profilo:",
+                error
+            );
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "❌ Impossibile caricare il profilo. Controlla la tabella profiles su Supabase.",
+                    "❌ Unable to load the profile. Check the profiles table in Supabase.",
+                    "❌ Profiilia ei voitu ladata. Tarkista Supabasen profiles-taulu."
+                ),
+                false
+            );
+
+            return;
+        }
+
+
+        document.getElementById("registrazione")
+            .style.display = "none";
+
+        document.getElementById("login")
+            .style.display = "none";
+
+        document.getElementById("profilo")
+            .style.display = "block";
+
+
+        const nome =
+            profilo?.username ||
+            user.user_metadata?.username ||
+            user.email ||
+            "EcoPlayer";
+
+
+        document.getElementById("benvenuto")
+            .textContent =
+            benvenutoTradotto(nome);
+
+
+        document.getElementById("greenPoints")
+            .textContent =
+            profilo?.green_points ?? 0;
+
+
+        document.getElementById("livello")
+            .textContent =
+            profilo?.level ?? 1;
     }
 
 
-    bottone.disabled = false;
-}
+    /* =========================
+       BENVENUTO
+    ========================== */
+
+    function benvenutoTradotto(nome) {
+
+        const lingua =
+            localStorage.getItem("ecoGameLingua") || "it";
 
 
-/* =========================
-   PROFILO
-========================= */
-
-async function mostraProfilo() {
-
-    const {
-        data: { user },
-        error: userError
-    } = await supabaseClient.auth.getUser();
+        if (lingua === "en") {
+            return "Welcome, @" + nome + "!";
+        }
 
 
-    if (userError || !user) {
-        return;
+        if (lingua === "fi") {
+            return "Tervetuloa, @" + nome + "!";
+        }
+
+
+        return "Benvenuto, @" + nome + "!";
     }
 
 
-    const {
-        data: profilo,
+    /* =========================
+       LOGOUT
+    ========================== */
+
+    async function logout() {
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Errore logout:",
+                    error
+                );
+
+                mostraMessaggio(
+                    messaggioTradotto(
+                        "❌ Errore durante il logout.",
+                        "❌ Logout error.",
+                        "❌ Uloskirjautumisessa tapahtui virhe."
+                    ),
+                    false
+                );
+
+                return;
+            }
+
+
+            document.getElementById("profilo")
+                .style.display = "none";
+
+            document.getElementById("login")
+                .style.display = "none";
+
+            document.getElementById("registrazione")
+                .style.display = "block";
+
+
+            document.getElementById("loginEmail")
+                .value = "";
+
+            document.getElementById("loginPassword")
+                .value = "";
+
+
+            mostraMessaggio(
+                messaggioTradotto(
+                    "🚪 Logout effettuato.",
+                    "🚪 Logged out.",
+                    "🚪 Uloskirjautuminen onnistui."
+                ),
+                true
+            );
+
+
+        } catch (errore) {
+
+            console.error(
+                "Errore logout:",
+                errore
+            );
+        }
+    }
+
+
+    /* =========================
+       MOSTRA LOGIN
+    ========================== */
+
+    function mostraLogin() {
+
+        document.getElementById("registrazione")
+            .style.display = "none";
+
+        document.getElementById("login")
+            .style.display = "block";
+
+        document.getElementById("profilo")
+            .style.display = "none";
+
+        document.getElementById("messaggio")
+            .textContent = "";
+
+        document.getElementById("loginEmail")
+            .focus();
+    }
+
+
+    /* =========================
+       MOSTRA REGISTRAZIONE
+    ========================== */
+
+    function mostraRegistrazione() {
+
+        document.getElementById("login")
+            .style.display = "none";
+
+        document.getElementById("registrazione")
+            .style.display = "block";
+
+        document.getElementById("profilo")
+            .style.display = "none";
+
+        document.getElementById("messaggio")
+            .textContent = "";
+
+        document.getElementById("username")
+            .focus();
+    }
+
+
+    /* =========================
+       MESSAGGIO
+    ========================== */
+
+    function mostraMessaggio(
+        testo,
+        successo = false
+    ) {
+
+        const elemento =
+            document.getElementById("messaggio");
+
+
+        elemento.textContent = testo;
+
+
+        elemento.className =
+            successo
+                ? "successo"
+                : "errore";
+    }
+
+
+    /* =========================
+       ERRORI SUPABASE
+    ========================== */
+
+    function messaggioErroreSupabase(
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("username, green_points, level")
-        .eq("id", user.id)
-        .single();
+    ) {
+
+        const messaggio =
+            (error?.message || "")
+                .toLowerCase();
 
 
-    if (error) {
-
-        console.error(error);
-
-        mostraMessaggio(
-            messaggioTradotto(
-                "❌ Impossibile caricare il profilo.",
-                "❌ Unable to load profile.",
-                "❌ Profiilia ei voitu ladata."
+        if (
+            messaggio.includes(
+                "user already registered"
             )
-        );
+        ) {
 
-        return;
-    }
-
-
-    document.getElementById("registrazione")
-        .style.display = "none";
-
-    document.getElementById("login")
-        .style.display = "none";
-
-    document.getElementById("profilo")
-        .style.display = "block";
+            return messaggioTradotto(
+                "❌ Questa email è già registrata. Prova ad accedere.",
+                "❌ This email is already registered. Try logging in.",
+                "❌ Tämä sähköpostiosoite on jo rekisteröity. Yritä kirjautua."
+            );
+        }
 
 
-    const nome =
-        profilo.username || user.email;
-
-
-    document.getElementById("benvenuto")
-        .textContent =
-        benvenutoTradotto(nome);
-
-
-    document.getElementById("greenPoints")
-        .textContent =
-        profilo.green_points ?? 0;
-
-
-    document.getElementById("livello")
-        .textContent =
-        profilo.level ?? 1;
-}
-
-
-/* =========================
-   BENVENUTO
-========================= */
-
-function benvenutoTradotto(nome) {
-
-    const lingua =
-        localStorage.getItem("ecoGameLingua") || "it";
-
-
-    if (lingua === "en") {
-        return "Welcome, @" + nome + "!";
-    }
-
-
-    if (lingua === "fi") {
-        return "Tervetuloa, @" + nome + "!";
-    }
-
-
-    return "Benvenuto, @" + nome + "!";
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout() {
-
-    const { error } =
-        await supabaseClient.auth.signOut();
-
-
-    if (error) {
-
-        console.error(error);
-
-        mostraMessaggio(
-            messaggioTradotto(
-                "❌ Errore durante il logout.",
-                "❌ Logout error.",
-                "❌ Uloskirjautumisessa tapahtui virhe."
+        if (
+            messaggio.includes(
+                "invalid login credentials"
             )
-        );
+        ) {
 
-        return;
+            return messaggioTradotto(
+                "❌ Email o password non corretti.",
+                "❌ Incorrect email or password.",
+                "❌ Virheellinen sähköposti tai salasana."
+            );
+        }
+
+
+        if (
+            messaggio.includes(
+                "email not confirmed"
+            )
+        ) {
+
+            return messaggioTradotto(
+                "❌ Devi prima confermare la tua email.",
+                "❌ You must confirm your email first.",
+                "❌ Sinun täytyy vahvistaa sähköpostiosoitteesi ensin."
+            );
+        }
+
+
+        if (
+            messaggio.includes(
+                "password should be at least"
+            )
+        ) {
+
+            return messaggioTradotto(
+                "❌ La password è troppo corta.",
+                "❌ The password is too short.",
+                "❌ Salasana on liian lyhyt."
+            );
+        }
+
+
+        return "❌ " + (
+            error?.message ||
+            "Errore sconosciuto."
+        );
     }
 
 
-    document.getElementById("profilo")
-        .style.display = "none";
+    /* =========================
+       CONTROLLO SESSIONE
+    ========================== */
 
-    document.getElementById("registrazione")
-        .style.display = "block";
+    async function controllaSessione() {
+
+        try {
+
+            const {
+                data: {
+                    session
+                },
+                error
+            } =
+                await supabaseClient.auth.getSession();
 
 
-    mostraMessaggio(
-        messaggioTradotto(
-            "🚪 Logout effettuato.",
-            "🚪 Logged out.",
-            "🚪 Uloskirjautuminen onnistui."
-        )
+            if (error) {
+
+                console.error(
+                    "Errore sessione:",
+                    error
+                );
+
+                return;
+            }
+
+
+            if (session) {
+
+                await mostraProfilo();
+
+            } else {
+
+                document.getElementById("registrazione")
+                    .style.display = "block";
+
+                document.getElementById("login")
+                    .style.display = "none";
+
+                document.getElementById("profilo")
+                    .style.display = "none";
+            }
+
+
+        } catch (errore) {
+
+            console.error(
+                "Errore controllo sessione:",
+                errore
+            );
+        }
+    }
+
+
+    /* =========================
+       CAMBIO SESSIONE SUPABASE
+    ========================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function(event, session) {
+
+            console.log(
+                "Auth event:",
+                event
+            );
+
+
+            if (
+                event === "SIGNED_IN" &&
+                session
+            ) {
+
+                /*
+                 * Evitiamo di eseguire troppo codice
+                 * durante il caricamento iniziale.
+                 */
+
+                setTimeout(
+                    async function() {
+                        await mostraProfilo();
+                    },
+                    0
+                );
+            }
+
+
+            if (
+                event === "SIGNED_OUT"
+            ) {
+
+                document.getElementById("profilo")
+                    .style.display = "none";
+
+                document.getElementById("login")
+                    .style.display = "none";
+
+                document.getElementById("registrazione")
+                    .style.display = "block";
+            }
+        }
     );
-}
 
 
-/* =========================
-   MOSTRA LOGIN
-========================= */
+    /* =========================
+       AVVIO
+    ========================== */
 
-function mostraLogin() {
+    window.addEventListener(
+        "load",
+        async function() {
 
-    document.getElementById("registrazione")
-        .style.display = "none";
-
-    document.getElementById("login")
-        .style.display = "block";
-
-    document.getElementById("profilo")
-        .style.display = "none";
-
-    document.getElementById("messaggio")
-        .textContent = "";
-}
+            const lingua =
+                localStorage.getItem(
+                    "ecoGameLingua"
+                ) || "it";
 
 
-/* =========================
-   MOSTRA REGISTRAZIONE
-========================= */
-
-function mostraRegistrazione() {
-
-    document.getElementById("login")
-        .style.display = "none";
-
-    document.getElementById("registrazione")
-        .style.display = "block";
-
-    document.getElementById("profilo")
-        .style.display = "none";
-
-    document.getElementById("messaggio")
-        .textContent = "";
-}
+            cambiaLingua(lingua);
 
 
-/* =========================
-   MESSAGGIO
-========================= */
-
-function mostraMessaggio(testo) {
-
-    document.getElementById("messaggio")
-        .textContent = testo;
-}
-
-
-/* =========================
-   CONTROLLO SESSIONE
-========================= */
-
-async function controllaSessione() {
-
-    const {
-        data: { session },
-        error
-    } = await supabaseClient.auth.getSession();
-
-
-    if (error) {
-
-        console.error(error);
-        return;
-    }
-
-
-    if (session) {
-        await mostraProfilo();
-    }
-}
-
-
-/* =========================
-   AVVIO
-========================= */
-
-window.onload = async function() {
-
-    const lingua =
-        localStorage.getItem("ecoGameLingua") || "it";
-
-    cambiaLingua(lingua);
-
-    await controllaSessione();
-};
+            await controllaSessione();
+        }
+    );
 
 </script>
 
