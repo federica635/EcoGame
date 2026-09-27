@@ -369,8 +369,6 @@ header {
         </div>
 
 
-        <!-- GREEN POINTS -->
-
         <div class="stat green-points">
 
             <div class="titolo" id="labelGreenPoints">
@@ -602,19 +600,12 @@ const traduzioni = {
 
         testi: [
             "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
-
             "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
-
             "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
-
             "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
-
             "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
-
             "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
-
             "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
-
             "Devi scegliere la strategia generale per il futuro della foresta."
         ],
 
@@ -797,19 +788,12 @@ const traduzioni = {
 
         testi: [
             "Part of the forest is home to rare species. Economic pressure on the area is increasing. You must decide how to intervene.",
-
             "Rainfall has decreased for the second consecutive year. The forest's waterways are showing flows below average.",
-
             "A plant species that is not native to the area is rapidly spreading along the edge of the forest.",
-
             "High temperatures and dry vegetation are increasing the risk of widespread fires during the summer.",
-
             "After heavy rainfall, some slopes show signs of erosion. Fertile soil is decreasing.",
-
             "Part of the local population depends economically on forest resources.",
-
             "Monitoring shows a sharp decline in an animal species that depends on mature forest.",
-
             "You must choose the overall strategy for the future of the forest."
         ],
 
@@ -992,19 +976,12 @@ const traduzioni = {
 
         testi: [
             "Osa metsästä on harvinaisten lajien elinympäristöä. Taloudellinen paine alueella kasvaa. Sinun on päätettävä, miten toimia.",
-
             "Sademäärä on vähentynyt jo toista vuotta peräkkäin. Metsän vesistöjen virtaamat ovat keskimääräistä pienempiä.",
-
             "Alueelle vieras kasvilaji leviää nopeasti metsän reunalla.",
-
             "Korkeat lämpötilat ja kuiva kasvillisuus lisäävät laajojen metsäpalojen riskiä kesällä.",
-
             "Voimakkaiden sateiden jälkeen jotkin rinteet osoittavat eroosion merkkejä. Hedelmällinen maaperä vähenee.",
-
             "Osa paikallisesta väestöstä on taloudellisesti riippuvainen metsän resursseista.",
-
             "Seuranta osoittaa voimakasta vähenemistä eläinlajissa, joka tarvitsee vanhaa metsää.",
-
             "Sinun on valittava metsän tulevaisuuden yleinen strategia."
         ],
 
@@ -1157,7 +1134,51 @@ document.documentElement.lang = linguaCorrente;
 
 
 /* =====================================================
-   MUUT KÄÄNNÖKSET
+   GREEN POINTS CONDIVISI TRA TUTTI I GIOCHI
+   ===================================================== */
+
+/*
+   Questa è la chiave comune che useremo anche
+   per Acqua, Animali ed EcoSort.
+*/
+const GREEN_POINTS_KEY = "greenPoints";
+
+
+/*
+   Legge il totale globale dei Green Points.
+*/
+function leggiGreenPointsTotali() {
+
+    return parseInt(
+        localStorage.getItem(GREEN_POINTS_KEY) || "0",
+        10
+    );
+
+}
+
+
+/*
+   Aggiunge i Green Points ottenuti in questa partita
+   al totale già presente nell'account.
+*/
+function salvaGreenPointsPartita() {
+
+    const totalePrecedente =
+        leggiGreenPointsTotali();
+
+    const nuovoTotale =
+        totalePrecedente + greenPoints;
+
+    localStorage.setItem(
+        GREEN_POINTS_KEY,
+        nuovoTotale.toString()
+    );
+
+}
+
+
+/* =====================================================
+   ALTRE TRADUZIONI
    ===================================================== */
 
 function applicaLingua() {
@@ -1232,6 +1253,13 @@ let comunita = 70;
 let greenPoints = 0;
 
 let rispostaData = false;
+
+
+/*
+   Serve per evitare che i punti della stessa partita
+   vengano aggiunti due volte al totale.
+*/
+let puntiSalvati = false;
 
 
 function limita(valore) {
@@ -1353,7 +1381,7 @@ function scegli(opzione) {
         limita(comunita + effetti[3]);
 
 
-    /* GREEN POINTS */
+    /* GREEN POINTS DELLA PARTITA */
 
     const puntiGreen = [
         [10, 6, 1, 3],
@@ -1366,7 +1394,8 @@ function scegli(opzione) {
         [10, 6, 1, 3]
     ];
 
-    greenPoints += puntiGreen[turno][opzione];
+    greenPoints +=
+        puntiGreen[turno][opzione];
 
 
     aggiornaStatistiche();
@@ -1436,6 +1465,26 @@ function calcolaPunteggio() {
    ===================================================== */
 
 function fine() {
+
+    /*
+       IMPORTANTISSIMO:
+
+       Quando la partita viene completata,
+       aggiungiamo i Green Points ottenuti
+       al totale globale dell'account.
+
+       puntiSalvati impedisce che gli stessi
+       punti vengano aggiunti nuovamente.
+    */
+
+    if (!puntiSalvati) {
+
+        salvaGreenPointsPartita();
+
+        puntiSalvati = true;
+
+    }
+
 
     document.getElementById("gioco").style.display =
         "none";
@@ -1513,7 +1562,19 @@ function ricomincia() {
     suolo = 70;
     comunita = 70;
 
+    /*
+       I Green Points della NUOVA partita
+       partono da zero.
+
+       Il totale dell'account NON viene cancellato.
+    */
     greenPoints = 0;
+
+    /*
+       Permette alla nuova partita di salvare
+       i propri punti quando verrà completata.
+    */
+    puntiSalvati = false;
 
 
     document.getElementById("fine").style.display =
