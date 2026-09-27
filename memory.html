@@ -6,7 +6,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🐝 Memory della Biodiversità - EcoGame</title>
@@ -182,6 +181,11 @@ header {
     font-weight: bold;
 }
 
+.back small {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
 .card.matched .back {
     background: #c8e6c9;
 }
@@ -317,7 +321,7 @@ header {
         </div>
 
         <div class="stat-number">
-            <span id="tempo">0</span>s
+            <span id="tempo">0</span><span id="secondi">s</span>
         </div>
 
     </div>
@@ -357,12 +361,12 @@ header {
 <div class="feedback" id="feedback"></div>
 
 
-<button class="reset"
-        onclick="nuovaPartita()"
-        data-testo="nuovaPartita">
-
+<button
+    class="reset"
+    onclick="nuovaPartita()"
+    data-testo="nuovaPartita"
+>
     🔄 Nuova partita
-
 </button>
 
 
@@ -378,20 +382,20 @@ header {
 
     <p class="final-text" id="finalText"></p>
 
-    <button class="reset"
-            onclick="nuovaPartita()"
-            data-testo="giocaAncora">
-
+    <button
+        class="reset"
+        onclick="nuovaPartita()"
+        data-testo="giocaAncora"
+    >
         🔄 Gioca ancora
-
     </button>
 
-    <button class="reset"
-            onclick="window.location.href='giochi.html'"
-            data-testo="tornaGiochi">
-
+    <button
+        class="reset"
+        onclick="window.location.href='giochi.html'"
+        data-testo="tornaGiochi"
+    >
         🎮 Torna ai giochi
-
     </button>
 
 </div>
@@ -410,7 +414,7 @@ header {
 const traduzioni = {
 
     /* =================================================
-       🇮🇹 ITALIANO
+       ITALIANO
        ================================================= */
 
     it: {
@@ -543,7 +547,7 @@ const traduzioni = {
 
 
     /* =================================================
-       🇬🇧 INGLESE
+       INGLESE
        ================================================= */
 
     en: {
@@ -676,7 +680,7 @@ const traduzioni = {
 
 
     /* =================================================
-       🇫🇮 FINLANDESE
+       FINLANDESE
        ================================================= */
 
     fi: {
@@ -814,85 +818,113 @@ const traduzioni = {
    DATI DELLE CARTE
    ===================================================== */
 
+/*
+ * Ogni carta ha:
+ *
+ * id       = identifica la coppia
+ * numero   = identifica esattamente quale carta è
+ * emoji    = immagine della carta
+ *
+ * Il testo viene recuperato usando "numero",
+ * quindi il mescolamento NON può più rompere
+ * la corrispondenza tra emoji e testo.
+ */
+
 const coppie = [
 
     {
         id: 1,
+        numero: 1,
         emoji: "🌳"
     },
 
     {
         id: 1,
-        emoji: "🐾"
+        numero: 2,
+        emoji: "🌍"
     },
 
     {
         id: 2,
+        numero: 3,
         emoji: "🐝"
     },
 
     {
         id: 2,
+        numero: 4,
         emoji: "🌼"
     },
 
     {
         id: 3,
+        numero: 5,
         emoji: "☀️"
     },
 
     {
         id: 3,
+        numero: 6,
         emoji: "🌱"
     },
 
     {
         id: 4,
+        numero: 7,
         emoji: "🐺"
     },
 
     {
         id: 4,
+        numero: 8,
         emoji: "🦌"
     },
 
     {
         id: 5,
+        numero: 9,
         emoji: "🌊"
     },
 
     {
         id: 5,
+        numero: 10,
         emoji: "🌡️"
     },
 
     {
         id: 6,
+        numero: 11,
         emoji: "💧"
     },
 
     {
         id: 6,
+        numero: 12,
         emoji: "🪶"
     },
 
     {
         id: 7,
+        numero: 13,
         emoji: "♻️"
     },
 
     {
         id: 7,
+        numero: 14,
         emoji: "🔄"
     },
 
     {
         id: 8,
+        numero: 15,
         emoji: "🌿"
     },
 
     {
         id: 8,
+        numero: 16,
         emoji: "🦊"
     }
 
@@ -921,10 +953,10 @@ let timer = null;
 
 
 /* =====================================================
-   FUNZIONE TRADUZIONE CARTE
+   OTTIENI TESTO CORRETTO DELLA CARTA
    ===================================================== */
 
-function ottieniCartaTradotta(carta, indice) {
+function ottieniCartaTradotta(carta) {
 
     const lingua =
         document.getElementById("lingua").value;
@@ -932,11 +964,8 @@ function ottieniCartaTradotta(carta, indice) {
     const testi =
         traduzioni[lingua];
 
-    const indiceTraduzione =
-        indice;
-
     const dati =
-        testi.carte[indiceTraduzione + 1];
+        testi.carte[carta.numero];
 
     return {
 
@@ -983,21 +1012,16 @@ function cambiaLingua() {
                 )
             ) {
 
-                if (chiave === "ragiona") {
-
-                    elemento.textContent =
-                        testi[chiave];
-
-                } else {
-
-                    elemento.textContent =
-                        testi[chiave];
-
-                }
+                elemento.textContent =
+                    testi[chiave];
 
             }
 
         });
+
+
+    document.getElementById("secondi").textContent =
+        testi.secondi;
 
 
     document.documentElement.lang =
@@ -1010,17 +1034,13 @@ function cambiaLingua() {
     );
 
 
-    if (carte.length > 0) {
-
-        aggiornaCarteVisibili();
-
-    }
+    aggiornaCarteVisibili();
 
 }
 
 
 /* =====================================================
-   AGGIORNA LE CARTE DOPO IL CAMBIO LINGUA
+   AGGIORNA TESTI DELLE CARTE
    ===================================================== */
 
 function aggiornaCarteVisibili() {
@@ -1028,30 +1048,51 @@ function aggiornaCarteVisibili() {
     const elementi =
         document.querySelectorAll(".card");
 
-    elementi.forEach(function(elemento, indice) {
+
+    elementi.forEach(function(elemento) {
+
+        const numero =
+            Number(
+                elemento.dataset.numero
+            );
+
 
         const carta =
-            carte[indice];
+            carte.find(function(c) {
+
+                return c.numero === numero;
+
+            });
+
+
+        if (!carta) {
+            return;
+        }
+
 
         const dati =
-            ottieniCartaTradotta(carta, indice);
+            ottieniCartaTradotta(carta);
+
 
         const testo =
             elemento.querySelector(".text");
 
+
         const descrizione =
             elemento.querySelector("small");
 
+
         if (testo) {
 
-            testo.innerText =
+            testo.textContent =
                 dati.titolo;
 
         }
 
+
         if (descrizione) {
 
-            descrizione.innerText =
+            descrizione.textContent =
                 dati.descrizione;
 
         }
@@ -1067,9 +1108,35 @@ function aggiornaCarteVisibili() {
 
 function mescola(array) {
 
-    return array.sort(
-        () => Math.random() - 0.5
-    );
+    const copia =
+        [...array];
+
+
+    for (
+        let i = copia.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            copia[i],
+            copia[j]
+        ] =
+        [
+            copia[j],
+            copia[i]
+        ];
+
+    }
+
+
+    return copia;
 
 }
 
@@ -1081,6 +1148,7 @@ function mescola(array) {
 function nuovaPartita() {
 
     clearInterval(timer);
+
 
     primaCarta = null;
 
@@ -1095,13 +1163,13 @@ function nuovaPartita() {
     tempo = 0;
 
 
-    document.getElementById("tempo").innerText =
+    document.getElementById("tempo").textContent =
         "0";
 
-    document.getElementById("tentativi").innerText =
+    document.getElementById("tentativi").textContent =
         "0";
 
-    document.getElementById("coppie").innerText =
+    document.getElementById("coppie").textContent =
         "0";
 
 
@@ -1114,7 +1182,7 @@ function nuovaPartita() {
 
 
     carte =
-        mescola([...coppie]);
+        mescola(coppie);
 
 
     const memory =
@@ -1124,16 +1192,27 @@ function nuovaPartita() {
     memory.innerHTML = "";
 
 
-    carte.forEach(function(carta, indice) {
+    carte.forEach(function(carta) {
 
         const elemento =
             document.createElement("div");
 
-        elemento.className = "card";
+
+        elemento.className =
+            "card";
+
+
+        /*
+         * Salviamo il numero reale della carta
+         * direttamente nell'elemento HTML.
+         */
+
+        elemento.dataset.numero =
+            carta.numero;
 
 
         const dati =
-            ottieniCartaTradotta(carta, indice);
+            ottieniCartaTradotta(carta);
 
 
         elemento.innerHTML = `
@@ -1165,11 +1244,15 @@ function nuovaPartita() {
         `;
 
 
-        elemento.onclick = function() {
+        elemento.onclick =
+            function() {
 
-            giraCarta(elemento, carta, indice);
+                giraCarta(
+                    elemento,
+                    carta
+                );
 
-        };
+            };
 
 
         memory.appendChild(elemento);
@@ -1177,14 +1260,17 @@ function nuovaPartita() {
     });
 
 
-    timer = setInterval(function() {
+    timer =
+        setInterval(function() {
 
-        tempo++;
+            tempo++;
 
-        document.getElementById("tempo").innerText =
-            tempo;
 
-    }, 1000);
+            document.getElementById("tempo").textContent =
+                tempo;
+
+
+        }, 1000);
 
 }
 
@@ -1193,19 +1279,23 @@ function nuovaPartita() {
    GIRA CARTA
    ===================================================== */
 
-function giraCarta(elemento, carta, indice) {
+function giraCarta(elemento, carta) {
 
     if (blocco) {
         return;
     }
 
 
-    if (elemento.classList.contains("flipped")) {
+    if (
+        elemento.classList.contains("flipped")
+    ) {
         return;
     }
 
 
-    if (elemento.classList.contains("matched")) {
+    if (
+        elemento.classList.contains("matched")
+    ) {
         return;
     }
 
@@ -1219,9 +1309,7 @@ function giraCarta(elemento, carta, indice) {
 
             elemento: elemento,
 
-            carta: carta,
-
-            indice: indice
+            carta: carta
 
         };
 
@@ -1234,9 +1322,7 @@ function giraCarta(elemento, carta, indice) {
 
         elemento: elemento,
 
-        carta: carta,
-
-        indice: indice
+        carta: carta
 
     };
 
@@ -1244,7 +1330,7 @@ function giraCarta(elemento, carta, indice) {
     tentativi++;
 
 
-    document.getElementById("tentativi").innerText =
+    document.getElementById("tentativi").textContent =
         tentativi;
 
 
@@ -1261,6 +1347,11 @@ function controllaCoppia() {
 
     blocco = true;
 
+
+    /*
+     * Le carte appartengono alla stessa coppia
+     * se hanno lo stesso ID.
+     */
 
     if (
         primaCarta.carta.id ===
@@ -1283,20 +1374,21 @@ function controllaCoppia() {
             coppieTrovate++;
 
 
-            document.getElementById("coppie").innerText =
+            document.getElementById("coppie").textContent =
                 coppieTrovate;
 
 
             mostraSpiegazione(
-                primaCarta.carta,
-                primaCarta.indice
+                primaCarta.carta
             );
 
 
             primaReset();
 
 
-            if (coppieTrovate === 8) {
+            if (
+                coppieTrovate === 8
+            ) {
 
                 termina();
 
@@ -1322,6 +1414,7 @@ function controllaCoppia() {
 
 
             primaReset();
+
 
         }, 1000);
 
@@ -1349,7 +1442,7 @@ function primaReset() {
    MOSTRA SPIEGAZIONE
    ===================================================== */
 
-function mostraSpiegazione(carta, indice) {
+function mostraSpiegazione(carta) {
 
     const feedback =
         document.getElementById("feedback");
@@ -1364,7 +1457,7 @@ function mostraSpiegazione(carta, indice) {
 
 
     const dati =
-        ottieniCartaTradotta(carta, indice);
+        ottieniCartaTradotta(carta);
 
 
     feedback.innerHTML =
@@ -1398,7 +1491,10 @@ function termina() {
 
 
     let penalitaTentativi =
-        Math.max(0, tentativi - 8) * 30;
+        Math.max(
+            0,
+            tentativi - 8
+        ) * 30;
 
 
     let punteggioFinale =
@@ -1418,7 +1514,7 @@ function termina() {
         traduzioni[lingua];
 
 
-    document.getElementById("punteggio").innerText =
+    document.getElementById("punteggio").textContent =
         punteggioFinale +
         " " +
         testi.punti;
@@ -1427,17 +1523,23 @@ function termina() {
     let messaggio;
 
 
-    if (punteggioFinale >= 800) {
+    if (
+        punteggioFinale >= 800
+    ) {
 
         messaggio =
             testi.messaggio800;
 
-    } else if (punteggioFinale >= 600) {
+    } else if (
+        punteggioFinale >= 600
+    ) {
 
         messaggio =
             testi.messaggio600;
 
-    } else if (punteggioFinale >= 400) {
+    } else if (
+        punteggioFinale >= 400
+    ) {
 
         messaggio =
             testi.messaggio400;
@@ -1450,7 +1552,7 @@ function termina() {
     }
 
 
-    document.getElementById("finalText").innerText =
+    document.getElementById("finalText").textContent =
         messaggio;
 
 
@@ -1498,7 +1600,6 @@ cambiaLingua();
    ===================================================== */
 
 nuovaPartita();
-
 
 </script>
 
