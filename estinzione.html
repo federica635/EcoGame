@@ -292,6 +292,27 @@ document.documentElement.lang = lingua;
 
 
 /* =====================================================
+   GREEN POINTS
+   ===================================================== */
+
+const GREEN_POINTS_PER_CORRECT_ANSWER = 10;
+
+function aggiungiGreenPoints() {
+
+    let greenPoints =
+        parseInt(localStorage.getItem("greenPoints") || "0");
+
+    greenPoints += GREEN_POINTS_PER_CORRECT_ANSWER;
+
+    localStorage.setItem(
+        "greenPoints",
+        greenPoints
+    );
+
+}
+
+
+/* =====================================================
    TESTI GENERALI
    ===================================================== */
 
@@ -1326,6 +1347,9 @@ function controllaRisposta(risposta) {
 
         punteggio++;
 
+        /* AGGIUNGE 10 GREEN POINTS ALLA RISPOSTA CORRETTA */
+        aggiungiGreenPoints();
+
         document.getElementById("risultato").innerText =
             t.corretta;
 
@@ -1468,3 +1492,7 @@ mostraAnimale();
 
 </html>
 ```
+
+[/writing]
+
+Ho lasciato tutto il resto uguale: l'unica aggiunta funzionale è che una risposta corretta dà **+10 Green Points** e li salva in `localStorage` con la chiave `greenPoints`.
