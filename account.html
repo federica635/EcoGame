@@ -3,7 +3,6 @@
 <html lang="it">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,10 +18,6 @@ body {
     min-height: 100vh;
 }
 
-/* ==============================
-   HEADER
-   ============================== */
-
 header {
     background: #2e7d32;
     color: white;
@@ -34,10 +29,6 @@ header h1 {
     margin: 0;
     font-size: 45px;
 }
-
-/* ==============================
-   LINGUE
-   ============================== */
 
 .lingue {
     margin-bottom: 20px;
@@ -58,10 +49,6 @@ header h1 {
     background: #e8f5e9;
 }
 
-/* ==============================
-   CONTENITORE
-   ============================== */
-
 .contenitore {
     width: 90%;
     max-width: 500px;
@@ -75,18 +62,10 @@ header h1 {
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-/* ==============================
-   TITOLI
-   ============================== */
-
 h2 {
     text-align: center;
     color: #2e7d32;
 }
-
-/* ==============================
-   FORM
-   ============================== */
 
 label {
     display: block;
@@ -104,10 +83,6 @@ input {
     border-radius: 10px;
     font-size: 16px;
 }
-
-/* ==============================
-   BOTTONI
-   ============================== */
 
 .azione {
     width: 100%;
@@ -131,10 +106,6 @@ input {
     cursor: not-allowed;
 }
 
-/* ==============================
-   CAMBIO LOGIN / REGISTRAZIONE
-   ============================== */
-
 .cambio {
     text-align: center;
     margin-top: 20px;
@@ -153,20 +124,12 @@ input {
     text-decoration: underline;
 }
 
-/* ==============================
-   MESSAGGI
-   ============================== */
-
 #messaggio {
     text-align: center;
     margin-top: 20px;
     font-weight: bold;
     line-height: 1.5;
 }
-
-/* ==============================
-   HOME
-   ============================== */
 
 .home {
     display: block;
@@ -180,10 +143,6 @@ input {
 .home:hover {
     text-decoration: underline;
 }
-
-/* ==============================
-   PROFILO
-   ============================== */
 
 .profilo {
     display: none;
@@ -203,10 +162,6 @@ input {
     color: #1b5e20;
 }
 
-/* ==============================
-   FOOTER
-   ============================== */
-
 footer {
     margin-top: 50px;
     background: #1b5e20;
@@ -214,10 +169,6 @@ footer {
     text-align: center;
     padding: 20px;
 }
-
-/* ==============================
-   MOBILE
-   ============================== */
 
 @media (max-width: 600px) {
 
@@ -236,10 +187,6 @@ footer {
 </head>
 
 <body>
-
-<!-- ==========================================
-     HEADER
-     ========================================== -->
 
 <header>
 
@@ -265,17 +212,13 @@ footer {
 
 </header>
 
-<!-- ==========================================
-     CONTENITORE
-     ========================================== -->
-
 <div class="contenitore">
 
 <div class="box">
 
-<!-- ==========================================
+<!-- =========================
      REGISTRAZIONE
-     ========================================== -->
+========================= -->
 
 <div id="registrazione">
 
@@ -283,7 +226,6 @@ footer {
 <h2 id="titolo">
     👤 Crea il tuo account
 </h2>
-
 
 <label id="labelUsername">
     Username
@@ -296,7 +238,6 @@ footer {
     autocomplete="username"
 >
 
-
 <label id="labelEmail">
     Email
 </label>
@@ -307,7 +248,6 @@ footer {
     placeholder="La tua email"
     autocomplete="email"
 >
-
 
 <label id="labelPassword">
     Password
@@ -320,7 +260,6 @@ footer {
     autocomplete="new-password"
 >
 
-
 <button
     class="azione"
     onclick="registrati()"
@@ -328,7 +267,6 @@ footer {
 >
     🌱 Crea account
 </button>
-
 
 <div class="cambio">
 
@@ -348,9 +286,9 @@ footer {
 
 </div>
 
-<!-- ==========================================
+<!-- =========================
      LOGIN
-     ========================================== -->
+========================= -->
 
 <div id="login" style="display:none;">
 
@@ -358,7 +296,6 @@ footer {
 <h2 id="titoloLogin">
     🔐 Accedi
 </h2>
-
 
 <label id="labelLoginEmail">
     Email
@@ -371,7 +308,6 @@ footer {
     autocomplete="email"
 >
 
-
 <label id="labelLoginPassword">
     Password
 </label>
@@ -383,7 +319,6 @@ footer {
     autocomplete="current-password"
 >
 
-
 <button
     class="azione"
     onclick="accedi()"
@@ -391,7 +326,6 @@ footer {
 >
     🔐 Accedi
 </button>
-
 
 <div class="cambio">
 
@@ -411,9 +345,9 @@ footer {
 
 </div>
 
-<!-- ==========================================
+<!-- =========================
      PROFILO
-     ========================================== -->
+========================= -->
 
 <div id="profilo" class="profilo">
 
@@ -422,11 +356,9 @@ footer {
     👤 Il mio profilo
 </h2>
 
-
 <p id="benvenuto">
     Benvenuto!
 </p>
-
 
 <div class="statistiche">
 
@@ -444,7 +376,6 @@ footer {
 
     </div>
 
-
     <div class="statistica">
 
         🏆
@@ -461,7 +392,6 @@ footer {
 
 </div>
 
-
 <button
     class="azione"
     onclick="logout()"
@@ -473,15 +403,7 @@ footer {
 
 </div>
 
-<!-- ==========================================
-     MESSAGGI
-     ========================================== -->
-
 <div id="messaggio"></div>
-
-<!-- ==========================================
-     HOME
-     ========================================== -->
 
 <a
 href="index.html"
@@ -500,29 +422,17 @@ id="home"
 
 </div>
 
-<!-- ==========================================
-     FOOTER
-     ========================================== -->
-
 <footer id="footer">
-
-```
-🌱 EcoGame — Imparare l'ecologia giocando
-```
-
+    🌱 EcoGame — Imparare l'ecologia giocando
 </footer>
 
-<!-- ==========================================
+<!-- =========================
      SUPABASE
-     ========================================== -->
+========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =====================================================
-   CONFIGURAZIONE SUPABASE
-   ===================================================== */
 
 const SUPABASE_URL =
     "https://zrxssuigzisgpcdesjvc.supabase.co";
@@ -537,9 +447,9 @@ const supabaseClient =
     );
 
 
-/* =====================================================
+/* =========================
    CAMBIO LINGUA
-   ===================================================== */
+========================= */
 
 function cambiaLingua(lingua) {
 
@@ -548,10 +458,6 @@ function cambiaLingua(lingua) {
         lingua
     );
 
-
-    /* =================================================
-       ITALIANO
-       ================================================= */
 
     if (lingua === "it") {
 
@@ -631,10 +537,6 @@ function cambiaLingua(lingua) {
     }
 
 
-    /* =================================================
-       INGLESE
-       ================================================= */
-
     if (lingua === "en") {
 
         document.documentElement.lang = "en";
@@ -712,10 +614,6 @@ function cambiaLingua(lingua) {
             "🌱 EcoGame — Learn about ecology while playing";
     }
 
-
-    /* =================================================
-       FINLANDESE
-       ================================================= */
 
     if (lingua === "fi") {
 
@@ -797,9 +695,34 @@ function cambiaLingua(lingua) {
 }
 
 
-/* =====================================================
+/* =========================
+   MESSAGGI TRADOTTI
+========================= */
+
+function messaggioTradotto(
+    italiano,
+    inglese,
+    finlandese
+) {
+
+    const lingua =
+        localStorage.getItem("ecoGameLingua") || "it";
+
+    if (lingua === "en") {
+        return inglese;
+    }
+
+    if (lingua === "fi") {
+        return finlandese;
+    }
+
+    return italiano;
+}
+
+
+/* =========================
    REGISTRAZIONE
-   ===================================================== */
+========================= */
 
 async function registrati() {
 
@@ -881,10 +804,7 @@ async function registrati() {
 
         if (error) {
 
-            console.error(
-                "Errore registrazione:",
-                error
-            );
+            console.error(error);
 
             mostraMessaggio(
                 "❌ " + error.message
@@ -894,12 +814,6 @@ async function registrati() {
 
             return;
         }
-
-
-        console.log(
-            "Registrazione:",
-            data
-        );
 
 
         if (!data.session) {
@@ -923,8 +837,8 @@ async function registrati() {
             );
 
             await mostraProfilo();
-
         }
+
 
     } catch (errore) {
 
@@ -937,18 +851,16 @@ async function registrati() {
                 "❌ Rekisteröinnissä tapahtui virhe."
             )
         );
-
     }
 
 
     bottone.disabled = false;
-
 }
 
 
-/* =====================================================
+/* =========================
    LOGIN
-   ===================================================== */
+========================= */
 
 async function accedi() {
 
@@ -990,11 +902,10 @@ async function accedi() {
 
     try {
 
-        const { data, error } =
+        const { error } =
             await supabaseClient.auth.signInWithPassword({
 
                 email: email,
-
                 password: password
 
             });
@@ -1002,10 +913,7 @@ async function accedi() {
 
         if (error) {
 
-            console.error(
-                "Errore login:",
-                error
-            );
+            console.error(error);
 
             mostraMessaggio(
                 "❌ " + error.message
@@ -1040,18 +948,16 @@ async function accedi() {
                 "❌ Kirjautumisessa tapahtui virhe."
             )
         );
-
     }
 
 
     bottone.disabled = false;
-
 }
 
 
-/* =====================================================
+/* =========================
    PROFILO
-   ===================================================== */
+========================= */
 
 async function mostraProfilo() {
 
@@ -1062,7 +968,6 @@ async function mostraProfilo() {
 
 
     if (userError || !user) {
-
         return;
     }
 
@@ -1072,19 +977,14 @@ async function mostraProfilo() {
         error
     } = await supabaseClient
         .from("profiles")
-        .select(
-            "username, green_points, level"
-        )
+        .select("username, green_points, level")
         .eq("id", user.id)
         .single();
 
 
     if (error) {
 
-        console.error(
-            "Errore profilo:",
-            error
-        );
+        console.error(error);
 
         mostraMessaggio(
             messaggioTradotto(
@@ -1098,114 +998,63 @@ async function mostraProfilo() {
     }
 
 
-    document.getElementById(
-        "registrazione"
-    ).style.display = "none";
+    document.getElementById("registrazione")
+        .style.display = "none";
 
+    document.getElementById("login")
+        .style.display = "none";
 
-    document.getElementById(
-        "login"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "profilo"
-    ).style.display = "block";
+    document.getElementById("profilo")
+        .style.display = "block";
 
 
     const nome =
         profilo.username || user.email;
 
 
-    document.getElementById(
-        "benvenuto"
-    ).textContent =
+    document.getElementById("benvenuto")
+        .textContent =
         benvenutoTradotto(nome);
 
 
-    document.getElementById(
-        "greenPoints"
-    ).textContent =
+    document.getElementById("greenPoints")
+        .textContent =
         profilo.green_points ?? 0;
 
 
-    document.getElementById(
-        "livello"
-    ).textContent =
+    document.getElementById("livello")
+        .textContent =
         profilo.level ?? 1;
-
 }
 
 
-/* =====================================================
-   BENVENUTO TRADOTTO
-   ===================================================== */
+/* =========================
+   BENVENUTO
+========================= */
 
 function benvenutoTradotto(nome) {
 
     const lingua =
-        localStorage.getItem(
-            "ecoGameLingua"
-        ) || "it";
+        localStorage.getItem("ecoGameLingua") || "it";
 
 
     if (lingua === "en") {
-
         return "Welcome, @" + nome + "!";
-
     }
 
 
     if (lingua === "fi") {
-
         return "Tervetuloa, @" + nome + "!";
-
     }
 
 
     return "Benvenuto, @" + nome + "!";
-
 }
 
 
-/* =====================================================
-   MESSAGGIO TRADOTTO
-   ===================================================== */
-
-function messaggioTradotto(
-    italiano,
-    inglese,
-    finlandese
-) {
-
-    const lingua =
-        localStorage.getItem(
-            "ecoGameLingua"
-        ) || "it";
-
-
-    if (lingua === "en") {
-
-        return inglese;
-
-    }
-
-
-    if (lingua === "fi") {
-
-        return finlandese;
-
-    }
-
-
-    return italiano;
-
-}
-
-
-/* =====================================================
+/* =========================
    LOGOUT
-   ===================================================== */
+========================= */
 
 async function logout() {
 
@@ -1229,14 +1078,11 @@ async function logout() {
     }
 
 
-    document.getElementById(
-        "profilo"
-    ).style.display = "none";
+    document.getElementById("profilo")
+        .style.display = "none";
 
-
-    document.getElementById(
-        "registrazione"
-    ).style.display = "block";
+    document.getElementById("registrazione")
+        .style.display = "block";
 
 
     mostraMessaggio(
@@ -1246,82 +1092,63 @@ async function logout() {
             "🚪 Uloskirjautuminen onnistui."
         )
     );
-
 }
 
 
-/* =====================================================
+/* =========================
    MOSTRA LOGIN
-   ===================================================== */
+========================= */
 
 function mostraLogin() {
 
-    document.getElementById(
-        "registrazione"
-    ).style.display = "none";
+    document.getElementById("registrazione")
+        .style.display = "none";
 
+    document.getElementById("login")
+        .style.display = "block";
 
-    document.getElementById(
-        "login"
-    ).style.display = "block";
+    document.getElementById("profilo")
+        .style.display = "none";
 
-
-    document.getElementById(
-        "profilo"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "messaggio"
-    ).textContent = "";
-
+    document.getElementById("messaggio")
+        .textContent = "";
 }
 
 
-/* =====================================================
+/* =========================
    MOSTRA REGISTRAZIONE
-   ===================================================== */
+========================= */
 
 function mostraRegistrazione() {
 
-    document.getElementById(
-        "login"
-    ).style.display = "none";
+    document.getElementById("login")
+        .style.display = "none";
 
+    document.getElementById("registrazione")
+        .style.display = "block";
 
-    document.getElementById(
-        "registrazione"
-    ).style.display = "block";
+    document.getElementById("profilo")
+        .style.display = "none";
 
-
-    document.getElementById(
-        "profilo"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "messaggio"
-    ).textContent = "";
-
+    document.getElementById("messaggio")
+        .textContent = "";
 }
 
 
-/* =====================================================
-   MESSAGGI
-   ===================================================== */
+/* =========================
+   MESSAGGIO
+========================= */
 
 function mostraMessaggio(testo) {
 
-    document.getElementById(
-        "messaggio"
-    ).textContent = testo;
-
+    document.getElementById("messaggio")
+        .textContent = testo;
 }
 
 
-/* =====================================================
+/* =========================
    CONTROLLO SESSIONE
-   ===================================================== */
+========================= */
 
 async function controllaSessione() {
 
@@ -1333,71 +1160,32 @@ async function controllaSessione() {
 
     if (error) {
 
-        console.error(
-            "Errore sessione:",
-            error
-        );
-
+        console.error(error);
         return;
     }
 
 
     if (session) {
-
         await mostraProfilo();
-
     }
-
 }
 
 
-/* =====================================================
-   EVENTO AUTENTICAZIONE
-   ===================================================== */
-
-supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
-
-        console.log(
-            "Auth event:",
-            event
-        );
-
-
-        if (
-            event === "SIGNED_IN" &&
-            session
-        ) {
-
-            await mostraProfilo();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
+/* =========================
    AVVIO
-   ===================================================== */
+========================= */
 
 window.onload = async function() {
 
     const lingua =
-        localStorage.getItem(
-            "ecoGameLingua"
-        ) || "it";
-
+        localStorage.getItem("ecoGameLingua") || "it";
 
     cambiaLingua(lingua);
 
-
     await controllaSessione();
-
 };
 
 </script>
 
 </body>
-
 </html>
