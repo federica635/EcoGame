@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="it">
 
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🌳 Salva la Foresta - EcoGame</title>
+
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -28,6 +36,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
@@ -36,9 +45,37 @@ header {
     font-weight: bold;
 }
 
+.headerDestra {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .turno {
     color: #b8cdbb;
     font-size: 17px;
+}
+
+.lingua {
+    padding: 9px 12px;
+    border-radius: 9px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.menu {
+    background: #2e7d32;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.menu:hover {
+    background: #43a047;
 }
 
 .container {
@@ -63,9 +100,23 @@ header {
     font-size: 17px;
 }
 
+#statoAccount {
+    text-align: center;
+    color: #81c784;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+#greenPointsSessione {
+    text-align: center;
+    color: #a5d6a7;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
 .statistiche {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 25px;
 }
@@ -90,15 +141,6 @@ header {
     color: #81c784;
 }
 
-.green-points {
-    border-color: #4caf50;
-    background: #18301e;
-}
-
-.green-points .numero {
-    color: #66bb6a;
-}
-
 .barra {
     width: 100%;
     height: 7px;
@@ -113,14 +155,6 @@ header {
     width: 70%;
     background: #66bb6a;
     transition: width 0.4s;
-}
-
-#barraGreenPoints {
-    background: linear-gradient(
-        90deg,
-        #43a047,
-        #81c784
-    );
 }
 
 .card {
@@ -173,9 +207,8 @@ header {
 }
 
 .opzione:disabled {
-    cursor: default;
-    opacity: 0.75;
-    transform: none;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 #feedback {
@@ -235,27 +268,6 @@ header {
     font-size: 18px;
 }
 
-#messaggioAccount {
-    margin: 20px auto;
-    padding: 15px;
-    max-width: 650px;
-    background: #203228;
-    border: 1px solid #3d6645;
-    border-radius: 10px;
-    color: #dce8de;
-    line-height: 1.5;
-}
-
-.account-collegato {
-    border-color: #4caf50 !important;
-    background: #18301e !important;
-}
-
-.account-non-collegato {
-    border-color: #8b6b2e !important;
-    background: #302817 !important;
-}
-
 .finalButton {
     background: #43a047;
     color: white;
@@ -269,6 +281,22 @@ header {
 
 .finalButton:hover {
     background: #66bb6a;
+}
+
+#messaggioFinale {
+    color: #dce8de;
+    font-size: 18px;
+}
+
+#greenPointsFinale {
+    color: #a5d6a7;
+    font-size: 18px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+button {
+    font-family: inherit;
 }
 
 @media(max-width: 750px) {
@@ -286,12 +314,8 @@ header {
         gap: 10px;
     }
 
-    .intro h1 {
-        font-size: 32px;
-    }
-
-    .card {
-        padding: 22px;
+    .headerDestra {
+        flex-direction: column;
     }
 
 }
@@ -304,902 +328,404 @@ header {
 
 <header>
 
-    <div class="logo">
-        🌍 EcoGame
-    </div>
+```
+<div class="logo">
+    🌍 EcoGame
+</div>
+
+
+<div class="headerDestra">
+
+    <select
+        class="lingua"
+        id="lingua"
+        onchange="cambiaLingua()">
+
+        <option value="it">
+            🇮🇹 Italiano
+        </option>
+
+        <option value="en">
+            🇬🇧 English
+        </option>
+
+        <option value="fi">
+            🇫🇮 Suomi
+        </option>
+
+    </select>
+
+
+    <button
+        class="menu"
+        onclick="tornaGiochi()">
+
+        🎮 <span id="testoMenu">Giochi</span>
+
+    </button>
+
 
     <div class="turno">
-        <span id="testoTurno">Turno</span>
-        <span id="numeroTurno">1</span> / 8
+
+        <span id="testoTurno">
+            Turno
+        </span>
+
+        <span id="numeroTurno">
+            1
+        </span>
+
+        /
+
+        <span id="numeroTurniTotali">
+            8
+        </span>
+
     </div>
+
+</div>
+```
 
 </header>
 
 <div class="container">
 
-    <div class="intro">
+```
+<div class="intro">
 
-        <h1 id="titoloGioco">
-            🌳 Salva la Foresta
-        </h1>
+    <h1 id="titoloPagina">
+        🌳 Salva la Foresta
+    </h1>
 
-        <p id="introGioco">
-            Gestisci un ecosistema forestale.
-            Ogni decisione produce conseguenze.
-        </p>
 
-    </div>
+    <p id="introduzione">
+        Gestisci un ecosistema forestale.
+        Ogni decisione produce conseguenze.
+    </p>
 
 
-    <div class="statistiche">
+    <div id="statoAccount"></div>
 
-        <div class="stat">
 
-            <div class="titolo" id="labelBiodiversita">
-                🌿 Biodiversità
-            </div>
-
-            <div class="numero" id="biodiversita">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraBiodiversita"></div>
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="titolo" id="labelAcqua">
-                💧 Acqua
-            </div>
-
-            <div class="numero" id="acqua">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraAcqua"></div>
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="titolo" id="labelSuolo">
-                🌱 Suolo
-            </div>
-
-            <div class="numero" id="suolo">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraSuolo"></div>
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="titolo" id="labelComunita">
-                👥 Comunità
-            </div>
-
-            <div class="numero" id="comunita">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraComunita"></div>
-            </div>
-
-        </div>
-
-
-        <div class="stat green-points">
-
-            <div class="titolo" id="labelGreenPoints">
-                🌱 Green Points
-            </div>
-
-            <div class="numero" id="greenPoints">
-                0
-            </div>
-
-            <div class="barra">
-                <div id="barraGreenPoints"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="card" id="gioco">
-
-        <div class="scenario" id="scenario">
-            SITUAZIONE 1 — PROTEZIONE
-        </div>
-
-        <h2 id="titolo">
-            Il futuro della foresta
-        </h2>
-
-        <div class="testo" id="testo">
-            Una parte della foresta ospita specie rare.
-            La pressione economica sul territorio sta aumentando.
-            Devi decidere come intervenire.
-        </div>
-
-
-        <div class="opzioni">
-
-            <button class="opzione" onclick="scegli(0)">
-
-                <strong id="opzione0Titolo">
-                    A — Zona protetta
-                </strong>
-
-                <br><br>
-
-                <span id="opzione0Testo">
-                    Istituisci una nuova area protetta,
-                    limitando alcune attività economiche.
-                </span>
-
-            </button>
-
-
-            <button class="opzione" onclick="scegli(1)">
-
-                <strong id="opzione1Titolo">
-                    B — Taglio controllato
-                </strong>
-
-                <br><br>
-
-                <span id="opzione1Testo">
-                    Permetti il taglio selettivo degli alberi
-                    con limiti e monitoraggio.
-                </span>
-
-            </button>
-
-
-            <button class="opzione" onclick="scegli(2)">
-
-                <strong id="opzione2Titolo">
-                    C — Espansione agricola
-                </strong>
-
-                <br><br>
-
-                <span id="opzione2Testo">
-                    Concedi parte della foresta
-                    all'espansione delle coltivazioni.
-                </span>
-
-            </button>
-
-
-            <button class="opzione" onclick="scegli(3)">
-
-                <strong id="opzione3Titolo">
-                    D — Nessun intervento
-                </strong>
-
-                <br><br>
-
-                <span id="opzione3Testo">
-                    Mantieni le regole attuali
-                    e osserva l'evoluzione dell'ecosistema.
-                </span>
-
-            </button>
-
-        </div>
-
-
-        <div id="feedback"></div>
-
-        <div id="spiegazione"></div>
-
-        <button id="continua" onclick="prossimoTurno()">
-            ➡️ Continua
-        </button>
-
-    </div>
-
-
-    <div class="card" id="fine">
-
-        <h2 id="titoloFine">
-            🏁 Gestione completata
-        </h2>
-
-
-        <div class="risultatoFinale" id="punteggioFinale">
-            0 / 100
-        </div>
-
-
-        <div class="dettagli">
-
-            <div>
-                🌿
-                <span id="finalLabelBiodiversita">
-                    Biodiversità
-                </span>:
-                <strong id="finaleBiodiversita"></strong>
-            </div>
-
-
-            <div>
-                💧
-                <span id="finalLabelAcqua">
-                    Acqua
-                </span>:
-                <strong id="finaleAcqua"></strong>
-            </div>
-
-
-            <div>
-                🌱
-                <span id="finalLabelSuolo">
-                    Suolo
-                </span>:
-                <strong id="finaleSuolo"></strong>
-            </div>
-
-
-            <div>
-                👥
-                <span id="finalLabelComunita">
-                    Comunità
-                </span>:
-                <strong id="finaleComunita"></strong>
-            </div>
-
-
-            <div>
-                🌱
-                <span id="finalLabelGreenPoints">
-                    Green Points
-                </span>:
-                <strong id="finaleGreenPoints"></strong>
-            </div>
-
-        </div>
-
-
-        <div id="messaggioAccount"></div>
-
-        <p id="messaggioFinale"></p>
-
-
-        <button class="finalButton" onclick="ricomincia()">
-
-            🔄
-
-            <span id="nuovaGestione">
-                Nuova gestione
-            </span>
-
-        </button>
-
-
-        <button class="finalButton" onclick="tornaGiochi()">
-
-            🎮
-
-            <span id="tornaGiochi">
-                Torna ai giochi
-            </span>
-
-        </button>
-
+    <div id="greenPointsSessione">
+        🌱 Green Points guadagnati in questa partita: 0
     </div>
 
 </div>
 
 
+<div class="statistiche">
+
+
+    <div class="stat">
+
+        <div class="titolo">
+            🌿 <span id="testoBiodiversita">Biodiversità</span>
+        </div>
+
+        <div class="numero" id="biodiversita">
+            70
+        </div>
+
+        <div class="barra">
+            <div id="barraBiodiversita"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="titolo">
+            💧 <span id="testoAcqua">Acqua</span>
+        </div>
+
+        <div class="numero" id="acqua">
+            70
+        </div>
+
+        <div class="barra">
+            <div id="barraAcqua"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="titolo">
+            🌱 <span id="testoSuolo">Suolo</span>
+        </div>
+
+        <div class="numero" id="suolo">
+            70
+        </div>
+
+        <div class="barra">
+            <div id="barraSuolo"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="titolo">
+            👥 <span id="testoComunita">Comunità</span>
+        </div>
+
+        <div class="numero" id="comunita">
+            70
+        </div>
+
+        <div class="barra">
+            <div id="barraComunita"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="card" id="gioco">
+
+
+    <div class="scenario" id="scenario">
+        SITUAZIONE 1
+    </div>
+
+
+    <h2 id="titolo">
+        Il futuro della foresta
+    </h2>
+
+
+    <div class="testo" id="testo">
+        La tua foresta copre 2.000 ettari.
+        Negli ultimi anni il numero di specie presenti
+        è diminuito e la pressione economica sul territorio
+        sta aumentando.
+    </div>
+
+
+    <div class="opzioni">
+
+
+        <button
+            class="opzione"
+            id="opzione0"
+            onclick="scegli(0)">
+
+            <strong>A — Zona protetta</strong>
+
+            <br><br>
+
+            Istituisci una nuova area protetta,
+            limitando alcune attività economiche.
+
+        </button>
+
+
+        <button
+            class="opzione"
+            id="opzione1"
+            onclick="scegli(1)">
+
+            <strong>B — Taglio controllato</strong>
+
+            <br><br>
+
+            Permetti il taglio selettivo degli alberi
+            con limiti e monitoraggio.
+
+        </button>
+
+
+        <button
+            class="opzione"
+            id="opzione2"
+            onclick="scegli(2)">
+
+            <strong>C — Espansione agricola</strong>
+
+            <br><br>
+
+            Concedi parte della foresta
+            all'espansione delle coltivazioni.
+
+        </button>
+
+
+        <button
+            class="opzione"
+            id="opzione3"
+            onclick="scegli(3)">
+
+            <strong>D — Nessun intervento</strong>
+
+            <br><br>
+
+            Mantieni le regole attuali
+            e osserva l'evoluzione dell'ecosistema.
+
+        </button>
+
+
+    </div>
+
+
+    <div id="feedback"></div>
+
+
+    <div id="spiegazione"></div>
+
+
+    <button
+        id="continua"
+        onclick="prossimoTurno()">
+
+        ➡️ Continua
+
+    </button>
+
+
+</div>
+
+
+<div class="card" id="fine">
+
+
+    <h2 id="titoloFine">
+        🏁 Gestione completata
+    </h2>
+
+
+    <div
+        class="risultatoFinale"
+        id="punteggioFinale">
+
+        0
+
+    </div>
+
+
+    <div class="dettagli">
+
+
+        <div>
+            🌿 <span id="finaleTestoBiodiversita">
+                Biodiversità
+            </span>:
+
+            <strong id="finaleBiodiversita"></strong>
+        </div>
+
+
+        <div>
+            💧 <span id="finaleTestoAcqua">
+                Acqua
+            </span>:
+
+            <strong id="finaleAcqua"></strong>
+        </div>
+
+
+        <div>
+            🌱 <span id="finaleTestoSuolo">
+                Suolo
+            </span>:
+
+            <strong id="finaleSuolo"></strong>
+        </div>
+
+
+        <div>
+            👥 <span id="finaleTestoComunita">
+                Comunità
+            </span>:
+
+            <strong id="finaleComunita"></strong>
+        </div>
+
+    </div>
+
+
+    <div id="greenPointsFinale">
+        🌱 Green Points guadagnati:
+        <strong id="greenPointsFinaleNumero">
+            0
+        </strong>
+    </div>
+
+
+    <p id="messaggioFinale"></p>
+
+
+    <button
+        class="finalButton"
+        onclick="ricomincia()">
+
+        🔄 <span id="testoNuovaGestione">
+            Nuova gestione
+        </span>
+
+    </button>
+
+
+    <button
+        class="finalButton"
+        onclick="tornaGiochi()">
+
+        🎮 <span id="testoTornaGiochi">
+            Torna ai giochi
+        </span>
+
+    </button>
+
+
+</div>
+```
+
+</div>
+
 <script>
 
-/* =========================================================
-   CONFIGURAZIONE CENTRALE ACCOUNT / CLASSIFICA
-   ========================================================= */
 
-/*
-   Questa è la chiave principale dell'account.
-   Tutti i giochi devono utilizzare lo stesso account.
-*/
-const ACCOUNT_KEY = "accountCorrente";
+/* =====================================================
+   SUPABASE
+   ===================================================== */
 
-/*
-   Chiave base utilizzata per il totale Green Points.
-*/
-const GREEN_POINTS_KEY = "greenPoints";
+const SUPABASE_URL =
+    "https://zrxssuigzisgpcdesjvc.supabase.co";
 
-/*
-   Chiavi compatibili con eventuali versioni precedenti
-   del sistema di login.
-*/
-const POSSIBILI_CHIAVI_ACCOUNT = [
-    "accountCorrente",
-    "utenteCorrente",
-    "utenteLoggato",
-    "accountLoggato",
-    "userCorrente",
-    "userLoggato",
-    "currentUser",
-    "currentAccount",
-    "loggedUser",
-    "loggedInUser",
-    "user",
-    "account",
-    "utente"
-];
+const SUPABASE_KEY =
+    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
 
 
-/* =========================================================
-   ACCOUNT
-   ========================================================= */
-
-function estraiIdentificativoAccount(valore) {
-
-    if (
-        valore === null ||
-        valore === undefined
-    ) {
-        return null;
-    }
-
-
-    if (typeof valore === "string") {
-
-        const testo = valore.trim();
-
-        if (!testo) {
-            return null;
-        }
-
-        /*
-           Se la stringa contiene JSON,
-           proviamo a leggerlo.
-        */
-        try {
-
-            const json = JSON.parse(testo);
-
-            if (
-                typeof json === "object" &&
-                json !== null
-            ) {
-
-                return estraiIdentificativoAccount(json);
-
-            }
-
-        } catch (errore) {
-            /*
-               Stringa normale.
-            */
-        }
-
-        return testo;
-    }
-
-
-    if (typeof valore === "number") {
-
-        return String(valore);
-
-    }
-
-
-    if (
-        typeof valore === "object" &&
-        valore !== null
-    ) {
-
-        const possibiliCampi = [
-            "username",
-            "userName",
-            "nome",
-            "name",
-            "email",
-            "account",
-            "accountName",
-            "utente",
-            "user",
-            "id",
-            "uid"
-        ];
-
-
-        for (
-            let i = 0;
-            i < possibiliCampi.length;
-            i++
-        ) {
-
-            const campo = possibiliCampi[i];
-
-            if (
-                Object.prototype.hasOwnProperty.call(
-                    valore,
-                    campo
-                )
-            ) {
-
-                const risultato =
-                    estraiIdentificativoAccount(
-                        valore[campo]
-                    );
-
-
-                if (risultato) {
-
-                    return risultato;
-
-                }
-
-            }
-
-        }
-
-    }
-
-
-    return null;
-}
-
-
-function leggiAccountCorrente() {
-
-    /*
-       Prima leggiamo localStorage.
-    */
-    for (
-        let i = 0;
-        i < POSSIBILI_CHIAVI_ACCOUNT.length;
-        i++
-    ) {
-
-        const chiave =
-            POSSIBILI_CHIAVI_ACCOUNT[i];
-
-        const valore =
-            localStorage.getItem(chiave);
-
-
-        if (
-            valore !== null &&
-            valore !== ""
-        ) {
-
-            const account =
-                estraiIdentificativoAccount(valore);
-
-
-            if (account) {
-
-                return account;
-
-            }
-
-        }
-
-    }
-
-
-    /*
-       Poi sessionStorage.
-    */
-    try {
-
-        for (
-            let i = 0;
-            i < POSSIBILI_CHIAVI_ACCOUNT.length;
-            i++
-        ) {
-
-            const chiave =
-                POSSIBILI_CHIAVI_ACCOUNT[i];
-
-            const valore =
-                sessionStorage.getItem(chiave);
-
-
-            if (
-                valore !== null &&
-                valore !== ""
-            ) {
-
-                const account =
-                    estraiIdentificativoAccount(valore);
-
-
-                if (account) {
-
-                    return account;
-
-                }
-
-            }
-
-        }
-
-    } catch (errore) {
-
-        console.warn(
-            "EcoGame: sessionStorage non disponibile."
-        );
-
-    }
-
-
-    return null;
-}
-
-
-/* =========================================================
-   NORMALIZZAZIONE ACCOUNT
-   ========================================================= */
-
-function normalizzaAccountPerChiave(account) {
-
-    return String(account)
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "_")
-        .replace(/[^a-z0-9_.@-]/gi, "_");
-}
-
-
-/* =========================================================
-   CHIAVE GREEN POINTS
-   ========================================================= */
-
-function chiaveGreenPointsAccount(account = null) {
-
-    const accountCorrente =
-        account || leggiAccountCorrente();
-
-
-    if (!accountCorrente) {
-
-        return null;
-
-    }
-
-
-    return (
-        GREEN_POINTS_KEY +
-        "_" +
-        normalizzaAccountPerChiave(
-            accountCorrente
-        )
-    );
-}
-
-
-/* =========================================================
-   LETTURA GREEN POINTS
-   ========================================================= */
-
-function leggiGreenPointsTotali(account = null) {
-
-    const chiave =
-        chiaveGreenPointsAccount(account);
-
-
-    if (!chiave) {
-
-        return 0;
-
-    }
-
-
-    const valore =
-        localStorage.getItem(chiave);
-
-
-    if (
-        valore === null ||
-        valore === ""
-    ) {
-
-        return 0;
-
-    }
-
-
-    const punti =
-        parseInt(
-            valore,
-            10
-        );
-
-
-    if (isNaN(punti)) {
-
-        return 0;
-
-    }
-
-
-    return Math.max(
-        0,
-        punti
-    );
-}
-
-
-/* =========================================================
-   SALVATAGGIO GREEN POINTS
-   ========================================================= */
-
-function salvaGreenPointsPartita() {
-
-    const account =
-        leggiAccountCorrente();
-
-
-    if (!account) {
-
-        console.warn(
-            "EcoGame: nessun account collegato."
-        );
-
-        return {
-            riuscito: false,
-            account: null,
-            puntiPartita: greenPoints,
-            puntiPrecedenti: 0,
-            puntiTotali: 0
-        };
-    }
-
-
-    const chiave =
-        chiaveGreenPointsAccount(account);
-
-
-    if (!chiave) {
-
-        return {
-            riuscito: false,
-            account: account,
-            puntiPartita: greenPoints,
-            puntiPrecedenti: 0,
-            puntiTotali: 0
-        };
-    }
-
-
-    /*
-       IMPORTANTE:
-
-       leggiamo il totale immediatamente prima
-       del salvataggio.
-
-       In questo modo non sovrascriviamo i punti
-       già presenti nell'account.
-    */
-    const puntiPrecedenti =
-        leggiGreenPointsTotali(account);
-
-
-    const puntiPartita =
-        Math.max(
-            0,
-            parseInt(greenPoints, 10) || 0
-        );
-
-
-    const nuovoTotale =
-        puntiPrecedenti +
-        puntiPartita;
-
-
-    /*
-       Salvataggio principale.
-    */
-    localStorage.setItem(
-        chiave,
-        String(nuovoTotale)
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
 
 
-    /*
-       Riferimenti compatibili per le altre pagine
-       del sistema.
-    */
-    localStorage.setItem(
-        "ultimoAccountEcoGame",
-        account
-    );
-
-
-    localStorage.setItem(
-        "ultimiGreenPointsEcoGame",
-        String(nuovoTotale)
-    );
-
-
-    /*
-       Salviamo anche l'ultimo risultato di questa partita.
-    */
-    localStorage.setItem(
-        "ultimoGiocoGreenPoints",
-        String(puntiPartita)
-    );
-
-
-    /*
-       Identificativo del gioco.
-    */
-    localStorage.setItem(
-        "ultimoGiocoEcoGame",
-        "salvaForesta"
-    );
-
-
-    /*
-       Data/ora del salvataggio.
-    */
-    localStorage.setItem(
-        "ultimoSalvataggioGreenPoints",
-        String(Date.now())
-    );
-
-
-    /*
-       Evento per la classifica e le altre pagine.
-    */
-    try {
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "greenPointsAggiornati",
-                {
-                    detail: {
-
-                        account: account,
-
-                        puntiPartita:
-                            puntiPartita,
-
-                        puntiPrecedenti:
-                            puntiPrecedenti,
-
-                        puntiTotali:
-                            nuovoTotale,
-
-                        gioco:
-                            "salvaForesta"
-
-                    }
-                }
-            )
-        );
-
-    } catch (errore) {
-
-        console.warn(
-            "EcoGame: evento Green Points non disponibile."
-        );
-
-    }
-
-
-    /*
-       Evento aggiuntivo per sistemi che utilizzano
-       un nome diverso.
-    */
-    try {
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "classificaAggiornata",
-                {
-                    detail: {
-
-                        account: account,
-
-                        punti:
-                            nuovoTotale,
-
-                        puntiPartita:
-                            puntiPartita,
-
-                        gioco:
-                            "salvaForesta"
-
-                    }
-                }
-            )
-        );
-
-    } catch (errore) {
-
-        console.warn(
-            "EcoGame: evento classifica non disponibile."
-        );
-
-    }
-
-
-    console.log(
-        "======================================"
-    );
-
-    console.log(
-        "EcoGame - SALVATAGGIO PARTITA"
-    );
-
-    console.log(
-        "Gioco:",
-        "salvaForesta"
-    );
-
-    console.log(
-        "Account:",
-        account
-    );
-
-    console.log(
-        "GP partita:",
-        puntiPartita
-    );
-
-    console.log(
-        "GP precedenti:",
-        puntiPrecedenti
-    );
-
-    console.log(
-        "GP totali:",
-        nuovoTotale
-    );
-
-    console.log(
-        "======================================"
-    );
-
-
-    return {
-        riuscito: true,
-        account: account,
-        puntiPartita: puntiPartita,
-        puntiPrecedenti: puntiPrecedenti,
-        puntiTotali: nuovoTotale
-    };
-}
-
-
-/* =========================================================
+/* =====================================================
    TRADUZIONI
-   ========================================================= */
+   ===================================================== */
 
 const traduzioni = {
 
     it: {
 
-        titoloGioco:
+        menu: "Giochi",
+        turno: "Turno",
+
+        titolo:
             "🌳 Salva la Foresta",
 
-        introGioco:
+        introduzione:
             "Gestisci un ecosistema forestale. Ogni decisione produce conseguenze.",
-
-        turno:
-            "Turno",
 
         biodiversita:
             "Biodiversità",
@@ -1213,12 +739,6 @@ const traduzioni = {
         comunita:
             "Comunità",
 
-        greenPoints:
-            "Green Points",
-
-        feedback:
-            "Decisione registrata.",
-
         continua:
             "➡️ Continua",
 
@@ -1231,250 +751,55 @@ const traduzioni = {
         tornaGiochi:
             "Torna ai giochi",
 
-        scenario: [
+        decisione:
+            "Decisione registrata.",
 
-            "SITUAZIONE 1 — PROTEZIONE",
-            "SITUAZIONE 2 — ACQUA",
-            "SITUAZIONE 3 — SPECIE INVASIVA",
-            "SITUAZIONE 4 — INCENDI",
-            "SITUAZIONE 5 — SUOLO",
-            "SITUAZIONE 6 — ECONOMIA LOCALE",
-            "SITUAZIONE 7 — BIODIVERSITÀ",
-            "SITUAZIONE 8 — DECISIONE FINALE"
+        greenPoints:
+            "🌱 Green Points guadagnati in questa partita: ",
 
-        ],
+        greenPointsFinale:
+            "🌱 Green Points guadagnati:",
 
-        titoli: [
-
-            "Il futuro della foresta",
-            "Una stagione molto secca",
-            "Una nuova specie compare",
-            "Aumenta il rischio di incendio",
-            "Erosione del terreno",
-            "La comunità chiede lavoro",
-            "Una specie è in forte calo",
-            "Il piano per i prossimi anni"
-
-        ],
-
-        testi: [
-
-            "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
-
-            "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
-
-            "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
-
-            "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
-
-            "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
-
-            "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
-
-            "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
-
-            "Devi scegliere la strategia generale per il futuro della foresta."
-
-        ],
-
-        opzioni: [
-
-            [
-                ["A — Zona protetta",
-                "Istituisci una nuova area protetta, limitando alcune attività economiche."],
-
-                ["B — Taglio controllato",
-                "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."],
-
-                ["C — Espansione agricola",
-                "Concedi parte della foresta all'espansione delle coltivazioni."],
-
-                ["D — Nessun intervento",
-                "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."]
-            ],
-
-            [
-                ["A — Protezione delle aree d'acqua",
-                "Proteggi le aree ripariali e limita i prelievi d'acqua."],
-
-                ["B — Uso controllato",
-                "Permetti un uso controllato delle risorse idriche con monitoraggio."],
-
-                ["C — Aumento dei prelievi",
-                "Aumenti i prelievi d'acqua per sostenere le attività agricole."],
-
-                ["D — Nessun intervento",
-                "Mantieni la situazione attuale e osserva l'evoluzione."]
-            ],
-
-            [
-                ["A — Rimozione precoce",
-                "Intervieni rapidamente per limitare la diffusione della specie invasiva."],
-
-                ["B — Controllo selettivo",
-                "Controlli la specie in modo selettivo attraverso un monitoraggio scientifico."],
-
-                ["C — Nessun controllo",
-                "Lasci che la specie si diffonda senza interventi significativi."],
-
-                ["D — Ignorare il problema",
-                "Non intervieni e lasci che l'ecosistema si evolva autonomamente."]
-            ],
-
-            [
-                ["A — Prevenzione incendi",
-                "Aumenti la prevenzione e gestisci il combustibile vegetale."],
-
-                ["B — Interventi mirati",
-                "Realizzi interventi mirati nelle aree maggiormente esposte."],
-
-                ["C — Maggiore pressione",
-                "Aumenti le attività sul territorio nonostante il rischio."],
-
-                ["D — Nessuna prevenzione",
-                "Non introduci nuove misure di prevenzione."]
-            ],
-
-            [
-                ["A — Protezione del suolo",
-                "Aumenti la copertura vegetale e proteggi le aree più vulnerabili."],
-
-                ["B — Uso controllato",
-                "Limiti l'utilizzo del territorio nelle zone maggiormente esposte."],
-
-                ["C — Rimozione della vegetazione",
-                "Rimuovi parte della vegetazione per favorire nuove attività."],
-
-                ["D — Nessun intervento",
-                "Non introduci nuove misure contro l'erosione."]
-            ],
-
-            [
-                ["A — Economia sostenibile",
-                "Promuovi attività economiche sostenibili e turismo naturalistico."],
-
-                ["B — Utilizzo regolamentato",
-                "Permetti un utilizzo regolamentato delle risorse forestali."],
-
-                ["C — Espansione economica",
-                "Aumenti le attività economiche e l'utilizzo del territorio."],
-
-                ["D — Nessun intervento",
-                "Non introduci nuove opportunità economiche."]
-            ],
-
-            [
-                ["A — Protezione dell'habitat",
-                "Proteggi le aree di foresta matura più importanti per la specie."],
-
-                ["B — Gestione selettiva",
-                "Permetti una gestione selettiva evitando gli habitat più importanti."],
-
-                ["C — Conversione del territorio",
-                "Converti parte dell'habitat per altre attività."],
-
-                ["D — Solo monitoraggio",
-                "Continui il monitoraggio senza modificare le pressioni sull'habitat."]
-            ],
-
-            [
-                ["A — Strategia integrata",
-                "Adotti una strategia che combina conservazione e benefici sociali."],
-
-                ["B — Gestione controllata",
-                "Combini alcuni usi economici con obiettivi di conservazione."],
-
-                ["C — Conversione del territorio",
-                "Aumenti la conversione del territorio per ottenere benefici economici."],
-
-                ["D — Nessuna strategia",
-                "Mantieni la situazione attuale senza una nuova strategia."]
-            ]
-
-        ],
-
-        spiegazioni: [
-
-            [
-                "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
-                "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
-                "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
-                "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
-            ],
-
-            [
-                "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
-                "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
-                "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
-                "Non intervenire lascia invariata la pressione sulle risorse."
-            ],
-
-            [
-                "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
-                "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
-                "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
-                "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
-            ],
-
-            [
-                "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
-                "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
-                "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
-                "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
-            ],
-
-            [
-                "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
-                "Un uso controllato del territorio può limitare parte del problema.",
-                "La rimozione della vegetazione può aumentare il rischio di erosione.",
-                "Senza interventi il degrado del suolo può continuare."
-            ],
-
-            [
-                "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
-                "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
-                "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
-                "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
-            ],
-
-            [
-                "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
-                "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
-                "La perdita di habitat può accelerare il declino della specie.",
-                "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
-            ],
-
-            [
-                "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
-                "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
-                "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
-                "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
-            ]
-
-        ],
-
-        messaggiFinali: [
-
+        messaggio1:
             "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.",
-            "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.",
-            "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.",
-            "🌳 La foresta è in difficoltà. Prova una strategia diversa."
 
-        ]
+        messaggio2:
+            "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.",
+
+        messaggio3:
+            "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.",
+
+        messaggio4:
+            "🌳 La foresta è in difficoltà. Prova una strategia diversa.",
+
+        accountAssente:
+            "⚠️ Nessun account autenticato: i Green Points non verranno salvati.",
+
+        erroreAccount:
+            "⚠️ Errore nel recupero dell'account.",
+
+        erroreProfilo:
+            "⚠️ Impossibile recuperare il profilo.",
+
+        profiloNonTrovato:
+            "⚠️ Profilo non trovato.",
+
+        erroreConnessione:
+            "⚠️ Errore nella connessione all'account."
 
     },
 
 
     en: {
 
-        titoloGioco:
+        menu: "Games",
+        turno: "Turn",
+
+        titolo:
             "🌳 Save the Forest",
 
-        introGioco:
+        introduzione:
             "Manage a forest ecosystem. Every decision has consequences.",
-
-        turno:
-            "Turn",
 
         biodiversita:
             "Biodiversity",
@@ -1488,12 +813,6 @@ const traduzioni = {
         comunita:
             "Community",
 
-        greenPoints:
-            "Green Points",
-
-        feedback:
-            "Decision recorded.",
-
         continua:
             "➡️ Continue",
 
@@ -1506,250 +825,55 @@ const traduzioni = {
         tornaGiochi:
             "Back to games",
 
-        scenario: [
+        decisione:
+            "Decision recorded.",
 
-            "SITUATION 1 — PROTECTION",
-            "SITUATION 2 — WATER",
-            "SITUATION 3 — INVASIVE SPECIES",
-            "SITUATION 4 — FIRES",
-            "SITUATION 5 — SOIL",
-            "SITUATION 6 — LOCAL ECONOMY",
-            "SITUATION 7 — BIODIVERSITY",
-            "SITUATION 8 — FINAL DECISION"
+        greenPoints:
+            "🌱 Green Points earned in this game: ",
 
-        ],
+        greenPointsFinale:
+            "🌱 Green Points earned:",
 
-        titoli: [
+        messaggio1:
+            "🏆 Excellent management: you maintained a good balance between ecosystem and community.",
 
-            "The future of the forest",
-            "A very dry season",
-            "A new species appears",
-            "Fire risk increases",
-            "Soil erosion",
-            "The community needs jobs",
-            "A species is declining rapidly",
-            "The plan for the coming years"
+        messaggio2:
+            "🌱 Good management: the forest remained overall in positive condition.",
 
-        ],
-
-        testi: [
-
-            "Part of the forest is home to rare species. Economic pressure on the area is increasing. You must decide how to intervene.",
-
-            "Rainfall has decreased for the second consecutive year. The forest's waterways are showing flows below average.",
-
-            "A plant species that is not native to the area is rapidly spreading along the edge of the forest.",
-
-            "High temperatures and dry vegetation are increasing the risk of widespread fires during the summer.",
-
-            "After heavy rainfall, some slopes show signs of erosion. Fertile soil is decreasing.",
-
-            "Part of the local population depends economically on forest resources.",
-
-            "Monitoring shows a sharp decline in an animal species that depends on mature forest.",
-
-            "You must choose the overall strategy for the future of the forest."
-
-        ],
-
-        opzioni: [
-
-            [
-                ["A — Protected area",
-                "Establish a new protected area, limiting some economic activities."],
-
-                ["B — Controlled logging",
-                "Allow selective tree cutting with limits and monitoring."],
-
-                ["C — Agricultural expansion",
-                "Allow part of the forest to be converted for agricultural expansion."],
-
-                ["D — No intervention",
-                "Keep the current rules and observe how the ecosystem develops."]
-            ],
-
-            [
-                ["A — Protect water areas",
-                "Protect riparian areas and limit water withdrawals."],
-
-                ["B — Controlled use",
-                "Allow controlled use of water resources with monitoring."],
-
-                ["C — Increase withdrawals",
-                "Increase water withdrawals to support agricultural activities."],
-
-                ["D — No intervention",
-                "Keep the current situation and observe how it develops."]
-            ],
-
-            [
-                ["A — Early removal",
-                "Act quickly to limit the spread of the invasive species."],
-
-                ["B — Selective control",
-                "Control the species selectively through scientific monitoring."],
-
-                ["C — No control",
-                "Allow the species to spread without significant intervention."],
-
-                ["D — Ignore the problem",
-                "Do not intervene and allow the ecosystem to develop on its own."]
-            ],
-
-            [
-                ["A — Fire prevention",
-                "Increase prevention measures and manage vegetation fuel."],
-
-                ["B — Targeted measures",
-                "Carry out targeted measures in the areas most exposed to risk."],
-
-                ["C — Greater pressure",
-                "Increase activities in the area despite the risk."],
-
-                ["D — No prevention",
-                "Do not introduce new prevention measures."]
-            ],
-
-            [
-                ["A — Soil protection",
-                "Increase vegetation cover and protect the most vulnerable areas."],
-
-                ["B — Controlled use",
-                "Limit land use in the areas most exposed to erosion."],
-
-                ["C — Vegetation removal",
-                "Remove some vegetation to support new activities."],
-
-                ["D — No intervention",
-                "Do not introduce new measures against erosion."]
-            ],
-
-            [
-                ["A — Sustainable economy",
-                "Promote sustainable economic activities and nature tourism."],
-
-                ["B — Regulated use",
-                "Allow regulated use of forest resources."],
-
-                ["C — Economic expansion",
-                "Increase economic activities and land use."],
-
-                ["D — No intervention",
-                "Do not introduce new economic opportunities."]
-            ],
-
-            [
-                ["A — Habitat protection",
-                "Protect the most important mature forest areas for the species."],
-
-                ["B — Selective management",
-                "Allow selective management while avoiding the most important habitats."],
-
-                ["C — Land conversion",
-                "Convert part of the habitat for other activities."],
-
-                ["D — Monitoring only",
-                "Continue monitoring without changing pressures on the habitat."]
-            ],
-
-            [
-                ["A — Integrated strategy",
-                "Adopt a strategy combining conservation and social benefits."],
-
-                ["B — Controlled management",
-                "Combine some economic uses with conservation objectives."],
-
-                ["C — Land conversion",
-                "Increase land conversion to obtain economic benefits."],
-
-                ["D — No strategy",
-                "Keep the current situation without a new strategy."]
-            ]
-
-        ],
-
-        spiegazioni: [
-
-            [
-                "Greater protection can support habitat conservation, but it may reduce some local economic opportunities.",
-                "Selective logging can reduce the impact compared with intensive deforestation when applied using scientific criteria.",
-                "Forest conversion can reduce habitats and ecosystem services, although it may increase some economic activities.",
-                "Taking no action may be appropriate in some contexts, but it does not automatically solve existing problems."
-            ],
-
-            [
-                "Protecting riparian areas and limiting withdrawals can contribute to the resilience of the water system.",
-                "Controlled resource use can reduce pressure, but it should be accompanied by monitoring.",
-                "Increased agricultural withdrawals can worsen water scarcity during drought periods.",
-                "Taking no action leaves the pressure on resources unchanged."
-            ],
-
-            [
-                "Early intervention can limit the spread of an invasive species before it becomes difficult to manage.",
-                "Selective control can work when accompanied by scientific monitoring.",
-                "Allowing pressure to increase can encourage the spread of the invasive species.",
-                "Ignoring the problem can allow the species to colonize new habitats."
-            ],
-
-            [
-                "Fire prevention and vegetation fuel management can reduce some risks.",
-                "Targeted measures can contribute to prevention when properly designed.",
-                "Greater pressure on the area can increase exposure to risk.",
-                "Lack of prevention leaves the system more vulnerable to extreme events."
-            ],
-
-            [
-                "Vegetation cover and soil protection can reduce erosion.",
-                "Controlled land use can limit part of the problem.",
-                "Removing vegetation can increase erosion risk.",
-                "Without intervention, soil degradation may continue."
-            ],
-
-            [
-                "Conservation can be compatible with sustainable economic activities and nature tourism.",
-                "Regulated use can provide economic resources while maintaining some ecological limits.",
-                "Economic expansion can increase income, but also pressure on ecosystems.",
-                "Ignoring the community's needs can increase social conflict."
-            ],
-
-            [
-                "Protecting mature habitats can benefit species that depend on complex forest structures.",
-                "Selective management can be compatible with conservation if the most important habitats are avoided.",
-                "Habitat loss can accelerate the species' decline.",
-                "Monitoring without intervention does not directly change pressures on the habitat."
-            ],
-
-            [
-                "An integrated strategy can seek to maintain both ecological functions and social benefits.",
-                "Controlled management can combine some economic uses with conservation objectives.",
-                "Strong land conversion can increase some short-term economic benefits but reduce several ecosystem functions.",
-                "The absence of a strategy can leave existing pressures unresolved."
-            ]
-
-        ],
-
-        messaggiFinali: [
-
-            "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
-            "🌱 Good management: the forest remained in generally positive condition.",
+        messaggio3:
             "⚠️ Fragile balance: some decisions created significant pressures.",
-            "🌳 The forest is struggling. Try a different strategy."
 
-        ]
+        messaggio4:
+            "🌳 The forest is struggling. Try a different strategy.",
+
+        accountAssente:
+            "⚠️ No authenticated account: Green Points will not be saved.",
+
+        erroreAccount:
+            "⚠️ Error retrieving account.",
+
+        erroreProfilo:
+            "⚠️ Unable to retrieve profile.",
+
+        profiloNonTrovato:
+            "⚠️ Profile not found.",
+
+        erroreConnessione:
+            "⚠️ Error connecting to account."
 
     },
 
 
     fi: {
 
-        titoloGioco:
+        menu: "Pelit",
+        turno: "Vuoro",
+
+        titolo:
             "🌳 Pelasta metsä",
 
-        introGioco:
-            "Hallitse metsäekosysteemiä. Jokaisella päätöksellä on seurauksia.",
-
-        turno:
-            "Vuoro",
+        introduzione:
+            "Hallinnoi metsäekosysteemiä. Jokaisella päätöksellä on seurauksia.",
 
         biodiversita:
             "Luonnon monimuotoisuus",
@@ -1763,12 +887,6 @@ const traduzioni = {
         comunita:
             "Yhteisö",
 
-        greenPoints:
-            "Green Points",
-
-        feedback:
-            "Päätös tallennettu.",
-
         continua:
             "➡️ Jatka",
 
@@ -1776,255 +894,662 @@ const traduzioni = {
             "🏁 Hallinta suoritettu",
 
         nuovaGestione:
-            "Uusi hallinta",
+            "Uusi peli",
 
         tornaGiochi:
             "Takaisin peleihin",
 
-        scenario: [
+        decisione:
+            "Päätös tallennettu.",
 
-            "TILANNE 1 — SUOJELU",
-            "TILANNE 2 — VESI",
-            "TILANNE 3 — VIERASLAJI",
-            "TILANNE 4 — METSÄPALOT",
-            "TILANNE 5 — MAAPERÄ",
-            "TILANNE 6 — PAIKALLINEN TALOUS",
-            "TILANNE 7 — LUONNON MONIMUOTOISUUS",
-            "TILANNE 8 — LOPULLINEN PÄÄTÖS"
+        greenPoints:
+            "🌱 Tässä pelissä ansaitut Green Points -pisteet: ",
 
-        ],
+        greenPointsFinale:
+            "🌱 Ansaitut Green Points -pisteet:",
 
-        titoli: [
-
-            "Metsän tulevaisuus",
-            "Erittäin kuiva kausi",
-            "Uusi laji ilmestyy",
-            "Metsäpalojen riski kasvaa",
-            "Maaperän eroosio",
-            "Yhteisö tarvitsee työpaikkoja",
-            "Lajin määrä vähenee nopeasti",
-            "Suunnitelma tuleville vuosille"
-
-        ],
-
-        /*
-           CORRETTO:
-           nel codice originale questa proprietà era
-           utilizzata in modo ambiguo.
-        */
-        testi: [
-
-            "Osa metsästä on harvinaisten lajien elinympäristöä. Taloudellinen paine alueella kasvaa. Sinun on päätettävä, miten toimia.",
-
-            "Sademäärä on vähentynyt jo toista vuotta peräkkäin. Metsän vesistöjen virtaamat ovat keskimääräistä pienempiä.",
-
-            "Alueelle vieras kasvilaji leviää nopeasti metsän reunalla.",
-
-            "Korkeat lämpötilat ja kuiva kasvillisuus lisäävät laajojen metsäpalojen riskiä kesällä.",
-
-            "Voimakkaiden sateiden jälkeen jotkin rinteet osoittavat eroosion merkkejä. Hedelmällinen maaperä vähenee.",
-
-            "Osa paikallisesta väestöstä on taloudellisesti riippuvainen metsän resursseista.",
-
-            "Seuranta osoittaa voimakasta vähenemistä eläinlajissa, joka tarvitsee vanhaa metsää.",
-
-            "Sinun on valittava metsän tulevaisuuden yleinen strategia."
-
-        ],
-
-        opzioni: [
-
-            [
-                ["A — Suojelualue",
-                "Perusta uusi suojelualue ja rajoita joitakin taloudellisia toimintoja."],
-
-                ["B — Hallittu hakkuu",
-                "Salli valikoiva puiden hakkuu rajoituksin ja seurannalla."],
-
-                ["C — Maatalouden laajentaminen",
-                "Salli osan metsästä muuttaminen maatalouskäyttöön."],
-
-                ["D — Ei toimenpiteitä",
-                "Pidä nykyiset säännöt ja seuraa ekosysteemin kehitystä."]
-            ],
-
-            [
-                ["A — Vesialueiden suojelu",
-                "Suojele vesistöjen reuna-alueita ja rajoita vedenottoa."],
-
-                ["B — Hallittu käyttö",
-                "Salli vesivarojen hallittu käyttö seurannan avulla."],
-
-                ["C — Lisää vedenottoa",
-                "Lisää vedenottoa maataloustoiminnan tukemiseksi."],
-
-                ["D — Ei toimenpiteitä",
-                "Pidä nykyinen tilanne ja seuraa sen kehitystä."]
-            ],
-
-            [
-                ["A — Varhainen poistaminen",
-                "Toimi nopeasti vieraslajin leviämisen rajoittamiseksi."],
-
-                ["B — Valikoiva torjunta",
-                "Torju lajia valikoivasti tieteellisen seurannan avulla."],
-
-                ["C — Ei torjuntaa",
-                "Anna lajin levitä ilman merkittäviä toimenpiteitä."],
-
-                ["D — Jätä ongelma huomiotta",
-                "Älä puutu tilanteeseen ja anna ekosysteemin kehittyä itsestään."]
-            ],
-
-            [
-                ["A — Metsäpalojen ehkäisy",
-                "Lisää ennaltaehkäisyä ja hallitse kasvillisuuden palokuormaa."],
-
-                ["B — Kohdennetut toimet",
-                "Toteuta kohdennettuja toimia riskialtteimmilla alueilla."],
-
-                ["C — Lisää painetta",
-                "Lisää alueen toimintaa riskistä huolimatta."],
-
-                ["D — Ei ehkäisyä",
-                "Älä ota käyttöön uusia ehkäisytoimia."]
-            ],
-
-            [
-                ["A — Maaperän suojelu",
-                "Lisää kasvillisuuden peittävyyttä ja suojele haavoittuvimpia alueita."],
-
-                ["B — Hallittu käyttö",
-                "Rajoita maankäyttöä eroosioalttiilla alueilla."],
-
-                ["C — Kasvillisuuden poistaminen",
-                "Poista kasvillisuutta uusien toimintojen mahdollistamiseksi."],
-
-                ["D — Ei toimenpiteitä",
-                "Älä ota käyttöön uusia eroosion vastaisia toimia."]
-            ],
-
-            [
-                ["A — Kestävä talous",
-                "Edistä kestävää taloudellista toimintaa ja luontomatkailua."],
-
-                ["B — Säännelty käyttö",
-                "Salli metsän resurssien säännelty käyttö."],
-
-                ["C — Talouden laajentaminen",
-                "Lisää taloudellista toimintaa ja maankäyttöä."],
-
-                ["D — Ei toimenpiteitä",
-                "Älä luo uusia taloudellisia mahdollisuuksia."]
-            ],
-
-            [
-                ["A — Elinympäristön suojelu",
-                "Suojele lajin tärkeimpiä vanhan metsän alueita."],
-
-                ["B — Valikoiva hallinta",
-                "Salli valikoiva hallinta ja vältä tärkeimpiä elinympäristöjä."],
-
-                ["C — Alueen muuttaminen",
-                "Muuta osa elinympäristöstä muuhun käyttöön."],
-
-                ["D — Vain seuranta",
-                "Jatka seurantaa muuttamatta elinympäristöön kohdistuvia paineita."]
-            ],
-
-            [
-                ["A — Yhdistetty strategia",
-                "Ota käyttöön strategia, jossa yhdistyvät suojelu ja yhteisön hyödyt."],
-
-                ["B — Hallittu käyttö",
-                "Yhdistä taloudellisia käyttötapoja luonnonsuojelutavoitteisiin."],
-
-                ["C — Alueen muuttaminen",
-                "Lisää alueen muuttamista taloudellisten hyötyjen saavuttamiseksi."],
-
-                ["D — Ei strategiaa",
-                "Pidä nykyinen tilanne ilman uutta strategiaa."]
-            ]
-
-        ],
-
-        spiegazioni: [
-
-            [
-                "Parempi suojelu voi edistää elinympäristöjen säilymistä, mutta se voi vähentää paikallisia taloudellisia mahdollisuuksia.",
-                "Valikoiva hakkuu voi vähentää vaikutuksia verrattuna voimakkaaseen metsien hävittämiseen, jos sitä tehdään tieteellisten periaatteiden mukaisesti.",
-                "Metsän muuttaminen muuhun käyttöön voi vähentää elinympäristöjä ja ekosysteemipalveluja, vaikka se voi lisätä taloudellista toimintaa.",
-                "Toimimattomuus voi olla joissakin tilanteissa sopivaa, mutta se ei automaattisesti ratkaise olemassa olevia ongelmia."
-            ],
-
-            [
-                "Vesistöjen reuna-alueiden suojeleminen ja vedenoton rajoittaminen voivat parantaa vesijärjestelmän kestävyyttä.",
-                "Luonnonvarojen hallittu käyttö voi vähentää painetta, mutta sen tulee perustua seurantaan.",
-                "Maatalouden vedenoton lisääminen voi pahentaa vesipulaa kuivina kausina.",
-                "Toimimattomuus pitää luonnonvaroihin kohdistuvan paineen ennallaan."
-            ],
-
-            [
-                "Varhainen toiminta voi rajoittaa vieraslajin leviämistä ennen kuin sitä on vaikea hallita.",
-                "Valikoiva torjunta voi toimia, jos sitä tuetaan tieteellisellä seurannalla.",
-                "Paineen lisääminen voi edistää vieraslajin leviämistä.",
-                "Ongelman huomiotta jättäminen voi antaa lajin levitä uusille elinympäristöille."
-            ],
-
-            [
-                "Metsäpalojen ehkäisy ja kasvillisuuden palokuorman hallinta voivat vähentää joitakin riskejä.",
-                "Kohdennetut toimet voivat edistää ehkäisyä, jos ne suunnitellaan oikein.",
-                "Lisääntynyt paine alueella voi kasvattaa riskeille altistumista.",
-                "Ehkäisyn puute jättää järjestelmän haavoittuvammaksi äärimmäisille tapahtumille."
-            ],
-
-            [
-                "Kasvillisuuden peittävyys ja maaperän suojelu voivat vähentää eroosiota.",
-                "Hallittu maankäyttö voi rajoittaa osaa ongelmasta.",
-                "Kasvillisuuden poistaminen voi lisätä eroosioriskiä.",
-                "Ilman toimenpiteitä maaperän heikkeneminen voi jatkua."
-            ],
-
-            [
-                "Luonnonsuojelu voi olla yhteensopivaa kestävän taloudellisen toiminnan ja luontomatkailun kanssa.",
-                "Säännelty käyttö voi tuottaa taloudellisia resursseja säilyttäen samalla ekologisia rajoja.",
-                "Talouden laajentaminen voi lisätä tuloja, mutta myös ekosysteemeihin kohdistuvaa painetta.",
-                "Yhteisön tarpeiden huomiotta jättäminen voi lisätä sosiaalisia ristiriitoja."
-            ],
-
-            [
-                "Vanhojen metsien elinympäristöjen suojeleminen voi hyödyttää lajeja, jotka tarvitsevat monimutkaisia metsäympäristöjä.",
-                "Valikoiva hallinta voi olla yhteensopivaa suojelun kanssa, jos tärkeimpiä elinympäristöjä vältetään.",
-                "Elinympäristöjen menetys voi nopeuttaa lajin vähenemistä.",
-                "Seuranta ilman toimenpiteitä ei suoraan muuta elinympäristöön kohdistuvia paineita."
-            ],
-
-            [
-                "Yhdistetty strategia voi pyrkiä säilyttämään sekä ekologiset toiminnot että yhteisön hyödyt.",
-                "Hallittu käyttö voi yhdistää joitakin taloudellisia käyttötapoja suojelutavoitteisiin.",
-                "Laaja alueen muuttaminen voi lisätä joitakin lyhyen aikavälin taloudellisia hyötyjä, mutta vähentää useita ekosysteemitoimintoja.",
-                "Strategian puuttuminen voi jättää olemassa olevat paineet ratkaisematta."
-            ]
-
-        ],
-
-        messaggiFinali: [
-
+        messaggio1:
             "🏆 Erinomainen hallinta: säilytit hyvän tasapainon ekosysteemin ja yhteisön välillä.",
-            "🌱 Hyvä hallinta: metsä säilyi kokonaisuutena hyvässä kunnossa.",
-            "⚠️ Hauras tasapaino: jotkin päätökset aiheuttivat merkittäviä paineita.",
-            "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa."
 
-        ]
+        messaggio2:
+            "🌱 Hyvä hallinta: metsän tila pysyi kokonaisuutena hyvänä.",
+
+        messaggio3:
+            "⚠️ Haavoittuva tasapaino: jotkin päätökset aiheuttivat merkittäviä paineita.",
+
+        messaggio4:
+            "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa.",
+
+        accountAssente:
+            "⚠️ Käyttäjätiliä ei ole tunnistettu: Green Points -pisteitä ei tallenneta.",
+
+        erroreAccount:
+            "⚠️ Virhe käyttäjätilin haussa.",
+
+        erroreProfilo:
+            "⚠️ Profiilia ei voitu hakea.",
+
+        profiloNonTrovato:
+            "⚠️ Profiilia ei löytynyt.",
+
+        erroreConnessione:
+            "⚠️ Virhe yhteydessä käyttäjätiliin."
 
     }
 
 };
 
 
-/* =========================================================
+/* =====================================================
+   TURNI DEL GIOCO
+   ===================================================== */
+
+const turni = [
+
+    {
+        scenario: "SITUAZIONE 1 — PROTEZIONE",
+
+        titolo:
+            "Il futuro della foresta",
+
+        testo:
+            "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Zona protetta",
+
+                testo:
+                    "Istituisci una nuova area protetta, limitando alcune attività economiche."
+            },
+
+            {
+                titolo:
+                    "B — Taglio controllato",
+
+                testo:
+                    "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."
+            },
+
+            {
+                titolo:
+                    "C — Espansione agricola",
+
+                testo:
+                    "Concedi parte della foresta all'espansione delle coltivazioni."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."
+            }
+
+        ],
+
+        effetti: [
+
+            [8, 2, 4, -5],
+            [2, 3, -1, 5],
+            [-8, -4, -6, 7],
+            [-2, 0, -1, 2]
+
+        ],
+
+        spiegazioni: [
+
+            "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
+
+            "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
+
+            "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
+
+            "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 2 — ACQUA",
+
+        titolo:
+            "Una stagione molto secca",
+
+        testo:
+            "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Protezione delle aree ripariali",
+
+                testo:
+                    "Proteggi le zone vicine ai corsi d'acqua e limita i prelievi."
+            },
+
+            {
+                titolo:
+                    "B — Uso controllato",
+
+                testo:
+                    "Mantieni l'utilizzo delle risorse con limiti e monitoraggio."
+            },
+
+            {
+                titolo:
+                    "C — Più prelievi agricoli",
+
+                testo:
+                    "Aumenti i prelievi d'acqua per sostenere le attività agricole."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Mantieni le regole attuali senza introdurre nuove misure."
+            }
+
+        ],
+
+        effetti: [
+
+            [5, 8, 4, -3],
+            [2, 3, 1, 3],
+            [-3, -8, -5, 6],
+            [0, -2, 0, 0]
+
+        ],
+
+        spiegazioni: [
+
+            "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
+
+            "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
+
+            "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
+
+            "Non intervenire lascia invariata la pressione sulle risorse."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 3 — SPECIE INVASIVA",
+
+        titolo:
+            "Una nuova specie compare",
+
+        testo:
+            "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Intervento precoce",
+
+                testo:
+                    "Avvia un programma di controllo della specie prima che si diffonda ulteriormente."
+            },
+
+            {
+                titolo:
+                    "B — Controllo selettivo",
+
+                testo:
+                    "Intervieni solamente nelle aree più colpite e monitora la situazione."
+            },
+
+            {
+                titolo:
+                    "C — Espansione controllata",
+
+                testo:
+                    "Lasci che la specie si diffonda in alcune aree della foresta."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Non intervieni e continui solamente a osservare la situazione."
+            }
+
+        ],
+
+        effetti: [
+
+            [7, 2, 4, -3],
+            [3, 0, 2, 2],
+            [-5, -2, -4, 3],
+            [-4, -1, -3, 0]
+
+        ],
+
+        spiegazioni: [
+
+            "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
+
+            "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
+
+            "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
+
+            "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 4 — INCENDI",
+
+        titolo:
+            "Aumenta il rischio di incendio",
+
+        testo:
+            "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Prevenzione",
+
+                testo:
+                    "Investi nella prevenzione degli incendi e nella gestione del combustibile vegetale."
+            },
+
+            {
+                titolo:
+                    "B — Interventi mirati",
+
+                testo:
+                    "Concentra gli interventi nelle aree maggiormente esposte."
+            },
+
+            {
+                titolo:
+                    "C — Più attività",
+
+                testo:
+                    "Aumenti le attività economiche nella foresta nonostante il rischio."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Mantieni le misure attuali senza introdurre nuovi interventi."
+            }
+
+        ],
+
+        effetti: [
+
+            [6, 5, 5, 2],
+            [4, 2, 3, 3],
+            [-4, -5, -4, 4],
+            [-3, -3, -2, 0]
+
+        ],
+
+        spiegazioni: [
+
+            "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
+
+            "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
+
+            "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
+
+            "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 5 — SUOLO",
+
+        titolo:
+            "Erosione del terreno",
+
+        testo:
+            "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Protezione del suolo",
+
+                testo:
+                    "Mantieni la copertura vegetale e proteggi le aree maggiormente esposte."
+            },
+
+            {
+                titolo:
+                    "B — Uso controllato",
+
+                testo:
+                    "Limita l'utilizzo dei versanti più vulnerabili."
+            },
+
+            {
+                titolo:
+                    "C — Rimozione della vegetazione",
+
+                testo:
+                    "Rimuovi parte della vegetazione per aumentare lo spazio utilizzabile."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Mantieni le pratiche attuali senza introdurre nuove misure."
+            }
+
+        ],
+
+        effetti: [
+
+            [5, 4, 9, 1],
+            [2, 1, 4, 3],
+            [-5, -2, -8, 5],
+            [-2, -1, -2, 0]
+
+        ],
+
+        spiegazioni: [
+
+            "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
+
+            "Un uso controllato del territorio può limitare parte del problema.",
+
+            "La rimozione della vegetazione può aumentare il rischio di erosione.",
+
+            "Senza interventi il degrado del suolo può continuare."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 6 — ECONOMIA LOCALE",
+
+        titolo:
+            "La comunità chiede lavoro",
+
+        testo:
+            "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Attività sostenibili",
+
+                testo:
+                    "Favorisci attività economiche compatibili con la conservazione della foresta."
+            },
+
+            {
+                titolo:
+                    "B — Utilizzo regolamentato",
+
+                testo:
+                    "Permetti l'utilizzo delle risorse con limiti e controlli."
+            },
+
+            {
+                titolo:
+                    "C — Espansione economica",
+
+                testo:
+                    "Aumenti l'utilizzo del territorio per creare nuove opportunità economiche."
+            },
+
+            {
+                titolo:
+                    "D — Nessun intervento",
+
+                testo:
+                    "Mantieni le condizioni attuali senza modificare le attività economiche."
+            }
+
+        ],
+
+        effetti: [
+
+            [3, 1, 2, 5],
+            [2, 1, 1, 7],
+            [-5, -2, -4, 8],
+            [-1, 0, 0, -5]
+
+        ],
+
+        spiegazioni: [
+
+            "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
+
+            "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
+
+            "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
+
+            "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 7 — BIODIVERSITÀ",
+
+        titolo:
+            "Una specie è in forte calo",
+
+        testo:
+            "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Protezione dell'habitat",
+
+                testo:
+                    "Proteggi le aree di foresta matura utilizzate dalla specie."
+            },
+
+            {
+                titolo:
+                    "B — Gestione selettiva",
+
+                testo:
+                    "Permetti alcuni interventi evitando gli habitat più importanti."
+            },
+
+            {
+                titolo:
+                    "C — Conversione del territorio",
+
+                testo:
+                    "Destina parte dell'habitat ad altre attività."
+            },
+
+            {
+                titolo:
+                    "D — Solo monitoraggio",
+
+                testo:
+                    "Continua a raccogliere dati senza modificare la gestione."
+            }
+
+        ],
+
+        effetti: [
+
+            [9, 2, 4, -3],
+            [4, 1, 2, 2],
+            [-7, -3, -6, 5],
+            [-3, 0, -2, -1]
+
+        ],
+
+        spiegazioni: [
+
+            "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
+
+            "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
+
+            "La perdita di habitat può accelerare il declino della specie.",
+
+            "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
+
+        ]
+
+    },
+
+
+    {
+        scenario: "SITUAZIONE 8 — DECISIONE FINALE",
+
+        titolo:
+            "Il piano per i prossimi anni",
+
+        testo:
+            "Devi scegliere la strategia generale per il futuro della foresta.",
+
+        opzioni: [
+
+            {
+                titolo:
+                    "A — Strategia integrata",
+
+                testo:
+                    "Combina protezione dell'ambiente, monitoraggio e attività economiche sostenibili."
+            },
+
+            {
+                titolo:
+                    "B — Gestione controllata",
+
+                testo:
+                    "Mantieni alcuni utilizzi economici con limiti e controlli."
+            },
+
+            {
+                titolo:
+                    "C — Conversione del territorio",
+
+                testo:
+                    "Aumenti la superficie destinata alle attività economiche."
+            },
+
+            {
+                titolo:
+                    "D — Nessuna strategia",
+
+                testo:
+                    "Mantieni le regole attuali senza introdurre un nuovo piano."
+            }
+
+        ],
+
+        effetti: [
+
+            [7, 5, 6, 4],
+            [4, 3, 3, 5],
+            [-7, -5, -7, 7],
+            [-3, -2, -2, -3]
+
+        ],
+
+        spiegazioni: [
+
+            "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
+
+            "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
+
+            "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
+
+            "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
+
+        ]
+
+    }
+
+];
+
+
+/* =====================================================
+   VARIABILI DEL GIOCO
+   ===================================================== */
+
+let turno = 0;
+
+let biodiversita = 70;
+
+let acqua = 70;
+
+let suolo = 70;
+
+let comunita = 70;
+
+let rispostaData = false;
+
+
+/*
+   Green Points guadagnati nella partita corrente.
+*/
+
+let greenPointsPartita = 0;
+
+
+/*
+   Ogni decisione completata assegna +10 Green Points.
+*/
+
+const GREEN_POINTS_PER_TURNO = 10;
+
+
+/*
+   Dati account.
+*/
+
+let utente = null;
+
+let profilo = null;
+
+
+/*
+   ID univoco della partita.
+*/
+
+let partitaId = null;
+
+
+/* =====================================================
    LINGUA
-   ========================================================= */
+   ===================================================== */
 
 let linguaCorrente =
     localStorage.getItem("linguaEcoGame") || "it";
@@ -2037,50 +1562,525 @@ if (!traduzioni[linguaCorrente]) {
 }
 
 
-let tLingua =
-    traduzioni[linguaCorrente];
+/* =====================================================
+   CAMBIA LINGUA
+   ===================================================== */
+
+function cambiaLingua() {
+
+    const selettore =
+        document.getElementById("lingua");
 
 
-document.documentElement.lang =
-    linguaCorrente;
+    linguaCorrente =
+        selettore.value;
 
 
-/* =========================================================
-   DATI PARTITA
-   ========================================================= */
+    localStorage.setItem(
+        "linguaEcoGame",
+        linguaCorrente
+    );
 
-let turno = 0;
 
-let biodiversita = 70;
+    document.documentElement.lang =
+        linguaCorrente;
 
-let acqua = 70;
 
-let suolo = 70;
+    applicaTraduzioni();
 
-let comunita = 70;
+    mostraTurno();
 
-let greenPoints = 0;
+}
 
-let rispostaData = false;
 
-let puntiSalvati = false;
+/* =====================================================
+   APPLICA TRADUZIONI
+   ===================================================== */
+
+function applicaTraduzioni() {
+
+    const testi =
+        traduzioni[linguaCorrente];
+
+
+    document.getElementById(
+        "testoMenu"
+    ).innerText =
+        testi.menu;
+
+
+    document.getElementById(
+        "testoTurno"
+    ).innerText =
+        testi.turno;
+
+
+    document.getElementById(
+        "titoloPagina"
+    ).innerText =
+        testi.titolo;
+
+
+    document.getElementById(
+        "introduzione"
+    ).innerText =
+        testi.introduzione;
+
+
+    document.getElementById(
+        "testoBiodiversita"
+    ).innerText =
+        testi.biodiversita;
+
+
+    document.getElementById(
+        "testoAcqua"
+    ).innerText =
+        testi.acqua;
+
+
+    document.getElementById(
+        "testoSuolo"
+    ).innerText =
+        testi.suolo;
+
+
+    document.getElementById(
+        "testoComunita"
+    ).innerText =
+        testi.comunita;
+
+
+    document.getElementById(
+        "continua"
+    ).innerText =
+        testi.continua;
+
+
+    document.getElementById(
+        "titoloFine"
+    ).innerText =
+        testi.fine;
+
+
+    document.getElementById(
+        "testoNuovaGestione"
+    ).innerText =
+        testi.nuovaGestione;
+
+
+    document.getElementById(
+        "testoTornaGiochi"
+    ).innerText =
+        testi.tornaGiochi;
+
+
+    aggiornaGreenPointsUI();
+
+}
+
+
+/* =====================================================
+   AGGIORNA TESTO GREEN POINTS
+   ===================================================== */
+
+function aggiornaGreenPointsUI() {
+
+    const testi =
+        traduzioni[linguaCorrente];
+
+
+    document.getElementById(
+        "greenPointsSessione"
+    ).innerText =
+        testi.greenPoints +
+        greenPointsPartita;
+
+
+    document.getElementById(
+        "greenPointsFinale"
+    ).innerHTML =
+        testi.greenPointsFinale +
+        " <strong id=\"greenPointsFinaleNumero\">" +
+        greenPointsPartita +
+        "</strong>";
+
+}
+
+
+/* =====================================================
+   SUPABASE - RECUPERA UTENTE
+   ===================================================== */
+
+async function caricaUtente() {
+
+    try {
+
+        const risultato =
+            await supabaseClient.auth.getUser();
+
+
+        if (risultato.error) {
+
+            console.error(
+                "Errore recupero utente:",
+                risultato.error
+            );
+
+
+            document.getElementById(
+                "statoAccount"
+            ).innerText =
+                traduzioni[
+                    linguaCorrente
+                ].erroreAccount;
+
+
+            return;
+
+        }
+
+
+        utente =
+            risultato.data.user;
+
+
+        if (!utente) {
+
+            document.getElementById(
+                "statoAccount"
+            ).innerText =
+                traduzioni[
+                    linguaCorrente
+                ].accountAssente;
+
+
+            return;
+
+        }
+
+
+        await caricaProfilo();
+
+
+    } catch (errore) {
+
+        console.error(
+            "Errore Supabase:",
+            errore
+        );
+
+
+        document.getElementById(
+            "statoAccount"
+        ).innerText =
+            traduzioni[
+                linguaCorrente
+            ].erroreConnessione;
+
+    }
+
+}
+
+
+/* =====================================================
+   SUPABASE - RECUPERA PROFILO
+   ===================================================== */
+
+async function caricaProfilo() {
+
+    try {
+
+        const risultato =
+            await supabaseClient.rpc(
+                "get_my_profile"
+            );
+
+
+        if (risultato.error) {
+
+            console.error(
+                "Errore recupero profilo:",
+                risultato.error
+            );
+
+
+            document.getElementById(
+                "statoAccount"
+            ).innerText =
+                traduzioni[
+                    linguaCorrente
+                ].erroreProfilo;
+
+
+            return;
+
+        }
+
+
+        const dati =
+            risultato.data;
+
+
+        if (!dati || dati.length === 0) {
+
+            document.getElementById(
+                "statoAccount"
+            ).innerText =
+                traduzioni[
+                    linguaCorrente
+                ].profiloNonTrovato;
+
+
+            return;
+
+        }
+
+
+        profilo =
+            dati[0];
+
+
+        mostraStatoAccount();
+
+
+    } catch (errore) {
+
+        console.error(
+            "Errore caricamento profilo:",
+            errore
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MOSTRA STATO ACCOUNT
+   ===================================================== */
+
+function mostraStatoAccount() {
+
+    const elemento =
+        document.getElementById(
+            "statoAccount"
+        );
+
+
+    if (!utente) {
+
+        elemento.innerText =
+            traduzioni[
+                linguaCorrente
+            ].accountAssente;
+
+
+        return;
+
+    }
+
+
+    const username =
+        profilo?.profile_username ||
+        utente.user_metadata?.username ||
+        "EcoUser";
+
+
+    const greenPoints =
+        profilo?.profile_green_points ?? 0;
+
+
+    const livello =
+        profilo?.profile_level ?? 1;
+
+
+    elemento.innerText =
+        "👤 " +
+        username +
+        " • 🌱 " +
+        greenPoints +
+        " Green Points • Livello " +
+        livello;
+
+}
+
+
+/* =====================================================
+   SUPABASE - AGGIORNA GREEN POINTS
+   ===================================================== */
+
+async function aggiornaGreenPoints(punti) {
+
+    if (!utente) {
+
+        console.warn(
+            "Nessun utente autenticato. Green Points non salvati."
+        );
+
+
+        return false;
+
+    }
+
+
+    if (
+        !Number.isInteger(punti) ||
+        punti <= 0
+    ) {
+
+        console.error(
+            "Quantità Green Points non valida:",
+            punti
+        );
+
+
+        return false;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await supabaseClient.rpc(
+                "add_green_points",
+                {
+                    points_to_add: punti
+                }
+            );
+
+
+        if (risultato.error) {
+
+            console.error(
+                "Errore salvataggio Green Points:",
+                risultato.error
+            );
+
+
+            return false;
+
+        }
+
+
+        const dati =
+            risultato.data;
+
+
+        if (
+            dati &&
+            dati.length > 0
+        ) {
+
+            profilo = {
+
+                ...(profilo || {}),
+
+                profile_green_points:
+                    dati[0].new_green_points,
+
+                profile_level:
+                    dati[0].new_level
+
+            };
+
+
+            mostraStatoAccount();
+
+        }
+
+
+        return true;
+
+
+    } catch (errore) {
+
+        console.error(
+            "Errore RPC Green Points:",
+            errore
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   CONTROLLO DOPPIO ACCREDITO
+   ===================================================== */
 
 
 /*
-   Account con cui è stata iniziata la partita.
+   Crea una chiave unica per ogni turno
+   della partita corrente.
 
-   È molto importante:
+   Esempio:
 
-   se l'utente cambia account durante la partita,
-   non dobbiamo assegnare automaticamente i punti
-   al nuovo account.
+   ecosort_FORESTA_ID_turno_0
 */
-let accountPartita = null;
+
+function chiaveEvento(tipo, numeroTurno) {
+
+    if (!partitaId) {
+
+        partitaId =
+            crypto.randomUUID();
+
+    }
 
 
-/* =========================================================
-   LIMITA VALORI
-   ========================================================= */
+    return (
+        "ecoforesta_" +
+        partitaId +
+        "_" +
+        tipo +
+        "_" +
+        numeroTurno
+    );
+
+}
+
+
+/*
+   Controlla se il turno è già stato accreditato.
+*/
+
+function eventoGiaSalvato(tipo, numeroTurno) {
+
+    return sessionStorage.getItem(
+        chiaveEvento(
+            tipo,
+            numeroTurno
+        )
+    ) === "1";
+
+}
+
+
+/*
+   Segna il turno come già accreditato.
+*/
+
+function segnaEventoSalvato(tipo, numeroTurno) {
+
+    sessionStorage.setItem(
+        chiaveEvento(
+            tipo,
+            numeroTurno
+        ),
+        "1"
+    );
+
+}
+
+
+/* =====================================================
+   LIMITA STATISTICHE
+   ===================================================== */
 
 function limita(valore) {
 
@@ -2095,9 +2095,9 @@ function limita(valore) {
 }
 
 
-/* =========================================================
+/* =====================================================
    AGGIORNA STATISTICHE
-   ========================================================= */
+   ===================================================== */
 
 function aggiornaStatistiche() {
 
@@ -2126,12 +2126,6 @@ function aggiornaStatistiche() {
 
 
     document.getElementById(
-        "greenPoints"
-    ).innerText =
-        greenPoints;
-
-
-    document.getElementById(
         "barraBiodiversita"
     ).style.width =
         biodiversita + "%";
@@ -2154,142 +2148,20 @@ function aggiornaStatistiche() {
     ).style.width =
         comunita + "%";
 
-
-    document.getElementById(
-        "barraGreenPoints"
-    ).style.width =
-        Math.min(
-            greenPoints,
-            100
-        ) + "%";
-
 }
 
 
-/* =========================================================
-   APPLICA LINGUA
-   ========================================================= */
-
-function applicaLingua() {
-
-    document.getElementById(
-        "titoloGioco"
-    ).innerText =
-        tLingua.titoloGioco;
-
-
-    document.getElementById(
-        "introGioco"
-    ).innerText =
-        tLingua.introGioco;
-
-
-    document.getElementById(
-        "testoTurno"
-    ).innerText =
-        tLingua.turno;
-
-
-    document.getElementById(
-        "labelBiodiversita"
-    ).innerText =
-        "🌿 " + tLingua.biodiversita;
-
-
-    document.getElementById(
-        "labelAcqua"
-    ).innerText =
-        "💧 " + tLingua.acqua;
-
-
-    document.getElementById(
-        "labelSuolo"
-    ).innerText =
-        "🌱 " + tLingua.suolo;
-
-
-    document.getElementById(
-        "labelComunita"
-    ).innerText =
-        "👥 " + tLingua.comunita;
-
-
-    document.getElementById(
-        "labelGreenPoints"
-    ).innerText =
-        "🌱 " + tLingua.greenPoints;
-
-
-    document.getElementById(
-        "continua"
-    ).innerText =
-        tLingua.continua;
-
-
-    document.getElementById(
-        "titoloFine"
-    ).innerText =
-        tLingua.fine;
-
-
-    document.getElementById(
-        "finalLabelBiodiversita"
-    ).innerText =
-        tLingua.biodiversita;
-
-
-    document.getElementById(
-        "finalLabelAcqua"
-    ).innerText =
-        tLingua.acqua;
-
-
-    document.getElementById(
-        "finalLabelSuolo"
-    ).innerText =
-        tLingua.suolo;
-
-
-    document.getElementById(
-        "finalLabelComunita"
-    ).innerText =
-        tLingua.comunita;
-
-
-    document.getElementById(
-        "finalLabelGreenPoints"
-    ).innerText =
-        tLingua.greenPoints;
-
-
-    document.getElementById(
-        "nuovaGestione"
-    ).innerText =
-        tLingua.nuovaGestione;
-
-
-    document.getElementById(
-        "tornaGiochi"
-    ).innerText =
-        tLingua.tornaGiochi;
-
-
-    mostraTurno();
-
-}
-
-
-/* =========================================================
+/* =====================================================
    MOSTRA TURNO
-   ========================================================= */
+   ===================================================== */
 
 function mostraTurno() {
 
     rispostaData = false;
 
 
-    const testoLingua =
-        tLingua.testi || [];
+    const t =
+        turni[turno];
 
 
     document.getElementById(
@@ -2299,39 +2171,46 @@ function mostraTurno() {
 
 
     document.getElementById(
+        "numeroTurniTotali"
+    ).innerText =
+        turni.length;
+
+
+    document.getElementById(
         "scenario"
     ).innerText =
-        tLingua.scenario[turno];
+        t.scenario;
 
 
     document.getElementById(
         "titolo"
     ).innerText =
-        tLingua.titoli[turno];
+        t.titolo;
 
 
     document.getElementById(
         "testo"
     ).innerText =
-        testoLingua[turno];
+        t.testo;
 
 
-    for (
-        let i = 0;
-        i < 4;
-        i++
-    ) {
+    for (let i = 0; i < 4; i++) {
 
-        document.getElementById(
-            "opzione" + i + "Titolo"
-        ).innerText =
-            tLingua.opzioni[turno][i][0];
+        const bottone =
+            document.getElementById(
+                "opzione" + i
+            );
 
 
-        document.getElementById(
-            "opzione" + i + "Testo"
-        ).innerText =
-            tLingua.opzioni[turno][i][1];
+        bottone.disabled =
+            false;
+
+
+        bottone.innerHTML =
+            "<strong>" +
+            t.opzioni[i].titolo +
+            "</strong><br><br>" +
+            t.opzioni[i].testo;
 
     }
 
@@ -2354,25 +2233,16 @@ function mostraTurno() {
         "none";
 
 
-    document.querySelectorAll(
-        ".opzione"
-    ).forEach(
-        function(button) {
-
-            button.disabled =
-                false;
-
-        }
-    );
+    aggiornaGreenPointsUI();
 
 }
 
 
-/* =========================================================
-   SCELTA
-   ========================================================= */
+/* =====================================================
+   SCELTA DEL GIOCATORE
+   ===================================================== */
 
-function scegli(opzione) {
+async function scegli(opzione) {
 
     if (rispostaData) {
 
@@ -2384,16 +2254,18 @@ function scegli(opzione) {
     rispostaData = true;
 
 
-    document.querySelectorAll(
-        ".opzione"
-    ).forEach(
-        function(button) {
+    /*
+       Blocchiamo immediatamente tutti
+       i pulsanti del turno.
+    */
 
-            button.disabled =
-                true;
+    for (let i = 0; i < 4; i++) {
 
-        }
-    );
+        document.getElementById(
+            "opzione" + i
+        ).disabled = true;
+
+    }
 
 
     const t =
@@ -2432,38 +2304,15 @@ function scegli(opzione) {
         );
 
 
-    const puntiGreen = [
-
-        [10, 6, 1, 3],
-
-        [10, 6, 1, 3],
-
-        [10, 6, 1, 3],
-
-        [10, 6, 1, 3],
-
-        [10, 6, 1, 3],
-
-        [8, 6, 2, 3],
-
-        [10, 6, 1, 3],
-
-        [10, 6, 1, 3]
-
-    ];
-
-
-    greenPoints +=
-        puntiGreen[turno][opzione];
-
-
     aggiornaStatistiche();
 
 
     document.getElementById(
         "feedback"
     ).innerText =
-        tLingua.feedback;
+        traduzioni[
+            linguaCorrente
+        ].decisione;
 
 
     document.getElementById(
@@ -2476,7 +2325,7 @@ function scegli(opzione) {
         "spiegazione"
     ).innerText =
         "🔬 " +
-        tLingua.spiegazioni[turno][opzione];
+        t.spiegazioni[opzione];
 
 
     document.getElementById(
@@ -2484,6 +2333,77 @@ function scegli(opzione) {
     ).style.display =
         "block";
 
+
+    /*
+       ==============================================
+       GREEN POINTS
+       ==============================================
+
+       Ogni turno completato assegna +10 Green Points.
+
+       L'indice del turno identifica univocamente
+       l'evento all'interno della partita.
+    */
+
+    const numeroTurno =
+        turno;
+
+
+    if (
+        !eventoGiaSalvato(
+            "decisione",
+            numeroTurno
+        )
+    ) {
+
+        /*
+           Aggiorniamo subito il conteggio
+           visualizzato nella partita.
+        */
+
+        greenPointsPartita +=
+            GREEN_POINTS_PER_TURNO;
+
+
+        aggiornaGreenPointsUI();
+
+
+        /*
+           Segniamo l'evento prima della
+           chiamata Supabase, come in EcoSort.
+        */
+
+        segnaEventoSalvato(
+            "decisione",
+            numeroTurno
+        );
+
+
+        /*
+           Accreditiamo +10 Green Points
+           all'account autenticato.
+        */
+
+        const salvato =
+            await aggiornaGreenPoints(
+                GREEN_POINTS_PER_TURNO
+            );
+
+
+        if (!salvato) {
+
+            console.warn(
+                "I Green Points di questo turno non sono stati salvati."
+            );
+
+        }
+
+    }
+
+
+    /*
+       Mostriamo il pulsante Continua.
+    */
 
     document.getElementById(
         "continua"
@@ -2493,9 +2413,9 @@ function scegli(opzione) {
 }
 
 
-/* =========================================================
+/* =====================================================
    PROSSIMO TURNO
-   ========================================================= */
+   ===================================================== */
 
 function prossimoTurno() {
 
@@ -2518,9 +2438,9 @@ function prossimoTurno() {
 }
 
 
-/* =========================================================
-   PUNTEGGIO
-   ========================================================= */
+/* =====================================================
+   CALCOLO PUNTEGGIO
+   ===================================================== */
 
 function calcolaPunteggio() {
 
@@ -2538,91 +2458,11 @@ function calcolaPunteggio() {
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHtml(testo) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent =
-        testo;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================================================
-   FINE PARTITA
-   ========================================================= */
+/* =====================================================
+   FINE DEL GIOCO
+   ===================================================== */
 
 function fine() {
-
-    /*
-       Recuperiamo l'account con cui è stata iniziata
-       la partita.
-    */
-    const accountCorrente =
-        leggiAccountCorrente();
-
-
-    /*
-       Se non era ancora memorizzato, lo memorizziamo ora.
-    */
-    if (!accountPartita) {
-
-        accountPartita =
-            accountCorrente;
-
-    }
-
-
-    /*
-       Salvataggio UNA SOLA VOLTA.
-    */
-    let risultatoSalvataggio = null;
-
-
-    if (!puntiSalvati) {
-
-        /*
-           Controlliamo che esista ancora lo stesso account.
-        */
-        if (
-            accountPartita &&
-            accountCorrente &&
-            accountPartita === accountCorrente
-        ) {
-
-            risultatoSalvataggio =
-                salvaGreenPointsPartita();
-
-
-            if (
-                risultatoSalvataggio &&
-                risultatoSalvataggio.riuscito
-            ) {
-
-                puntiSalvati =
-                    true;
-
-            }
-
-        } else {
-
-            console.warn(
-                "EcoGame: l'account è cambiato durante la partita."
-            );
-
-        }
-
-    }
-
 
     document.getElementById(
         "gioco"
@@ -2643,157 +2483,75 @@ function fine() {
     document.getElementById(
         "punteggioFinale"
     ).innerText =
-        punteggio + " / 100";
+        punteggio +
+        " / 100";
 
 
     document.getElementById(
         "finaleBiodiversita"
     ).innerText =
-        biodiversita + " / 100";
+        biodiversita +
+        " / 100";
 
 
     document.getElementById(
         "finaleAcqua"
     ).innerText =
-        acqua + " / 100";
+        acqua +
+        " / 100";
 
 
     document.getElementById(
         "finaleSuolo"
     ).innerText =
-        suolo + " / 100";
+        suolo +
+        " / 100";
 
 
     document.getElementById(
         "finaleComunita"
     ).innerText =
-        comunita + " / 100";
+        comunita +
+        " / 100";
 
 
-    document.getElementById(
-        "finaleGreenPoints"
-    ).innerText =
-        "+" + greenPoints;
+    aggiornaGreenPointsUI();
 
 
-    const messaggioAccount =
-        document.getElementById(
-            "messaggioAccount"
-        );
+    const testi =
+        traduzioni[
+            linguaCorrente
+        ];
 
 
-    messaggioAccount.classList.remove(
-        "account-collegato",
-        "account-non-collegato"
-    );
+    let messaggio;
 
 
-    /*
-       Se il salvataggio è riuscito, mostriamo
-       il totale aggiornato.
-    */
-    if (
-        risultatoSalvataggio &&
-        risultatoSalvataggio.riuscito
-    ) {
+    if (punteggio >= 85) {
 
-        messaggioAccount.classList.add(
-            "account-collegato"
-        );
-
-
-        messaggioAccount.innerHTML =
-
-            "👤 Account collegato: " +
-
-            "<strong>" +
-            escapeHtml(
-                risultatoSalvataggio.account
-            ) +
-            "</strong>" +
-
-            "<br><br>" +
-
-            "🌱 Green Points ottenuti in questa partita: " +
-
-            "<strong>+" +
-            risultatoSalvataggio.puntiPartita +
-            "</strong>" +
-
-            "<br>" +
-
-            "🏦 Green Points totali nell'account: " +
-
-            "<strong>" +
-            risultatoSalvataggio.puntiTotali +
-            "</strong>";
-
-
-    } else if (
-        accountPartita
-    ) {
-
-        messaggioAccount.classList.add(
-            "account-non-collegato"
-        );
-
-
-        messaggioAccount.innerHTML =
-
-            "⚠️ I Green Points di questa partita non sono stati salvati." +
-
-            "<br><br>" +
-
-            "L'account collegato all'inizio della partita non corrisponde più all'account attuale.";
-
-
-    } else {
-
-        messaggioAccount.classList.add(
-            "account-non-collegato"
-        );
-
-
-        messaggioAccount.innerHTML =
-
-            "⚠️ Nessun account collegato." +
-
-            "<br><br>" +
-
-            "Effettua il login prima di iniziare una nuova partita per salvare i Green Points.";
+        messaggio =
+            testi.messaggio1;
 
     }
 
-
-    let messaggio =
-        "";
-
-
-    if (
-        punteggio >= 85
-    ) {
+    else if (punteggio >= 70) {
 
         messaggio =
-            tLingua.messaggiFinali[0];
+            testi.messaggio2;
 
-    } else if (
-        punteggio >= 70
-    ) {
+    }
 
-        messaggio =
-            tLingua.messaggiFinali[1];
-
-    } else if (
-        punteggio >= 50
-    ) {
+    else if (punteggio >= 50) {
 
         messaggio =
-            tLingua.messaggiFinali[2];
+            testi.messaggio3;
 
-    } else {
+    }
+
+    else {
 
         messaggio =
-            tLingua.messaggiFinali[3];
+            testi.messaggio4;
 
     }
 
@@ -2806,23 +2564,14 @@ function fine() {
 }
 
 
-/* =========================================================
-   NUOVA PARTITA
-   ========================================================= */
+/* =====================================================
+   RICOMINCIA
+   ===================================================== */
 
 function ricomincia() {
 
-    /*
-       Controlliamo nuovamente l'account.
-
-       Una nuova partita può quindi essere iniziata
-       con l'account attualmente loggato.
-    */
-    accountPartita =
-        leggiAccountCorrente();
-
-
     turno = 0;
+
 
     biodiversita = 70;
 
@@ -2832,11 +2581,27 @@ function ricomincia() {
 
     comunita = 70;
 
-    greenPoints = 0;
-
-    puntiSalvati = false;
 
     rispostaData = false;
+
+
+    /*
+       Nuova partita = nuovo ID.
+
+       Questo permette di accreditare
+       nuovamente i Green Points nei nuovi
+       8 turni.
+    */
+
+    partitaId =
+        crypto.randomUUID();
+
+
+    /*
+       Reset Green Points della partita.
+    */
+
+    greenPointsPartita = 0;
 
 
     document.getElementById(
@@ -2853,14 +2618,18 @@ function ricomincia() {
 
     aggiornaStatistiche();
 
+
+    aggiornaGreenPointsUI();
+
+
     mostraTurno();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    TORNA AI GIOCHI
-   ========================================================= */
+   ===================================================== */
 
 function tornaGiochi() {
 
@@ -2870,227 +2639,58 @@ function tornaGiochi() {
 }
 
 
-/* =========================================================
-   DATI DEL GIOCO
-   ========================================================= */
-
-const turni = [
-
-    {
-        effetti: [
-
-            [8, 2, 4, -5],
-
-            [2, 3, -1, 5],
-
-            [-8, -4, -6, 7],
-
-            [-2, 0, -1, 2]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [5, 8, 4, -3],
-
-            [2, 3, 1, 3],
-
-            [-3, -8, -5, 6],
-
-            [0, -2, 0, 0]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [7, 2, 4, -3],
-
-            [3, 0, 2, 2],
-
-            [-5, -2, -4, 3],
-
-            [-4, -1, -3, 0]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [6, 5, 5, 2],
-
-            [4, 2, 3, 3],
-
-            [-4, -5, -4, 4],
-
-            [-3, -3, -2, 0]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [5, 4, 9, 1],
-
-            [2, 1, 4, 3],
-
-            [-5, -2, -8, 5],
-
-            [-2, -1, -2, 0]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [3, 1, 2, 5],
-
-            [2, 1, 1, 7],
-
-            [-5, -2, -4, 8],
-
-            [-1, 0, 0, -5]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [9, 2, 4, -3],
-
-            [4, 1, 2, 2],
-
-            [-7, -3, -6, 5],
-
-            [-3, 0, -2, -1]
-
-        ]
-    },
-
-
-    {
-        effetti: [
-
-            [7, 5, 6, 4],
-
-            [4, 3, 3, 5],
-
-            [-7, -5, -7, 7],
-
-            [-3, -2, -2, -3]
-
-        ]
-    }
-
-];
-
-
-/* =========================================================
+/* =====================================================
    AVVIO
-   ========================================================= */
+   ===================================================== */
+
+document.getElementById(
+    "lingua"
+).value =
+    linguaCorrente;
+
+
+document.documentElement.lang =
+    linguaCorrente;
+
+
+applicaTraduzioni();
+
 
 /*
-   Memorizziamo l'account nel momento esatto
-   in cui parte la partita.
+   Creiamo un ID univoco
+   per questa partita.
 */
-accountPartita =
-    leggiAccountCorrente();
 
+partitaId =
+    crypto.randomUUID();
+
+
+/*
+   Mostriamo le statistiche iniziali.
+*/
 
 aggiornaStatistiche();
 
-applicaLingua();
 
+/*
+   Mostriamo il primo turno.
+*/
 
-console.log(
-    "======================================"
-);
-
-console.log(
-    "EcoGame - SALVA LA FORESTA"
-);
-
-console.log(
-    "Account partita:",
-    accountPartita
-);
-
-console.log(
-    "Green Points account:",
-    leggiGreenPointsTotali(
-        accountPartita
-    )
-);
-
-console.log(
-    "======================================"
-);
-
-
-/* =========================================================
-   CONTROLLO CAMBIO ACCOUNT
-   ========================================================= */
-
-window.addEventListener(
-    "storage",
-    function(evento) {
-
-        if (
-            POSSIBILI_CHIAVI_ACCOUNT.includes(
-                evento.key
-            )
-        ) {
-
-            console.log(
-                "EcoGame: account modificato."
-            );
-
-            console.log(
-                "Account partita:",
-                accountPartita
-            );
-
-            console.log(
-                "Account attuale:",
-                leggiAccountCorrente()
-            );
-
-        }
-
-    }
-);
+mostraTurno();
 
 
 /*
-   Aggiornamento quando la classifica invia
-   un evento Green Points.
+   Recuperiamo l'account in background.
+
+   Il gioco può partire anche se il profilo
+   non è ancora stato caricato.
 */
-window.addEventListener(
-    "greenPointsAggiornati",
-    function(evento) {
 
-        console.log(
-            "EcoGame: Green Points aggiornati.",
-            evento.detail
-        );
+caricaUtente();
 
-    }
-);
 
 </script>
 
 </body>
+
 </html>
