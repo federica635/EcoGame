@@ -549,9 +549,9 @@ function cambiaLingua(lingua) {
     );
 
 
-    /* =========================
+    /* =================================================
        ITALIANO
-       ========================= */
+       ================================================= */
 
     if (lingua === "it") {
 
@@ -568,6 +568,15 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelPassword").textContent =
             "Password";
+
+        document.getElementById("username").placeholder =
+            "Il tuo username";
+
+        document.getElementById("email").placeholder =
+            "La tua email";
+
+        document.getElementById("password").placeholder =
+            "La tua password";
 
         document.getElementById("bottoneRegistrati").textContent =
             "🌱 Crea account";
@@ -586,6 +595,12 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelLoginPassword").textContent =
             "Password";
+
+        document.getElementById("loginEmail").placeholder =
+            "La tua email";
+
+        document.getElementById("loginPassword").placeholder =
+            "La tua password";
 
         document.getElementById("bottoneAccedi").textContent =
             "🔐 Accedi";
@@ -616,9 +631,9 @@ function cambiaLingua(lingua) {
     }
 
 
-    /* =========================
+    /* =================================================
        INGLESE
-       ========================= */
+       ================================================= */
 
     if (lingua === "en") {
 
@@ -635,6 +650,15 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelPassword").textContent =
             "Password";
+
+        document.getElementById("username").placeholder =
+            "Your username";
+
+        document.getElementById("email").placeholder =
+            "Your email";
+
+        document.getElementById("password").placeholder =
+            "Your password";
 
         document.getElementById("bottoneRegistrati").textContent =
             "🌱 Create account";
@@ -653,6 +677,12 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelLoginPassword").textContent =
             "Password";
+
+        document.getElementById("loginEmail").placeholder =
+            "Your email";
+
+        document.getElementById("loginPassword").placeholder =
+            "Your password";
 
         document.getElementById("bottoneAccedi").textContent =
             "🔐 Login";
@@ -683,9 +713,9 @@ function cambiaLingua(lingua) {
     }
 
 
-    /* =========================
+    /* =================================================
        FINLANDESE
-       ========================= */
+       ================================================= */
 
     if (lingua === "fi") {
 
@@ -702,6 +732,15 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelPassword").textContent =
             "Salasana";
+
+        document.getElementById("username").placeholder =
+            "Käyttäjänimesi";
+
+        document.getElementById("email").placeholder =
+            "Sähköpostiosoitteesi";
+
+        document.getElementById("password").placeholder =
+            "Salasanasi";
 
         document.getElementById("bottoneRegistrati").textContent =
             "🌱 Luo tili";
@@ -720,6 +759,12 @@ function cambiaLingua(lingua) {
 
         document.getElementById("labelLoginPassword").textContent =
             "Salasana";
+
+        document.getElementById("loginEmail").placeholder =
+            "Sähköpostiosoitteesi";
+
+        document.getElementById("loginPassword").placeholder =
+            "Salasanasi";
 
         document.getElementById("bottoneAccedi").textContent =
             "🔐 Kirjaudu";
@@ -768,24 +813,28 @@ async function registrati() {
         document.getElementById("password").value;
 
 
-    /* Controllo campi */
-
     if (!username || !email || !password) {
 
         mostraMessaggio(
-            "⚠️ Compila tutti i campi."
+            messaggioTradotto(
+                "⚠️ Compila tutti i campi.",
+                "⚠️ Please fill in all fields.",
+                "⚠️ Täytä kaikki kentät."
+            )
         );
 
         return;
     }
 
 
-    /* Controllo password */
-
     if (password.length < 6) {
 
         mostraMessaggio(
-            "⚠️ La password deve contenere almeno 6 caratteri."
+            messaggioTradotto(
+                "⚠️ La password deve contenere almeno 6 caratteri.",
+                "⚠️ Password must contain at least 6 characters.",
+                "⚠️ Salasanassa täytyy olla vähintään 6 merkkiä."
+            )
         );
 
         return;
@@ -793,7 +842,11 @@ async function registrati() {
 
 
     mostraMessaggio(
-        "🌱 Creazione account..."
+        messaggioTradotto(
+            "🌱 Creazione account...",
+            "🌱 Creating account...",
+            "🌱 Tiliä luodaan..."
+        )
     );
 
 
@@ -818,9 +871,7 @@ async function registrati() {
                         "https://federica635.github.io/EcoGame/account.html",
 
                     data: {
-
                         username: username
-
                     }
 
                 }
@@ -851,21 +902,24 @@ async function registrati() {
         );
 
 
-        /*
-         * Se Supabase richiede la conferma
-         * dell'email, normalmente session sarà null.
-         */
-
         if (!data.session) {
 
             mostraMessaggio(
-                "✅ Account creato! Controlla la tua email e clicca sul link di conferma."
+                messaggioTradotto(
+                    "✅ Account creato! Controlla la tua email e clicca sul link di conferma.",
+                    "✅ Account created! Check your email and click the confirmation link.",
+                    "✅ Tili luotu! Tarkista sähköpostisi ja napsauta vahvistuslinkkiä."
+                )
             );
 
         } else {
 
             mostraMessaggio(
-                "✅ Account creato e accesso effettuato!"
+                messaggioTradotto(
+                    "✅ Account creato e accesso effettuato!",
+                    "✅ Account created and logged in!",
+                    "✅ Tili luotu ja kirjautuminen onnistui!"
+                )
             );
 
             await mostraProfilo();
@@ -877,7 +931,11 @@ async function registrati() {
         console.error(errore);
 
         mostraMessaggio(
-            "❌ Si è verificato un errore durante la registrazione."
+            messaggioTradotto(
+                "❌ Si è verificato un errore durante la registrazione.",
+                "❌ An error occurred during registration.",
+                "❌ Rekisteröinnissä tapahtui virhe."
+            )
         );
 
     }
@@ -904,7 +962,11 @@ async function accedi() {
     if (!email || !password) {
 
         mostraMessaggio(
-            "⚠️ Inserisci email e password."
+            messaggioTradotto(
+                "⚠️ Inserisci email e password.",
+                "⚠️ Enter your email and password.",
+                "⚠️ Syötä sähköpostiosoitteesi ja salasanasi."
+            )
         );
 
         return;
@@ -912,7 +974,11 @@ async function accedi() {
 
 
     mostraMessaggio(
-        "🔐 Accesso..."
+        messaggioTradotto(
+            "🔐 Accesso...",
+            "🔐 Logging in...",
+            "🔐 Kirjaudutaan..."
+        )
     );
 
 
@@ -952,7 +1018,11 @@ async function accedi() {
 
 
         mostraMessaggio(
-            "✅ Accesso effettuato!"
+            messaggioTradotto(
+                "✅ Accesso effettuato!",
+                "✅ Login successful!",
+                "✅ Kirjautuminen onnistui!"
+            )
         );
 
 
@@ -964,7 +1034,11 @@ async function accedi() {
         console.error(errore);
 
         mostraMessaggio(
-            "❌ Errore durante l'accesso."
+            messaggioTradotto(
+                "❌ Errore durante l'accesso.",
+                "❌ Login error.",
+                "❌ Kirjautumisessa tapahtui virhe."
+            )
         );
 
     }
@@ -976,7 +1050,7 @@ async function accedi() {
 
 
 /* =====================================================
-   MOSTRA PROFILO
+   PROFILO
    ===================================================== */
 
 async function mostraProfilo() {
@@ -1013,7 +1087,11 @@ async function mostraProfilo() {
         );
 
         mostraMessaggio(
-            "❌ Impossibile caricare il profilo."
+            messaggioTradotto(
+                "❌ Impossibile caricare il profilo.",
+                "❌ Unable to load profile.",
+                "❌ Profiilia ei voitu ladata."
+            )
         );
 
         return;
@@ -1035,12 +1113,14 @@ async function mostraProfilo() {
     ).style.display = "block";
 
 
+    const nome =
+        profilo.username || user.email;
+
+
     document.getElementById(
         "benvenuto"
     ).textContent =
-        "Benvenuto, @" +
-        profilo.username +
-        "!";
+        benvenutoTradotto(nome);
 
 
     document.getElementById(
@@ -1053,6 +1133,72 @@ async function mostraProfilo() {
         "livello"
     ).textContent =
         profilo.level ?? 1;
+
+}
+
+
+/* =====================================================
+   BENVENUTO TRADOTTO
+   ===================================================== */
+
+function benvenutoTradotto(nome) {
+
+    const lingua =
+        localStorage.getItem(
+            "ecoGameLingua"
+        ) || "it";
+
+
+    if (lingua === "en") {
+
+        return "Welcome, @" + nome + "!";
+
+    }
+
+
+    if (lingua === "fi") {
+
+        return "Tervetuloa, @" + nome + "!";
+
+    }
+
+
+    return "Benvenuto, @" + nome + "!";
+
+}
+
+
+/* =====================================================
+   MESSAGGIO TRADOTTO
+   ===================================================== */
+
+function messaggioTradotto(
+    italiano,
+    inglese,
+    finlandese
+) {
+
+    const lingua =
+        localStorage.getItem(
+            "ecoGameLingua"
+        ) || "it";
+
+
+    if (lingua === "en") {
+
+        return inglese;
+
+    }
+
+
+    if (lingua === "fi") {
+
+        return finlandese;
+
+    }
+
+
+    return italiano;
 
 }
 
@@ -1072,7 +1218,11 @@ async function logout() {
         console.error(error);
 
         mostraMessaggio(
-            "❌ Errore durante il logout."
+            messaggioTradotto(
+                "❌ Errore durante il logout.",
+                "❌ Logout error.",
+                "❌ Uloskirjautumisessa tapahtui virhe."
+            )
         );
 
         return;
@@ -1090,7 +1240,11 @@ async function logout() {
 
 
     mostraMessaggio(
-        "🚪 Logout effettuato."
+        messaggioTradotto(
+            "🚪 Logout effettuato.",
+            "🚪 Logged out.",
+            "🚪 Uloskirjautuminen onnistui."
+        )
     );
 
 }
@@ -1198,7 +1352,7 @@ async function controllaSessione() {
 
 
 /* =====================================================
-   GESTIONE CONFERMA EMAIL
+   EVENTO AUTENTICAZIONE
    ===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
@@ -1224,7 +1378,7 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =====================================================
-   AVVIO PAGINA
+   AVVIO
    ===================================================== */
 
 window.onload = async function() {
