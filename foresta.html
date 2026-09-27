@@ -172,6 +172,12 @@ header {
     transform: translateY(-2px);
 }
 
+.opzione:disabled {
+    cursor: default;
+    opacity: 0.75;
+    transform: none;
+}
+
 #feedback {
     margin-top: 25px;
     font-size: 19px;
@@ -229,6 +235,17 @@ header {
     font-size: 18px;
 }
 
+#messaggioAccount {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 650px;
+    background: #203228;
+    border: 1px solid #3d6645;
+    border-radius: 10px;
+    color: #dce8de;
+    line-height: 1.5;
+}
+
 .finalButton {
     background: #43a047;
     color: white;
@@ -257,6 +274,14 @@ header {
     header {
         flex-direction: column;
         gap: 10px;
+    }
+
+    .intro h1 {
+        font-size: 32px;
+    }
+
+    .card {
+        padding: 22px;
     }
 
 }
@@ -288,7 +313,9 @@ header {
 
     <div class="intro">
 
-        <h1 id="titoloGioco">🌳 Salva la Foresta</h1>
+        <h1 id="titoloGioco">
+            🌳 Salva la Foresta
+        </h1>
 
         <p id="introGioco">
             Gestisci un ecosistema forestale.
@@ -416,7 +443,9 @@ header {
 
                 <strong id="opzione0Titolo">
                     A — Zona protetta
-                </strong><br><br>
+                </strong>
+
+                <br><br>
 
                 <span id="opzione0Testo">
                     Istituisci una nuova area protetta,
@@ -430,7 +459,9 @@ header {
 
                 <strong id="opzione1Titolo">
                     B — Taglio controllato
-                </strong><br><br>
+                </strong>
+
+                <br><br>
 
                 <span id="opzione1Testo">
                     Permetti il taglio selettivo degli alberi
@@ -444,7 +475,9 @@ header {
 
                 <strong id="opzione2Titolo">
                     C — Espansione agricola
-                </strong><br><br>
+                </strong>
+
+                <br><br>
 
                 <span id="opzione2Testo">
                     Concedi parte della foresta
@@ -458,7 +491,9 @@ header {
 
                 <strong id="opzione3Titolo">
                     D — Nessun intervento
-                </strong><br><br>
+                </strong>
+
+                <br><br>
 
                 <span id="opzione3Testo">
                     Mantieni le regole attuali
@@ -490,50 +525,80 @@ header {
             🏁 Gestione completata
         </h2>
 
+
         <div class="risultatoFinale" id="punteggioFinale">
-            0
+            0 / 100
         </div>
+
 
         <div class="dettagli">
 
             <div>
-                🌿 <span id="finalLabelBiodiversita">Biodiversità</span>:
+                🌿
+                <span id="finalLabelBiodiversita">
+                    Biodiversità
+                </span>:
                 <strong id="finaleBiodiversita"></strong>
             </div>
 
+
             <div>
-                💧 <span id="finalLabelAcqua">Acqua</span>:
+                💧
+                <span id="finalLabelAcqua">
+                    Acqua
+                </span>:
                 <strong id="finaleAcqua"></strong>
             </div>
 
+
             <div>
-                🌱 <span id="finalLabelSuolo">Suolo</span>:
+                🌱
+                <span id="finalLabelSuolo">
+                    Suolo
+                </span>:
                 <strong id="finaleSuolo"></strong>
             </div>
 
+
             <div>
-                👥 <span id="finalLabelComunita">Comunità</span>:
+                👥
+                <span id="finalLabelComunita">
+                    Comunità
+                </span>:
                 <strong id="finaleComunita"></strong>
             </div>
 
+
             <div>
-                🌱 <span id="finalLabelGreenPoints">Green Points</span>:
+                🌱
+                <span id="finalLabelGreenPoints">
+                    Green Points
+                </span>:
                 <strong id="finaleGreenPoints"></strong>
             </div>
 
         </div>
 
 
+        <div id="messaggioAccount"></div>
+
+
         <p id="messaggioFinale"></p>
 
 
         <button class="finalButton" onclick="ricomincia()">
-            🔄 <span id="nuovaGestione">Nuova gestione</span>
+            🔄
+            <span id="nuovaGestione">
+                Nuova gestione
+            </span>
         </button>
 
 
         <button class="finalButton" onclick="tornaGiochi()">
-            🎮 <span id="tornaGiochi">Torna ai giochi</span>
+            🎮
+            <span id="tornaGiochi">
+                Torna ai giochi
+            </span>
         </button>
 
     </div>
@@ -1118,62 +1183,60 @@ const traduzioni = {
 
 
 /* =====================================================
-   KIELEN HAKEMINEN
-   ===================================================== */
-
-let linguaCorrente =
-    localStorage.getItem("linguaEcoGame") || "it";
-
-if (!traduzioni[linguaCorrente]) {
-    linguaCorrente = "it";
-}
-
-const tLingua = traduzioni[linguaCorrente];
-
-document.documentElement.lang = linguaCorrente;
-
-
-/* =====================================================
-   GREEN POINTS ASSOCIATI ALL'ACCOUNT
+   CONFIGURAZIONE ACCOUNT
    ===================================================== */
 
 /*
-   Questa è la chiave usata dal sistema di login
-   per identificare l'account attualmente collegato.
-
-   Se il tuo login usa un nome diverso, modifica
-   SOLO questa riga.
+   QUESTA DEVE ESSERE LA STESSA CHIAVE
+   UTILIZZATA DAL TUO SISTEMA DI LOGIN.
 */
 const ACCOUNT_KEY = "accountCorrente";
 
+
+/*
+   Nome base utilizzato per salvare i Green Points.
+*/
 const GREEN_POINTS_KEY = "greenPoints";
 
 
-/*
-   Recupera l'account corrente.
-*/
+/* =====================================================
+   ACCOUNT CORRENTE
+   ===================================================== */
+
 function leggiAccountCorrente() {
 
-    return localStorage.getItem(ACCOUNT_KEY);
+    const account =
+        localStorage.getItem(ACCOUNT_KEY);
+
+    if (!account) {
+        return null;
+    }
+
+    const accountPulito =
+        account.trim();
+
+    if (!accountPulito) {
+        return null;
+    }
+
+    return accountPulito;
 
 }
 
 
 /*
-   Crea una chiave Green Points specifica
-   per ogni account.
+   Crea una chiave separata per ogni account.
 
    Esempio:
 
    accountCorrente = mario
 
-   diventa:
-
-   greenPoints_mario
+   chiave = greenPoints_mario
 */
 function chiaveGreenPointsAccount() {
 
-    const account = leggiAccountCorrente();
+    const account =
+        leggiAccountCorrente();
 
     if (!account) {
         return null;
@@ -1184,44 +1247,59 @@ function chiaveGreenPointsAccount() {
 }
 
 
-/*
-   Legge i Green Points già posseduti
-   dall'account.
-*/
+/* =====================================================
+   LETTURA GREEN POINTS ACCOUNT
+   ===================================================== */
+
 function leggiGreenPointsTotali() {
 
-    const chiave = chiaveGreenPointsAccount();
+    const chiave =
+        chiaveGreenPointsAccount();
 
     if (!chiave) {
         return 0;
     }
 
-    return parseInt(
-        localStorage.getItem(chiave) || "0",
-        10
-    );
+    const valore =
+        localStorage.getItem(chiave);
+
+    if (valore === null) {
+        return 0;
+    }
+
+    const punti =
+        parseInt(valore, 10);
+
+    if (isNaN(punti)) {
+        return 0;
+    }
+
+    return Math.max(0, punti);
 
 }
 
 
-/*
-   Aggiunge i Green Points della partita
-   a quelli già posseduti dall'account.
-*/
+/* =====================================================
+   SALVATAGGIO GREEN POINTS
+   ===================================================== */
+
 function salvaGreenPointsPartita() {
 
-    const chiave = chiaveGreenPointsAccount();
+    const account =
+        leggiAccountCorrente();
+
+    const chiave =
+        chiaveGreenPointsAccount();
 
 
     /*
-       Se non c'è un account collegato,
+       Nessun account:
        non salviamo i punti.
     */
-    if (!chiave) {
+    if (!account || !chiave) {
 
         console.warn(
-            "Nessun account corrente trovato. " +
-            "I Green Points non sono stati salvati."
+            "EcoGame: nessun account corrente trovato."
         );
 
         return false;
@@ -1229,28 +1307,66 @@ function salvaGreenPointsPartita() {
     }
 
 
-    const totalePrecedente =
+    /*
+       Leggiamo il totale precedente.
+    */
+    const puntiPrecedenti =
         leggiGreenPointsTotali();
 
 
+    /*
+       Aggiungiamo SOLO i punti della partita corrente.
+    */
     const nuovoTotale =
-        totalePrecedente + greenPoints;
+        puntiPrecedenti + greenPoints;
 
 
+    /*
+       Salviamo il nuovo totale.
+    */
     localStorage.setItem(
         chiave,
-        nuovoTotale.toString()
+        String(nuovoTotale)
     );
 
 
     console.log(
-        "Green Points aggiunti:",
+        "EcoGame - Account:",
+        account
+    );
+
+    console.log(
+        "EcoGame - GP partita:",
         greenPoints
     );
 
     console.log(
-        "Green Points totali account:",
+        "EcoGame - GP precedenti:",
+        puntiPrecedenti
+    );
+
+    console.log(
+        "EcoGame - GP totali:",
         nuovoTotale
+    );
+
+
+    /*
+       Informiamo eventuali altre pagine/componenti
+       che il totale è cambiato.
+    */
+    window.dispatchEvent(
+        new CustomEvent(
+            "greenPointsAggiornati",
+            {
+                detail: {
+                    account: account,
+                    puntiPartita: greenPoints,
+                    puntiPrecedenti: puntiPrecedenti,
+                    puntiTotali: nuovoTotale
+                }
+            }
+        )
     );
 
 
@@ -1260,7 +1376,30 @@ function salvaGreenPointsPartita() {
 
 
 /* =====================================================
-   ALTRE TRADUZIONI
+   TRADUZIONI
+   ===================================================== */
+
+let linguaCorrente =
+    localStorage.getItem("linguaEcoGame") || "it";
+
+
+if (!traduzioni[linguaCorrente]) {
+
+    linguaCorrente = "it";
+
+}
+
+
+const tLingua =
+    traduzioni[linguaCorrente];
+
+
+document.documentElement.lang =
+    linguaCorrente;
+
+
+/* =====================================================
+   APPLICA LINGUA
    ===================================================== */
 
 function applicaLingua() {
@@ -1322,7 +1461,7 @@ function applicaLingua() {
 
 
 /* =====================================================
-   STATISTICHE
+   STATISTICHE DELLA PARTITA
    ===================================================== */
 
 let turno = 0;
@@ -1334,27 +1473,41 @@ let comunita = 70;
 
 
 /*
-   Questi sono SOLO i Green Points
-   ottenuti nella partita corrente.
+   Green Points ottenuti nella PARTITA CORRENTE.
 */
 let greenPoints = 0;
 
+
+/*
+   Indica se il giocatore ha già risposto
+   al turno corrente.
+*/
 let rispostaData = false;
 
 
 /*
-   Serve per evitare che i punti della stessa partita
-   vengano aggiunti due volte all'account.
+   Evita di salvare due volte la stessa partita.
 */
 let puntiSalvati = false;
 
 
+/* =====================================================
+   LIMITA VALORI
+   ===================================================== */
+
 function limita(valore) {
 
-    return Math.max(0, Math.min(100, valore));
+    return Math.max(
+        0,
+        Math.min(100, valore)
+    );
 
 }
 
+
+/* =====================================================
+   AGGIORNA STATISTICHE
+   ===================================================== */
 
 function aggiornaStatistiche() {
 
@@ -1370,8 +1523,9 @@ function aggiornaStatistiche() {
     document.getElementById("comunita").innerText =
         comunita;
 
+
     /*
-       Mostriamo i GP ottenuti nella partita.
+       Qui mostriamo i GP ottenuti nella partita corrente.
     */
     document.getElementById("greenPoints").innerText =
         greenPoints;
@@ -1389,6 +1543,11 @@ function aggiornaStatistiche() {
     document.getElementById("barraComunita").style.width =
         comunita + "%";
 
+
+    /*
+       La barra dei GP rappresenta la quantità
+       ottenuta nella partita.
+    */
     document.getElementById("barraGreenPoints").style.width =
         Math.min(greenPoints, 100) + "%";
 
@@ -1403,16 +1562,22 @@ function mostraTurno() {
 
     rispostaData = false;
 
-    const t = turni[turno];
+
+    const t =
+        turni[turno];
+
 
     document.getElementById("numeroTurno").innerText =
         turno + 1;
 
+
     document.getElementById("scenario").innerText =
         tLingua.scenario[turno];
 
+
     document.getElementById("titolo").innerText =
         tLingua.titoli[turno];
+
 
     document.getElementById("testo").innerText =
         tLingua.testi[turno];
@@ -1420,10 +1585,15 @@ function mostraTurno() {
 
     for (let i = 0; i < 4; i++) {
 
-        document.getElementById("opzione" + i + "Titolo").innerText =
+        document.getElementById(
+            "opzione" + i + "Titolo"
+        ).innerText =
             tLingua.opzioni[turno][i][0];
 
-        document.getElementById("opzione" + i + "Testo").innerText =
+
+        document.getElementById(
+            "opzione" + i + "Testo"
+        ).innerText =
             tLingua.opzioni[turno][i][1];
 
     }
@@ -1432,11 +1602,23 @@ function mostraTurno() {
     document.getElementById("feedback").innerText =
         "";
 
+
     document.getElementById("spiegazione").style.display =
         "none";
 
+
     document.getElementById("continua").style.display =
         "none";
+
+
+    /*
+       Riattiviamo i pulsanti.
+    */
+    document.querySelectorAll(".opzione").forEach(
+        function(button) {
+            button.disabled = false;
+        }
+    );
 
 }
 
@@ -1447,43 +1629,87 @@ function mostraTurno() {
 
 function scegli(opzione) {
 
+    /*
+       Impedisce di rispondere due volte
+       allo stesso turno.
+    */
     if (rispostaData) {
         return;
     }
 
+
     rispostaData = true;
 
-    const t = turni[turno];
 
-    const effetti = t.effetti[opzione];
+    /*
+       Disabilita immediatamente tutti i pulsanti.
+    */
+    document.querySelectorAll(".opzione").forEach(
+        function(button) {
+            button.disabled = true;
+        }
+    );
+
+
+    const t =
+        turni[turno];
+
+
+    const effetti =
+        t.effetti[opzione];
 
 
     biodiversita =
-        limita(biodiversita + effetti[0]);
+        limita(
+            biodiversita + effetti[0]
+        );
+
 
     acqua =
-        limita(acqua + effetti[1]);
+        limita(
+            acqua + effetti[1]
+        );
+
 
     suolo =
-        limita(suolo + effetti[2]);
+        limita(
+            suolo + effetti[2]
+        );
+
 
     comunita =
-        limita(comunita + effetti[3]);
+        limita(
+            comunita + effetti[3]
+        );
 
 
-    /* GREEN POINTS DELLA PARTITA */
-
+    /*
+       Green Points assegnati per turno.
+    */
     const puntiGreen = [
+
         [10, 6, 1, 3],
+
         [10, 6, 1, 3],
+
         [10, 6, 1, 3],
+
         [10, 6, 1, 3],
+
         [10, 6, 1, 3],
+
         [8, 6, 2, 3],
+
         [10, 6, 1, 3],
+
         [10, 6, 1, 3]
+
     ];
 
+
+    /*
+       Aggiungiamo i punti SOLO alla partita corrente.
+    */
     greenPoints +=
         puntiGreen[turno][opzione];
 
@@ -1494,12 +1720,15 @@ function scegli(opzione) {
     document.getElementById("feedback").innerText =
         tLingua.feedback;
 
+
     document.getElementById("feedback").style.color =
         "#81c784";
 
 
     document.getElementById("spiegazione").innerText =
-        "🔬 " + tLingua.spiegazioni[turno][opzione];
+        "🔬 " +
+        tLingua.spiegazioni[turno][opzione];
+
 
     document.getElementById("spiegazione").style.display =
         "block";
@@ -1518,6 +1747,7 @@ function scegli(opzione) {
 function prossimoTurno() {
 
     turno++;
+
 
     if (turno < turni.length) {
 
@@ -1539,40 +1769,52 @@ function prossimoTurno() {
 function calcolaPunteggio() {
 
     return Math.round(
+
         (
             biodiversita +
             acqua +
             suolo +
             comunita
         ) / 4
+
     );
 
 }
 
 
 /* =====================================================
-   FINE
+   FINE PARTITA
    ===================================================== */
 
 function fine() {
 
     /*
-       Alla fine della partita aggiungiamo
-       i GP ottenuti a quelli dell'account.
+       SALVATAGGIO DEI GREEN POINTS.
 
-       puntiSalvati impedisce un doppio salvataggio.
+       Questo blocco viene eseguito una sola volta.
     */
     if (!puntiSalvati) {
 
-        salvaGreenPointsPartita();
+        const salvataggioRiuscito =
+            salvaGreenPointsPartita();
 
-        puntiSalvati = true;
+
+        /*
+           Segniamo la partita come salvata
+           solo se esiste realmente un account.
+        */
+        if (salvataggioRiuscito) {
+
+            puntiSalvati = true;
+
+        }
 
     }
 
 
     document.getElementById("gioco").style.display =
         "none";
+
 
     document.getElementById("fine").style.display =
         "block";
@@ -1589,17 +1831,65 @@ function fine() {
     document.getElementById("finaleBiodiversita").innerText =
         biodiversita + " / 100";
 
+
     document.getElementById("finaleAcqua").innerText =
         acqua + " / 100";
+
 
     document.getElementById("finaleSuolo").innerText =
         suolo + " / 100";
 
+
     document.getElementById("finaleComunita").innerText =
         comunita + " / 100";
 
+
+    /*
+       Mostra i GP ottenuti in questa partita.
+    */
     document.getElementById("finaleGreenPoints").innerText =
-        greenPoints;
+        "+" + greenPoints;
+
+
+    /*
+       Recuperiamo il totale aggiornato dell'account.
+    */
+    const account =
+        leggiAccountCorrente();
+
+
+    const totaleAccount =
+        leggiGreenPointsTotali();
+
+
+    const messaggioAccount =
+        document.getElementById("messaggioAccount");
+
+
+    if (account) {
+
+        messaggioAccount.innerHTML =
+            "👤 <strong>" +
+            escapeHtml(account) +
+            "</strong><br>" +
+
+            "🌱 Green Points ottenuti in questa partita: " +
+            "<strong>+" +
+            greenPoints +
+            "</strong><br>" +
+
+            "🏦 Green Points totali nell'account: " +
+            "<strong>" +
+            totaleAccount +
+            "</strong>";
+
+    } else {
+
+        messaggioAccount.innerHTML =
+            "⚠️ Nessun account collegato.<br>" +
+            "I Green Points di questa partita non sono stati aggiunti a un account.";
+
+    }
 
 
     let messaggio = "";
@@ -1635,43 +1925,71 @@ function fine() {
 
 
 /* =====================================================
-   RICOMINCIA
+   SICUREZZA TESTO ACCOUNT
+   ===================================================== */
+
+function escapeHtml(testo) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        testo;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   NUOVA PARTITA
    ===================================================== */
 
 function ricomincia() {
 
     turno = 0;
 
+
     biodiversita = 70;
+
     acqua = 70;
+
     suolo = 70;
+
     comunita = 70;
 
 
     /*
-       I GP della nuova partita partono da zero.
+       ATTENZIONE:
 
-       IMPORTANTE:
-       i GP dell'account NON vengono cancellati.
+       Qui azzeriamo SOLO i Green Points
+       della nuova partita.
+
+       NON tocchiamo quelli dell'account.
     */
     greenPoints = 0;
 
 
     /*
-       Permette alla nuova partita di salvare
-       i propri GP alla fine.
+       La nuova partita potrà quindi
+       salvare nuovamente i suoi punti.
     */
     puntiSalvati = false;
 
 
+    rispostaData = false;
+
+
     document.getElementById("fine").style.display =
         "none";
+
 
     document.getElementById("gioco").style.display =
         "block";
 
 
     aggiornaStatistiche();
+
 
     mostraTurno();
 
@@ -1698,73 +2016,120 @@ const turni = [
 
     {
         effetti: [
+
             [8, 2, 4, -5],
+
             [2, 3, -1, 5],
+
             [-8, -4, -6, 7],
+
             [-2, 0, -1, 2]
+
         ]
     },
 
+
     {
         effetti: [
+
             [5, 8, 4, -3],
+
             [2, 3, 1, 3],
+
             [-3, -8, -5, 6],
+
             [0, -2, 0, 0]
+
         ]
     },
 
+
     {
         effetti: [
+
             [7, 2, 4, -3],
+
             [3, 0, 2, 2],
+
             [-5, -2, -4, 3],
+
             [-4, -1, -3, 0]
+
         ]
     },
 
+
     {
         effetti: [
+
             [6, 5, 5, 2],
+
             [4, 2, 3, 3],
+
             [-4, -5, -4, 4],
+
             [-3, -3, -2, 0]
+
         ]
     },
 
+
     {
         effetti: [
+
             [5, 4, 9, 1],
+
             [2, 1, 4, 3],
+
             [-5, -2, -8, 5],
+
             [-2, -1, -2, 0]
+
         ]
     },
 
+
     {
         effetti: [
+
             [3, 1, 2, 5],
+
             [2, 1, 1, 7],
+
             [-5, -2, -4, 8],
+
             [-1, 0, 0, -5]
+
         ]
     },
 
+
     {
         effetti: [
+
             [9, 2, 4, -3],
+
             [4, 1, 2, 2],
+
             [-7, -3, -6, 5],
+
             [-3, 0, -2, -1]
+
         ]
     },
 
+
     {
         effetti: [
+
             [7, 5, 6, 4],
+
             [4, 3, 3, 5],
+
             [-7, -5, -7, 7],
+
             [-3, -2, -2, -3]
+
         ]
     }
 
@@ -1772,12 +2137,26 @@ const turni = [
 
 
 /* =====================================================
-   AVVIO
+   AVVIO DEL GIOCO
    ===================================================== */
 
 aggiornaStatistiche();
 
 applicaLingua();
+
+
+/*
+   Controllo account all'avvio.
+*/
+console.log(
+    "EcoGame - Account corrente:",
+    leggiAccountCorrente()
+);
+
+console.log(
+    "EcoGame - Green Points già presenti:",
+    leggiGreenPointsTotali()
+);
 
 </script>
 
