@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -22,11 +23,6 @@ body {
     color: #173b22;
 }
 
-
-/* =====================================================
-   HEADER
-   ===================================================== */
-
 header {
     background: #2e7d32;
     color: white;
@@ -43,11 +39,6 @@ header p {
     margin: 0;
     font-size: 19px;
 }
-
-
-/* =====================================================
-   LINGUE
-   ===================================================== */
 
 .lingue {
     margin-bottom: 15px;
@@ -68,21 +59,11 @@ header p {
     background: #e8f5e9;
 }
 
-
-/* =====================================================
-   CONTENITORE
-   ===================================================== */
-
 .contenitore {
     width: 92%;
     max-width: 900px;
     margin: 40px auto;
 }
-
-
-/* =====================================================
-   INTRODUZIONE
-   ===================================================== */
 
 .introduzione {
     background: white;
@@ -102,11 +83,6 @@ header p {
     color: #555;
     line-height: 1.6;
 }
-
-
-/* =====================================================
-   POST
-   ===================================================== */
 
 .post {
     background: white;
@@ -146,11 +122,6 @@ header p {
     font-size: 17px;
 }
 
-
-/* =====================================================
-   PILASTRI GREENCOMP
-   ===================================================== */
-
 .pilastri {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -175,11 +146,6 @@ header p {
     color: #555;
     line-height: 1.5;
 }
-
-
-/* =====================================================
-   INTERAZIONI
-   ===================================================== */
 
 .interazioni {
     border-top: 1px solid #ddd;
@@ -208,11 +174,6 @@ header p {
 .like-attivo {
     background: #c8e6c9 !important;
 }
-
-
-/* =====================================================
-   COMMENTI
-   ===================================================== */
 
 .commenti {
     margin-top: 20px;
@@ -268,11 +229,6 @@ header p {
     background: #1b5e20;
 }
 
-
-/* =====================================================
-   MESSAGGIO
-   ===================================================== */
-
 #messaggio {
     text-align: center;
     margin: 20px 0;
@@ -287,11 +243,6 @@ header p {
 .successo {
     color: #2e7d32;
 }
-
-
-/* =====================================================
-   BOTTONI
-   ===================================================== */
 
 .azioni {
     text-align: center;
@@ -312,11 +263,6 @@ header p {
     background: #1b5e20;
 }
 
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
-
 footer {
     margin-top: 50px;
     background: #1b5e20;
@@ -324,11 +270,6 @@ footer {
     text-align: center;
     padding: 20px;
 }
-
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
 
 @media (max-width: 650px) {
 
@@ -360,15 +301,10 @@ footer {
 
 <body>
 
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
 <header>
 
 <div class="lingue">
 
-```
 <button type="button" onclick="cambiaLingua('it')">
     🇮🇹 Italiano
 </button>
@@ -380,7 +316,6 @@ footer {
 <button type="button" onclick="cambiaLingua('fi')">
     🇫🇮 Suomi
 </button>
-```
 
 </div>
 
@@ -394,19 +329,12 @@ footer {
 
 </header>
 
-<!-- =====================================================
-     CONTENITORE
-     ===================================================== -->
 
 <div class="contenitore">
 
-<!-- =====================================================
-     INTRODUZIONE
-     ===================================================== -->
 
 <div class="introduzione">
 
-```
 <h2 id="titoloIntroduzione">
     🌍 Benvenuto nelle Green News!
 </h2>
@@ -415,411 +343,413 @@ footer {
     Qui troverai articoli, curiosità, approfondimenti
     e iniziative dedicate all'ambiente e alla sostenibilità.
 </p>
-```
 
 </div>
 
+
 <div id="messaggio"></div>
 
+
 <!-- =====================================================
-     POST 1
-     GREENCOMP
+     POST 1 - GREENCOMP
      ===================================================== -->
 
 <article class="post">
 
-```
 <img
     class="post-immagine"
+    id="immagine1"
     src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"
     alt="Foresta verde"
 >
 
 <div class="post-contenuto">
 
-    <div class="post-data">
-        🌱 Green News • GreenComp
-    </div>
+<div class="post-data" id="data1">
+    🌱 Green News • GreenComp
+</div>
 
-    <h2>
-        🌍 I 4 pilastri del GreenComp
-    </h2>
+<h2 id="titoloPost1">
+    🌍 I 4 pilastri del GreenComp
+</h2>
 
-    <div class="post-testo">
+<div class="post-testo">
 
-        <p>
-            Il GreenComp è il quadro europeo delle competenze
-            per la sostenibilità. È organizzato in quattro aree
-            interconnesse, pensate per aiutare le persone a
-            sviluppare conoscenze, capacità e atteggiamenti
-            utili per vivere e agire in modo sostenibile.
-        </p>
-
-    </div>
-
-
-    <div class="pilastri">
-
-
-        <div class="pilastro">
-
-            <h3>
-                🌱 1. Valori della sostenibilità
-            </h3>
-
-            <p>
-                Dare valore alla sostenibilità, sostenere
-                l'equità e promuovere il rispetto della natura.
-            </p>
-
-        </div>
-
-
-        <div class="pilastro">
-
-            <h3>
-                🔍 2. Comprendere la complessità
-            </h3>
-
-            <p>
-                Imparare a vedere i collegamenti tra ambiente,
-                società ed economia e sviluppare un pensiero
-                sistemico e critico.
-            </p>
-
-        </div>
-
-
-        <div class="pilastro">
-
-            <h3>
-                🔮 3. Immaginare futuri sostenibili
-            </h3>
-
-            <p>
-                Immaginare possibili futuri sostenibili,
-                essere capaci di adattarsi e sviluppare
-                idee alternative.
-            </p>
-
-        </div>
-
-
-        <div class="pilastro">
-
-            <h3>
-                🤝 4. Agire per la sostenibilità
-            </h3>
-
-            <p>
-                Trasformare le idee in azioni attraverso
-                iniziative personali e collaborazione
-                con gli altri.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="interazioni">
-
-        <button
-            type="button"
-            onclick="mettiLike(this)"
-        >
-            ❤️ <span>12</span> Like
-        </button>
-
-        <button
-            type="button"
-            onclick="mostraCommenti(this)"
-        >
-            💬 <span>3</span> Commenti
-        </button>
-
-    </div>
-
-
-    <div
-        class="commenti"
-        style="display:none;"
-    >
-
-        <h3>
-            💬 Commenti
-        </h3>
-
-        <div class="commento">
-
-            <strong>
-                @EcoFriend
-            </strong>
-
-            <p>
-                Molto interessante! 🌱
-            </p>
-
-        </div>
-
-
-        <div class="commento">
-
-            <strong>
-                @GreenPlayer
-            </strong>
-
-            <p>
-                Non conoscevo il GreenComp!
-            </p>
-
-        </div>
-
-
-        <div class="form-commento">
-
-            <input
-                type="text"
-                placeholder="Scrivi un commento..."
-            >
-
-            <button
-                type="button"
-                onclick="aggiungiCommento(this)"
-            >
-                Invia
-            </button>
-
-        </div>
-
-    </div>
+<p id="testoPost1">
+    Il GreenComp è il quadro europeo delle competenze
+    per la sostenibilità. È organizzato in quattro aree
+    interconnesse, pensate per aiutare le persone a
+    sviluppare conoscenze, capacità e atteggiamenti
+    utili per vivere e agire in modo sostenibile.
+</p>
 
 </div>
-```
+
+
+<div class="pilastri">
+
+
+<div class="pilastro">
+
+<h3 id="pilastro1Titolo">
+    🌱 1. Valori della sostenibilità
+</h3>
+
+<p id="pilastro1Testo">
+    Dare valore alla sostenibilità, sostenere
+    l'equità e promuovere il rispetto della natura.
+</p>
+
+</div>
+
+
+<div class="pilastro">
+
+<h3 id="pilastro2Titolo">
+    🔍 2. Comprendere la complessità
+</h3>
+
+<p id="pilastro2Testo">
+    Imparare a vedere i collegamenti tra ambiente,
+    società ed economia e sviluppare un pensiero
+    sistemico e critico.
+</p>
+
+</div>
+
+
+<div class="pilastro">
+
+<h3 id="pilastro3Titolo">
+    🔮 3. Immaginare futuri sostenibili
+</h3>
+
+<p id="pilastro3Testo">
+    Immaginare possibili futuri sostenibili,
+    essere capaci di adattarsi e sviluppare
+    idee alternative.
+</p>
+
+</div>
+
+
+<div class="pilastro">
+
+<h3 id="pilastro4Titolo">
+    🤝 4. Agire per la sostenibilità
+</h3>
+
+<p id="pilastro4Testo">
+    Trasformare le idee in azioni attraverso
+    iniziative personali e collaborazione
+    con gli altri.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="interazioni">
+
+<button
+    type="button"
+    onclick="mettiLike(this)"
+>
+    ❤️ <span>12</span> <span class="testoLike">Like</span>
+</button>
+
+<button
+    type="button"
+    onclick="mostraCommenti(this)"
+>
+    💬 <span>3</span> <span class="testoCommenti">Commenti</span>
+</button>
+
+</div>
+
+
+<div
+    class="commenti"
+    style="display:none;"
+>
+
+<h3 class="titoloCommenti">
+    💬 Commenti
+</h3>
+
+
+<div class="commento">
+
+<strong>
+    @EcoFriend
+</strong>
+
+<p id="commento1">
+    Molto interessante! 🌱
+</p>
+
+</div>
+
+
+<div class="commento">
+
+<strong>
+    @GreenPlayer
+</strong>
+
+<p id="commento2">
+    Non conoscevo il GreenComp!
+</p>
+
+</div>
+
+
+<div class="form-commento">
+
+<input
+    type="text"
+    class="inputCommento"
+    placeholder="Scrivi un commento..."
+>
+
+<button
+    type="button"
+    onclick="aggiungiCommento(this)"
+    class="bottoneInvia"
+>
+    Invia
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </article>
 
+
 <!-- =====================================================
-     POST 2
-     FORESTE
+     POST 2 - FORESTE
      ===================================================== -->
 
 <article class="post">
 
-```
 <img
     class="post-immagine"
+    id="immagine2"
     src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80"
     alt="Foresta"
 >
 
 <div class="post-contenuto">
 
-    <div class="post-data">
-        🌳 Green News • Natura
-    </div>
+<div class="post-data" id="data2">
+    🌳 Green News • Natura
+</div>
 
-    <h2>
-        🌳 Perché le foreste sono così importanti?
-    </h2>
+<h2 id="titoloPost2">
+    🌳 Perché le foreste sono così importanti?
+</h2>
 
-    <div class="post-testo">
+<div class="post-testo">
 
-        <p>
-            Le foreste sono ecosistemi fondamentali.
-            Ospitano una grande quantità di biodiversità
-            e contribuiscono al funzionamento degli
-            ecosistemi e al ciclo dell'acqua.
-        </p>
+<p id="testoPost2a">
+    Le foreste sono ecosistemi fondamentali.
+    Ospitano una grande quantità di biodiversità
+    e contribuiscono al funzionamento degli
+    ecosistemi e al ciclo dell'acqua.
+</p>
 
-        <p>
-            Proteggere gli ecosistemi forestali significa
-            anche proteggere gli habitat di moltissime
-            specie e mantenere importanti servizi
-            ecosistemici.
-        </p>
-
-    </div>
-
-
-    <div class="interazioni">
-
-        <button
-            type="button"
-            onclick="mettiLike(this)"
-        >
-            ❤️ <span>8</span> Like
-        </button>
-
-        <button
-            type="button"
-            onclick="mostraCommenti(this)"
-        >
-            💬 <span>2</span> Commenti
-        </button>
-
-    </div>
-
-
-    <div
-        class="commenti"
-        style="display:none;"
-    >
-
-        <h3>
-            💬 Commenti
-        </h3>
-
-        <div class="commento">
-
-            <strong>
-                @NatureLover
-            </strong>
-
-            <p>
-                Le foreste sono incredibili! 🌳
-            </p>
-
-        </div>
-
-
-        <div class="form-commento">
-
-            <input
-                type="text"
-                placeholder="Scrivi un commento..."
-            >
-
-            <button
-                type="button"
-                onclick="aggiungiCommento(this)"
-            >
-                Invia
-            </button>
-
-        </div>
-
-    </div>
+<p id="testoPost2b">
+    Proteggere gli ecosistemi forestali significa
+    anche proteggere gli habitat di moltissime
+    specie e mantenere importanti servizi
+    ecosistemici.
+</p>
 
 </div>
-```
+
+
+<div class="interazioni">
+
+<button
+    type="button"
+    onclick="mettiLike(this)"
+>
+    ❤️ <span>8</span> <span class="testoLike">Like</span>
+</button>
+
+<button
+    type="button"
+    onclick="mostraCommenti(this)"
+>
+    💬 <span>2</span> <span class="testoCommenti">Commenti</span>
+</button>
+
+</div>
+
+
+<div
+    class="commenti"
+    style="display:none;"
+>
+
+<h3 class="titoloCommenti">
+    💬 Commenti
+</h3>
+
+
+<div class="commento">
+
+<strong>
+    @NatureLover
+</strong>
+
+<p id="commento3">
+    Le foreste sono incredibili! 🌳
+</p>
+
+</div>
+
+
+<div class="form-commento">
+
+<input
+    type="text"
+    class="inputCommento"
+    placeholder="Scrivi un commento..."
+>
+
+<button
+    type="button"
+    onclick="aggiungiCommento(this)"
+    class="bottoneInvia"
+>
+    Invia
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </article>
 
+
 <!-- =====================================================
-     POST 3
-     RICICLO
+     POST 3 - RICICLO
      ===================================================== -->
 
 <article class="post">
 
-```
 <img
     class="post-immagine"
+    id="immagine3"
     src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80"
     alt="Riciclo e materiali"
 >
 
 <div class="post-contenuto">
 
-    <div class="post-data">
-        ♻️ Green News • Riciclo
-    </div>
+<div class="post-data" id="data3">
+    ♻️ Green News • Riciclo
+</div>
 
-    <h2>
-        ♻️ Piccole azioni, grandi cambiamenti
-    </h2>
+<h2 id="titoloPost3">
+    ♻️ Piccole azioni, grandi cambiamenti
+</h2>
 
-    <div class="post-testo">
+<div class="post-testo">
 
-        <p>
-            Ridurre gli sprechi, riutilizzare gli oggetti
-            quando possibile e differenziare correttamente
-            i rifiuti sono alcuni dei comportamenti che
-            possono contribuire a un uso più responsabile
-            delle risorse.
-        </p>
+<p id="testoPost3a">
+    Ridurre gli sprechi, riutilizzare gli oggetti
+    quando possibile e differenziare correttamente
+    i rifiuti sono alcuni dei comportamenti che
+    possono contribuire a un uso più responsabile
+    delle risorse.
+</p>
 
-        <p>
-            Anche una piccola azione quotidiana può diventare
-            parte di un cambiamento più ampio quando viene
-            condivisa da molte persone.
-        </p>
-
-    </div>
-
-
-    <div class="interazioni">
-
-        <button
-            type="button"
-            onclick="mettiLike(this)"
-        >
-            ❤️ <span>15</span> Like
-        </button>
-
-        <button
-            type="button"
-            onclick="mostraCommenti(this)"
-        >
-            💬 <span>4</span> Commenti
-        </button>
-
-    </div>
-
-
-    <div
-        class="commenti"
-        style="display:none;"
-    >
-
-        <h3>
-            💬 Commenti
-        </h3>
-
-        <div class="commento">
-
-            <strong>
-                @EcoPlayer
-            </strong>
-
-            <p>
-                Io provo sempre a riciclare correttamente! ♻️
-            </p>
-
-        </div>
-
-
-        <div class="form-commento">
-
-            <input
-                type="text"
-                placeholder="Scrivi un commento..."
-            >
-
-            <button
-                type="button"
-                onclick="aggiungiCommento(this)"
-            >
-                Invia
-            </button>
-
-        </div>
-
-    </div>
+<p id="testoPost3b">
+    Anche una piccola azione quotidiana può diventare
+    parte di un cambiamento più ampio quando viene
+    condivisa da molte persone.
+</p>
 
 </div>
-```
+
+
+<div class="interazioni">
+
+<button
+    type="button"
+    onclick="mettiLike(this)"
+>
+    ❤️ <span>15</span> <span class="testoLike">Like</span>
+</button>
+
+<button
+    type="button"
+    onclick="mostraCommenti(this)"
+>
+    💬 <span>4</span> <span class="testoCommenti">Commenti</span>
+</button>
+
+</div>
+
+
+<div
+    class="commenti"
+    style="display:none;"
+>
+
+<h3 class="titoloCommenti">
+    💬 Commenti
+</h3>
+
+
+<div class="commento">
+
+<strong>
+    @EcoPlayer
+</strong>
+
+<p id="commento4">
+    Io provo sempre a riciclare correttamente! ♻️
+</p>
+
+</div>
+
+
+<div class="form-commento">
+
+<input
+    type="text"
+    class="inputCommento"
+    placeholder="Scrivi un commento..."
+>
+
+<button
+    type="button"
+    onclick="aggiungiCommento(this)"
+    class="bottoneInvia"
+>
+    Invia
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </article>
 
-<!-- =====================================================
-     TORNA ALLA HOME
-     ===================================================== -->
 
 <div class="azioni">
 
-```
 <a
     href="index.html"
     class="bottone-home"
@@ -827,15 +757,11 @@ footer {
 >
     🏠 Torna a EcoGame
 </a>
-```
 
 </div>
 
 </div>
 
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
 
 <footer>
 
@@ -845,7 +771,362 @@ footer {
 
 </footer>
 
+
 <script>
+
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
+
+const traduzioni = {
+
+    it: {
+
+        titolo: "📰 Green News",
+
+        sottotitolo:
+            "Notizie, curiosità e idee per un futuro più sostenibile 🌱",
+
+        titoloIntroduzione:
+            "🌍 Benvenuto nelle Green News!",
+
+        testoIntroduzione:
+            "Qui troverai articoli, curiosità, approfondimenti e iniziative dedicate all'ambiente e alla sostenibilità.",
+
+        data1:
+            "🌱 Green News • GreenComp",
+
+        titoloPost1:
+            "🌍 I 4 pilastri del GreenComp",
+
+        testoPost1:
+            "Il GreenComp è il quadro europeo delle competenze per la sostenibilità. È organizzato in quattro aree interconnesse, pensate per aiutare le persone a sviluppare conoscenze, capacità e atteggiamenti utili per vivere e agire in modo sostenibile.",
+
+        pilastro1Titolo:
+            "🌱 1. Valori della sostenibilità",
+
+        pilastro1Testo:
+            "Dare valore alla sostenibilità, sostenere l'equità e promuovere il rispetto della natura.",
+
+        pilastro2Titolo:
+            "🔍 2. Comprendere la complessità",
+
+        pilastro2Testo:
+            "Imparare a vedere i collegamenti tra ambiente, società ed economia e sviluppare un pensiero sistemico e critico.",
+
+        pilastro3Titolo:
+            "🔮 3. Immaginare futuri sostenibili",
+
+        pilastro3Testo:
+            "Immaginare possibili futuri sostenibili, essere capaci di adattarsi e sviluppare idee alternative.",
+
+        pilastro4Titolo:
+            "🤝 4. Agire per la sostenibilità",
+
+        pilastro4Testo:
+            "Trasformare le idee in azioni attraverso iniziative personali e collaborazione con gli altri.",
+
+        data2:
+            "🌳 Green News • Natura",
+
+        titoloPost2:
+            "🌳 Perché le foreste sono così importanti?",
+
+        testoPost2a:
+            "Le foreste sono ecosistemi fondamentali. Ospitano una grande quantità di biodiversità e contribuiscono al funzionamento degli ecosistemi e al ciclo dell'acqua.",
+
+        testoPost2b:
+            "Proteggere gli ecosistemi forestali significa anche proteggere gli habitat di moltissime specie e mantenere importanti servizi ecosistemici.",
+
+        data3:
+            "♻️ Green News • Riciclo",
+
+        titoloPost3:
+            "♻️ Piccole azioni, grandi cambiamenti",
+
+        testoPost3a:
+            "Ridurre gli sprechi, riutilizzare gli oggetti quando possibile e differenziare correttamente i rifiuti sono alcuni dei comportamenti che possono contribuire a un uso più responsabile delle risorse.",
+
+        testoPost3b:
+            "Anche una piccola azione quotidiana può diventare parte di un cambiamento più ampio quando viene condivisa da molte persone.",
+
+        commento1:
+            "Molto interessante! 🌱",
+
+        commento2:
+            "Non conoscevo il GreenComp!",
+
+        commento3:
+            "Le foreste sono incredibili! 🌳",
+
+        commento4:
+            "Io provo sempre a riciclare correttamente! ♻️",
+
+        like:
+            "Like",
+
+        commenti:
+            "Commenti",
+
+        titoloCommenti:
+            "💬 Commenti",
+
+        placeholder:
+            "Scrivi un commento...",
+
+        invia:
+            "Invia",
+
+        bottoneHome:
+            "🏠 Torna a EcoGame",
+
+        footer:
+            "🌱 EcoGame — Imparare l'ecologia giocando",
+
+        alt1:
+            "Foresta verde",
+
+        alt2:
+            "Foresta",
+
+        alt3:
+            "Riciclo e materiali"
+
+    },
+
+
+    en: {
+
+        titolo:
+            "📰 Green News",
+
+        sottotitolo:
+            "News, facts and ideas for a more sustainable future 🌱",
+
+        titoloIntroduzione:
+            "🌍 Welcome to Green News!",
+
+        testoIntroduzione:
+            "Here you will find articles, facts, insights and initiatives about the environment and sustainability.",
+
+        data1:
+            "🌱 Green News • GreenComp",
+
+        titoloPost1:
+            "🌍 The 4 pillars of GreenComp",
+
+        testoPost1:
+            "GreenComp is the European framework for sustainability competences. It is organized into four interconnected areas designed to help people develop the knowledge, skills and attitudes needed to live and act sustainably.",
+
+        pilastro1Titolo:
+            "🌱 1. Valuing sustainability",
+
+        pilastro1Testo:
+            "Valuing sustainability, supporting fairness and promoting respect for nature.",
+
+        pilastro2Titolo:
+            "🔍 2. Embracing complexity in sustainability",
+
+        pilastro2Testo:
+            "Learning to see connections between the environment, society and the economy while developing systemic and critical thinking.",
+
+        pilastro3Titolo:
+            "🔮 3. Envisioning sustainable futures",
+
+        pilastro3Testo:
+            "Imagining possible sustainable futures, being able to adapt and developing alternative ideas.",
+
+        pilastro4Titolo:
+            "🤝 4. Acting for sustainability",
+
+        pilastro4Testo:
+            "Turning ideas into action through personal initiatives and collaboration with others.",
+
+        data2:
+            "🌳 Green News • Nature",
+
+        titoloPost2:
+            "🌳 Why are forests so important?",
+
+        testoPost2a:
+            "Forests are fundamental ecosystems. They host a large amount of biodiversity and contribute to ecosystem functioning and the water cycle.",
+
+        testoPost2b:
+            "Protecting forest ecosystems also means protecting the habitats of many species and maintaining important ecosystem services.",
+
+        data3:
+            "♻️ Green News • Recycling",
+
+        titoloPost3:
+            "♻️ Small actions, big changes",
+
+        testoPost3a:
+            "Reducing waste, reusing objects whenever possible and properly sorting waste are some of the behaviors that can contribute to a more responsible use of resources.",
+
+        testoPost3b:
+            "Even a small daily action can become part of a broader change when it is shared by many people.",
+
+        commento1:
+            "Very interesting! 🌱",
+
+        commento2:
+            "I didn't know about GreenComp!",
+
+        commento3:
+            "Forests are incredible! 🌳",
+
+        commento4:
+            "I always try to recycle properly! ♻️",
+
+        like:
+            "Like",
+
+        commenti:
+            "Comments",
+
+        titoloCommenti:
+            "💬 Comments",
+
+        placeholder:
+            "Write a comment...",
+
+        invia:
+            "Send",
+
+        bottoneHome:
+            "🏠 Back to EcoGame",
+
+        footer:
+            "🌱 EcoGame — Learn about ecology while playing",
+
+        alt1:
+            "Green forest",
+
+        alt2:
+            "Forest",
+
+        alt3:
+            "Recycling and materials"
+
+    },
+
+
+    fi: {
+
+        titolo:
+            "📰 Green News",
+
+        sottotitolo:
+            "Uutisia, faktoja ja ideoita kestävämpään tulevaisuuteen 🌱",
+
+        titoloIntroduzione:
+            "🌍 Tervetuloa Green Newsiin!",
+
+        testoIntroduzione:
+            "Täältä löydät artikkeleita, faktoja, tietoa ja aloitteita ympäristöstä ja kestävyydestä.",
+
+        data1:
+            "🌱 Green News • GreenComp",
+
+        titoloPost1:
+            "🌍 GreenCompin 4 pilaria",
+
+        testoPost1:
+            "GreenComp on eurooppalainen kestävän kehityksen osaamiskehys. Se koostuu neljästä toisiinsa liittyvästä osa-alueesta, joiden tarkoituksena on auttaa ihmisiä kehittämään tietoja, taitoja ja asenteita kestävää elämää ja toimintaa varten.",
+
+        pilastro1Titolo:
+            "🌱 1. Kestävyyden arvojen ymmärtäminen",
+
+        pilastro1Testo:
+            "Kestävyyden arvostaminen, oikeudenmukaisuuden tukeminen ja luonnon kunnioittamisen edistäminen.",
+
+        pilastro2Titolo:
+            "🔍 2. Monimutkaisuuden ymmärtäminen",
+
+        pilastro2Testo:
+            "Oppia näkemään ympäristön, yhteiskunnan ja talouden välisiä yhteyksiä sekä kehittää systeemistä ja kriittistä ajattelua.",
+
+        pilastro3Titolo:
+            "🔮 3. Kestävien tulevaisuuksien kuvittelu",
+
+        pilastro3Testo:
+            "Kuvitella mahdollisia kestäviä tulevaisuuksia, osata sopeutua ja kehittää vaihtoehtoisia ideoita.",
+
+        pilastro4Titolo:
+            "🤝 4. Toiminta kestävyyden puolesta",
+
+        pilastro4Testo:
+            "Muuttaa ideat toiminnaksi henkilökohtaisten aloitteiden ja yhteistyön avulla.",
+
+        data2:
+            "🌳 Green News • Luonto",
+
+        titoloPost2:
+            "🌳 Miksi metsät ovat niin tärkeitä?",
+
+        testoPost2a:
+            "Metsät ovat tärkeitä ekosysteemejä. Niissä elää paljon luonnon monimuotoisuutta, ja ne osallistuvat ekosysteemien toimintaan sekä veden kiertokulkuun.",
+
+        testoPost2b:
+            "Metsäekosysteemien suojeleminen tarkoittaa myös monien lajien elinympäristöjen suojelemista ja tärkeiden ekosysteemipalvelujen säilyttämistä.",
+
+        data3:
+            "♻️ Green News • Kierrätys",
+
+        titoloPost3:
+            "♻️ Pienet teot, suuret muutokset",
+
+        testoPost3a:
+            "Hävikin vähentäminen, tavaroiden uudelleenkäyttö aina kun mahdollista ja jätteiden oikea lajittelu ovat esimerkkejä tavoista, joilla voidaan edistää luonnonvarojen vastuullisempaa käyttöä.",
+
+        testoPost3b:
+            "Pienestäkin päivittäisestä teosta voi tulla osa laajempaa muutosta, kun monet ihmiset osallistuvat siihen.",
+
+        commento1:
+            "Erittäin kiinnostavaa! 🌱",
+
+        commento2:
+            "En tiennyt GreenCompista!",
+
+        commento3:
+            "Metsät ovat uskomattomia! 🌳",
+
+        commento4:
+            "Yritän aina kierrättää oikein! ♻️",
+
+        like:
+            "Tykkäystä",
+
+        commenti:
+            "Kommentit",
+
+        titoloCommenti:
+            "💬 Kommentit",
+
+        placeholder:
+            "Kirjoita kommentti...",
+
+        invia:
+            "Lähetä",
+
+        bottoneHome:
+            "🏠 Takaisin EcoGameen",
+
+        footer:
+            "🌱 EcoGame — Opi ekologiasta pelaamalla",
+
+        alt1:
+            "Vihreä metsä",
+
+        alt2:
+            "Metsä",
+
+        alt3:
+            "Kierrätys ja materiaalit"
+
+    }
+
+};
 
 
 /* =====================================================
@@ -854,87 +1135,191 @@ footer {
 
 function cambiaLingua(lingua) {
 
+    const testi = traduzioni[lingua];
+
+    if (!testi) {
+        return;
+    }
+
     localStorage.setItem(
         "ecoGameLingua",
         lingua
     );
 
+    document.documentElement.lang = lingua;
 
-    if (lingua === "it") {
-
-        document.documentElement.lang = "it";
-
-        document.getElementById("titolo").textContent =
-            "📰 Green News";
-
-        document.getElementById("sottotitolo").textContent =
-            "Notizie, curiosità e idee per un futuro più sostenibile 🌱";
-
-        document.getElementById("titoloIntroduzione").textContent =
-            "🌍 Benvenuto nelle Green News!";
-
-        document.getElementById("testoIntroduzione").textContent =
-            "Qui troverai articoli, curiosità, approfondimenti e iniziative dedicate all'ambiente e alla sostenibilità.";
-
-        document.getElementById("bottoneHome").textContent =
-            "🏠 Torna a EcoGame";
-
-        document.getElementById("footerTesto").textContent =
-            "🌱 EcoGame — Imparare l'ecologia giocando";
-
-        return;
-    }
+    document.title =
+        "EcoGame - Green News 📰";
 
 
-    if (lingua === "en") {
+    /* HEADER */
 
-        document.documentElement.lang = "en";
+    document.getElementById("titolo").textContent =
+        testi.titolo;
 
-        document.getElementById("titolo").textContent =
-            "📰 Green News";
-
-        document.getElementById("sottotitolo").textContent =
-            "News, facts and ideas for a more sustainable future 🌱";
-
-        document.getElementById("titoloIntroduzione").textContent =
-            "🌍 Welcome to Green News!";
-
-        document.getElementById("testoIntroduzione").textContent =
-            "Here you will find articles, facts, insights and initiatives about the environment and sustainability.";
-
-        document.getElementById("bottoneHome").textContent =
-            "🏠 Back to EcoGame";
-
-        document.getElementById("footerTesto").textContent =
-            "🌱 EcoGame — Learn about ecology while playing";
-
-        return;
-    }
+    document.getElementById("sottotitolo").textContent =
+        testi.sottotitolo;
 
 
-    if (lingua === "fi") {
+    /* INTRODUZIONE */
 
-        document.documentElement.lang = "fi";
+    document.getElementById("titoloIntroduzione").textContent =
+        testi.titoloIntroduzione;
 
-        document.getElementById("titolo").textContent =
-            "📰 Green News";
+    document.getElementById("testoIntroduzione").textContent =
+        testi.testoIntroduzione;
 
-        document.getElementById("sottotitolo").textContent =
-            "Uutisia, faktoja ja ideoita kestävämpään tulevaisuuteen 🌱";
 
-        document.getElementById("titoloIntroduzione").textContent =
-            "🌍 Tervetuloa Green Newsiin!";
+    /* POST 1 */
 
-        document.getElementById("testoIntroduzione").textContent =
-            "Täältä löydät artikkeleita, faktoja, tietoa ja aloitteita ympäristöstä ja kestävyydestä.";
+    document.getElementById("data1").textContent =
+        testi.data1;
 
-        document.getElementById("bottoneHome").textContent =
-            "🏠 Takaisin EcoGameen";
+    document.getElementById("titoloPost1").textContent =
+        testi.titoloPost1;
 
-        document.getElementById("footerTesto").textContent =
-            "🌱 EcoGame — Opi ekologiasta pelaamalla";
-    }
+    document.getElementById("testoPost1").textContent =
+        testi.testoPost1;
 
+    document.getElementById("pilastro1Titolo").textContent =
+        testi.pilastro1Titolo;
+
+    document.getElementById("pilastro1Testo").textContent =
+        testi.pilastro1Testo;
+
+    document.getElementById("pilastro2Titolo").textContent =
+        testi.pilastro2Titolo;
+
+    document.getElementById("pilastro2Testo").textContent =
+        testi.pilastro2Testo;
+
+    document.getElementById("pilastro3Titolo").textContent =
+        testi.pilastro3Titolo;
+
+    document.getElementById("pilastro3Testo").textContent =
+        testi.pilastro3Testo;
+
+    document.getElementById("pilastro4Titolo").textContent =
+        testi.pilastro4Titolo;
+
+    document.getElementById("pilastro4Testo").textContent =
+        testi.pilastro4Testo;
+
+
+    /* POST 2 */
+
+    document.getElementById("data2").textContent =
+        testi.data2;
+
+    document.getElementById("titoloPost2").textContent =
+        testi.titoloPost2;
+
+    document.getElementById("testoPost2a").textContent =
+        testi.testoPost2a;
+
+    document.getElementById("testoPost2b").textContent =
+        testi.testoPost2b;
+
+
+    /* POST 3 */
+
+    document.getElementById("data3").textContent =
+        testi.data3;
+
+    document.getElementById("titoloPost3").textContent =
+        testi.titoloPost3;
+
+    document.getElementById("testoPost3a").textContent =
+        testi.testoPost3a;
+
+    document.getElementById("testoPost3b").textContent =
+        testi.testoPost3b;
+
+
+    /* COMMENTI STATICI */
+
+    document.getElementById("commento1").textContent =
+        testi.commento1;
+
+    document.getElementById("commento2").textContent =
+        testi.commento2;
+
+    document.getElementById("commento3").textContent =
+        testi.commento3;
+
+    document.getElementById("commento4").textContent =
+        testi.commento4;
+
+
+    /* TESTI DEI BOTTONI */
+
+    document.querySelectorAll(".testoLike")
+        .forEach(function(elemento) {
+
+            elemento.textContent =
+                testi.like;
+
+        });
+
+
+    document.querySelectorAll(".testoCommenti")
+        .forEach(function(elemento) {
+
+            elemento.textContent =
+                testi.commenti;
+
+        });
+
+
+    document.querySelectorAll(".titoloCommenti")
+        .forEach(function(elemento) {
+
+            elemento.textContent =
+                testi.titoloCommenti;
+
+        });
+
+
+    document.querySelectorAll(".inputCommento")
+        .forEach(function(input) {
+
+            input.placeholder =
+                testi.placeholder;
+
+        });
+
+
+    document.querySelectorAll(".bottoneInvia")
+        .forEach(function(bottone) {
+
+            bottone.textContent =
+                testi.invia;
+
+        });
+
+
+    /* IMMAGINI */
+
+    document.getElementById("immagine1").alt =
+        testi.alt1;
+
+    document.getElementById("immagine2").alt =
+        testi.alt2;
+
+    document.getElementById("immagine3").alt =
+        testi.alt3;
+
+
+    /* HOME */
+
+    document.getElementById("bottoneHome").textContent =
+        testi.bottoneHome;
+
+
+    /* FOOTER */
+
+    document.getElementById("footerTesto").textContent =
+        testi.footer;
 }
 
 
@@ -967,6 +1352,7 @@ function mettiLike(bottone) {
         bottone.classList.add(
             "like-attivo"
         );
+
     }
 
     numero.textContent = likes;
@@ -985,7 +1371,6 @@ function mostraCommenti(bottone) {
     const commenti =
         post.querySelector(".commenti");
 
-
     if (
         commenti.style.display === "none"
     ) {
@@ -997,7 +1382,9 @@ function mostraCommenti(bottone) {
 
         commenti.style.display =
             "none";
+
     }
+
 }
 
 
@@ -1016,15 +1403,12 @@ function aggiungiCommento(bottone) {
     const testo =
         input.value.trim();
 
-
     if (!testo) {
         return;
     }
 
-
     const commenti =
         bottone.closest(".commenti");
-
 
     const nuovoCommento =
         document.createElement("div");
@@ -1032,21 +1416,28 @@ function aggiungiCommento(bottone) {
     nuovoCommento.className =
         "commento";
 
+    const nome =
+        document.createElement("strong");
 
-    nuovoCommento.innerHTML =
-        "<strong>@EcoPlayer</strong>" +
-        "<p></p>";
+    nome.textContent =
+        "@EcoPlayer";
 
+    const testoElemento =
+        document.createElement("p");
 
-    nuovoCommento.querySelector("p")
-        .textContent = testo;
+    testoElemento.textContent =
+        testo;
 
+    nuovoCommento.appendChild(nome);
+
+    nuovoCommento.appendChild(
+        testoElemento
+    );
 
     commenti.insertBefore(
         nuovoCommento,
         form
     );
-
 
     input.value = "";
 
@@ -1074,4 +1465,6 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
+```
