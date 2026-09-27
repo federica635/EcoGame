@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EcoGame - Green News 📰</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dcedc8, #e8f5e9);
+    color: #173b22;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+header {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 30px 20px 40px;
+}
+
+header h1 {
+    margin: 15px 0 10px;
+    font-size: 48px;
+}
+
+header p {
+    margin: 0;
+    font-size: 19px;
+}
+
+
+/* =====================================================
+   LINGUE
+   ===================================================== */
+
+.lingue {
+    margin-bottom: 15px;
+}
+
+.lingue button {
+    background: white;
+    color: #173b22;
+    border: 2px solid #43a047;
+    margin: 4px;
+    padding: 9px 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.lingue button:hover {
+    background: #e8f5e9;
+}
+
+
+/* =====================================================
+   CONTENITORE
+   ===================================================== */
+
+.contenitore {
+    width: 92%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+
+/* =====================================================
+   INTRODUZIONE
+   ===================================================== */
+
+.introduzione {
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.introduzione h2 {
+    color: #2e7d32;
+    margin-top: 0;
+}
+
+.introduzione p {
+    color: #555;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   POST
+   ===================================================== */
+
+.post {
+    background: white;
+    border-radius: 22px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.post-immagine {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    display: block;
+}
+
+.post-contenuto {
+    padding: 25px;
+}
+
+.post-data {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.post h2 {
+    color: #2e7d32;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.post-testo {
+    color: #444;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   PILASTRI GREENCOMP
+   ===================================================== */
+
+.pilastri {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pilastro {
+    background: #e8f5e9;
+    border-radius: 15px;
+    padding: 20px;
+    border-left: 5px solid #43a047;
+}
+
+.pilastro h3 {
+    margin-top: 0;
+    color: #1b5e20;
+}
+
+.pilastro p {
+    margin-bottom: 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   INTERAZIONI
+   ===================================================== */
+
+.interazioni {
+    border-top: 1px solid #ddd;
+    margin-top: 25px;
+    padding-top: 18px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.interazioni button {
+    border: none;
+    background: #f1f8f2;
+    color: #1b5e20;
+    padding: 10px 17px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.interazioni button:hover {
+    background: #dcedc8;
+}
+
+.like-attivo {
+    background: #c8e6c9 !important;
+}
+
+
+/* =====================================================
+   COMMENTI
+   ===================================================== */
+
+.commenti {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.commenti h3 {
+    color: #2e7d32;
+}
+
+.commento {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+}
+
+.commento strong {
+    color: #1b5e20;
+}
+
+.commento p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+.form-commento {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.form-commento input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.form-commento button {
+    border: none;
+    background: #43a047;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-commento button:hover {
+    background: #1b5e20;
+}
+
+
+/* =====================================================
+   MESSAGGIO
+   ===================================================== */
+
+#messaggio {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.errore {
+    color: #c62828;
+}
+
+.successo {
+    color: #2e7d32;
+}
+
+
+/* =====================================================
+   BOTTONI
+   ===================================================== */
+
+.azioni {
+    text-align: center;
+    margin: 35px 0;
+}
+
+.bottone-home {
+    display: inline-block;
+    background: #43a047;
+    color: white;
+    padding: 14px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.bottone-home:hover {
+    background: #1b5e20;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    margin-top: 50px;
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    header h1 {
+        font-size: 38px;
+    }
+
+    .post-immagine {
+        height: 230px;
+    }
+
+    .post-contenuto {
+        padding: 20px;
+    }
+
+    .pilastri {
+        grid-template-columns: 1fr;
+    }
+
+    .form-commento {
+        flex-direction: column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header>
+
+<div class="lingue">
+
+```
+<button type="button" onclick="cambiaLingua('it')">
+    🇮🇹 Italiano
+</button>
+
+<button type="button" onclick="cambiaLingua('en')">
+    🇬🇧 English
+</button>
+
+<button type="button" onclick="cambiaLingua('fi')">
+    🇫🇮 Suomi
+</button>
+```
+
+</div>
+
+<h1 id="titolo">
+    📰 Green News
+</h1>
+
+<p id="sottotitolo">
+    Notizie, curiosità e idee per un futuro più sostenibile 🌱
+</p>
+
+</header>
+
+<!-- =====================================================
+     CONTENITORE
+     ===================================================== -->
+
+<div class="contenitore">
+
+<!-- =====================================================
+     INTRODUZIONE
+     ===================================================== -->
+
+<div class="introduzione">
+
+```
+<h2 id="titoloIntroduzione">
+    🌍 Benvenuto nelle Green News!
+</h2>
+
+<p id="testoIntroduzione">
+    Qui troverai articoli, curiosità, approfondimenti
+    e iniziative dedicate all'ambiente e alla sostenibilità.
+</p>
+```
+
+</div>
+
+<div id="messaggio"></div>
+
+<!-- =====================================================
+     POST 1
+     GREENCOMP
+     ===================================================== -->
+
+<article class="post">
+
+```
+<img
+    class="post-immagine"
+    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"
+    alt="Foresta verde"
+>
+
+<div class="post-contenuto">
+
+    <div class="post-data">
+        🌱 Green News • GreenComp
+    </div>
+
+    <h2>
+        🌍 I 4 pilastri del GreenComp
+    </h2>
+
+    <div class="post-testo">
+
+        <p>
+            Il GreenComp è il quadro europeo delle competenze
+            per la sostenibilità. È organizzato in quattro aree
+            interconnesse, pensate per aiutare le persone a
+            sviluppare conoscenze, capacità e atteggiamenti
+            utili per vivere e agire in modo sostenibile.
+        </p>
+
+    </div>
+
+
+    <div class="pilastri">
+
+
+        <div class="pilastro">
+
+            <h3>
+                🌱 1. Valori della sostenibilità
+            </h3>
+
+            <p>
+                Dare valore alla sostenibilità, sostenere
+                l'equità e promuovere il rispetto della natura.
+            </p>
+
+        </div>
+
+
+        <div class="pilastro">
+
+            <h3>
+                🔍 2. Comprendere la complessità
+            </h3>
+
+            <p>
+                Imparare a vedere i collegamenti tra ambiente,
+                società ed economia e sviluppare un pensiero
+                sistemico e critico.
+            </p>
+
+        </div>
+
+
+        <div class="pilastro">
+
+            <h3>
+                🔮 3. Immaginare futuri sostenibili
+            </h3>
+
+            <p>
+                Immaginare possibili futuri sostenibili,
+                essere capaci di adattarsi e sviluppare
+                idee alternative.
+            </p>
+
+        </div>
+
+
+        <div class="pilastro">
+
+            <h3>
+                🤝 4. Agire per la sostenibilità
+            </h3>
+
+            <p>
+                Trasformare le idee in azioni attraverso
+                iniziative personali e collaborazione
+                con gli altri.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="interazioni">
+
+        <button
+            type="button"
+            onclick="mettiLike(this)"
+        >
+            ❤️ <span>12</span> Like
+        </button>
+
+        <button
+            type="button"
+            onclick="mostraCommenti(this)"
+        >
+            💬 <span>3</span> Commenti
+        </button>
+
+    </div>
+
+
+    <div
+        class="commenti"
+        style="display:none;"
+    >
+
+        <h3>
+            💬 Commenti
+        </h3>
+
+        <div class="commento">
+
+            <strong>
+                @EcoFriend
+            </strong>
+
+            <p>
+                Molto interessante! 🌱
+            </p>
+
+        </div>
+
+
+        <div class="commento">
+
+            <strong>
+                @GreenPlayer
+            </strong>
+
+            <p>
+                Non conoscevo il GreenComp!
+            </p>
+
+        </div>
+
+
+        <div class="form-commento">
+
+            <input
+                type="text"
+                placeholder="Scrivi un commento..."
+            >
+
+            <button
+                type="button"
+                onclick="aggiungiCommento(this)"
+            >
+                Invia
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</article>
+
+<!-- =====================================================
+     POST 2
+     FORESTE
+     ===================================================== -->
+
+<article class="post">
+
+```
+<img
+    class="post-immagine"
+    src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80"
+    alt="Foresta"
+>
+
+<div class="post-contenuto">
+
+    <div class="post-data">
+        🌳 Green News • Natura
+    </div>
+
+    <h2>
+        🌳 Perché le foreste sono così importanti?
+    </h2>
+
+    <div class="post-testo">
+
+        <p>
+            Le foreste sono ecosistemi fondamentali.
+            Ospitano una grande quantità di biodiversità
+            e contribuiscono al funzionamento degli
+            ecosistemi e al ciclo dell'acqua.
+        </p>
+
+        <p>
+            Proteggere gli ecosistemi forestali significa
+            anche proteggere gli habitat di moltissime
+            specie e mantenere importanti servizi
+            ecosistemici.
+        </p>
+
+    </div>
+
+
+    <div class="interazioni">
+
+        <button
+            type="button"
+            onclick="mettiLike(this)"
+        >
+            ❤️ <span>8</span> Like
+        </button>
+
+        <button
+            type="button"
+            onclick="mostraCommenti(this)"
+        >
+            💬 <span>2</span> Commenti
+        </button>
+
+    </div>
+
+
+    <div
+        class="commenti"
+        style="display:none;"
+    >
+
+        <h3>
+            💬 Commenti
+        </h3>
+
+        <div class="commento">
+
+            <strong>
+                @NatureLover
+            </strong>
+
+            <p>
+                Le foreste sono incredibili! 🌳
+            </p>
+
+        </div>
+
+
+        <div class="form-commento">
+
+            <input
+                type="text"
+                placeholder="Scrivi un commento..."
+            >
+
+            <button
+                type="button"
+                onclick="aggiungiCommento(this)"
+            >
+                Invia
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</article>
+
+<!-- =====================================================
+     POST 3
+     RICICLO
+     ===================================================== -->
+
+<article class="post">
+
+```
+<img
+    class="post-immagine"
+    src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80"
+    alt="Riciclo e materiali"
+>
+
+<div class="post-contenuto">
+
+    <div class="post-data">
+        ♻️ Green News • Riciclo
+    </div>
+
+    <h2>
+        ♻️ Piccole azioni, grandi cambiamenti
+    </h2>
+
+    <div class="post-testo">
+
+        <p>
+            Ridurre gli sprechi, riutilizzare gli oggetti
+            quando possibile e differenziare correttamente
+            i rifiuti sono alcuni dei comportamenti che
+            possono contribuire a un uso più responsabile
+            delle risorse.
+        </p>
+
+        <p>
+            Anche una piccola azione quotidiana può diventare
+            parte di un cambiamento più ampio quando viene
+            condivisa da molte persone.
+        </p>
+
+    </div>
+
+
+    <div class="interazioni">
+
+        <button
+            type="button"
+            onclick="mettiLike(this)"
+        >
+            ❤️ <span>15</span> Like
+        </button>
+
+        <button
+            type="button"
+            onclick="mostraCommenti(this)"
+        >
+            💬 <span>4</span> Commenti
+        </button>
+
+    </div>
+
+
+    <div
+        class="commenti"
+        style="display:none;"
+    >
+
+        <h3>
+            💬 Commenti
+        </h3>
+
+        <div class="commento">
+
+            <strong>
+                @EcoPlayer
+            </strong>
+
+            <p>
+                Io provo sempre a riciclare correttamente! ♻️
+            </p>
+
+        </div>
+
+
+        <div class="form-commento">
+
+            <input
+                type="text"
+                placeholder="Scrivi un commento..."
+            >
+
+            <button
+                type="button"
+                onclick="aggiungiCommento(this)"
+            >
+                Invia
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</article>
+
+<!-- =====================================================
+     TORNA ALLA HOME
+     ===================================================== -->
+
+<div class="azioni">
+
+```
+<a
+    href="index.html"
+    class="bottone-home"
+    id="bottoneHome"
+>
+    🏠 Torna a EcoGame
+</a>
+```
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+<span id="footerTesto">
+    🌱 EcoGame — Imparare l'ecologia giocando
+</span>
+
+</footer>
+
+<script>
+
+
+/* =====================================================
+   CAMBIO LINGUA
+   ===================================================== */
+
+function cambiaLingua(lingua) {
+
+    localStorage.setItem(
+        "ecoGameLingua",
+        lingua
+    );
+
+
+    if (lingua === "it") {
+
+        document.documentElement.lang = "it";
+
+        document.getElementById("titolo").textContent =
+            "📰 Green News";
+
+        document.getElementById("sottotitolo").textContent =
+            "Notizie, curiosità e idee per un futuro più sostenibile 🌱";
+
+        document.getElementById("titoloIntroduzione").textContent =
+            "🌍 Benvenuto nelle Green News!";
+
+        document.getElementById("testoIntroduzione").textContent =
+            "Qui troverai articoli, curiosità, approfondimenti e iniziative dedicate all'ambiente e alla sostenibilità.";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Torna a EcoGame";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Imparare l'ecologia giocando";
+
+        return;
+    }
+
+
+    if (lingua === "en") {
+
+        document.documentElement.lang = "en";
+
+        document.getElementById("titolo").textContent =
+            "📰 Green News";
+
+        document.getElementById("sottotitolo").textContent =
+            "News, facts and ideas for a more sustainable future 🌱";
+
+        document.getElementById("titoloIntroduzione").textContent =
+            "🌍 Welcome to Green News!";
+
+        document.getElementById("testoIntroduzione").textContent =
+            "Here you will find articles, facts, insights and initiatives about the environment and sustainability.";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Back to EcoGame";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Learn about ecology while playing";
+
+        return;
+    }
+
+
+    if (lingua === "fi") {
+
+        document.documentElement.lang = "fi";
+
+        document.getElementById("titolo").textContent =
+            "📰 Green News";
+
+        document.getElementById("sottotitolo").textContent =
+            "Uutisia, faktoja ja ideoita kestävämpään tulevaisuuteen 🌱";
+
+        document.getElementById("titoloIntroduzione").textContent =
+            "🌍 Tervetuloa Green Newsiin!";
+
+        document.getElementById("testoIntroduzione").textContent =
+            "Täältä löydät artikkeleita, faktoja, tietoa ja aloitteita ympäristöstä ja kestävyydestä.";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Takaisin EcoGameen";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Opi ekologiasta pelaamalla";
+    }
+
+}
+
+
+/* =====================================================
+   LIKE
+   ===================================================== */
+
+function mettiLike(bottone) {
+
+    const numero =
+        bottone.querySelector("span");
+
+    let likes =
+        parseInt(numero.textContent);
+
+    if (
+        bottone.classList.contains("like-attivo")
+    ) {
+
+        likes--;
+
+        bottone.classList.remove(
+            "like-attivo"
+        );
+
+    } else {
+
+        likes++;
+
+        bottone.classList.add(
+            "like-attivo"
+        );
+    }
+
+    numero.textContent = likes;
+}
+
+
+/* =====================================================
+   MOSTRA COMMENTI
+   ===================================================== */
+
+function mostraCommenti(bottone) {
+
+    const post =
+        bottone.closest(".post");
+
+    const commenti =
+        post.querySelector(".commenti");
+
+
+    if (
+        commenti.style.display === "none"
+    ) {
+
+        commenti.style.display =
+            "block";
+
+    } else {
+
+        commenti.style.display =
+            "none";
+    }
+}
+
+
+/* =====================================================
+   AGGIUNGI COMMENTO
+   ===================================================== */
+
+function aggiungiCommento(bottone) {
+
+    const form =
+        bottone.closest(".form-commento");
+
+    const input =
+        form.querySelector("input");
+
+    const testo =
+        input.value.trim();
+
+
+    if (!testo) {
+        return;
+    }
+
+
+    const commenti =
+        bottone.closest(".commenti");
+
+
+    const nuovoCommento =
+        document.createElement("div");
+
+    nuovoCommento.className =
+        "commento";
+
+
+    nuovoCommento.innerHTML =
+        "<strong>@EcoPlayer</strong>" +
+        "<p></p>";
+
+
+    nuovoCommento.querySelector("p")
+        .textContent = testo;
+
+
+    commenti.insertBefore(
+        nuovoCommento,
+        form
+    );
+
+
+    input.value = "";
+
+}
+
+
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const lingua =
+            localStorage.getItem(
+                "ecoGameLingua"
+            ) || "it";
+
+        cambiaLingua(lingua);
+
+    }
+);
+
+</script>
+
+</body>
+</html>
