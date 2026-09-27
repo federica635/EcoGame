@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EcoGame - Classifica 🏆</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dcedc8, #e8f5e9);
+    color: #173b22;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+header {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 30px 20px 40px;
+}
+
+header h1 {
+    margin: 15px 0 10px;
+    font-size: 48px;
+}
+
+header p {
+    margin: 0;
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   LINGUE
+   ===================================================== */
+
+.lingue {
+    margin-bottom: 15px;
+}
+
+.lingue button {
+    background: white;
+    color: #173b22;
+    border: 2px solid #43a047;
+    margin: 4px;
+    padding: 9px 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.lingue button:hover {
+    background: #e8f5e9;
+}
+
+
+/* =====================================================
+   CONTENITORE
+   ===================================================== */
+
+.contenitore {
+    width: 92%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+
+/* =====================================================
+   CLASSIFICA
+   ===================================================== */
+
+.classifica-box {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.titolo-classifica {
+    text-align: center;
+    color: #2e7d32;
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.sottotitolo {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   TABELLA
+   ===================================================== */
+
+.classifica {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.classifica thead {
+    background: #2e7d32;
+    color: white;
+}
+
+.classifica th {
+    padding: 15px 10px;
+    font-size: 16px;
+}
+
+.classifica td {
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.classifica tbody tr:hover {
+    background: #f1f8f2;
+}
+
+
+/* =====================================================
+   POSIZIONI
+   ===================================================== */
+
+.posizione {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.primo {
+    background: #fff8dc;
+}
+
+.secondo {
+    background: #f3f3f3;
+}
+
+.terzo {
+    background: #fff0e0;
+}
+
+
+/* =====================================================
+   GREEN POINTS
+   ===================================================== */
+
+.green-points {
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   CARICAMENTO / MESSAGGI
+   ===================================================== */
+
+#messaggio {
+    text-align: center;
+    padding: 25px 10px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.successo {
+    color: #2e7d32;
+}
+
+.errore {
+    color: #c62828;
+}
+
+
+/* =====================================================
+   BOTTONI
+   ===================================================== */
+
+.azioni {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.bottone {
+    display: inline-block;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 22px;
+    background: #43a047;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.bottone:hover {
+    background: #1b5e20;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    margin-top: 50px;
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 38px;
+    }
+
+    .classifica-box {
+        padding: 18px 10px;
+    }
+
+    .classifica th,
+    .classifica td {
+        padding: 12px 5px;
+        font-size: 14px;
+    }
+
+    .titolo-classifica {
+        font-size: 27px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header>
+
+<div class="lingue">
+
+```
+<button type="button" onclick="cambiaLingua('it')">
+    🇮🇹 Italiano
+</button>
+
+<button type="button" onclick="cambiaLingua('en')">
+    🇬🇧 English
+</button>
+
+<button type="button" onclick="cambiaLingua('fi')">
+    🇫🇮 Suomi
+</button>
+```
+
+</div>
+
+<h1 id="titolo">
+    🏆 Classifica
+</h1>
+
+<p id="sottotitolo">
+    Scopri chi ha ottenuto più Green Points!
+</p>
+
+</header>
+
+<!-- =====================================================
+     CONTENUTO
+     ===================================================== -->
+
+<div class="contenitore">
+
+<div class="classifica-box">
+
+```
+<h2
+    class="titolo-classifica"
+    id="titoloTabella"
+>
+    🌱 Classifica Green Points
+</h2>
+
+<p
+    class="sottotitolo"
+    id="descrizione"
+>
+    Gli utenti sono ordinati in base ai Green Points.
+</p>
+
+
+<div id="messaggio">
+    🔄 Caricamento classifica...
+</div>
+
+
+<table
+    class="classifica"
+    id="tabellaClassifica"
+    style="display:none;"
+>
+
+    <thead>
+
+        <tr>
+
+            <th id="testoPosizione">
+                Posizione
+            </th>
+
+            <th id="testoUtente">
+                Utente
+            </th>
+
+            <th id="testoPunti">
+                Green Points
+            </th>
+
+            <th id="testoLivello">
+                Livello
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="corpoClassifica">
+
+    </tbody>
+
+</table>
+
+
+<div class="azioni">
+
+    <a
+        href="index.html"
+        class="bottone"
+        id="bottoneHome"
+    >
+        🏠 Torna a EcoGame
+    </a>
+
+    <button
+        type="button"
+        class="bottone"
+        onclick="caricaClassifica()"
+        id="bottoneAggiorna"
+    >
+        🔄 Aggiorna
+    </button>
+
+</div>
+```
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+<span id="footerTesto">
+    🌱 EcoGame — Imparare l'ecologia giocando
+</span>
+
+</footer>
+
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+
+/* =====================================================
+   SUPABASE
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://zrxssuigzisgpcdesjvc.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   TRADUZIONI
+   ===================================================== */
+
+function cambiaLingua(lingua) {
+
+    localStorage.setItem(
+        "ecoGameLingua",
+        lingua
+    );
+
+
+    if (lingua === "it") {
+
+        document.documentElement.lang = "it";
+
+        document.getElementById("titolo").textContent =
+            "🏆 Classifica";
+
+        document.getElementById("sottotitolo").textContent =
+            "Scopri chi ha ottenuto più Green Points!";
+
+        document.getElementById("titoloTabella").textContent =
+            "🌱 Classifica Green Points";
+
+        document.getElementById("descrizione").textContent =
+            "Gli utenti sono ordinati in base ai Green Points.";
+
+        document.getElementById("testoPosizione").textContent =
+            "Posizione";
+
+        document.getElementById("testoUtente").textContent =
+            "Utente";
+
+        document.getElementById("testoPunti").textContent =
+            "Green Points";
+
+        document.getElementById("testoLivello").textContent =
+            "Livello";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Torna a EcoGame";
+
+        document.getElementById("bottoneAggiorna").textContent =
+            "🔄 Aggiorna";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Imparare l'ecologia giocando";
+
+        return;
+    }
+
+
+    if (lingua === "en") {
+
+        document.documentElement.lang = "en";
+
+        document.getElementById("titolo").textContent =
+            "🏆 Leaderboard";
+
+        document.getElementById("sottotitolo").textContent =
+            "See who has earned the most Green Points!";
+
+        document.getElementById("titoloTabella").textContent =
+            "🌱 Green Points Leaderboard";
+
+        document.getElementById("descrizione").textContent =
+            "Users are ranked by their Green Points.";
+
+        document.getElementById("testoPosizione").textContent =
+            "Position";
+
+        document.getElementById("testoUtente").textContent =
+            "User";
+
+        document.getElementById("testoPunti").textContent =
+            "Green Points";
+
+        document.getElementById("testoLivello").textContent =
+            "Level";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Back to EcoGame";
+
+        document.getElementById("bottoneAggiorna").textContent =
+            "🔄 Refresh";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Learn about ecology while playing";
+
+        return;
+    }
+
+
+    if (lingua === "fi") {
+
+        document.documentElement.lang = "fi";
+
+        document.getElementById("titolo").textContent =
+            "🏆 Tulostaulukko";
+
+        document.getElementById("sottotitolo").textContent =
+            "Katso, kuka on saanut eniten Green Points -pisteitä!";
+
+        document.getElementById("titoloTabella").textContent =
+            "🌱 Green Points -tulostaulukko";
+
+        document.getElementById("descrizione").textContent =
+            "Käyttäjät on järjestetty Green Points -pisteiden mukaan.";
+
+        document.getElementById("testoPosizione").textContent =
+            "Sijoitus";
+
+        document.getElementById("testoUtente").textContent =
+            "Käyttäjä";
+
+        document.getElementById("testoPunti").textContent =
+            "Green Points";
+
+        document.getElementById("testoLivello").textContent =
+            "Taso";
+
+        document.getElementById("bottoneHome").textContent =
+            "🏠 Takaisin EcoGameen";
+
+        document.getElementById("bottoneAggiorna").textContent =
+            "🔄 Päivitä";
+
+        document.getElementById("footerTesto").textContent =
+            "🌱 EcoGame — Opi ekologiasta pelaamalla";
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGGI TRADOTTI
+   ===================================================== */
+
+function messaggioTradotto(
+    italiano,
+    inglese,
+    finlandese
+) {
+
+    const lingua =
+        localStorage.getItem("ecoGameLingua") || "it";
+
+
+    if (lingua === "en") {
+        return inglese;
+    }
+
+    if (lingua === "fi") {
+        return finlandese;
+    }
+
+    return italiano;
+}
+
+
+/* =====================================================
+   CARICA CLASSIFICA
+   ===================================================== */
+
+async function caricaClassifica() {
+
+    const messaggio =
+        document.getElementById("messaggio");
+
+    const tabella =
+        document.getElementById("tabellaClassifica");
+
+    const corpo =
+        document.getElementById("corpoClassifica");
+
+
+    tabella.style.display = "none";
+
+    corpo.innerHTML = "";
+
+
+    messaggio.className = "";
+
+    messaggio.textContent =
+        messaggioTradotto(
+            "🔄 Caricamento classifica...",
+            "🔄 Loading leaderboard...",
+            "🔄 Tulostaulukkoa ladataan..."
+        );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "username, green_points, level"
+                )
+                .order(
+                    "green_points",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Errore caricamento classifica:",
+                error
+            );
+
+            messaggio.className =
+                "errore";
+
+            messaggio.textContent =
+                messaggioTradotto(
+                    "❌ Impossibile caricare la classifica. Controlla la tabella profiles e le autorizzazioni Supabase.",
+                    "❌ Unable to load the leaderboard. Check the profiles table and Supabase permissions.",
+                    "❌ Tulostaulukkoa ei voitu ladata. Tarkista profiles-taulu ja Supabasen käyttöoikeudet."
+                );
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            messaggio.className =
+                "successo";
+
+            messaggio.textContent =
+                messaggioTradotto(
+                    "🌱 Non ci sono ancora utenti nella classifica.",
+                    "🌱 There are no users in the leaderboard yet.",
+                    "🌱 Tulostaulukossa ei ole vielä käyttäjiä."
+                );
+
+            return;
+        }
+
+
+        data.forEach(
+            function(utente, indice) {
+
+                const riga =
+                    document.createElement("tr");
+
+
+                if (indice === 0) {
+                    riga.className = "primo";
+                }
+
+                else if (indice === 1) {
+                    riga.className = "secondo";
+                }
+
+                else if (indice === 2) {
+                    riga.className = "terzo";
+                }
+
+
+                const posizione =
+                    document.createElement("td");
+
+                posizione.className =
+                    "posizione";
+
+
+                if (indice === 0) {
+                    posizione.textContent = "🥇";
+                }
+
+                else if (indice === 1) {
+                    posizione.textContent = "🥈";
+                }
+
+                else if (indice === 2) {
+                    posizione.textContent = "🥉";
+                }
+
+                else {
+                    posizione.textContent =
+                        indice + 1;
+                }
+
+
+                const username =
+                    document.createElement("td");
+
+                username.textContent =
+                    "@" +
+                    (
+                        utente.username ||
+                        "EcoPlayer"
+                    );
+
+
+                const punti =
+                    document.createElement("td");
+
+                punti.className =
+                    "green-points";
+
+                punti.textContent =
+                    "🌱 " +
+                    (
+                        utente.green_points ?? 0
+                    );
+
+
+                const livello =
+                    document.createElement("td");
+
+                livello.textContent =
+                    "⭐ " +
+                    (
+                        utente.level ?? 1
+                    );
+
+
+                riga.appendChild(posizione);
+
+                riga.appendChild(username);
+
+                riga.appendChild(punti);
+
+                riga.appendChild(livello);
+
+                corpo.appendChild(riga);
+
+            }
+        );
+
+
+        messaggio.className =
+            "successo";
+
+        messaggio.textContent =
+            messaggioTradotto(
+                "✅ Classifica aggiornata!",
+                "✅ Leaderboard updated!",
+                "✅ Tulostaulukko päivitetty!"
+            );
+
+
+        tabella.style.display =
+            "table";
+
+
+    } catch (errore) {
+
+        console.error(
+            "Errore inatteso:",
+            errore
+        );
+
+
+        messaggio.className =
+            "errore";
+
+        messaggio.textContent =
+            messaggioTradotto(
+                "❌ Si è verificato un errore durante il caricamento della classifica.",
+                "❌ An error occurred while loading the leaderboard.",
+                "❌ Tulostaulukon lataamisessa tapahtui virhe."
+            );
+    }
+
+}
+
+
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const lingua =
+            localStorage.getItem(
+                "ecoGameLingua"
+            ) || "it";
+
+
+        cambiaLingua(lingua);
+
+        caricaClassifica();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
