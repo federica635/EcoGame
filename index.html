@@ -108,6 +108,11 @@ header p {
     gap: 25px;
 }
 
+
+/* =====================================================
+   SCHEDE
+   ===================================================== */
+
 .scheda {
     background: white;
     border-radius: 20px;
@@ -149,6 +154,70 @@ header p {
 
 .disponibile {
     border: 3px solid #43a047;
+}
+
+
+/* =====================================================
+   CLASSIFICA
+   ===================================================== */
+
+.classifica-scheda {
+    grid-column: 1 / -1;
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ffffff, #f1f8e9);
+    border: 3px solid #43a047;
+}
+
+.classifica-scheda .icona {
+    font-size: 50px;
+}
+
+.classifica-scheda h2 {
+    margin-bottom: 8px;
+}
+
+.classifica-scheda p {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   GREEN NEWS
+   ===================================================== */
+
+.green-news-scheda {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #ffffff, #e8f5e9);
+    border: 3px solid #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    text-align: left;
+}
+
+.green-news-contenuto {
+    flex: 1;
+}
+
+.green-news-scheda .icona {
+    font-size: 60px;
+}
+
+.green-news-scheda h2 {
+    margin: 0 0 10px;
+}
+
+.green-news-scheda p {
+    margin: 0 0 20px;
+}
+
+.green-news-scheda button {
+    margin-top: 5px;
 }
 
 
@@ -197,6 +266,15 @@ footer {
         text-align: center;
     }
 
+    .green-news-scheda {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .green-news-contenuto {
+        width: 100%;
+    }
+
 }
 
 </style>
@@ -211,11 +289,9 @@ footer {
 
 <div class="account-bar">
 
-```
 <button onclick="apriAccount()" id="bottoneAccount">
     👤 Accedi / Registrati
 </button>
-```
 
 </div>
 
@@ -227,7 +303,6 @@ footer {
 
 <div class="lingue">
 
-```
 <button onclick="cambiaLingua('it')">
     🇮🇹 Italiano
 </button>
@@ -239,7 +314,6 @@ footer {
 <button onclick="cambiaLingua('fi')">
     🇫🇮 Suomi
 </button>
-```
 
 </div>
 
@@ -247,23 +321,26 @@ footer {
 
 <div id="sottotitolo">
 
-```
 <p id="fraseEcologia">
     Impara l'ecologia attraverso quiz e giochi!
 </p>
 
 <p id="fraseTikTok">
 
-    <a
-        href="https://www.tiktok.com/@ecogame2.0"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        Visita il mio account TikTok: @ecogame2.0
-    </a>
+<a
+href="https://www.tiktok.com/@ecogame2.0"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+```
+Visita il mio account TikTok: @ecogame2.0
+```
+
+</a>
 
 </p>
-```
 
 </div>
 
@@ -277,122 +354,210 @@ footer {
 
 <div class="menu">
 
+<!-- =====================================================
+     1 — INFORMAZIONI
+     ===================================================== -->
+
+<div class="scheda disponibile">
+
+<div class="icona">
+    📚
+</div>
+
+<h2 id="titoloInfo">
+    Informazioni
+</h2>
+
+<p id="testoInfo">
+    Consulta la guida con tutte le
+    informazioni necessarie per EcoGame.
+</p>
+
+<button
+onclick="informazioni()"
+id="bottoneInfo"
+
+>
+
 ```
-<!-- =================================================
-     QUIZ
-     ================================================= -->
-
-<div class="scheda disponibile">
-
-    <div class="icona">
-        🧠
-    </div>
-
-    <h2 id="titoloQuiz">
-        Quiz ecologico
-    </h2>
-
-    <p id="testoQuiz">
-        20 domande su ambiente, ecologia e clima
-        per mettere alla prova le tue conoscenze.
-    </p>
-
-    <button
-        onclick="apriQuiz()"
-        id="bottoneQuiz"
-    >
-        ▶️ Inizia il quiz
-    </button>
-
-</div>
-
-
-<!-- =================================================
-     MINI-GIOCHI
-     ================================================= -->
-
-<div class="scheda disponibile">
-
-    <div class="icona">
-        🎮
-    </div>
-
-    <h2 id="titoloGiochi">
-        Mini-giochi
-    </h2>
-
-    <p id="testoGiochi">
-        10 giochi per mettere alla prova
-        le tue conoscenze sull'ambiente.
-    </p>
-
-    <button
-        onclick="apriGiochi()"
-        id="bottoneGiochi"
-    >
-        🎮 Vai ai giochi
-    </button>
-
-</div>
-
-
-<!-- =================================================
-     INFORMAZIONI
-     ================================================= -->
-
-<div class="scheda disponibile">
-
-    <div class="icona">
-        📚
-    </div>
-
-    <h2 id="titoloInfo">
-        Informazioni
-    </h2>
-
-    <p id="testoInfo">
-        Consulta la guida con tutte le
-        informazioni necessarie per EcoGame.
-    </p>
-
-    <button
-        onclick="informazioni()"
-        id="bottoneInfo"
-    >
-        📖 Leggi le informazioni
-    </button>
-
-</div>
-
-
-<!-- =================================================
-     DIARIO E RECENSIONI
-     ================================================= -->
-
-<div class="scheda disponibile">
-
-    <div class="icona">
-        📖
-    </div>
-
-    <h2 id="titoloAgenda">
-        Diario & Recensioni
-    </h2>
-
-    <p id="testoAgenda">
-        Scrivi le tue note personali
-        e lascia una recensione su EcoGame.
-    </p>
-
-    <button
-        onclick="apriAgenda()"
-        id="bottoneAgenda"
-    >
-        ✏️ Apri diario
-    </button>
-
-</div>
+📖 Leggi le informazioni
 ```
+
+</button>
+
+</div>
+
+<!-- =====================================================
+     2 — MINI-GIOCHI
+     ===================================================== -->
+
+<div class="scheda disponibile">
+
+<div class="icona">
+    🎮
+</div>
+
+<h2 id="titoloGiochi">
+    Mini-giochi
+</h2>
+
+<p id="testoGiochi">
+    10 giochi per mettere alla prova
+    le tue conoscenze sull'ambiente.
+</p>
+
+<button
+onclick="apriGiochi()"
+id="bottoneGiochi"
+
+>
+
+```
+🎮 Vai ai giochi
+```
+
+</button>
+
+</div>
+
+<!-- =====================================================
+     3 — CLASSIFICA CENTRALE
+     ===================================================== -->
+
+<div class="scheda classifica-scheda">
+
+<div class="icona">
+    🏆
+</div>
+
+<h2 id="titoloClassifica">
+    Classifica
+</h2>
+
+<p id="testoClassifica">
+    Scopri la classifica degli utenti
+    in base ai Green Points.
+</p>
+
+<button
+onclick="apriClassifica()"
+id="bottoneClassifica"
+
+>
+
+```
+👀 Guarda
+```
+
+</button>
+
+</div>
+
+<!-- =====================================================
+     4 — QUIZ
+     ===================================================== -->
+
+<div class="scheda disponibile">
+
+<div class="icona">
+    🧠
+</div>
+
+<h2 id="titoloQuiz">
+    Quiz ecologico
+</h2>
+
+<p id="testoQuiz">
+    20 domande su ambiente, ecologia e clima
+    per mettere alla prova le tue conoscenze.
+</p>
+
+<button
+onclick="apriQuiz()"
+id="bottoneQuiz"
+
+>
+
+```
+▶️ Inizia il quiz
+```
+
+</button>
+
+</div>
+
+<!-- =====================================================
+     5 — DIARIO & RECENSIONI
+     ===================================================== -->
+
+<div class="scheda disponibile">
+
+<div class="icona">
+    📖
+</div>
+
+<h2 id="titoloAgenda">
+    Diario & Recensioni
+</h2>
+
+<p id="testoAgenda">
+    Scrivi le tue note personali
+    e lascia una recensione su EcoGame.
+</p>
+
+<button
+onclick="apriAgenda()"
+id="bottoneAgenda"
+
+>
+
+```
+✏️ Apri diario
+```
+
+</button>
+
+</div>
+
+<!-- =====================================================
+     6 — GREEN NEWS
+     ===================================================== -->
+
+<div
+    class="scheda green-news-scheda"
+    onclick="apriGreenNews()"
+>
+
+<div class="icona">
+    📰
+</div>
+
+<div class="green-news-contenuto">
+
+<h2 id="titoloGreenNews">
+    Green News
+</h2>
+
+<p id="testoGreenNews">
+    Scopri le mie notizie, i nuovi post,
+    le novità della Green Comp e tanto altro.
+</p>
+
+<button
+onclick="event.stopPropagation(); apriGreenNews();"
+id="bottoneGreenNews"
+
+>
+
+```
+📰 Leggi Green News
+```
+
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -417,6 +582,7 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
 
 /* =====================================================
    SUPABASE
@@ -451,29 +617,14 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "it";
 
+
         document.getElementById("fraseEcologia").textContent =
             "Impara l'ecologia attraverso quiz e giochi!";
+
 
         document.getElementById("fraseTikTok").innerHTML =
             '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Visita il mio account TikTok: @ecogame2.0</a>';
 
-        document.getElementById("titoloQuiz").textContent =
-            "Quiz ecologico";
-
-        document.getElementById("testoQuiz").textContent =
-            "20 domande su ambiente, ecologia e clima per mettere alla prova le tue conoscenze.";
-
-        document.getElementById("bottoneQuiz").textContent =
-            "▶️ Inizia il quiz";
-
-        document.getElementById("titoloGiochi").textContent =
-            "Mini-giochi";
-
-        document.getElementById("testoGiochi").textContent =
-            "10 giochi per mettere alla prova le tue conoscenze sull'ambiente.";
-
-        document.getElementById("bottoneGiochi").textContent =
-            "🎮 Vai ai giochi";
 
         document.getElementById("titoloInfo").textContent =
             "Informazioni";
@@ -484,6 +635,37 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneInfo").textContent =
             "📖 Leggi le informazioni";
 
+
+        document.getElementById("titoloGiochi").textContent =
+            "Mini-giochi";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 giochi per mettere alla prova le tue conoscenze sull'ambiente.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Vai ai giochi";
+
+
+        document.getElementById("titoloClassifica").textContent =
+            "Classifica";
+
+        document.getElementById("testoClassifica").textContent =
+            "Scopri la classifica degli utenti in base ai Green Points.";
+
+        document.getElementById("bottoneClassifica").textContent =
+            "👀 Guarda";
+
+
+        document.getElementById("titoloQuiz").textContent =
+            "Quiz ecologico";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 domande su ambiente, ecologia e clima per mettere alla prova le tue conoscenze.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Inizia il quiz";
+
+
         document.getElementById("titoloAgenda").textContent =
             "Diario & Recensioni";
 
@@ -493,8 +675,20 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneAgenda").textContent =
             "✏️ Apri diario";
 
+
+        document.getElementById("titoloGreenNews").textContent =
+            "Green News";
+
+        document.getElementById("testoGreenNews").textContent =
+            "Scopri le mie notizie, i nuovi post, le novità della Green Comp e tanto altro.";
+
+        document.getElementById("bottoneGreenNews").textContent =
+            "📰 Leggi Green News";
+
+
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Imparare l'ecologia giocando";
+
 
         aggiornaBottoneAccount();
 
@@ -506,29 +700,14 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "en";
 
+
         document.getElementById("fraseEcologia").textContent =
             "Learn about ecology through quizzes and games!";
+
 
         document.getElementById("fraseTikTok").innerHTML =
             '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Visit my TikTok account: @ecogame2.0</a>';
 
-        document.getElementById("titoloQuiz").textContent =
-            "Ecology Quiz";
-
-        document.getElementById("testoQuiz").textContent =
-            "20 questions about the environment, ecology and climate to test your knowledge.";
-
-        document.getElementById("bottoneQuiz").textContent =
-            "▶️ Start the quiz";
-
-        document.getElementById("titoloGiochi").textContent =
-            "Mini-games";
-
-        document.getElementById("testoGiochi").textContent =
-            "10 games to test your knowledge about the environment.";
-
-        document.getElementById("bottoneGiochi").textContent =
-            "🎮 Go to games";
 
         document.getElementById("titoloInfo").textContent =
             "Information";
@@ -539,6 +718,37 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneInfo").textContent =
             "📖 Read the information";
 
+
+        document.getElementById("titoloGiochi").textContent =
+            "Mini-games";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 games to test your knowledge about the environment.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Go to games";
+
+
+        document.getElementById("titoloClassifica").textContent =
+            "Leaderboard";
+
+        document.getElementById("testoClassifica").textContent =
+            "Discover the ranking of users based on Green Points.";
+
+        document.getElementById("bottoneClassifica").textContent =
+            "👀 View";
+
+
+        document.getElementById("titoloQuiz").textContent =
+            "Ecology Quiz";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 questions about the environment, ecology and climate to test your knowledge.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Start the quiz";
+
+
         document.getElementById("titoloAgenda").textContent =
             "Diary & Reviews";
 
@@ -548,8 +758,20 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneAgenda").textContent =
             "✏️ Open diary";
 
+
+        document.getElementById("titoloGreenNews").textContent =
+            "Green News";
+
+        document.getElementById("testoGreenNews").textContent =
+            "Discover my news, new posts, Green Comp updates and much more.";
+
+        document.getElementById("bottoneGreenNews").textContent =
+            "📰 Read Green News";
+
+
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Learn about ecology while playing";
+
 
         aggiornaBottoneAccount();
 
@@ -561,29 +783,14 @@ function cambiaLingua(lingua) {
 
         document.documentElement.lang = "fi";
 
+
         document.getElementById("fraseEcologia").textContent =
             "Opi ekologiasta tietovisojen ja pelien avulla!";
+
 
         document.getElementById("fraseTikTok").innerHTML =
             '<a href="https://www.tiktok.com/@ecogame2.0" target="_blank" rel="noopener noreferrer">Käy TikTok-tililläni: @ecogame2.0</a>';
 
-        document.getElementById("titoloQuiz").textContent =
-            "Ekologiatietovisa";
-
-        document.getElementById("testoQuiz").textContent =
-            "20 kysymystä ympäristöstä, ekologiasta ja ilmastosta tietojesi testaamiseen.";
-
-        document.getElementById("bottoneQuiz").textContent =
-            "▶️ Aloita tietovisa";
-
-        document.getElementById("titoloGiochi").textContent =
-            "Minipelit";
-
-        document.getElementById("testoGiochi").textContent =
-            "10 peliä, joissa voit testata ympäristöön liittyviä tietojasi.";
-
-        document.getElementById("bottoneGiochi").textContent =
-            "🎮 Siirry peleihin";
 
         document.getElementById("titoloInfo").textContent =
             "Tietoa";
@@ -594,6 +801,37 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneInfo").textContent =
             "📖 Lue tiedot";
 
+
+        document.getElementById("titoloGiochi").textContent =
+            "Minipelit";
+
+        document.getElementById("testoGiochi").textContent =
+            "10 peliä, joissa voit testata ympäristöön liittyviä tietojasi.";
+
+        document.getElementById("bottoneGiochi").textContent =
+            "🎮 Siirry peleihin";
+
+
+        document.getElementById("titoloClassifica").textContent =
+            "Tulostaulukko";
+
+        document.getElementById("testoClassifica").textContent =
+            "Katso käyttäjien sijoitukset Green Points -pisteiden perusteella.";
+
+        document.getElementById("bottoneClassifica").textContent =
+            "👀 Katso";
+
+
+        document.getElementById("titoloQuiz").textContent =
+            "Ekologiatietovisa";
+
+        document.getElementById("testoQuiz").textContent =
+            "20 kysymystä ympäristöstä, ekologiasta ja ilmastosta tietojesi testaamiseen.";
+
+        document.getElementById("bottoneQuiz").textContent =
+            "▶️ Aloita tietovisa";
+
+
         document.getElementById("titoloAgenda").textContent =
             "Päiväkirja & Arvostelut";
 
@@ -603,8 +841,20 @@ function cambiaLingua(lingua) {
         document.getElementById("bottoneAgenda").textContent =
             "✏️ Avaa päiväkirja";
 
+
+        document.getElementById("titoloGreenNews").textContent =
+            "Green News";
+
+        document.getElementById("testoGreenNews").textContent =
+            "Lue uutiseni, uudet julkaisuni, Green Comp -uutiset ja paljon muuta.";
+
+        document.getElementById("bottoneGreenNews").textContent =
+            "📰 Lue Green News";
+
+
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Opi ekologiasta pelaamalla";
+
 
         aggiornaBottoneAccount();
     }
@@ -651,11 +901,6 @@ async function aggiornaBottoneAccount() {
     }
 
 
-    /*
-     * Prima mostriamo temporaneamente il testo
-     * corretto per la lingua.
-     */
-
     bottone.textContent =
         testoAccountNonLoggato();
 
@@ -669,11 +914,11 @@ async function aggiornaBottoneAccount() {
             await supabaseClient.auth.getUser();
 
 
-        if (error || !data || !data.user) {
-
-            /*
-             * Nessun utente collegato.
-             */
+        if (
+            error ||
+            !data ||
+            !data.user
+        ) {
 
             bottone.textContent =
                 testoAccountNonLoggato();
@@ -685,10 +930,6 @@ async function aggiornaBottoneAccount() {
         const user =
             data.user;
 
-
-        /*
-         * Recuperiamo lo username dalla tabella profiles.
-         */
 
         const {
             data: profilo,
@@ -710,22 +951,12 @@ async function aggiornaBottoneAccount() {
         }
 
 
-        /*
-         * Prima proviamo profiles.username.
-         * Se non esiste, proviamo user_metadata.username.
-         * Come ultima possibilità usiamo l'email.
-         */
-
         const username =
             profilo?.username ||
             user.user_metadata?.username ||
             user.email?.split("@")[0] ||
             "EcoPlayer";
 
-
-        /*
-         * Mostriamo il nome nell'angolo in alto a destra.
-         */
 
         bottone.textContent =
             "👤 @" + username;
@@ -737,6 +968,7 @@ async function aggiornaBottoneAccount() {
             "Errore controllo account:",
             errore
         );
+
 
         bottone.textContent =
             testoAccountNonLoggato();
@@ -750,40 +982,74 @@ async function aggiornaBottoneAccount() {
 
 function apriAccount() {
 
-    window.location.href = "account.html";
-
+    window.location.href =
+        "account.html";
 }
 
 
 /* =====================================================
-   APERTURA DELLE PAGINE
+   APERTURA INFORMAZIONI
+   ===================================================== */
+
+function informazioni() {
+
+    window.location.href =
+        "informazioni.html";
+}
+
+
+/* =====================================================
+   APERTURA MINI-GIOCHI
+   ===================================================== */
+
+function apriGiochi() {
+
+    window.location.href =
+        "giochi.html";
+}
+
+
+/* =====================================================
+   APERTURA CLASSIFICA
+   ===================================================== */
+
+function apriClassifica() {
+
+    window.location.href =
+        "classifica.html";
+}
+
+
+/* =====================================================
+   APERTURA QUIZ
    ===================================================== */
 
 function apriQuiz() {
 
-    window.location.href = "quiz.html";
-
+    window.location.href =
+        "quiz.html";
 }
 
 
-function apriGiochi() {
-
-    window.location.href = "giochi.html";
-
-}
-
-
-function informazioni() {
-
-    window.location.href = "informazioni.html";
-
-}
-
+/* =====================================================
+   APERTURA DIARIO
+   ===================================================== */
 
 function apriAgenda() {
 
-    window.location.href = "agenda.html";
+    window.location.href =
+        "agenda.html";
+}
 
+
+/* =====================================================
+   APERTURA GREEN NEWS
+   ===================================================== */
+
+function apriGreenNews() {
+
+    window.location.href =
+        "green-news.html";
 }
 
 
@@ -800,11 +1066,6 @@ supabaseClient.auth.onAuthStateChange(
         );
 
 
-        /*
-         * Quando l'utente effettua il login,
-         * aggiorniamo immediatamente il nome.
-         */
-
         if (
             event === "SIGNED_IN" &&
             session
@@ -812,17 +1073,14 @@ supabaseClient.auth.onAuthStateChange(
 
             setTimeout(
                 function() {
+
                     aggiornaBottoneAccount();
+
                 },
                 0
             );
         }
 
-
-        /*
-         * Quando l'utente fa logout,
-         * torniamo a "Accedi / Registrati".
-         */
 
         if (
             event === "SIGNED_OUT"
@@ -844,22 +1102,15 @@ window.addEventListener(
     async function() {
 
         const linguaSalvata =
-            localStorage.getItem("ecoGameLingua") || "it";
+            localStorage.getItem(
+                "ecoGameLingua"
+            ) || "it";
 
-
-        /*
-         * Imposta la lingua.
-         */
 
         cambiaLingua(
             linguaSalvata
         );
 
-
-        /*
-         * Controlla se esiste già
-         * un utente autenticato.
-         */
 
         await aggiornaBottoneAccount();
 
