@@ -205,19 +205,19 @@ footer {
 
 <body>
 
-
 <!-- =====================================================
      ACCOUNT
      ===================================================== -->
 
 <div class="account-bar">
 
-    <button onclick="apriAccount()" id="bottoneAccount">
-        👤 Accedi / Registrati
-    </button>
+```
+<button onclick="apriAccount()" id="bottoneAccount">
+    👤 Accedi / Registrati
+</button>
+```
 
 </div>
-
 
 <!-- =====================================================
      HEADER
@@ -227,46 +227,47 @@ footer {
 
 <div class="lingue">
 
-    <button onclick="cambiaLingua('it')">
-        🇮🇹 Italiano
-    </button>
+```
+<button onclick="cambiaLingua('it')">
+    🇮🇹 Italiano
+</button>
 
-    <button onclick="cambiaLingua('en')">
-        🇬🇧 English
-    </button>
+<button onclick="cambiaLingua('en')">
+    🇬🇧 English
+</button>
 
-    <button onclick="cambiaLingua('fi')">
-        🇫🇮 Suomi
-    </button>
+<button onclick="cambiaLingua('fi')">
+    🇫🇮 Suomi
+</button>
+```
 
 </div>
 
-
 <h1>🌍 EcoGame</h1>
-
 
 <div id="sottotitolo">
 
-    <p id="fraseEcologia">
-        Impara l'ecologia attraverso quiz e giochi!
-    </p>
+```
+<p id="fraseEcologia">
+    Impara l'ecologia attraverso quiz e giochi!
+</p>
 
-    <p id="fraseTikTok">
+<p id="fraseTikTok">
 
-        <a
-            href="https://www.tiktok.com/@ecogame2.0"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Visita il mio account TikTok: @ecogame2.0
-        </a>
+    <a
+        href="https://www.tiktok.com/@ecogame2.0"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Visita il mio account TikTok: @ecogame2.0
+    </a>
 
-    </p>
+</p>
+```
 
 </div>
 
 </header>
-
 
 <!-- =====================================================
      CONTENUTO
@@ -276,127 +277,126 @@ footer {
 
 <div class="menu">
 
+```
+<!-- =================================================
+     QUIZ
+     ================================================= -->
 
-    <!-- =================================================
-         QUIZ
-         ================================================= -->
+<div class="scheda disponibile">
 
-    <div class="scheda disponibile">
-
-        <div class="icona">
-            🧠
-        </div>
-
-        <h2 id="titoloQuiz">
-            Quiz ecologico
-        </h2>
-
-        <p id="testoQuiz">
-            20 domande su ambiente, ecologia e clima
-            per mettere alla prova le tue conoscenze.
-        </p>
-
-        <button
-            onclick="apriQuiz()"
-            id="bottoneQuiz"
-        >
-            ▶️ Inizia il quiz
-        </button>
-
+    <div class="icona">
+        🧠
     </div>
 
+    <h2 id="titoloQuiz">
+        Quiz ecologico
+    </h2>
 
-    <!-- =================================================
-         MINI-GIOCHI
-         ================================================= -->
+    <p id="testoQuiz">
+        20 domande su ambiente, ecologia e clima
+        per mettere alla prova le tue conoscenze.
+    </p>
 
-    <div class="scheda disponibile">
+    <button
+        onclick="apriQuiz()"
+        id="bottoneQuiz"
+    >
+        ▶️ Inizia il quiz
+    </button>
 
-        <div class="icona">
-            🎮
-        </div>
+</div>
 
-        <h2 id="titoloGiochi">
-            Mini-giochi
-        </h2>
 
-        <p id="testoGiochi">
-            10 giochi per mettere alla prova
-            le tue conoscenze sull'ambiente.
-        </p>
+<!-- =================================================
+     MINI-GIOCHI
+     ================================================= -->
 
-        <button
-            onclick="apriGiochi()"
-            id="bottoneGiochi"
-        >
-            🎮 Vai ai giochi
-        </button>
+<div class="scheda disponibile">
 
+    <div class="icona">
+        🎮
     </div>
 
+    <h2 id="titoloGiochi">
+        Mini-giochi
+    </h2>
 
-    <!-- =================================================
-         INFORMAZIONI
-         ================================================= -->
+    <p id="testoGiochi">
+        10 giochi per mettere alla prova
+        le tue conoscenze sull'ambiente.
+    </p>
 
-    <div class="scheda disponibile">
+    <button
+        onclick="apriGiochi()"
+        id="bottoneGiochi"
+    >
+        🎮 Vai ai giochi
+    </button>
 
-        <div class="icona">
-            📚
-        </div>
+</div>
 
-        <h2 id="titoloInfo">
-            Informazioni
-        </h2>
 
-        <p id="testoInfo">
-            Consulta la guida con tutte le
-            informazioni necessarie per EcoGame.
-        </p>
+<!-- =================================================
+     INFORMAZIONI
+     ================================================= -->
 
-        <button
-            onclick="informazioni()"
-            id="bottoneInfo"
-        >
-            📖 Leggi le informazioni
-        </button>
+<div class="scheda disponibile">
 
+    <div class="icona">
+        📚
     </div>
 
+    <h2 id="titoloInfo">
+        Informazioni
+    </h2>
 
-    <!-- =================================================
-         DIARIO E RECENSIONI
-         ================================================= -->
+    <p id="testoInfo">
+        Consulta la guida con tutte le
+        informazioni necessarie per EcoGame.
+    </p>
 
-    <div class="scheda disponibile">
+    <button
+        onclick="informazioni()"
+        id="bottoneInfo"
+    >
+        📖 Leggi le informazioni
+    </button>
 
-        <div class="icona">
-            📖
-        </div>
+</div>
 
-        <h2 id="titoloAgenda">
-            Diario & Recensioni
-        </h2>
 
-        <p id="testoAgenda">
-            Scrivi le tue note personali
-            e lascia una recensione su EcoGame.
-        </p>
+<!-- =================================================
+     DIARIO E RECENSIONI
+     ================================================= -->
 
-        <button
-            onclick="apriAgenda()"
-            id="bottoneAgenda"
-        >
-            ✏️ Apri diario
-        </button>
+<div class="scheda disponibile">
 
+    <div class="icona">
+        📖
     </div>
 
+    <h2 id="titoloAgenda">
+        Diario & Recensioni
+    </h2>
+
+    <p id="testoAgenda">
+        Scrivi le tue note personali
+        e lascia una recensione su EcoGame.
+    </p>
+
+    <button
+        onclick="apriAgenda()"
+        id="bottoneAgenda"
+    >
+        ✏️ Apri diario
+    </button>
+
+</div>
+```
 
 </div>
 
 </div>
-
 
 <!-- =====================================================
      FOOTER
@@ -410,8 +410,29 @@ footer {
 
 </footer>
 
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =====================================================
+   SUPABASE
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://zrxssuigzisgpcdesjvc.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 /* =====================================================
@@ -420,16 +441,15 @@ footer {
 
 function cambiaLingua(lingua) {
 
-    /* Salva la lingua nel browser */
-    localStorage.setItem("ecoGameLingua", lingua);
+    localStorage.setItem(
+        "ecoGameLingua",
+        lingua
+    );
 
 
     if (lingua === "it") {
 
         document.documentElement.lang = "it";
-
-        document.getElementById("bottoneAccount").textContent =
-            "👤 Accedi / Registrati";
 
         document.getElementById("fraseEcologia").textContent =
             "Impara l'ecologia attraverso quiz e giochi!";
@@ -475,15 +495,16 @@ function cambiaLingua(lingua) {
 
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Imparare l'ecologia giocando";
+
+        aggiornaBottoneAccount();
+
+        return;
     }
 
 
     if (lingua === "en") {
 
         document.documentElement.lang = "en";
-
-        document.getElementById("bottoneAccount").textContent =
-            "👤 Login / Sign up";
 
         document.getElementById("fraseEcologia").textContent =
             "Learn about ecology through quizzes and games!";
@@ -529,15 +550,16 @@ function cambiaLingua(lingua) {
 
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Learn about ecology while playing";
+
+        aggiornaBottoneAccount();
+
+        return;
     }
 
 
     if (lingua === "fi") {
 
         document.documentElement.lang = "fi";
-
-        document.getElementById("bottoneAccount").textContent =
-            "👤 Kirjaudu / Rekisteröidy";
 
         document.getElementById("fraseEcologia").textContent =
             "Opi ekologiasta tietovisojen ja pelien avulla!";
@@ -583,8 +605,142 @@ function cambiaLingua(lingua) {
 
         document.getElementById("footerTesto").textContent =
             "🌱 EcoGame — Opi ekologiasta pelaamalla";
+
+        aggiornaBottoneAccount();
     }
 
+}
+
+
+/* =====================================================
+   TESTO ACCOUNT NON LOGGATO
+   ===================================================== */
+
+function testoAccountNonLoggato() {
+
+    const lingua =
+        localStorage.getItem("ecoGameLingua") || "it";
+
+
+    if (lingua === "en") {
+        return "👤 Login / Sign up";
+    }
+
+
+    if (lingua === "fi") {
+        return "👤 Kirjaudu / Rekisteröidy";
+    }
+
+
+    return "👤 Accedi / Registrati";
+}
+
+
+/* =====================================================
+   AGGIORNA BOTTONE ACCOUNT
+   ===================================================== */
+
+async function aggiornaBottoneAccount() {
+
+    const bottone =
+        document.getElementById("bottoneAccount");
+
+
+    if (!bottone) {
+        return;
+    }
+
+
+    /*
+     * Prima mostriamo temporaneamente il testo
+     * corretto per la lingua.
+     */
+
+    bottone.textContent =
+        testoAccountNonLoggato();
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (error || !data || !data.user) {
+
+            /*
+             * Nessun utente collegato.
+             */
+
+            bottone.textContent =
+                testoAccountNonLoggato();
+
+            return;
+        }
+
+
+        const user =
+            data.user;
+
+
+        /*
+         * Recuperiamo lo username dalla tabella profiles.
+         */
+
+        const {
+            data: profilo,
+            error: erroreProfilo
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("username")
+                .eq("id", user.id)
+                .maybeSingle();
+
+
+        if (erroreProfilo) {
+
+            console.error(
+                "Errore caricamento username:",
+                erroreProfilo
+            );
+        }
+
+
+        /*
+         * Prima proviamo profiles.username.
+         * Se non esiste, proviamo user_metadata.username.
+         * Come ultima possibilità usiamo l'email.
+         */
+
+        const username =
+            profilo?.username ||
+            user.user_metadata?.username ||
+            user.email?.split("@")[0] ||
+            "EcoPlayer";
+
+
+        /*
+         * Mostriamo il nome nell'angolo in alto a destra.
+         */
+
+        bottone.textContent =
+            "👤 @" + username;
+
+
+    } catch (errore) {
+
+        console.error(
+            "Errore controllo account:",
+            errore
+        );
+
+        bottone.textContent =
+            testoAccountNonLoggato();
+    }
 }
 
 
@@ -632,17 +788,83 @@ function apriAgenda() {
 
 
 /* =====================================================
-   CARICA LA LINGUA SALVATA
+   CONTROLLO CAMBIO LOGIN / LOGOUT
    ===================================================== */
 
-window.onload = function() {
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
 
-    const linguaSalvata =
-        localStorage.getItem("ecoGameLingua") || "it";
+        console.log(
+            "Cambio autenticazione:",
+            event
+        );
 
-    cambiaLingua(linguaSalvata);
 
-};
+        /*
+         * Quando l'utente effettua il login,
+         * aggiorniamo immediatamente il nome.
+         */
+
+        if (
+            event === "SIGNED_IN" &&
+            session
+        ) {
+
+            setTimeout(
+                function() {
+                    aggiornaBottoneAccount();
+                },
+                0
+            );
+        }
+
+
+        /*
+         * Quando l'utente fa logout,
+         * torniamo a "Accedi / Registrati".
+         */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            aggiornaBottoneAccount();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+window.addEventListener(
+    "load",
+    async function() {
+
+        const linguaSalvata =
+            localStorage.getItem("ecoGameLingua") || "it";
+
+
+        /*
+         * Imposta la lingua.
+         */
+
+        cambiaLingua(
+            linguaSalvata
+        );
+
+
+        /*
+         * Controlla se esiste già
+         * un utente autenticato.
+         */
+
+        await aggiornaBottoneAccount();
+
+    }
+);
 
 </script>
 
