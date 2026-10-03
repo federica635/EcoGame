@@ -596,11 +596,10 @@ header {
 
         </div>
 
-        <!-- GREEN POINTS -->
-
         <div id="greenPointsFinali">
 
-            🌱 +<span id="greenPointsGuadagnati">0</span> Green Points
+            🌱 +<span id="greenPointsGuadagnati">0</span>
+            Green Points
 
             <div id="greenPointsMessaggio">
                 I tuoi Green Points sono stati aggiunti al tuo profilo.
@@ -685,6 +684,7 @@ const testi = {
             "I tuoi Green Points sono stati aggiunti al tuo profilo.",
 
         messaggi: {
+
             eccellente:
                 "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.",
 
@@ -696,32 +696,39 @@ const testi = {
 
             difficolta:
                 "🌳 La foresta è in difficoltà. Prova una strategia diversa."
+
         },
 
         opzioni: [
+
             {
                 titolo: "A — Zona protetta",
                 testo:
                     "Istituisci una nuova area protetta, limitando alcune attività economiche."
             },
+
             {
                 titolo: "B — Taglio controllato",
                 testo:
                     "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."
             },
+
             {
                 titolo: "C — Espansione agricola",
                 testo:
                     "Concedi parte della foresta all'espansione delle coltivazioni."
             },
+
             {
                 titolo: "D — Nessun intervento",
                 testo:
                     "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."
             }
+
         ],
 
         spiegazioni: [
+
             [
                 "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
                 "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
@@ -777,6 +784,7 @@ const testi = {
                 "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
                 "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
             ]
+
         ]
 
     },
@@ -819,6 +827,7 @@ const testi = {
             "Your Green Points have been added to your profile.",
 
         messaggi: {
+
             eccellente:
                 "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
 
@@ -830,32 +839,39 @@ const testi = {
 
             difficolta:
                 "🌳 The forest is struggling. Try a different strategy."
+
         },
 
         opzioni: [
+
             {
                 titolo: "A — Protected area",
                 testo:
                     "Create a new protected area, limiting some economic activities."
             },
+
             {
                 titolo: "B — Controlled logging",
                 testo:
                     "Allow selective tree cutting with limits and monitoring."
             },
+
             {
                 titolo: "C — Agricultural expansion",
                 testo:
                     "Allow part of the forest to be converted for agricultural expansion."
             },
+
             {
                 titolo: "D — No intervention",
                 testo:
                     "Keep the current rules and observe how the ecosystem develops."
             }
+
         ],
 
         spiegazioni: [
+
             [
                 "Greater protection can help conserve habitats, but it may reduce some local economic opportunities.",
                 "Selective logging can reduce the impact compared with intensive logging when applied using scientific criteria.",
@@ -911,6 +927,7 @@ const testi = {
                 "Strong land conversion can increase some short-term economic benefits, but reduce several ecosystem functions.",
                 "The absence of a strategy can leave existing pressures unresolved."
             ]
+
         ]
 
     },
@@ -953,6 +970,7 @@ const testi = {
             "Green Points -pisteesi on lisätty profiiliisi.",
 
         messaggi: {
+
             eccellente:
                 "🏆 Erinomainen hallinta: säilytit hyvän tasapainon ekosysteemin ja yhteisön välillä.",
 
@@ -964,32 +982,39 @@ const testi = {
 
             difficolta:
                 "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa."
+
         },
 
         opzioni: [
+
             {
                 titolo: "A — Suojelualue",
                 testo:
                     "Perusta uusi suojelualue ja rajoita joitakin taloudellisia toimintoja."
             },
+
             {
                 titolo: "B — Hallittu hakkuu",
                 testo:
                     "Salli puiden valikoiva hakkuu rajoitusten ja seurannan avulla."
             },
+
             {
                 titolo: "C — Maatalouden laajentaminen",
                 testo:
                     "Salli osan metsästä muuttaminen maatalouden laajentamista varten."
             },
+
             {
                 titolo: "D — Ei toimenpiteitä",
                 testo:
                     "Säilytä nykyiset säännöt ja seuraa ekosysteemin kehitystä."
             }
+
         ],
 
         spiegazioni: [
+
             [
                 "Parempi suojelu voi edistää elinympäristöjen säilymistä, mutta se voi vähentää paikallisia taloudellisia mahdollisuuksia.",
                 "Valikoiva hakkuu voi vähentää vaikutuksia verrattuna voimakkaaseen metsänhakkuuseen, jos sitä toteutetaan tieteellisten kriteerien mukaisesti.",
@@ -1045,6 +1070,7 @@ const testi = {
                 "Voimakas maankäytön muutos voi lisätä joitakin lyhyen aikavälin taloudellisia hyötyjä, mutta vähentää useita ekosysteemin toimintoja.",
                 "Strategian puuttuminen voi jättää olemassa olevat paineet ratkaisematta."
             ]
+
         ]
 
     }
@@ -1290,9 +1316,8 @@ let comunita = 70;
 
 let rispostaData = false;
 
-
 /*
-   Serve per evitare di assegnare due volte
+   Evita di assegnare due volte
    i GP della stessa partita.
 */
 
@@ -1482,8 +1507,22 @@ function calcolaPunteggio() {
 async function assegnaGreenPoints(punteggio) {
 
     /*
-       Evita di assegnare nuovamente i GP
-       se fine() viene chiamata più volte.
+       SISTEMA GREEN POINTS FOREST
+
+       50 GP BASE:
+       vengono dati sempre per aver completato
+       una partita.
+
+       PUNTEGGIO < 90:
+       50 GP totali.
+
+       PUNTEGGIO 90-94:
+       50 GP base + 20 GP bonus
+       = 70 GP totali.
+
+       PUNTEGGIO 95-100:
+       50 GP base + 40 GP bonus
+       = 90 GP totali.
     */
 
     if (greenPointsAssegnati) {
@@ -1493,19 +1532,51 @@ async function assegnaGreenPoints(punteggio) {
     greenPointsAssegnati = true;
 
 
+    let greenPoints = 50;
+
+
     /*
-       Il punteggio finale del gioco diventa
-       il numero di Green Points ottenuti.
+       Da 95 a 100:
+       +40 GP bonus
+       oltre ai 50 GP base.
+    */
 
-       Esempio:
+    if (punteggio >= 95) {
 
-       Punteggio finale: 82
+        greenPoints = 90;
 
-       Green Points: +82 GP
+    }
+
+    /*
+       Da 90 a 94:
+       +20 GP bonus
+       oltre ai 50 GP base.
+    */
+
+    else if (punteggio >= 90) {
+
+        greenPoints = 70;
+
+    }
+
+    /*
+       Sotto 90:
+       solo i 50 GP base.
+    */
+
+    else {
+
+        greenPoints = 50;
+
+    }
+
+
+    /*
+       Salva i GP nel profilo.
     */
 
     const risultato =
-        await aggiungiGreenPoints(punteggio);
+        await aggiungiGreenPoints(greenPoints);
 
 
     if (risultato && risultato.success) {
@@ -1528,10 +1599,8 @@ async function assegnaGreenPoints(punteggio) {
     } else {
 
         /*
-           Se l'utente non è autenticato
-           oppure Supabase restituisce un errore,
-           mostriamo comunque 0 GP assegnati
-           senza bloccare il gioco.
+           In caso di errore o utente non autenticato,
+           non blocchiamo il gioco.
         */
 
         document.getElementById(
@@ -1616,13 +1685,22 @@ function fine() {
     /*
        ASSEGNA I GREEN POINTS
 
-       Usiamo il punteggio finale come GP.
+       Il punteggio viene trasformato
+       nelle fasce GP definite sopra:
+
+       < 90  -> 50 GP
+       90-94 -> 70 GP
+       95-100 -> 90 GP
     */
 
     assegnaGreenPoints(punteggio);
 
 }
 
+
+/* =========================================================
+   RICOMINCIA
+========================================================= */
 
 function ricomincia() {
 
@@ -1637,13 +1715,15 @@ function ricomincia() {
 
     /*
        Una nuova partita può ottenere
-       nuovi Green Points.
+       una nuova ricompensa GP.
     */
 
     greenPointsAssegnati = false;
 
 
-    document.getElementById("greenPointsGuadagnati").innerText =
+    document.getElementById(
+        "greenPointsGuadagnati"
+    ).innerText =
         "0";
 
 
