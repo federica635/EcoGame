@@ -319,8 +319,7 @@ footer {
 
 </footer>
 
-<script>
-
+    <script>
 
 /* ============================= */
 /* TRADUZIONI */
@@ -544,20 +543,109 @@ const traduzioni = {
 
 
 /* ============================= */
+/* LINGUA ATTUALE */
+/* ============================= */
+
+let linguaAttuale = "it";
+
+
+/* ============================= */
 /* CAMBIO LINGUA */
 /* ============================= */
 
-function cambiaLingua() {
+function cambiaLingua(lingua) {
 
-    const lingua =
-        document.getElementById("lingua").value;
+    /*
+       Se la funzione viene chiamata dal select
+       senza parametro, prende il valore dal select.
+    */
+
+    if (!lingua) {
+
+        lingua =
+            document.getElementById("lingua").value;
+
+    }
+
+
+    /*
+       Controlla che la lingua esista.
+    */
+
+    if (!traduzioni[lingua]) {
+
+        lingua = "it";
+
+    }
+
+
+    /*
+       Salva la lingua attuale.
+    */
+
+    linguaAttuale = lingua;
+
+
+    /*
+       Salva la scelta nel browser.
+       Tutte le altre pagine di EcoGame
+       potranno quindi leggerla.
+    */
+
+    try {
+
+        localStorage.setItem(
+            "ecogameLingua",
+            linguaAttuale
+        );
+
+    } catch (errore) {
+
+        console.warn(
+            "Impossibile salvare la lingua.",
+            errore
+        );
+
+    }
+
+
+    aggiornaInterfaccia();
+
+}
+
+
+/* ============================= */
+/* AGGIORNA INTERFACCIA */
+/* ============================= */
+
+function aggiornaInterfaccia() {
 
     const t =
-        traduzioni[lingua];
+        traduzioni[linguaAttuale];
 
 
-    document.documentElement.lang = lingua;
+    document.documentElement.lang =
+        linguaAttuale;
 
+
+    /*
+       Aggiorna il select.
+    */
+
+    const selettore =
+        document.getElementById("lingua");
+
+    if (selettore) {
+
+        selettore.value =
+            linguaAttuale;
+
+    }
+
+
+    /*
+       Testi della pagina.
+    */
 
     document.getElementById("sottotitolo").innerText =
         t.sottotitolo;
@@ -593,6 +681,10 @@ function cambiaLingua() {
         t.inviaRecensione;
 
 
+    /*
+       Stelle.
+    */
+
     document.getElementById("stella5").innerText =
         t.stella5;
 
@@ -609,11 +701,65 @@ function cambiaLingua() {
         t.stella1;
 
 
+    /*
+       Footer.
+    */
+
     document.getElementById("footerTesto").innerText =
         t.footer;
 
 
+    /*
+       Aggiorna anche le note salvate.
+    */
+
     mostraNote();
+
+}
+
+
+/* ============================= */
+/* CARICA LINGUA SALVATA */
+/* ============================= */
+
+function caricaLingua() {
+
+    let linguaSalvata = "it";
+
+
+    try {
+
+        const salvata =
+            localStorage.getItem(
+                "ecogameLingua"
+            );
+
+
+        if (
+            salvata &&
+            traduzioni[salvata]
+        ) {
+
+            linguaSalvata =
+                salvata;
+
+        }
+
+    } catch (errore) {
+
+        console.warn(
+            "Impossibile leggere la lingua salvata.",
+            errore
+        );
+
+    }
+
+
+    linguaAttuale =
+        linguaSalvata;
+
+
+    aggiornaInterfaccia();
 
 }
 
@@ -625,34 +771,43 @@ function cambiaLingua() {
 function salvaNota() {
 
     const testo =
-        document.getElementById("nota").value.trim();
+        document
+            .getElementById("nota")
+            .value
+            .trim();
+
 
     if (testo === "") {
 
-        const lingua =
-            document.getElementById("lingua").value;
-
         alert(
-            traduzioni[lingua].scriviNota
+            traduzioni[linguaAttuale].scriviNota
         );
 
         return;
 
     }
 
+
     let note =
         JSON.parse(
-            localStorage.getItem("ecoGameNote") || "[]"
+            localStorage.getItem(
+                "ecoGameNote"
+            ) || "[]"
         );
 
+
     note.push(testo);
+
 
     localStorage.setItem(
         "ecoGameNote",
         JSON.stringify(note)
     );
 
-    document.getElementById("nota").value = "";
+
+    document.getElementById("nota").value =
+        "";
+
 
     mostraNote();
 
@@ -666,22 +821,32 @@ function salvaNota() {
 function mostraNote() {
 
     const contenitore =
-        document.getElementById("noteSalvate");
+        document.getElementById(
+            "noteSalvate"
+        );
+
+
+    if (!contenitore) {
+        return;
+    }
+
 
     let note =
         JSON.parse(
-            localStorage.getItem("ecoGameNote") || "[]"
+            localStorage.getItem(
+                "ecoGameNote"
+            ) || "[]"
         );
 
-    const lingua =
-        document.getElementById("lingua").value;
 
     const t =
-        traduzioni[lingua];
+        traduzioni[linguaAttuale];
 
 
     contenitore.innerHTML =
-        "<h3>" + t.tueNote + "</h3>";
+        "<h3>" +
+        t.tueNote +
+        "</h3>";
 
 
     note.forEach(function(nota, indice) {
@@ -689,15 +854,20 @@ function mostraNote() {
         const div =
             document.createElement("div");
 
-        div.className = "nota";
+
+        div.className =
+            "nota";
+
 
         div.innerHTML =
-            "📝 " + nota +
+            "📝 " +
+            nota +
             "<br><button onclick=\"eliminaNota(" +
             indice +
             ")\">" +
             t.elimina +
             "</button>";
+
 
         contenitore.appendChild(div);
 
@@ -714,15 +884,23 @@ function eliminaNota(indice) {
 
     let note =
         JSON.parse(
-            localStorage.getItem("ecoGameNote") || "[]"
+            localStorage.getItem(
+                "ecoGameNote"
+            ) || "[]"
         );
 
-    note.splice(indice, 1);
+
+    note.splice(
+        indice,
+        1
+    );
+
 
     localStorage.setItem(
         "ecoGameNote",
         JSON.stringify(note)
     );
+
 
     mostraNote();
 
@@ -736,23 +914,30 @@ function eliminaNota(indice) {
 function inviaRecensione() {
 
     const username =
-        document.getElementById("username").value.trim();
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
 
     const stelle =
-        document.getElementById("stelle").value;
+        document
+            .getElementById("stelle")
+            .value;
+
 
     const recensione =
-        document.getElementById("recensione").value.trim();
-
-
-    const lingua =
-        document.getElementById("lingua").value;
+        document
+            .getElementById("recensione")
+            .value
+            .trim();
 
 
     if (recensione === "") {
 
         alert(
-            traduzioni[lingua].scriviRecensione
+            traduzioni[linguaAttuale]
+                .scriviRecensione
         );
 
         return;
@@ -761,6 +946,7 @@ function inviaRecensione() {
 
 
     let simboli = "";
+
 
     for (
         let i = 0;
@@ -791,7 +977,9 @@ function inviaRecensione() {
 
         "Recensione:%0D%0A" +
 
-        encodeURIComponent(recensione);
+        encodeURIComponent(
+            recensione
+        );
 
 
     const email =
@@ -805,19 +993,23 @@ function inviaRecensione() {
         testoEmail;
 
 
-    document.getElementById("messaggio").innerText =
-        traduzioni[lingua].email;
+    document
+        .getElementById("messaggio")
+        .innerText =
+        traduzioni[linguaAttuale]
+            .email;
 
 }
 
 
 /* ============================= */
-/* CARICAMENTO INIZIALE */
+/* AVVIO PAGINA */
 /* ============================= */
 
-mostraNote();
+caricaLingua();
 
 </script>
+
 
 </body>
 
