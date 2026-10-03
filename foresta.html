@@ -3,1866 +3,2222 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🌳 Salva la Foresta - EcoGame</title>
+    <title>🌳 Salva la Foresta - EcoGame</title>
 
-<style>
+    <style>
 
-* {
-    box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0d1711;
-    color: #edf5ef;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0d1711;
+            color: #edf5ef;
+        }
 
-header {
-    background: #14241a;
-    border-bottom: 1px solid #36503d;
-    padding: 18px 35px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
+        header {
+            background: #14241a;
+            border-bottom: 1px solid #36503d;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
 
-.logo {
-    color: #81c784;
-    font-size: 25px;
-    font-weight: bold;
-}
+        .logo {
+            color: #81c784;
+            font-size: 25px;
+            font-weight: bold;
+        }
 
-.header-destra {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
+        .header-destra {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-.turno {
-    color: #b8cdbb;
-    font-size: 17px;
-}
+        .turno {
+            color: #b8cdbb;
+            font-size: 17px;
+        }
 
-.lingue {
-    display: flex;
-    gap: 6px;
-}
+        .lingue {
+            display: flex;
+            gap: 6px;
+        }
 
-.lingua {
-    background: #223329;
-    color: #cfe0d2;
-    border: 1px solid #49634e;
-    border-radius: 8px;
-    padding: 8px 11px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
+        .lingua {
+            background: #223329;
+            color: #cfe0d2;
+            border: 1px solid #49634e;
+            border-radius: 8px;
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
 
-.lingua:hover {
-    background: #304938;
-}
+        .lingua:hover {
+            background: #304938;
+        }
 
-.lingua.attiva {
-    background: #43a047;
-    color: white;
-    border-color: #66bb6a;
-}
+        .lingua.attiva {
+            background: #43a047;
+            color: white;
+            border-color: #66bb6a;
+        }
 
-.container {
-    width: 92%;
-    max-width: 1050px;
-    margin: 30px auto;
-}
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 30px auto;
+        }
 
-.intro {
-    text-align: center;
-    margin-bottom: 25px;
-}
+        .intro {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-.intro h1 {
-    font-size: 42px;
-    margin-bottom: 8px;
-    color: #a5d6a7;
-}
+        .intro h1 {
+            font-size: 42px;
+            margin-bottom: 8px;
+            color: #a5d6a7;
+        }
 
-.intro p {
-    color: #b9c8bc;
-    font-size: 17px;
-}
+        .intro p {
+            color: #b9c8bc;
+            font-size: 17px;
+        }
 
-.statistiche {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 25px;
-}
+        .statistiche {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
 
-.stat {
-    background: #17261c;
-    border: 1px solid #38533f;
-    border-radius: 13px;
-    padding: 16px;
-    text-align: center;
-}
+        .stat {
+            background: #17261c;
+            border: 1px solid #38533f;
+            border-radius: 13px;
+            padding: 16px;
+            text-align: center;
+        }
 
-.stat .titolo {
-    color: #aebeb1;
-    font-size: 14px;
-}
+        .stat .titolo {
+            color: #aebeb1;
+            font-size: 14px;
+        }
 
-.stat .numero {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 7px;
-    color: #81c784;
-}
+        .stat .numero {
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 7px;
+            color: #81c784;
+        }
 
-.barra {
-    width: 100%;
-    height: 7px;
-    background: #293a2d;
-    border-radius: 10px;
-    margin-top: 9px;
-    overflow: hidden;
-}
+        .barra {
+            width: 100%;
+            height: 7px;
+            background: #293a2d;
+            border-radius: 10px;
+            margin-top: 9px;
+            overflow: hidden;
+        }
 
-.barra div {
-    height: 100%;
-    width: 50%;
-    background: #66bb6a;
-    transition: width 0.4s;
-}
+        .barra div {
+            height: 100%;
+            width: 50%;
+            background: #66bb6a;
+            transition: width 0.4s;
+        }
 
-.card {
-    background: #16231a;
-    border: 1px solid #3b5742;
-    border-radius: 20px;
-    padding: 32px;
-}
+        .card {
+            background: #16231a;
+            border: 1px solid #3b5742;
+            border-radius: 20px;
+            padding: 32px;
+        }
 
-.scenario {
-    color: #81c784;
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
+        .scenario {
+            color: #81c784;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
 
-.card h2 {
-    font-size: 29px;
-    margin-top: 0;
-}
+        .card h2 {
+            font-size: 29px;
+            margin-top: 0;
+        }
 
-.testo {
-    color: #c2cec5;
-    font-size: 18px;
-    line-height: 1.6;
-}
+        .testo {
+            color: #c2cec5;
+            font-size: 18px;
+            line-height: 1.6;
+        }
 
-.opzioni {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 28px;
-}
+        .opzioni {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 28px;
+        }
 
-.opzione {
-    text-align: left;
-    background: #223329;
-    color: #edf5ef;
-    border: 1px solid #49634e;
-    border-radius: 12px;
-    padding: 18px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.2s;
-}
+        .opzione {
+            text-align: left;
+            background: #223329;
+            color: #edf5ef;
+            border: 1px solid #49634e;
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
 
-.opzione:hover {
-    background: #304938;
-    transform: translateY(-2px);
-}
+        .opzione:hover {
+            background: #304938;
+            transform: translateY(-2px);
+        }
 
-.opzione:disabled {
-    cursor: default;
-}
+        .opzione:disabled {
+            cursor: default;
+        }
 
-#feedback {
-    margin-top: 25px;
-    font-size: 19px;
-    font-weight: bold;
-    min-height: 28px;
-}
+        #feedback {
+            margin-top: 25px;
+            font-size: 19px;
+            font-weight: bold;
+            min-height: 28px;
+        }
 
-#spiegazione {
-    display: none;
-    margin-top: 15px;
-    padding: 17px;
-    background: #203228;
-    border-left: 4px solid #81c784;
-    border-radius: 7px;
-    line-height: 1.5;
-    color: #dce8de;
-}
+        #spiegazione {
+            display: none;
+            margin-top: 15px;
+            padding: 17px;
+            background: #203228;
+            border-left: 4px solid #81c784;
+            border-radius: 7px;
+            line-height: 1.5;
+            color: #dce8de;
+        }
 
-#continua {
-    display: none;
-    margin-top: 20px;
-    background: #43a047;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 13px 23px;
-    font-size: 17px;
-    cursor: pointer;
-}
+        #continua {
+            display: none;
+            margin-top: 20px;
+            background: #43a047;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 13px 23px;
+            font-size: 17px;
+            cursor: pointer;
+        }
 
-#continua:hover {
-    background: #66bb6a;
-}
+        #continua:hover {
+            background: #66bb6a;
+        }
 
-#fine {
-    display: none;
-    text-align: center;
-}
+        #fine {
+            display: none;
+            text-align: center;
+        }
 
-#fine h2 {
-    font-size: 36px;
-    color: #a5d6a7;
-}
+        #fine h2 {
+            font-size: 36px;
+            color: #a5d6a7;
+        }
 
-.risultatoFinale {
-    font-size: 55px;
-    color: #81c784;
-    font-weight: bold;
-    margin: 20px;
-}
+        .risultatoFinale {
+            font-size: 55px;
+            color: #81c784;
+            font-weight: bold;
+            margin: 20px;
+        }
 
-.dettagli {
-    line-height: 2;
-    color: #c1cdc4;
-    font-size: 18px;
-}
+        .dettagli {
+            line-height: 2;
+            color: #c1cdc4;
+            font-size: 18px;
+        }
 
-.finalButton {
-    background: #43a047;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 14px 24px;
-    font-size: 17px;
-    cursor: pointer;
-    margin: 8px;
-}
+        .finalButton {
+            background: #43a047;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 17px;
+            cursor: pointer;
+            margin: 8px;
+        }
 
-.finalButton:hover {
-    background: #66bb6a;
-}
+        .finalButton:hover {
+            background: #66bb6a;
+        }
 
-#messaggioFinale {
-    color: #c8d7ca;
-    font-size: 18px;
-    line-height: 1.5;
-}
+        #messaggioFinale {
+            color: #c8d7ca;
+            font-size: 18px;
+            line-height: 1.5;
+        }
 
-/* =========================================================
-   GREEN POINTS
-========================================================= */
+        #greenPointsFinali {
+            margin: 20px auto;
+            padding: 15px 20px;
+            max-width: 400px;
+            background: #203228;
+            border: 1px solid #49634e;
+            border-radius: 12px;
+            color: #a5d6a7;
+            font-size: 20px;
+            font-weight: bold;
+        }
 
-#greenPointsFinali {
-    margin: 20px auto;
-    padding: 15px 20px;
-    max-width: 400px;
-    background: #203228;
-    border: 1px solid #49634e;
-    border-radius: 12px;
-    color: #a5d6a7;
-    font-size: 20px;
-    font-weight: bold;
-}
+        #greenPointsMessaggio {
+            margin-top: 8px;
+            font-size: 15px;
+            color: #b9c8bc;
+            font-weight: normal;
+        }
 
-#greenPointsMessaggio {
-    margin-top: 8px;
-    font-size: 15px;
-    color: #b9c8bc;
-    font-weight: normal;
-}
+        @media (max-width: 750px) {
 
-@media(max-width: 750px) {
+            .statistiche {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-    .statistiche {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            .opzioni {
+                grid-template-columns: 1fr;
+            }
 
-    .opzioni {
-        grid-template-columns: 1fr;
-    }
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
 
-    header {
-        flex-direction: column;
-        gap: 12px;
-    }
+            .header-destra {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-    .header-destra {
-        flex-direction: column;
-        gap: 10px;
-    }
+            .intro h1 {
+                font-size: 34px;
+            }
 
-    .intro h1 {
-        font-size: 34px;
-    }
+        }
 
-}
+        @media (max-width: 480px) {
 
-@media(max-width: 480px) {
+            .statistiche {
+                grid-template-columns: 1fr;
+            }
 
-    .statistiche {
-        grid-template-columns: 1fr;
-    }
+            .card {
+                padding: 22px;
+            }
 
-    .card {
-        padding: 22px;
-    }
+            .risultatoFinale {
+                font-size: 42px;
+            }
 
-    .risultatoFinale {
-        font-size: 42px;
-    }
+        }
 
-}
-
-</style>
+    </style>
 
 </head>
 
 <body>
 
-<header>
+    <header>
 
-    <div class="logo">
-        🌍 EcoGame
-    </div>
-
-    <div class="header-destra">
-
-        <div class="turno">
-            <span id="testoTurno">Turno</span>
-            <span id="numeroTurno">1</span> / 8
+        <div class="logo">
+            🌍 EcoGame
         </div>
 
-        <div class="lingue">
+        <div class="header-destra">
 
-            <button class="lingua attiva"
+            <div class="turno">
+                <span id="testoTurno">Turno</span>
+                <span id="numeroTurno">1</span> / 8
+            </div>
+
+            <div class="lingue">
+
+                <button
+                    class="lingua attiva"
                     id="btnIT"
                     onclick="cambiaLingua('it')">
-                🇮🇹 IT
-            </button>
+                    🇮🇹 IT
+                </button>
 
-            <button class="lingua"
+                <button
+                    class="lingua"
                     id="btnEN"
                     onclick="cambiaLingua('en')">
-                🇬🇧 EN
-            </button>
+                    🇬🇧 EN
+                </button>
 
-            <button class="lingua"
+                <button
+                    class="lingua"
                     id="btnFI"
                     onclick="cambiaLingua('fi')">
-                🇫🇮 FI
+                    🇫🇮 FI
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+        <div class="intro">
+
+            <h1 id="titoloPagina">
+                🌳 Salva la Foresta
+            </h1>
+
+            <p id="sottotitoloPagina">
+                Gestisci un ecosistema forestale.
+                Ogni decisione produce conseguenze.
+            </p>
+
+        </div>
+
+
+        <div class="statistiche">
+
+            <div class="stat">
+
+                <div
+                    class="titolo"
+                    id="statBiodiversita">
+                    🌿 Biodiversità
+                </div>
+
+                <div
+                    class="numero"
+                    id="biodiversita">
+                    70
+                </div>
+
+                <div class="barra">
+                    <div id="barraBiodiversita"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="titolo"
+                    id="statAcqua">
+                    💧 Acqua
+                </div>
+
+                <div
+                    class="numero"
+                    id="acqua">
+                    70
+                </div>
+
+                <div class="barra">
+                    <div id="barraAcqua"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="titolo"
+                    id="statSuolo">
+                    🌱 Suolo
+                </div>
+
+                <div
+                    class="numero"
+                    id="suolo">
+                    70
+                </div>
+
+                <div class="barra">
+                    <div id="barraSuolo"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="titolo"
+                    id="statComunita">
+                    👥 Comunità
+                </div>
+
+                <div
+                    class="numero"
+                    id="comunita">
+                    70
+                </div>
+
+                <div class="barra">
+                    <div id="barraComunita"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card" id="gioco">
+
+            <div
+                class="scenario"
+                id="scenario">
+                SITUAZIONE 1 — PROTEZIONE
+            </div>
+
+            <h2 id="titolo">
+                Il futuro della foresta
+            </h2>
+
+            <div
+                class="testo"
+                id="testo">
+                Una parte della foresta ospita specie rare.
+                La pressione economica sul territorio sta aumentando.
+                Devi decidere come intervenire.
+            </div>
+
+
+            <div class="opzioni">
+
+                <button
+                    class="opzione"
+                    id="opzione0"
+                    onclick="scegli(0)">
+
+                    <strong id="opzione0Titolo">
+                        A — Zona protetta
+                    </strong>
+
+                    <br>
+                    <br>
+
+                    <span id="opzione0Testo">
+                        Istituisci una nuova area protetta,
+                        limitando alcune attività economiche.
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="opzione"
+                    id="opzione1"
+                    onclick="scegli(1)">
+
+                    <strong id="opzione1Titolo">
+                        B — Taglio controllato
+                    </strong>
+
+                    <br>
+                    <br>
+
+                    <span id="opzione1Testo">
+                        Permetti il taglio selettivo degli alberi
+                        con limiti e monitoraggio.
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="opzione"
+                    id="opzione2"
+                    onclick="scegli(2)">
+
+                    <strong id="opzione2Titolo">
+                        C — Espansione agricola
+                    </strong>
+
+                    <br>
+                    <br>
+
+                    <span id="opzione2Testo">
+                        Concedi parte della foresta
+                        all'espansione delle coltivazioni.
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="opzione"
+                    id="opzione3"
+                    onclick="scegli(3)">
+
+                    <strong id="opzione3Titolo">
+                        D — Nessun intervento
+                    </strong>
+
+                    <br>
+                    <br>
+
+                    <span id="opzione3Testo">
+                        Mantieni le regole attuali
+                        e osserva l'evoluzione dell'ecosistema.
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <div id="feedback"></div>
+
+            <div id="spiegazione"></div>
+
+            <button
+                id="continua"
+                onclick="prossimoTurno()">
+                ➡️ Continua
             </button>
 
         </div>
 
-    </div>
 
-</header>
+        <div class="card" id="fine">
 
-<div class="container">
+            <h2 id="titoloFine">
+                🏁 Gestione completata
+            </h2>
 
-    <div class="intro">
-
-        <h1 id="titoloPagina">
-            🌳 Salva la Foresta
-        </h1>
-
-        <p id="sottotitoloPagina">
-            Gestisci un ecosistema forestale.
-            Ogni decisione produce conseguenze.
-        </p>
-
-    </div>
-
-    <div class="statistiche">
-
-        <div class="stat">
-
-            <div class="titolo" id="statBiodiversita">
-                🌿 Biodiversità
+            <div
+                class="risultatoFinale"
+                id="punteggioFinale">
+                0
             </div>
 
-            <div class="numero" id="biodiversita">
-                70
+
+            <div class="dettagli">
+
+                <div>
+                    🌿
+                    <span id="finaleLabelBiodiversita">
+                        Biodiversità
+                    </span>:
+                    <strong id="finaleBiodiversita"></strong>
+                </div>
+
+                <div>
+                    💧
+                    <span id="finaleLabelAcqua">
+                        Acqua
+                    </span>:
+                    <strong id="finaleAcqua"></strong>
+                </div>
+
+                <div>
+                    🌱
+                    <span id="finaleLabelSuolo">
+                        Suolo
+                    </span>:
+                    <strong id="finaleSuolo"></strong>
+                </div>
+
+                <div>
+                    👥
+                    <span id="finaleLabelComunita">
+                        Comunità
+                    </span>:
+                    <strong id="finaleComunita"></strong>
+                </div>
+
             </div>
 
-            <div class="barra">
-                <div id="barraBiodiversita"></div>
-            </div>
 
-        </div>
+            <div id="greenPointsFinali">
 
-        <div class="stat">
-
-            <div class="titolo" id="statAcqua">
-                💧 Acqua
-            </div>
-
-            <div class="numero" id="acqua">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraAcqua"></div>
-            </div>
-
-        </div>
-
-        <div class="stat">
-
-            <div class="titolo" id="statSuolo">
-                🌱 Suolo
-            </div>
-
-            <div class="numero" id="suolo">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraSuolo"></div>
-            </div>
-
-        </div>
-
-        <div class="stat">
-
-            <div class="titolo" id="statComunita">
-                👥 Comunità
-            </div>
-
-            <div class="numero" id="comunita">
-                70
-            </div>
-
-            <div class="barra">
-                <div id="barraComunita"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="card" id="gioco">
-
-        <div class="scenario" id="scenario">
-            SITUAZIONE 1 — PROTEZIONE
-        </div>
-
-        <h2 id="titolo">
-            Il futuro della foresta
-        </h2>
-
-        <div class="testo" id="testo">
-            Una parte della foresta ospita specie rare.
-            La pressione economica sul territorio sta aumentando.
-            Devi decidere come intervenire.
-        </div>
-
-        <div class="opzioni">
-
-            <button class="opzione" id="opzione0" onclick="scegli(0)">
-
-                <strong id="opzione0Titolo">
-                    A — Zona protetta
-                </strong>
-
-                <br><br>
-
-                <span id="opzione0Testo">
-                    Istituisci una nuova area protetta,
-                    limitando alcune attività economiche.
+                🌱 +
+                <span id="greenPointsGuadagnati">
+                    0
                 </span>
+                Green Points
 
-            </button>
+                <div id="greenPointsMessaggio">
+                    I tuoi Green Points sono stati aggiunti al tuo profilo.
+                </div>
 
-            <button class="opzione" id="opzione1" onclick="scegli(1)">
-
-                <strong id="opzione1Titolo">
-                    B — Taglio controllato
-                </strong>
-
-                <br><br>
-
-                <span id="opzione1Testo">
-                    Permetti il taglio selettivo degli alberi
-                    con limiti e monitoraggio.
-                </span>
-
-            </button>
-
-            <button class="opzione" id="opzione2" onclick="scegli(2)">
-
-                <strong id="opzione2Titolo">
-                    C — Espansione agricola
-                </strong>
-
-                <br><br>
-
-                <span id="opzione2Testo">
-                    Concedi parte della foresta
-                    all'espansione delle coltivazioni.
-                </span>
-
-            </button>
-
-            <button class="opzione" id="opzione3" onclick="scegli(3)">
-
-                <strong id="opzione3Titolo">
-                    D — Nessun intervento
-                </strong>
-
-                <br><br>
-
-                <span id="opzione3Testo">
-                    Mantieni le regole attuali
-                    e osserva l'evoluzione dell'ecosistema.
-                </span>
-
-            </button>
-
-        </div>
-
-        <div id="feedback"></div>
-
-        <div id="spiegazione"></div>
-
-        <button id="continua" onclick="prossimoTurno()">
-            ➡️ Continua
-        </button>
-
-    </div>
-
-    <div class="card" id="fine">
-
-        <h2 id="titoloFine">
-            🏁 Gestione completata
-        </h2>
-
-        <div class="risultatoFinale" id="punteggioFinale">
-            0
-        </div>
-
-        <div class="dettagli">
-
-            <div>
-                🌿 <span id="finaleLabelBiodiversita">
-                    Biodiversità
-                </span>:
-                <strong id="finaleBiodiversita"></strong>
             </div>
 
-            <div>
-                💧 <span id="finaleLabelAcqua">
-                    Acqua
-                </span>:
-                <strong id="finaleAcqua"></strong>
-            </div>
 
-            <div>
-                🌱 <span id="finaleLabelSuolo">
-                    Suolo
-                </span>:
-                <strong id="finaleSuolo"></strong>
-            </div>
+            <p id="messaggioFinale"></p>
 
-            <div>
-                👥 <span id="finaleLabelComunita">
-                    Comunità
-                </span>:
-                <strong id="finaleComunita"></strong>
-            </div>
 
-        </div>
-
-        <div id="greenPointsFinali">
-
-            🌱 +<span id="greenPointsGuadagnati">0</span>
-            Green Points
-
-            <div id="greenPointsMessaggio">
-                I tuoi Green Points sono stati aggiunti al tuo profilo.
-            </div>
-
-        </div>
-
-        <p id="messaggioFinale"></p>
-
-        <button class="finalButton"
+            <button
+                class="finalButton"
                 id="nuovaGestione"
                 onclick="ricomincia()">
-            🔄 Nuova gestione
-        </button>
+                🔄 Nuova gestione
+            </button>
 
-        <button class="finalButton"
+
+            <button
+                class="finalButton"
                 id="tornaGiochi"
                 onclick="tornaGiochi()">
-            🎮 Torna ai giochi
-        </button>
+                🎮 Torna ai giochi
+            </button>
+
+        </div>
 
     </div>
 
-</div>
 
-<!-- =========================================================
-     SISTEMA COMUNE ECOGAME
-========================================================= -->
+    <!-- =====================================================
+         SUPABASE
+    ===================================================== -->
 
-<script src="ecogamejs.js"></script>
-
-
-<script>
-
-/* =========================================================
-   LINGUA CONDIVISA TRA TUTTI I GIOCHI
-========================================================= */
-
-let lingua = localStorage.getItem("ecoGameLingua") || "it";
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-/* =========================================================
-   TESTI
-========================================================= */
+    <!-- =====================================================
+         SISTEMA COMUNE ECOGAME
+    ===================================================== -->
 
-const testi = {
+    <script src="ecogamejs.js"></script>
 
-    it: {
 
-        turno: "Turno",
+    <script>
 
-        titoloPagina: "🌳 Salva la Foresta",
+        /* =====================================================
+           LINGUA
+        ===================================================== */
 
-        sottotitoloPagina:
-            "Gestisci un ecosistema forestale. Ogni decisione produce conseguenze.",
+        let lingua =
+            localStorage.getItem("ecoGameLingua") || "it";
 
-        biodiversita: "Biodiversità",
-        acqua: "Acqua",
-        suolo: "Suolo",
-        comunita: "Comunità",
 
-        continua: "➡️ Continua",
+        /* =====================================================
+           TESTI
+        ===================================================== */
 
-        decisioneRegistrata:
-            "Decisione registrata.",
+        const testi = {
 
-        gestioneCompletata:
-            "🏁 Gestione completata",
+            it: {
 
-        nuovaGestione:
-            "🔄 Nuova gestione",
+                turno: "Turno",
 
-        tornaGiochi:
-            "🎮 Torna ai giochi",
+                titoloPagina: "🌳 Salva la Foresta",
 
-        punti: " / 100",
+                sottotitoloPagina:
+                    "Gestisci un ecosistema forestale. Ogni decisione produce conseguenze.",
 
-        greenPoints:
-            "Green Points",
+                biodiversita: "Biodiversità",
 
-        greenPointsMessaggio:
-            "I tuoi Green Points sono stati aggiunti al tuo profilo.",
+                acqua: "Acqua",
 
-        messaggi: {
+                suolo: "Suolo",
 
-            eccellente:
-                "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.",
+                comunita: "Comunità",
 
-            buona:
-                "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.",
+                continua: "➡️ Continua",
 
-            fragile:
-                "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.",
+                decisioneRegistrata:
+                    "Decisione registrata.",
 
-            difficolta:
-                "🌳 La foresta è in difficoltà. Prova una strategia diversa."
+                gestioneCompletata:
+                    "🏁 Gestione completata",
 
-        },
+                nuovaGestione:
+                    "🔄 Nuova gestione",
 
-        opzioni: [
+                tornaGiochi:
+                    "🎮 Torna ai giochi",
 
-            {
-                titolo: "A — Zona protetta",
-                testo:
-                    "Istituisci una nuova area protetta, limitando alcune attività economiche."
+                punti:
+                    " / 100",
+
+                greenPoints:
+                    "Green Points",
+
+                greenPointsMessaggio:
+                    "I tuoi Green Points sono stati aggiunti al tuo profilo.",
+
+                greenPointsErrore:
+                    "I Green Points non sono stati aggiunti. Verifica il tuo account.",
+
+                messaggi: {
+
+                    eccellente:
+                        "🏆 Gestione eccellente: hai mantenuto un buon equilibrio tra ecosistema e comunità.",
+
+                    buona:
+                        "🌱 Buona gestione: la foresta è rimasta complessivamente in condizioni positive.",
+
+                    fragile:
+                        "⚠️ Equilibrio fragile: alcune decisioni hanno creato pressioni importanti.",
+
+                    difficolta:
+                        "🌳 La foresta è in difficoltà. Prova una strategia diversa."
+
+                },
+
+                opzioni: [
+
+                    {
+                        titolo: "A — Zona protetta",
+                        testo:
+                            "Istituisci una nuova area protetta, limitando alcune attività economiche."
+                    },
+
+                    {
+                        titolo: "B — Taglio controllato",
+                        testo:
+                            "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."
+                    },
+
+                    {
+                        titolo: "C — Espansione agricola",
+                        testo:
+                            "Concedi parte della foresta all'espansione delle coltivazioni."
+                    },
+
+                    {
+                        titolo: "D — Nessun intervento",
+                        testo:
+                            "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."
+                    }
+
+                ],
+
+                spiegazioni: [
+
+                    [
+                        "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
+                        "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
+                        "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
+                        "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
+                    ],
+
+                    [
+                        "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
+                        "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
+                        "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
+                        "Non intervenire lascia invariata la pressione sulle risorse."
+                    ],
+
+                    [
+                        "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
+                        "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
+                        "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
+                        "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
+                    ],
+
+                    [
+                        "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
+                        "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
+                        "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
+                        "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
+                    ],
+
+                    [
+                        "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
+                        "Un uso controllato del territorio può limitare parte del problema.",
+                        "La rimozione della vegetazione può aumentare il rischio di erosione.",
+                        "Senza interventi il degrado del suolo può continuare."
+                    ],
+
+                    [
+                        "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
+                        "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
+                        "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
+                        "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
+                    ],
+
+                    [
+                        "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
+                        "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
+                        "La perdita di habitat può accelerare il declino della specie.",
+                        "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
+                    ],
+
+                    [
+                        "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
+                        "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
+                        "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
+                        "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
+                    ]
+
+                ]
+
             },
 
-            {
-                titolo: "B — Taglio controllato",
-                testo:
-                    "Permetti il taglio selettivo degli alberi con limiti e monitoraggio."
+
+            en: {
+
+                turno: "Turn",
+
+                titoloPagina: "🌳 Save the Forest",
+
+                sottotitoloPagina:
+                    "Manage a forest ecosystem. Every decision has consequences.",
+
+                biodiversita: "Biodiversity",
+
+                acqua: "Water",
+
+                suolo: "Soil",
+
+                comunita: "Community",
+
+                continua: "➡️ Continue",
+
+                decisioneRegistrata:
+                    "Decision recorded.",
+
+                gestioneCompletata:
+                    "🏁 Management completed",
+
+                nuovaGestione:
+                    "🔄 New management",
+
+                tornaGiochi:
+                    "🎮 Back to games",
+
+                punti:
+                    " / 100",
+
+                greenPoints:
+                    "Green Points",
+
+                greenPointsMessaggio:
+                    "Your Green Points have been added to your profile.",
+
+                greenPointsErrore:
+                    "The Green Points could not be added. Please check your account.",
+
+                messaggi: {
+
+                    eccellente:
+                        "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
+
+                    buona:
+                        "🌱 Good management: the forest remained in generally positive condition.",
+
+                    fragile:
+                        "⚠️ Fragile balance: some decisions created significant pressures.",
+
+                    difficolta:
+                        "🌳 The forest is struggling. Try a different strategy."
+
+                },
+
+                opzioni: [
+
+                    {
+                        titolo: "A — Protected area",
+                        testo:
+                            "Create a new protected area, limiting some economic activities."
+                    },
+
+                    {
+                        titolo: "B — Controlled logging",
+                        testo:
+                            "Allow selective tree cutting with limits and monitoring."
+                    },
+
+                    {
+                        titolo: "C — Agricultural expansion",
+                        testo:
+                            "Allow part of the forest to be converted for agricultural expansion."
+                    },
+
+                    {
+                        titolo: "D — No intervention",
+                        testo:
+                            "Keep the current rules and observe how the ecosystem develops."
+                    }
+
+                ],
+
+                spiegazioni: [
+
+                    [
+                        "Greater protection can help conserve habitats, but it may reduce some local economic opportunities.",
+                        "Selective logging can reduce the impact compared with intensive logging when applied using scientific criteria.",
+                        "Forest conversion can reduce habitats and ecosystem services, although it may increase some economic activities.",
+                        "Taking no action may be appropriate in some contexts, but it does not automatically solve existing problems."
+                    ],
+
+                    [
+                        "Protecting riparian areas and limiting water withdrawals can contribute to the resilience of the water system.",
+                        "Controlled resource use can reduce pressure, but it must be accompanied by monitoring.",
+                        "Increased agricultural water withdrawals can worsen water shortages during drought periods.",
+                        "Taking no action leaves the pressure on water resources unchanged."
+                    ],
+
+                    [
+                        "Early intervention can limit the spread of an invasive species before it becomes difficult to manage.",
+                        "Selective control can work when supported by scientific monitoring.",
+                        "Allowing pressure to increase can encourage the spread of the invasive species.",
+                        "Ignoring the problem can allow the species to colonize new habitats."
+                    ],
+
+                    [
+                        "Fire prevention and vegetation fuel management can reduce some risks.",
+                        "Targeted measures can contribute to prevention when properly designed.",
+                        "Greater pressure on the territory can increase exposure to risk.",
+                        "A lack of prevention leaves the system more vulnerable to extreme events."
+                    ],
+
+                    [
+                        "Vegetation cover and soil protection can reduce erosion.",
+                        "Controlled land use can limit part of the problem.",
+                        "Removing vegetation can increase the risk of erosion.",
+                        "Without intervention, soil degradation may continue."
+                    ],
+
+                    [
+                        "Conservation can be compatible with sustainable economic activities and nature tourism.",
+                        "Regulated use can provide economic resources while maintaining some ecological limits.",
+                        "Economic expansion can increase income, but it can also increase pressure on ecosystems.",
+                        "Ignoring the needs of the community can increase social conflict."
+                    ],
+
+                    [
+                        "Protecting mature habitats can benefit species that depend on complex forest structures.",
+                        "Selective management can be compatible with conservation if the most important habitats are avoided.",
+                        "Habitat loss can accelerate the decline of the species.",
+                        "Monitoring without intervention does not directly change pressures on the habitat."
+                    ],
+
+                    [
+                        "An integrated strategy can seek to maintain both ecological functions and social benefits.",
+                        "Controlled management can reconcile some economic uses with conservation objectives.",
+                        "Strong land conversion can increase some short-term economic benefits, but reduce several ecosystem functions.",
+                        "The absence of a strategy can leave existing pressures unresolved."
+                    ]
+
+                ]
+
             },
 
-            {
-                titolo: "C — Espansione agricola",
-                testo:
-                    "Concedi parte della foresta all'espansione delle coltivazioni."
-            },
 
-            {
-                titolo: "D — Nessun intervento",
-                testo:
-                    "Mantieni le regole attuali e osserva l'evoluzione dell'ecosistema."
+            fi: {
+
+                turno: "Vuoro",
+
+                titoloPagina: "🌳 Pelasta metsä",
+
+                sottotitoloPagina:
+                    "Hallinnoi metsäekosysteemiä. Jokaisella päätöksellä on seurauksia.",
+
+                biodiversita: "Luonnon monimuotoisuus",
+
+                acqua: "Vesi",
+
+                suolo: "Maaperä",
+
+                comunita: "Yhteisö",
+
+                continua: "➡️ Jatka",
+
+                decisioneRegistrata:
+                    "Päätös tallennettu.",
+
+                gestioneCompletata:
+                    "🏁 Hallinta suoritettu",
+
+                nuovaGestione:
+                    "🔄 Uusi hallinta",
+
+                tornaGiochi:
+                    "🎮 Takaisin peleihin",
+
+                punti:
+                    " / 100",
+
+                greenPoints:
+                    "Green Points",
+
+                greenPointsMessaggio:
+                    "Green Points -pisteesi on lisätty profiiliisi.",
+
+                greenPointsErrore:
+                    "Green Points -pisteitä ei voitu lisätä. Tarkista tilisi.",
+
+                messaggi: {
+
+                    eccellente:
+                        "🏆 Erinomainen hallinta: säilytit hyvän tasapainon ekosysteemin ja yhteisön välillä.",
+
+                    buona:
+                        "🌱 Hyvä hallinta: metsä säilyi kokonaisuutena hyvässä kunnossa.",
+
+                    fragile:
+                        "⚠️ Hauras tasapaino: jotkin päätökset aiheuttivat merkittäviä paineita.",
+
+                    difficolta:
+                        "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa."
+
+                },
+
+                opzioni: [
+
+                    {
+                        titolo: "A — Suojelualue",
+                        testo:
+                            "Perusta uusi suojelualue ja rajoita joitakin taloudellisia toimintoja."
+                    },
+
+                    {
+                        titolo: "B — Hallittu hakkuu",
+                        testo:
+                            "Salli puiden valikoiva hakkuu rajoitusten ja seurannan avulla."
+                    },
+
+                    {
+                        titolo: "C — Maatalouden laajentaminen",
+                        testo:
+                            "Salli osan metsästä muuttaminen maatalouden laajentamista varten."
+                    },
+
+                    {
+                        titolo: "D — Ei toimenpiteitä",
+                        testo:
+                            "Säilytä nykyiset säännöt ja seuraa ekosysteemin kehitystä."
+                    }
+
+                ],
+
+                spiegazioni: [
+
+                    [
+                        "Parempi suojelu voi edistää elinympäristöjen säilymistä, mutta se voi vähentää paikallisia taloudellisia mahdollisuuksia.",
+                        "Valikoiva hakkuu voi vähentää vaikutuksia verrattuna voimakkaaseen metsänhakkuuseen, jos sitä toteutetaan tieteellisten kriteerien mukaisesti.",
+                        "Metsän muuttaminen muuhun käyttöön voi vähentää elinympäristöjä ja ekosysteemipalveluja, vaikka se voi lisätä joitakin taloudellisia toimintoja.",
+                        "Toimenpiteistä pidättäytyminen voi olla sopivaa joissakin tilanteissa, mutta se ei automaattisesti ratkaise olemassa olevia ongelmia."
+                    ],
+
+                    [
+                        "Ranta-alueiden suojeleminen ja vedenoton rajoittaminen voivat parantaa vesijärjestelmän kestävyyttä.",
+                        "Valvottu luonnonvarojen käyttö voi vähentää painetta, mutta sen tulee perustua seurantaan.",
+                        "Maatalouden lisääntynyt vedenotto voi pahentaa vesipulaa kuivuuskausina.",
+                        "Toimenpiteistä pidättäytyminen pitää luonnonvaroihin kohdistuvan paineen ennallaan."
+                    ],
+
+                    [
+                        "Varhainen puuttuminen voi rajoittaa vieraslajin leviämistä ennen kuin sen hallinta muuttuu vaikeaksi.",
+                        "Valikoiva torjunta voi toimia, jos sitä tuetaan tieteellisellä seurannalla.",
+                        "Kasvavan paineen salliminen voi edistää vieraslajin leviämistä.",
+                        "Ongelman huomiotta jättäminen voi antaa lajille mahdollisuuden levitä uusiin elinympäristöihin."
+                    ],
+
+                    [
+                        "Palontorjunta ja kasvillisuuden palavan aineksen hallinta voivat vähentää joitakin riskejä.",
+                        "Kohdennetut toimenpiteet voivat edistää ennaltaehkäisyä, jos ne suunnitellaan oikein.",
+                        "Suurempi paine alueeseen voi lisätä riskeille altistumista.",
+                        "Ennaltaehkäisyn puute tekee järjestelmästä alttiimman äärimmäisille tapahtumille."
+                    ],
+
+                    [
+                        "Kasvillisuuden säilyttäminen ja maaperän suojeleminen voivat vähentää eroosiota.",
+                        "Hallittu maankäyttö voi rajoittaa osaa ongelmasta.",
+                        "Kasvillisuuden poistaminen voi lisätä eroosioriskiä.",
+                        "Ilman toimenpiteitä maaperän heikkeneminen voi jatkua."
+                    ],
+
+                    [
+                        "Luonnonsuojelu voi olla yhteensopivaa kestävän taloudellisen toiminnan ja luontomatkailun kanssa.",
+                        "Säännelty käyttö voi tuottaa taloudellisia resursseja samalla kun ekologiset rajat säilytetään.",
+                        "Taloudellinen laajentuminen voi lisätä tuloja, mutta myös ekosysteemeihin kohdistuvaa painetta.",
+                        "Yhteisön tarpeiden huomiotta jättäminen voi lisätä sosiaalisia ristiriitoja."
+                    ],
+
+                    [
+                        "Vanhojen metsäelinympäristöjen suojeleminen voi hyödyttää lajeja, jotka ovat riippuvaisia monimuotoisista metsäympäristöistä.",
+                        "Valikoiva metsänhoito voi olla yhteensopivaa suojelun kanssa, jos tärkeimmät elinympäristöt jätetään koskemattomiksi.",
+                        "Elinympäristöjen häviäminen voi nopeuttaa lajin vähenemistä.",
+                        "Seuranta ilman toimenpiteitä ei suoraan muuta elinympäristöön kohdistuvia paineita."
+                    ],
+
+                    [
+                        "Yhdistetty strategia voi pyrkiä säilyttämään samanaikaisesti ekologiset toiminnot ja yhteiskunnalliset hyödyt.",
+                        "Hallittu metsänhoito voi yhdistää joitakin taloudellisia käyttötarkoituksia luonnonsuojelun tavoitteisiin.",
+                        "Voimakas maankäytön muutos voi lisätä joitakin lyhyen aikavälin taloudellisia hyötyjä, mutta vähentää useita ekosysteemin toimintoja.",
+                        "Strategian puuttuminen voi jättää olemassa olevat paineet ratkaisematta."
+                    ]
+
+                ]
+
             }
 
-        ],
-
-        spiegazioni: [
-
-            [
-                "Una maggiore protezione può favorire la conservazione degli habitat, ma può ridurre alcune opportunità economiche locali.",
-                "Il taglio selettivo può ridurre l'impatto rispetto al disboscamento intensivo, se applicato con criteri scientifici.",
-                "La conversione della foresta può ridurre habitat e servizi ecosistemici, anche se può aumentare alcune attività economiche.",
-                "Non intervenire può essere appropriato in alcuni contesti, ma non risolve automaticamente i problemi già presenti."
-            ],
-
-            [
-                "Proteggere le aree ripariali e limitare i prelievi può contribuire alla resilienza del sistema idrico.",
-                "Un uso controllato delle risorse può ridurre la pressione, ma deve essere accompagnato da monitoraggio.",
-                "Un aumento dei prelievi agricoli può aggravare la scarsità d'acqua durante periodi siccitosi.",
-                "Non intervenire lascia invariata la pressione sulle risorse."
-            ],
-
-            [
-                "Un intervento precoce può limitare l'espansione di una specie invasiva prima che diventi difficile da gestire.",
-                "Un controllo selettivo può funzionare se accompagnato da monitoraggio scientifico.",
-                "Lasciare aumentare la pressione può favorire la diffusione della specie invasiva.",
-                "Ignorare il problema può permettere alla specie di colonizzare nuovi habitat."
-            ],
-
-            [
-                "La prevenzione degli incendi e la gestione del combustibile vegetale possono ridurre alcuni rischi.",
-                "Interventi mirati possono contribuire alla prevenzione, se progettati correttamente.",
-                "Una maggiore pressione sul territorio può aumentare l'esposizione al rischio.",
-                "L'assenza di prevenzione lascia il sistema più vulnerabile agli eventi estremi."
-            ],
-
-            [
-                "La copertura vegetale e la protezione del suolo possono ridurre l'erosione.",
-                "Un uso controllato del territorio può limitare parte del problema.",
-                "La rimozione della vegetazione può aumentare il rischio di erosione.",
-                "Senza interventi il degrado del suolo può continuare."
-            ],
-
-            [
-                "La conservazione può essere compatibile con attività economiche sostenibili e turismo naturalistico.",
-                "Un utilizzo regolamentato può fornire risorse economiche mantenendo alcuni limiti ecologici.",
-                "L'espansione economica può aumentare il reddito, ma anche la pressione sugli ecosistemi.",
-                "Ignorare le esigenze della comunità può aumentare il conflitto sociale."
-            ],
-
-            [
-                "Proteggere gli habitat maturi può favorire le specie che dipendono da strutture forestali complesse.",
-                "Una gestione selettiva può essere compatibile con la conservazione se evita gli habitat più importanti.",
-                "La perdita di habitat può accelerare il declino della specie.",
-                "Il monitoraggio senza intervento non modifica direttamente le pressioni sull'habitat."
-            ],
-
-            [
-                "Una strategia integrata può cercare di mantenere contemporaneamente funzioni ecologiche e benefici sociali.",
-                "La gestione controllata può conciliare alcuni usi economici con obiettivi di conservazione.",
-                "Una forte conversione del territorio può aumentare alcuni benefici economici nel breve periodo, ma ridurre diverse funzioni ecosistemiche.",
-                "L'assenza di una strategia può lasciare irrisolte le pressioni già presenti."
-            ]
-
-        ]
-
-    },
+        };
 
 
-    en: {
+        /* =====================================================
+           TURNI
+        ===================================================== */
 
-        turno: "Turn",
-
-        titoloPagina: "🌳 Save the Forest",
-
-        sottotitoloPagina:
-            "Manage a forest ecosystem. Every decision has consequences.",
-
-        biodiversita: "Biodiversity",
-        acqua: "Water",
-        suolo: "Soil",
-        comunita: "Community",
-
-        continua: "➡️ Continue",
-
-        decisioneRegistrata:
-            "Decision recorded.",
-
-        gestioneCompletata:
-            "🏁 Management completed",
-
-        nuovaGestione:
-            "🔄 New management",
-
-        tornaGiochi:
-            "🎮 Back to games",
-
-        punti: " / 100",
-
-        greenPoints:
-            "Green Points",
-
-        greenPointsMessaggio:
-            "Your Green Points have been added to your profile.",
-
-        messaggi: {
-
-            eccellente:
-                "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
-
-            buona:
-                "🌱 Good management: the forest remained in generally positive condition.",
-
-            fragile:
-                "⚠️ Fragile balance: some decisions created significant pressures.",
-
-            difficolta:
-                "🌳 The forest is struggling. Try a different strategy."
-
-        },
-
-        opzioni: [
+        const turni = [
 
             {
-                titolo: "A — Protected area",
-                testo:
-                    "Create a new protected area, limiting some economic activities."
+                scenario: {
+                    it: "SITUAZIONE 1 — PROTEZIONE",
+                    en: "SITUATION 1 — PROTECTION",
+                    fi: "TILANNE 1 — SUOJELU"
+                },
+
+                titolo: {
+                    it: "Il futuro della foresta",
+                    en: "The future of the forest",
+                    fi: "Metsän tulevaisuus"
+                },
+
+                testo: {
+                    it: "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
+                    en: "Part of the forest is home to rare species. Economic pressure on the area is increasing. You must decide how to intervene.",
+                    fi: "Osa metsästä on harvinaisten lajien elinympäristö. Alueeseen kohdistuva taloudellinen paine kasvaa. Sinun on päätettävä, miten toimit."
+                },
+
+                effetti: [
+                    [8, 2, 4, -5],
+                    [2, 3, -1, 5],
+                    [-8, -4, -6, 7],
+                    [-2, 0, -1, 2]
+                ]
             },
 
-            {
-                titolo: "B — Controlled logging",
-                testo:
-                    "Allow selective tree cutting with limits and monitoring."
-            },
 
             {
-                titolo: "C — Agricultural expansion",
-                testo:
-                    "Allow part of the forest to be converted for agricultural expansion."
+                scenario: {
+                    it: "SITUAZIONE 2 — ACQUA",
+                    en: "SITUATION 2 — WATER",
+                    fi: "TILANNE 2 — VESI"
+                },
+
+                titolo: {
+                    it: "Una stagione molto secca",
+                    en: "A very dry season",
+                    fi: "Erittäin kuiva kausi"
+                },
+
+                testo: {
+                    it: "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
+                    en: "Rainfall has decreased for the second consecutive year. The forest's streams are showing below-average water levels.",
+                    fi: "Sademäärä on vähentynyt jo toista vuotta peräkkäin. Metsän vesistöjen virtaamat ovat keskimääräistä pienempiä."
+                },
+
+                effetti: [
+                    [5, 8, 4, -3],
+                    [2, 3, 1, 3],
+                    [-3, -8, -5, 6],
+                    [0, -2, 0, 0]
+                ]
             },
 
+
             {
-                titolo: "D — No intervention",
-                testo:
-                    "Keep the current rules and observe how the ecosystem develops."
+                scenario: {
+                    it: "SITUAZIONE 3 — SPECIE INVASIVA",
+                    en: "SITUATION 3 — INVASIVE SPECIES",
+                    fi: "TILANNE 3 — VIERASLAJI"
+                },
+
+                titolo: {
+                    it: "Una nuova specie compare",
+                    en: "A new species appears",
+                    fi: "Uusi laji ilmestyy"
+                },
+
+                testo: {
+                    it: "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
+                    en: "A plant species that is not native to the area is rapidly spreading along the edge of the forest.",
+                    fi: "Alueelle vieras kasvilaji leviää nopeasti metsän reunalla."
+                },
+
+                effetti: [
+                    [7, 2, 4, -3],
+                    [3, 0, 2, 2],
+                    [-5, -2, -4, 3],
+                    [-4, -1, -3, 0]
+                ]
+            },
+
+
+            {
+                scenario: {
+                    it: "SITUAZIONE 4 — INCENDI",
+                    en: "SITUATION 4 — WILDFIRES",
+                    fi: "TILANNE 4 — METSÄPALOT"
+                },
+
+                titolo: {
+                    it: "Aumenta il rischio di incendio",
+                    en: "The wildfire risk increases",
+                    fi: "Metsäpalojen riski kasvaa"
+                },
+
+                testo: {
+                    it: "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
+                    en: "High temperatures and dry vegetation are increasing the risk of large wildfires during the summer.",
+                    fi: "Korkeat lämpötilat ja kuiva kasvillisuus lisäävät laajojen metsäpalojen riskiä kesällä."
+                },
+
+                effetti: [
+                    [6, 5, 5, 2],
+                    [4, 2, 3, 3],
+                    [-4, -5, -4, 4],
+                    [-3, -3, -2, 0]
+                ]
+            },
+
+
+            {
+                scenario: {
+                    it: "SITUAZIONE 5 — SUOLO",
+                    en: "SITUATION 5 — SOIL",
+                    fi: "TILANNE 5 — MAAPERÄ"
+                },
+
+                titolo: {
+                    it: "Erosione del terreno",
+                    en: "Soil erosion",
+                    fi: "Maaperän eroosio"
+                },
+
+                testo: {
+                    it: "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
+                    en: "After heavy rainfall, some slopes show signs of erosion. Fertile soil is decreasing.",
+                    fi: "Voimakkaiden sateiden jälkeen joillakin rinteillä näkyy eroosion merkkejä. Hedelmällinen maaperä vähenee."
+                },
+
+                effetti: [
+                    [5, 4, 9, 1],
+                    [2, 1, 4, 3],
+                    [-5, -2, -8, 5],
+                    [-2, -1, -2, 0]
+                ]
+            },
+
+
+            {
+                scenario: {
+                    it: "SITUAZIONE 6 — ECONOMIA LOCALE",
+                    en: "SITUATION 6 — LOCAL ECONOMY",
+                    fi: "TILANNE 6 — PAIKALLINEN TALOUS"
+                },
+
+                titolo: {
+                    it: "La comunità chiede lavoro",
+                    en: "The community needs jobs",
+                    fi: "Yhteisö tarvitsee työpaikkoja"
+                },
+
+                testo: {
+                    it: "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
+                    en: "Part of the local population depends economically on the forest's resources.",
+                    fi: "Osa paikallisesta väestöstä on taloudellisesti riippuvainen metsän luonnonvaroista."
+                },
+
+                effetti: [
+                    [3, 1, 2, 5],
+                    [2, 1, 1, 7],
+                    [-5, -2, -4, 8],
+                    [-1, 0, 0, -5]
+                ]
+            },
+
+
+            {
+                scenario: {
+                    it: "SITUAZIONE 7 — BIODIVERSITÀ",
+                    en: "SITUATION 7 — BIODIVERSITY",
+                    fi: "TILANNE 7 — LUONNON MONIMUOTOISUUS"
+                },
+
+                titolo: {
+                    it: "Una specie è in forte calo",
+                    en: "A species is declining rapidly",
+                    fi: "Lajin kanta vähenee nopeasti"
+                },
+
+                testo: {
+                    it: "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
+                    en: "Monitoring shows a sharp decline in an animal species that depends on mature forest.",
+                    fi: "Seuranta osoittaa, että vanhasta metsästä riippuvaisen eläinlajin kanta on vähentynyt voimakkaasti."
+                },
+
+                effetti: [
+                    [9, 2, 4, -3],
+                    [4, 1, 2, 2],
+                    [-7, -3, -6, 5],
+                    [-3, 0, -2, -1]
+                ]
+            },
+
+
+            {
+                scenario: {
+                    it: "SITUAZIONE 8 — DECISIONE FINALE",
+                    en: "SITUATION 8 — FINAL DECISION",
+                    fi: "TILANNE 8 — LOPULLINEN PÄÄTÖS"
+                },
+
+                titolo: {
+                    it: "Il piano per i prossimi anni",
+                    en: "The plan for the coming years",
+                    fi: "Suunnitelma tuleville vuosille"
+                },
+
+                testo: {
+                    it: "Devi scegliere la strategia generale per il futuro della foresta.",
+                    en: "You must choose the overall strategy for the future of the forest.",
+                    fi: "Sinun on valittava metsän tulevaisuuden yleinen strategia."
+                },
+
+                effetti: [
+                    [7, 5, 6, 4],
+                    [4, 3, 3, 5],
+                    [-7, -5, -7, 7],
+                    [-3, -2, -2, -3]
+                ]
             }
 
-        ],
-
-        spiegazioni: [
-
-            [
-                "Greater protection can help conserve habitats, but it may reduce some local economic opportunities.",
-                "Selective logging can reduce the impact compared with intensive logging when applied using scientific criteria.",
-                "Forest conversion can reduce habitats and ecosystem services, although it may increase some economic activities.",
-                "Taking no action may be appropriate in some contexts, but it does not automatically solve existing problems."
-            ],
-
-            [
-                "Protecting riparian areas and limiting water withdrawals can contribute to the resilience of the water system.",
-                "Controlled resource use can reduce pressure, but it must be accompanied by monitoring.",
-                "Increased agricultural water withdrawals can worsen water shortages during drought periods.",
-                "Taking no action leaves the pressure on water resources unchanged."
-            ],
-
-            [
-                "Early intervention can limit the spread of an invasive species before it becomes difficult to manage.",
-                "Selective control can work when supported by scientific monitoring.",
-                "Allowing pressure to increase can encourage the spread of the invasive species.",
-                "Ignoring the problem can allow the species to colonize new habitats."
-            ],
-
-            [
-                "Fire prevention and vegetation fuel management can reduce some risks.",
-                "Targeted measures can contribute to prevention when properly designed.",
-                "Greater pressure on the territory can increase exposure to risk.",
-                "A lack of prevention leaves the system more vulnerable to extreme events."
-            ],
-
-            [
-                "Vegetation cover and soil protection can reduce erosion.",
-                "Controlled land use can limit part of the problem.",
-                "Removing vegetation can increase the risk of erosion.",
-                "Without intervention, soil degradation may continue."
-            ],
-
-            [
-                "Conservation can be compatible with sustainable economic activities and nature tourism.",
-                "Regulated use can provide economic resources while maintaining some ecological limits.",
-                "Economic expansion can increase income, but it can also increase pressure on ecosystems.",
-                "Ignoring the needs of the community can increase social conflict."
-            ],
-
-            [
-                "Protecting mature habitats can benefit species that depend on complex forest structures.",
-                "Selective management can be compatible with conservation if the most important habitats are avoided.",
-                "Habitat loss can accelerate the decline of the species.",
-                "Monitoring without intervention does not directly change pressures on the habitat."
-            ],
-
-            [
-                "An integrated strategy can seek to maintain both ecological functions and social benefits.",
-                "Controlled management can reconcile some economic uses with conservation objectives.",
-                "Strong land conversion can increase some short-term economic benefits, but reduce several ecosystem functions.",
-                "The absence of a strategy can leave existing pressures unresolved."
-            ]
-
-        ]
-
-    },
+        ];
 
 
-    fi: {
+        /* =====================================================
+           VARIABILI DEL GIOCO
+        ===================================================== */
 
-        turno: "Vuoro",
+        let turno = 0;
 
-        titoloPagina: "🌳 Pelasta metsä",
+        let biodiversita = 70;
 
-        sottotitoloPagina:
-            "Hallinnoi metsäekosysteemiä. Jokaisella päätöksellä on seurauksia.",
+        let acqua = 70;
 
-        biodiversita: "Luonnon monimuotoisuus",
-        acqua: "Vesi",
-        suolo: "Maaperä",
-        comunita: "Yhteisö",
+        let suolo = 70;
 
-        continua: "➡️ Jatka",
+        let comunita = 70;
 
-        decisioneRegistrata:
-            "Päätös tallennettu.",
+        let rispostaData = false;
 
-        gestioneCompletata:
-            "🏁 Hallinta suoritettu",
+        let greenPointsAssegnati = false;
 
-        nuovaGestione:
-            "🔄 Uusi hallinta",
 
-        tornaGiochi:
-            "🎮 Takaisin peleihin",
+        /* =====================================================
+           LIMITA VALORE
+        ===================================================== */
 
-        punti: " / 100",
+        function limita(valore) {
 
-        greenPoints:
-            "Green Points",
+            return Math.max(
+                0,
+                Math.min(100, valore)
+            );
 
-        greenPointsMessaggio:
-            "Green Points -pisteesi on lisätty profiiliisi.",
+        }
 
-        messaggi: {
 
-            eccellente:
-                "🏆 Erinomainen hallinta: säilytit hyvän tasapainon ekosysteemin ja yhteisön välillä.",
+        /* =====================================================
+           AGGIORNA STATISTICHE
+        ===================================================== */
 
-            buona:
-                "🌱 Hyvä hallinta: metsä säilyi kokonaisuutena hyvässä kunnossa.",
+        function aggiornaStatistiche() {
 
-            fragile:
-                "⚠️ Hauras tasapaino: jotkin päätökset aiheuttivat merkittäviä paineita.",
+            document.getElementById("biodiversita").innerText =
+                biodiversita;
 
-            difficolta:
-                "🌳 Metsä on vaikeuksissa. Kokeile erilaista strategiaa."
+            document.getElementById("acqua").innerText =
+                acqua;
 
-        },
+            document.getElementById("suolo").innerText =
+                suolo;
 
-        opzioni: [
+            document.getElementById("comunita").innerText =
+                comunita;
 
-            {
-                titolo: "A — Suojelualue",
-                testo:
-                    "Perusta uusi suojelualue ja rajoita joitakin taloudellisia toimintoja."
-            },
 
-            {
-                titolo: "B — Hallittu hakkuu",
-                testo:
-                    "Salli puiden valikoiva hakkuu rajoitusten ja seurannan avulla."
-            },
+            document.getElementById("barraBiodiversita").style.width =
+                biodiversita + "%";
 
-            {
-                titolo: "C — Maatalouden laajentaminen",
-                testo:
-                    "Salli osan metsästä muuttaminen maatalouden laajentamista varten."
-            },
+            document.getElementById("barraAcqua").style.width =
+                acqua + "%";
 
-            {
-                titolo: "D — Ei toimenpiteitä",
-                testo:
-                    "Säilytä nykyiset säännöt ja seuraa ekosysteemin kehitystä."
+            document.getElementById("barraSuolo").style.width =
+                suolo + "%";
+
+            document.getElementById("barraComunita").style.width =
+                comunita + "%";
+
+        }
+
+
+        /* =====================================================
+           MOSTRA TURNO
+        ===================================================== */
+
+        function mostraTurno() {
+
+            rispostaData = false;
+
+            const t = turni[turno];
+
+            document.getElementById("numeroTurno").innerText =
+                turno + 1;
+
+            document.getElementById("scenario").innerText =
+                t.scenario[lingua];
+
+            document.getElementById("titolo").innerText =
+                t.titolo[lingua];
+
+            document.getElementById("testo").innerText =
+                t.testo[lingua];
+
+            document.getElementById("feedback").innerText =
+                "";
+
+            document.getElementById("spiegazione").style.display =
+                "none";
+
+            document.getElementById("continua").style.display =
+                "none";
+
+
+            for (let i = 0; i < 4; i++) {
+
+                document.getElementById(
+                    "opzione" + i + "Titolo"
+                ).innerText =
+                    testi[lingua].opzioni[i].titolo;
+
+                document.getElementById(
+                    "opzione" + i + "Testo"
+                ).innerText =
+                    testi[lingua].opzioni[i].testo;
+
+                document.getElementById(
+                    "opzione" + i
+                ).disabled = false;
+
             }
 
-        ],
-
-        spiegazioni: [
-
-            [
-                "Parempi suojelu voi edistää elinympäristöjen säilymistä, mutta se voi vähentää paikallisia taloudellisia mahdollisuuksia.",
-                "Valikoiva hakkuu voi vähentää vaikutuksia verrattuna voimakkaaseen metsänhakkuuseen, jos sitä toteutetaan tieteellisten kriteerien mukaisesti.",
-                "Metsän muuttaminen muuhun käyttöön voi vähentää elinympäristöjä ja ekosysteemipalveluja, vaikka se voi lisätä joitakin taloudellisia toimintoja.",
-                "Toimenpiteistä pidättäytyminen voi olla sopivaa joissakin tilanteissa, mutta se ei automaattisesti ratkaise olemassa olevia ongelmia."
-            ],
-
-            [
-                "Ranta-alueiden suojeleminen ja vedenoton rajoittaminen voivat parantaa vesijärjestelmän kestävyyttä.",
-                "Valvottu luonnonvarojen käyttö voi vähentää painetta, mutta sen tulee perustua seurantaan.",
-                "Maatalouden lisääntynyt vedenotto voi pahentaa vesipulaa kuivuuskausina.",
-                "Toimenpiteistä pidättäytyminen pitää luonnonvaroihin kohdistuvan paineen ennallaan."
-            ],
-
-            [
-                "Varhainen puuttuminen voi rajoittaa vieraslajin leviämistä ennen kuin sen hallinta muuttuu vaikeaksi.",
-                "Valikoiva torjunta voi toimia, jos sitä tuetaan tieteellisellä seurannalla.",
-                "Kasvavan paineen salliminen voi edistää vieraslajin leviämistä.",
-                "Ongelman huomiotta jättäminen voi antaa lajille mahdollisuuden levitä uusiin elinympäristöihin."
-            ],
-
-            [
-                "Palontorjunta ja kasvillisuuden palavan aineksen hallinta voivat vähentää joitakin riskejä.",
-                "Kohdennetut toimenpiteet voivat edistää ennaltaehkäisyä, jos ne suunnitellaan oikein.",
-                "Suurempi paine alueeseen voi lisätä riskeille altistumista.",
-                "Ennaltaehkäisyn puute tekee järjestelmästä alttiimman äärimmäisille tapahtumille."
-            ],
-
-            [
-                "Kasvillisuuden säilyttäminen ja maaperän suojeleminen voivat vähentää eroosiota.",
-                "Hallittu maankäyttö voi rajoittaa osaa ongelmasta.",
-                "Kasvillisuuden poistaminen voi lisätä eroosioriskiä.",
-                "Ilman toimenpiteitä maaperän heikkeneminen voi jatkua."
-            ],
-
-            [
-                "Luonnonsuojelu voi olla yhteensopivaa kestävän taloudellisen toiminnan ja luontomatkailun kanssa.",
-                "Säännelty käyttö voi tuottaa taloudellisia resursseja samalla kun ekologiset rajat säilytetään.",
-                "Taloudellinen laajentuminen voi lisätä tuloja, mutta myös ekosysteemeihin kohdistuvaa painetta.",
-                "Yhteisön tarpeiden huomiotta jättäminen voi lisätä sosiaalisia ristiriitoja."
-            ],
-
-            [
-                "Vanhojen metsäelinympäristöjen suojeleminen voi hyödyttää lajeja, jotka ovat riippuvaisia monimuotoisista metsäympäristöistä.",
-                "Valikoiva metsänhoito voi olla yhteensopivaa suojelun kanssa, jos tärkeimmät elinympäristöt jätetään koskemattomiksi.",
-                "Elinympäristöjen häviäminen voi nopeuttaa lajin vähenemistä.",
-                "Seuranta ilman toimenpiteitä ei suoraan muuta elinympäristöön kohdistuvia paineita."
-            ],
-
-            [
-                "Yhdistetty strategia voi pyrkiä säilyttämään samanaikaisesti ekologiset toiminnot ja yhteiskunnalliset hyödyt.",
-                "Hallittu metsänhoito voi yhdistää joitakin taloudellisia käyttötarkoituksia luonnonsuojelun tavoitteisiin.",
-                "Voimakas maankäytön muutos voi lisätä joitakin lyhyen aikavälin taloudellisia hyötyjä, mutta vähentää useita ekosysteemin toimintoja.",
-                "Strategian puuttuminen voi jättää olemassa olevat paineet ratkaisematta."
-            ]
-
-        ]
-
-    }
-
-};
-
-
-/* =========================================================
-   TURNI DEL GIOCO
-========================================================= */
-
-const turni = [
-
-    {
-        scenario: {
-            it: "SITUAZIONE 1 — PROTEZIONE",
-            en: "SITUATION 1 — PROTECTION",
-            fi: "TILANNE 1 — SUOJELU"
-        },
-
-        titolo: {
-            it: "Il futuro della foresta",
-            en: "The future of the forest",
-            fi: "Metsän tulevaisuus"
-        },
-
-        testo: {
-            it: "Una parte della foresta ospita specie rare. La pressione economica sul territorio sta aumentando. Devi decidere come intervenire.",
-            en: "Part of the forest is home to rare species. Economic pressure on the area is increasing. You must decide how to intervene.",
-            fi: "Osa metsästä on harvinaisten lajien elinympäristö. Alueeseen kohdistuva taloudellinen paine kasvaa. Sinun on päätettävä, miten toimit."
-        },
-
-        effetti: [
-            [8, 2, 4, -5],
-            [2, 3, -1, 5],
-            [-8, -4, -6, 7],
-            [-2, 0, -1, 2]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 2 — ACQUA",
-            en: "SITUATION 2 — WATER",
-            fi: "TILANNE 2 — VESI"
-        },
-
-        titolo: {
-            it: "Una stagione molto secca",
-            en: "A very dry season",
-            fi: "Erittäin kuiva kausi"
-        },
-
-        testo: {
-            it: "Le precipitazioni sono diminuite per il secondo anno consecutivo. I corsi d'acqua della foresta mostrano portate inferiori alla media.",
-            en: "Rainfall has decreased for the second consecutive year. The forest's streams are showing below-average water levels.",
-            fi: "Sademäärä on vähentynyt jo toista vuotta peräkkäin. Metsän vesistöjen virtaamat ovat keskimääräistä pienempiä."
-        },
-
-        effetti: [
-            [5, 8, 4, -3],
-            [2, 3, 1, 3],
-            [-3, -8, -5, 6],
-            [0, -2, 0, 0]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 3 — SPECIE INVASIVA",
-            en: "SITUATION 3 — INVASIVE SPECIES",
-            fi: "TILANNE 3 — VIERASLAJI"
-        },
-
-        titolo: {
-            it: "Una nuova specie compare",
-            en: "A new species appears",
-            fi: "Uusi laji ilmestyy"
-        },
-
-        testo: {
-            it: "Una specie vegetale non originaria della zona si sta espandendo rapidamente lungo il margine della foresta.",
-            en: "A plant species that is not native to the area is rapidly spreading along the edge of the forest.",
-            fi: "Alueelle vieras kasvilaji leviää nopeasti metsän reunalla."
-        },
-
-        effetti: [
-            [7, 2, 4, -3],
-            [3, 0, 2, 2],
-            [-5, -2, -4, 3],
-            [-4, -1, -3, 0]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 4 — INCENDI",
-            en: "SITUATION 4 — WILDFIRES",
-            fi: "TILANNE 4 — METSÄPALOT"
-        },
-
-        titolo: {
-            it: "Aumenta il rischio di incendio",
-            en: "The wildfire risk increases",
-            fi: "Metsäpalojen riski kasvaa"
-        },
-
-        testo: {
-            it: "Temperature elevate e vegetazione secca stanno aumentando il rischio di incendi estesi durante l'estate.",
-            en: "High temperatures and dry vegetation are increasing the risk of large wildfires during the summer.",
-            fi: "Korkeat lämpötilat ja kuiva kasvillisuus lisäävät laajojen metsäpalojen riskiä kesällä."
-        },
-
-        effetti: [
-            [6, 5, 5, 2],
-            [4, 2, 3, 3],
-            [-4, -5, -4, 4],
-            [-3, -3, -2, 0]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 5 — SUOLO",
-            en: "SITUATION 5 — SOIL",
-            fi: "TILANNE 5 — MAAPERÄ"
-        },
-
-        titolo: {
-            it: "Erosione del terreno",
-            en: "Soil erosion",
-            fi: "Maaperän eroosio"
-        },
-
-        testo: {
-            it: "Dopo forti piogge, alcuni versanti mostrano segni di erosione. Il terreno fertile sta diminuendo.",
-            en: "After heavy rainfall, some slopes show signs of erosion. Fertile soil is decreasing.",
-            fi: "Voimakkaiden sateiden jälkeen joillakin rinteillä näkyy eroosion merkkejä. Hedelmällinen maaperä vähenee."
-        },
-
-        effetti: [
-            [5, 4, 9, 1],
-            [2, 1, 4, 3],
-            [-5, -2, -8, 5],
-            [-2, -1, -2, 0]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 6 — ECONOMIA LOCALE",
-            en: "SITUATION 6 — LOCAL ECONOMY",
-            fi: "TILANNE 6 — PAIKALLINEN TALOUS"
-        },
-
-        titolo: {
-            it: "La comunità chiede lavoro",
-            en: "The community needs jobs",
-            fi: "Yhteisö tarvitsee työpaikkoja"
-        },
-
-        testo: {
-            it: "Una parte della popolazione locale dipende economicamente dalle risorse della foresta.",
-            en: "Part of the local population depends economically on the forest's resources.",
-            fi: "Osa paikallisesta väestöstä on taloudellisesti riippuvainen metsän luonnonvaroista."
-        },
-
-        effetti: [
-            [3, 1, 2, 5],
-            [2, 1, 1, 7],
-            [-5, -2, -4, 8],
-            [-1, 0, 0, -5]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 7 — BIODIVERSITÀ",
-            en: "SITUATION 7 — BIODIVERSITY",
-            fi: "TILANNE 7 — LUONNON MONIMUOTOISUUS"
-        },
-
-        titolo: {
-            it: "Una specie è in forte calo",
-            en: "A species is declining rapidly",
-            fi: "Lajin kanta vähenee nopeasti"
-        },
-
-        testo: {
-            it: "I monitoraggi mostrano un forte calo di una specie animale che dipende dalla foresta matura.",
-            en: "Monitoring shows a sharp decline in an animal species that depends on mature forest.",
-            fi: "Seuranta osoittaa, että vanhasta metsästä riippuvaisen eläinlajin kanta on vähentynyt voimakkaasti."
-        },
-
-        effetti: [
-            [9, 2, 4, -3],
-            [4, 1, 2, 2],
-            [-7, -3, -6, 5],
-            [-3, 0, -2, -1]
-        ]
-    },
-
-    {
-        scenario: {
-            it: "SITUAZIONE 8 — DECISIONE FINALE",
-            en: "SITUATION 8 — FINAL DECISION",
-            fi: "TILANNE 8 — LOPULLINEN PÄÄTÖS"
-        },
-
-        titolo: {
-            it: "Il piano per i prossimi anni",
-            en: "The plan for the coming years",
-            fi: "Suunnitelma tuleville vuosille"
-        },
-
-        testo: {
-            it: "Devi scegliere la strategia generale per il futuro della foresta.",
-            en: "You must choose the overall strategy for the future of the forest.",
-            fi: "Sinun on valittava metsän tulevaisuuden yleinen strategia."
-        },
-
-        effetti: [
-            [7, 5, 6, 4],
-            [4, 3, 3, 5],
-            [-7, -5, -7, 7],
-            [-3, -2, -2, -3]
-        ]
-    }
-
-];
-
-
-/* =========================================================
-   VARIABILI
-========================================================= */
-
-let turno = 0;
-
-let biodiversita = 70;
-let acqua = 70;
-let suolo = 70;
-let comunita = 70;
-
-let rispostaData = false;
-
-/*
-   Evita di assegnare due volte
-   i GP della stessa partita.
-*/
-
-let greenPointsAssegnati = false;
+        }
 
 
-/* =========================================================
-   FUNZIONI PRINCIPALI
-========================================================= */
+        /* =====================================================
+           SCELTA
+        ===================================================== */
 
-function limita(valore) {
+        function scegli(opzione) {
 
-    return Math.max(0, Math.min(100, valore));
+            if (rispostaData) {
+                return;
+            }
 
-}
+            rispostaData = true;
 
+            const t = turni[turno];
 
-function aggiornaStatistiche() {
+            const effetti =
+                t.effetti[opzione];
 
-    document.getElementById("biodiversita").innerText =
-        biodiversita;
 
-    document.getElementById("acqua").innerText =
-        acqua;
+            biodiversita =
+                limita(
+                    biodiversita + effetti[0]
+                );
 
-    document.getElementById("suolo").innerText =
-        suolo;
+            acqua =
+                limita(
+                    acqua + effetti[1]
+                );
 
-    document.getElementById("comunita").innerText =
-        comunita;
+            suolo =
+                limita(
+                    suolo + effetti[2]
+                );
 
+            comunita =
+                limita(
+                    comunita + effetti[3]
+                );
 
-    document.getElementById("barraBiodiversita").style.width =
-        biodiversita + "%";
 
-    document.getElementById("barraAcqua").style.width =
-        acqua + "%";
+            aggiornaStatistiche();
 
-    document.getElementById("barraSuolo").style.width =
-        suolo + "%";
 
-    document.getElementById("barraComunita").style.width =
-        comunita + "%";
+            document.getElementById("feedback").innerText =
+                testi[lingua].decisioneRegistrata;
 
-}
+            document.getElementById("feedback").style.color =
+                "#81c784";
 
 
-function mostraTurno() {
+            document.getElementById("spiegazione").innerText =
+                "🔬 " +
+                testi[lingua].spiegazioni[turno][opzione];
 
-    rispostaData = false;
+            document.getElementById("spiegazione").style.display =
+                "block";
 
-    const t = turni[turno];
 
-    document.getElementById("numeroTurno").innerText =
-        turno + 1;
+            document.getElementById("continua").innerText =
+                testi[lingua].continua;
 
-    document.getElementById("scenario").innerText =
-        t.scenario[lingua];
+            document.getElementById("continua").style.display =
+                "inline-block";
 
-    document.getElementById("titolo").innerText =
-        t.titolo[lingua];
 
-    document.getElementById("testo").innerText =
-        t.testo[lingua];
+            for (let i = 0; i < 4; i++) {
 
-    document.getElementById("feedback").innerText =
-        "";
+                document.getElementById(
+                    "opzione" + i
+                ).disabled = true;
 
-    document.getElementById("spiegazione").style.display =
-        "none";
+            }
 
-    document.getElementById("continua").style.display =
-        "none";
+        }
 
 
-    for (let i = 0; i < 4; i++) {
+        /* =====================================================
+           PROSSIMO TURNO
+        ===================================================== */
 
-        document.getElementById("opzione" + i + "Titolo").innerText =
-            testi[lingua].opzioni[i].titolo;
+        function prossimoTurno() {
 
-        document.getElementById("opzione" + i + "Testo").innerText =
-            testi[lingua].opzioni[i].testo;
+            turno++;
 
-        document.getElementById("opzione" + i).disabled =
-            false;
+            if (turno < turni.length) {
 
-    }
+                mostraTurno();
 
-}
+            } else {
 
+                fine();
 
-function scegli(opzione) {
+            }
 
-    if (rispostaData) {
-        return;
-    }
+        }
 
-    rispostaData = true;
 
-    const t = turni[turno];
+        /* =====================================================
+           CALCOLO PUNTEGGIO
+        ===================================================== */
 
-    const effetti = t.effetti[opzione];
+        function calcolaPunteggio() {
 
+            return Math.round(
+                (
+                    biodiversita +
+                    acqua +
+                    suolo +
+                    comunita
+                ) / 4
+            );
 
-    biodiversita =
-        limita(biodiversita + effetti[0]);
+        }
 
-    acqua =
-        limita(acqua + effetti[1]);
 
-    suolo =
-        limita(suolo + effetti[2]);
+        /* =====================================================
+           CALCOLO GREEN POINTS
+        ===================================================== */
 
-    comunita =
-        limita(comunita + effetti[3]);
+        function calcolaGreenPoints(punteggio) {
 
+            if (punteggio >= 95) {
 
-    aggiornaStatistiche();
+                return 90;
 
+            }
 
-    document.getElementById("feedback").innerText =
-        testi[lingua].decisioneRegistrata;
+            if (punteggio >= 90) {
 
-    document.getElementById("feedback").style.color =
-        "#81c784";
+                return 70;
 
+            }
 
-    document.getElementById("spiegazione").innerText =
-        "🔬 " + testi[lingua].spiegazioni[turno][opzione];
+            return 50;
 
-    document.getElementById("spiegazione").style.display =
-        "block";
+        }
 
 
-    document.getElementById("continua").innerText =
-        testi[lingua].continua;
+        /* =====================================================
+           ASSEGNA GREEN POINTS
+        ===================================================== */
 
-    document.getElementById("continua").style.display =
-        "inline-block";
+        async function assegnaGreenPoints(punteggio) {
 
+            if (greenPointsAssegnati) {
 
-    for (let i = 0; i < 4; i++) {
+                return;
 
-        document.getElementById("opzione" + i).disabled =
-            true;
+            }
 
-    }
 
-}
+            greenPointsAssegnati = true;
 
 
-function prossimoTurno() {
+            const greenPoints =
+                calcolaGreenPoints(punteggio);
 
-    turno++;
 
-    if (turno < turni.length) {
+            /*
+             * IMPORTANTE:
+             *
+             * Usiamo la funzione comune
+             * anti-doppio accredito.
+             *
+             * Il gameId è fisso per questo gioco:
+             *
+             * "salva-foresta"
+             */
 
-        mostraTurno();
+            const risultato =
+                await accreditaGreenPointsUnaVolta(
+                    "salva-foresta",
+                    greenPoints
+                );
 
-    } else {
 
-        fine();
+            const elemento =
+                document.getElementById(
+                    "greenPointsGuadagnati"
+                );
 
-    }
 
-}
+            if (
+                risultato &&
+                risultato.success
+            ) {
 
+                elemento.innerText =
+                    risultato.pointsAdded;
 
-function calcolaPunteggio() {
+                document.getElementById(
+                    "greenPointsMessaggio"
+                ).innerText =
+                    testi[lingua].greenPointsMessaggio;
 
-    return Math.round(
-        (
-            biodiversita +
-            acqua +
-            suolo +
-            comunita
-        ) / 4
-    );
 
-}
+                console.log(
+                    "🌱 Salva la Foresta - GP aggiunti:",
+                    risultato.pointsAdded
+                );
 
 
-/* =========================================================
-   GREEN POINTS
-========================================================= */
+                console.log(
+                    "🌱 Salva la Foresta - GP totali:",
+                    risultato.totalPoints
+                );
 
-async function assegnaGreenPoints(punteggio) {
+            } else {
 
-    /*
-       SISTEMA GREEN POINTS FOREST
+                /*
+                 * Se è già stato accreditato durante
+                 * questa sessione, mostriamo comunque
+                 * 0 per evitare di conteggiarlo nuovamente.
+                 */
 
-       50 GP BASE:
-       vengono dati sempre per aver completato
-       una partita.
+                elemento.innerText =
+                    "0";
 
-       PUNTEGGIO < 90:
-       50 GP totali.
 
-       PUNTEGGIO 90-94:
-       50 GP base + 20 GP bonus
-       = 70 GP totali.
+                document.getElementById(
+                    "greenPointsMessaggio"
+                ).innerText =
+                    testi[lingua].greenPointsErrore;
 
-       PUNTEGGIO 95-100:
-       50 GP base + 40 GP bonus
-       = 90 GP totali.
-    */
 
-    if (greenPointsAssegnati) {
-        return;
-    }
+                console.error(
+                    "EcoGame - Errore accredito GP:",
+                    risultato
+                );
 
-    greenPointsAssegnati = true;
+            }
 
+        }
 
-    let greenPoints = 50;
 
+        /* =====================================================
+           FINE GIOCO
+        ===================================================== */
 
-    /*
-       Da 95 a 100:
-       +40 GP bonus
-       oltre ai 50 GP base.
-    */
+        function fine() {
 
-    if (punteggio >= 95) {
+            document.getElementById("gioco").style.display =
+                "none";
 
-        greenPoints = 90;
+            document.getElementById("fine").style.display =
+                "block";
 
-    }
 
-    /*
-       Da 90 a 94:
-       +20 GP bonus
-       oltre ai 50 GP base.
-    */
+            const punteggio =
+                calcolaPunteggio();
 
-    else if (punteggio >= 90) {
 
-        greenPoints = 70;
+            document.getElementById(
+                "punteggioFinale"
+            ).innerText =
+                punteggio +
+                testi[lingua].punti;
 
-    }
 
-    /*
-       Sotto 90:
-       solo i 50 GP base.
-    */
+            document.getElementById(
+                "finaleBiodiversita"
+            ).innerText =
+                biodiversita +
+                testi[lingua].punti;
 
-    else {
+            document.getElementById(
+                "finaleAcqua"
+            ).innerText =
+                acqua +
+                testi[lingua].punti;
 
-        greenPoints = 50;
+            document.getElementById(
+                "finaleSuolo"
+            ).innerText =
+                suolo +
+                testi[lingua].punti;
 
-    }
+            document.getElementById(
+                "finaleComunita"
+            ).innerText =
+                comunita +
+                testi[lingua].punti;
 
 
-    /*
-       Salva i GP nel profilo.
-    */
+            let messaggio = "";
 
-    const risultato =
-        await aggiungiGreenPoints(greenPoints);
 
+            if (punteggio >= 85) {
 
-    if (risultato && risultato.success) {
+                messaggio =
+                    testi[lingua].messaggi.eccellente;
 
-        document.getElementById(
-            "greenPointsGuadagnati"
-        ).innerText =
-            risultato.pointsAdded;
+            } else if (punteggio >= 70) {
 
-        console.log(
-            "🌱 Green Points ottenuti:",
-            risultato.pointsAdded
-        );
+                messaggio =
+                    testi[lingua].messaggi.buona;
 
-        console.log(
-            "🌱 Totale Green Points:",
-            risultato.totalPoints
-        );
+            } else if (punteggio >= 50) {
 
-    } else {
+                messaggio =
+                    testi[lingua].messaggi.fragile;
 
-        /*
-           In caso di errore o utente non autenticato,
-           non blocchiamo il gioco.
-        */
+            } else {
 
-        document.getElementById(
-            "greenPointsGuadagnati"
-        ).innerText =
-            "0";
+                messaggio =
+                    testi[lingua].messaggi.difficolta;
 
-        console.error(
-            "Impossibile assegnare i Green Points:",
-            risultato
-        );
+            }
 
-    }
 
-}
+            document.getElementById(
+                "messaggioFinale"
+            ).innerText =
+                messaggio;
 
 
-/* =========================================================
-   FINE GIOCO
-========================================================= */
+            /*
+             * Assegniamo i GP.
+             *
+             * La funzione comune impedisce
+             * un secondo accredito per
+             * "salva-foresta" nella stessa sessione.
+             */
 
-function fine() {
+            assegnaGreenPoints(
+                punteggio
+            );
 
-    document.getElementById("gioco").style.display =
-        "none";
+        }
 
-    document.getElementById("fine").style.display =
-        "block";
 
+        /* =====================================================
+           RICOMINCIA
+        ===================================================== */
 
-    const punteggio =
-        calcolaPunteggio();
+        function ricomincia() {
 
+            turno = 0;
 
-    document.getElementById("punteggioFinale").innerText =
-        punteggio + testi[lingua].punti;
+            biodiversita = 70;
 
+            acqua = 70;
 
-    document.getElementById("finaleBiodiversita").innerText =
-        biodiversita + testi[lingua].punti;
+            suolo = 70;
 
-    document.getElementById("finaleAcqua").innerText =
-        acqua + testi[lingua].punti;
+            comunita = 70;
 
-    document.getElementById("finaleSuolo").innerText =
-        suolo + testi[lingua].punti;
+            rispostaData = false;
 
-    document.getElementById("finaleComunita").innerText =
-        comunita + testi[lingua].punti;
+            /*
+             * IMPORTANTE:
+             *
+             * NON resettiamo qui la chiave
+             * sessionStorage di:
+             *
+             * ecoGameGP_salva-foresta
+             *
+             * Questo impedisce di guadagnare
+             * nuovamente GP semplicemente
+             * premendo "Nuova gestione".
+             */
 
+            greenPointsAssegnati = false;
 
-    let messaggio = "";
 
+            document.getElementById(
+                "greenPointsGuadagnati"
+            ).innerText =
+                "0";
 
-    if (punteggio >= 85) {
 
-        messaggio =
-            testi[lingua].messaggi.eccellente;
+            document.getElementById(
+                "greenPointsMessaggio"
+            ).innerText =
+                testi[lingua].greenPointsMessaggio;
 
-    } else if (punteggio >= 70) {
 
-        messaggio =
-            testi[lingua].messaggi.buona;
+            document.getElementById("fine").style.display =
+                "none";
 
-    } else if (punteggio >= 50) {
+            document.getElementById("gioco").style.display =
+                "block";
 
-        messaggio =
-            testi[lingua].messaggi.fragile;
 
-    } else {
+            aggiornaStatistiche();
 
-        messaggio =
-            testi[lingua].messaggi.difficolta;
+            mostraTurno();
 
-    }
+        }
 
 
-    document.getElementById("messaggioFinale").innerText =
-        messaggio;
+        /* =====================================================
+           TORNA AI GIOCHI
+        ===================================================== */
 
+        function tornaGiochi() {
 
-    /*
-       ASSEGNA I GREEN POINTS
+            window.location.href =
+                "giochi.html";
 
-       Il punteggio viene trasformato
-       nelle fasce GP definite sopra:
+        }
 
-       < 90  -> 50 GP
-       90-94 -> 70 GP
-       95-100 -> 90 GP
-    */
 
-    assegnaGreenPoints(punteggio);
+        /* =====================================================
+           CAMBIO LINGUA
+        ===================================================== */
 
-}
+        function cambiaLingua(nuovaLingua) {
 
+            if (
+                nuovaLingua !== "it" &&
+                nuovaLingua !== "en" &&
+                nuovaLingua !== "fi"
+            ) {
 
-/* =========================================================
-   RICOMINCIA
-========================================================= */
+                nuovaLingua = "it";
 
-function ricomincia() {
+            }
 
-    turno = 0;
 
-    biodiversita = 70;
-    acqua = 70;
-    suolo = 70;
-    comunita = 70;
+            lingua =
+                nuovaLingua;
 
-    rispostaData = false;
 
-    /*
-       Una nuova partita può ottenere
-       una nuova ricompensa GP.
-    */
+            /*
+             * Usiamo anche il sistema comune EcoGame.
+             */
 
-    greenPointsAssegnati = false;
+            if (
+                typeof salvaLingua === "function"
+            ) {
 
+                salvaLingua(
+                    nuovaLingua
+                );
 
-    document.getElementById(
-        "greenPointsGuadagnati"
-    ).innerText =
-        "0";
+            } else {
 
+                localStorage.setItem(
+                    "ecoGameLingua",
+                    nuovaLingua
+                );
 
-    document.getElementById("fine").style.display =
-        "none";
+            }
 
-    document.getElementById("gioco").style.display =
-        "block";
 
+            document.documentElement.lang =
+                nuovaLingua;
 
-    aggiornaStatistiche();
 
-    mostraTurno();
+            document.getElementById(
+                "testoTurno"
+            ).innerText =
+                testi[lingua].turno;
 
-}
 
+            document.getElementById(
+                "titoloPagina"
+            ).innerText =
+                testi[lingua].titoloPagina;
 
-/* =========================================================
-   TORNA AI GIOCHI
-========================================================= */
 
-function tornaGiochi() {
+            document.getElementById(
+                "sottotitoloPagina"
+            ).innerText =
+                testi[lingua].sottotitoloPagina;
 
-    window.location.href =
-        "giochi.html";
 
-}
+            document.getElementById(
+                "statBiodiversita"
+            ).innerText =
+                "🌿 " +
+                testi[lingua].biodiversita;
 
 
-/* =========================================================
-   CAMBIO LINGUA
-========================================================= */
+            document.getElementById(
+                "statAcqua"
+            ).innerText =
+                "💧 " +
+                testi[lingua].acqua;
 
-function cambiaLingua(nuovaLingua) {
 
-    if (
-        nuovaLingua !== "it" &&
-        nuovaLingua !== "en" &&
-        nuovaLingua !== "fi"
-    ) {
-        nuovaLingua = "it";
-    }
+            document.getElementById(
+                "statSuolo"
+            ).innerText =
+                "🌱 " +
+                testi[lingua].suolo;
 
 
-    lingua = nuovaLingua;
+            document.getElementById(
+                "statComunita"
+            ).innerText =
+                "👥 " +
+                testi[lingua].comunita;
 
-    localStorage.setItem(
-        "ecoGameLingua",
-        lingua
-    );
 
+            document.getElementById(
+                "finaleLabelBiodiversita"
+            ).innerText =
+                testi[lingua].biodiversita;
 
-    document.documentElement.lang =
-        nuovaLingua;
 
+            document.getElementById(
+                "finaleLabelAcqua"
+            ).innerText =
+                testi[lingua].acqua;
 
-    document.getElementById("testoTurno").innerText =
-        testi[lingua].turno;
 
+            document.getElementById(
+                "finaleLabelSuolo"
+            ).innerText =
+                testi[lingua].suolo;
 
-    document.getElementById("titoloPagina").innerText =
-        testi[lingua].titoloPagina;
 
-    document.getElementById("sottotitoloPagina").innerText =
-        testi[lingua].sottotitoloPagina;
+            document.getElementById(
+                "finaleLabelComunita"
+            ).innerText =
+                testi[lingua].comunita;
 
 
-    document.getElementById("statBiodiversita").innerText =
-        "🌿 " + testi[lingua].biodiversita;
+            document.getElementById(
+                "titoloFine"
+            ).innerText =
+                testi[lingua].gestioneCompletata;
 
-    document.getElementById("statAcqua").innerText =
-        "💧 " + testi[lingua].acqua;
 
-    document.getElementById("statSuolo").innerText =
-        "🌱 " + testi[lingua].suolo;
+            document.getElementById(
+                "nuovaGestione"
+            ).innerText =
+                testi[lingua].nuovaGestione;
 
-    document.getElementById("statComunita").innerText =
-        "👥 " + testi[lingua].comunita;
 
+            document.getElementById(
+                "tornaGiochi"
+            ).innerText =
+                testi[lingua].tornaGiochi;
 
-    document.getElementById("finaleLabelBiodiversita").innerText =
-        testi[lingua].biodiversita;
 
-    document.getElementById("finaleLabelAcqua").innerText =
-        testi[lingua].acqua;
+            document.getElementById(
+                "greenPointsMessaggio"
+            ).innerText =
+                testi[lingua].greenPointsMessaggio;
 
-    document.getElementById("finaleLabelSuolo").innerText =
-        testi[lingua].suolo;
 
-    document.getElementById("finaleLabelComunita").innerText =
-        testi[lingua].comunita;
+            document.getElementById(
+                "btnIT"
+            ).classList.remove("attiva");
 
+            document.getElementById(
+                "btnEN"
+            ).classList.remove("attiva");
 
-    document.getElementById("titoloFine").innerText =
-        testi[lingua].gestioneCompletata;
+            document.getElementById(
+                "btnFI"
+            ).classList.remove("attiva");
 
-    document.getElementById("nuovaGestione").innerText =
-        testi[lingua].nuovaGestione;
 
-    document.getElementById("tornaGiochi").innerText =
-        testi[lingua].tornaGiochi;
+            document.getElementById(
+                "btn" +
+                nuovaLingua.toUpperCase()
+            ).classList.add("attiva");
 
 
-    document.getElementById("greenPointsMessaggio").innerText =
-        testi[lingua].greenPointsMessaggio;
+            if (turno < turni.length) {
 
+                mostraTurno();
 
-    document.getElementById("btnIT").classList.remove("attiva");
-    document.getElementById("btnEN").classList.remove("attiva");
-    document.getElementById("btnFI").classList.remove("attiva");
+            } else {
 
+                /*
+                 * Non richiamiamo fine()
+                 * durante il cambio lingua,
+                 * perché fine() tenta di
+                 * assegnare nuovamente i GP.
+                 */
 
-    document.getElementById(
-        "btn" + nuovaLingua.toUpperCase()
-    ).classList.add("attiva");
+                aggiornaSchermataFinale();
 
+            }
 
-    if (turno < turni.length) {
+        }
 
-        mostraTurno();
 
-    } else {
+        /* =====================================================
+           AGGIORNA SCHERMATA FINALE
+        ===================================================== */
 
-        fine();
+        function aggiornaSchermataFinale() {
 
-    }
+            const punteggio =
+                calcolaPunteggio();
 
-}
 
+            document.getElementById(
+                "punteggioFinale"
+            ).innerText =
+                punteggio +
+                testi[lingua].punti;
 
-/* =========================================================
-   AVVIO
-========================================================= */
 
-aggiornaStatistiche();
+            document.getElementById(
+                "finaleBiodiversita"
+            ).innerText =
+                biodiversita +
+                testi[lingua].punti;
 
-cambiaLingua(lingua);
 
-</script>
+            document.getElementById(
+                "finaleAcqua"
+            ).innerText =
+                acqua +
+                testi[lingua].punti;
+
+
+            document.getElementById(
+                "finaleSuolo"
+            ).innerText =
+                suolo +
+                testi[lingua].punti;
+
+
+            document.getElementById(
+                "finaleComunita"
+            ).innerText =
+                comunita +
+                testi[lingua].punti;
+
+
+            let messaggio = "";
+
+
+            if (punteggio >= 85) {
+
+                messaggio =
+                    testi[lingua].messaggi.eccellente;
+
+            } else if (punteggio >= 70) {
+
+                messaggio =
+                    testi[lingua].messaggi.buona;
+
+            } else if (punteggio >= 50) {
+
+                messaggio =
+                    testi[lingua].messaggi.fragile;
+
+            } else {
+
+                messaggio =
+                    testi[lingua].messaggi.difficolta;
+
+            }
+
+
+            document.getElementById(
+                "messaggioFinale"
+            ).innerText =
+                messaggio;
+
+
+            document.getElementById(
+                "titoloFine"
+            ).innerText =
+                testi[lingua].gestioneCompletata;
+
+
+            document.getElementById(
+                "nuovaGestione"
+            ).innerText =
+                testi[lingua].nuovaGestione;
+
+
+            document.getElementById(
+                "tornaGiochi"
+            ).innerText =
+                testi[lingua].tornaGiochi;
+
+
+            document.getElementById(
+                "greenPointsMessaggio"
+            ).innerText =
+                testi[lingua].greenPointsMessaggio;
+
+        }
+
+
+        /* =====================================================
+           AVVIO
+        ===================================================== */
+
+        aggiornaStatistiche();
+
+        cambiaLingua(lingua);
+
+    </script>
 
 </body>
 
