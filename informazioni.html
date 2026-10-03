@@ -1354,7 +1354,6 @@ function toggle(id) {
     if (!contenuto) return;
 
     contenuto.classList.toggle("aperto");
-
 }
 
 
@@ -1374,7 +1373,6 @@ function apriSezione(id) {
         behavior: "smooth",
         block: "start"
     });
-
 }
 
 
@@ -2843,44 +2841,74 @@ const traduzioni = {
 
 
 /* =====================================================
-   SISTEMA CAMBIO LINGUA
+   LINGUA ATTUALE
 ===================================================== */
+
+/*
+   IMPORTANTE:
+   La lingua iniziale viene letta dalla stessa memoria
+   usata dalla Home e dagli altri giochi.
+*/
 
 let linguaAttuale = "it";
 
 
+/* =====================================================
+   AGGIORNA INTERFACCIA
+===================================================== */
+
 function aggiornaInterfacciaLingua() {
 
-    document.querySelectorAll("[data-i18n]").forEach(elemento => {
+    const lingua =
+        traduzioni[linguaAttuale]
+            ? linguaAttuale
+            : "it";
 
-        const chiave = elemento.dataset.i18n;
+    linguaAttuale = lingua;
 
-        if (
-            traduzioni[linguaAttuale] &&
-            traduzioni[linguaAttuale][chiave]
-        ) {
 
-            elemento.textContent =
+    /* ---------------------------------------------
+       TESTI CON data-i18n
+    --------------------------------------------- */
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(elemento => {
+
+            const chiave =
+                elemento.dataset.i18n;
+
+            const testo =
                 traduzioni[linguaAttuale][chiave];
 
-        }
+            if (testo !== undefined) {
 
-    });
+                elemento.textContent = testo;
+
+            }
+
+        });
 
 
-    /* Aggiorna il titolo della pagina */
+    /* ---------------------------------------------
+       TITOLO DELLA PAGINA
+    --------------------------------------------- */
 
     document.title =
         traduzioni[linguaAttuale].pageTitle;
 
 
-    /* Aggiorna lang dell'HTML */
+    /* ---------------------------------------------
+       LINGUA HTML
+    --------------------------------------------- */
 
     document.documentElement.lang =
         linguaAttuale;
 
 
-    /* Aggiorna pulsante attivo */
+    /* ---------------------------------------------
+       AGGIORNA I PULSANTI LINGUA
+    --------------------------------------------- */
 
     document
         .querySelectorAll(".lingue button")
@@ -2896,6 +2924,7 @@ function aggiornaInterfacciaLingua() {
             linguaAttuale + "Btn"
         );
 
+
     if (pulsanteAttivo) {
 
         pulsanteAttivo.classList.add("attiva");
@@ -2905,26 +2934,43 @@ function aggiornaInterfacciaLingua() {
 }
 
 
+/* =====================================================
+   CAMBIO LINGUA
+===================================================== */
+
 function cambiaLingua(lingua) {
 
+    /*
+       Controlla che la lingua esista.
+    */
+
     if (!traduzioni[lingua]) {
+
         return;
+
     }
+
+
+    /*
+       Cambia immediatamente la lingua.
+    */
 
     linguaAttuale = lingua;
 
 
     /*
-       Salva la lingua scelta.
-       In questo modo rimane anche dopo
-       il caricamento della pagina.
+       Salva la lingua.
+
+       QUESTA È LA PARTE IMPORTANTE:
+       Home, giochi e questa pagina devono usare
+       tutti la stessa chiave "ecogameLingua".
     */
 
     try {
 
         localStorage.setItem(
             "ecogameLingua",
-            lingua
+            linguaAttuale
         );
 
     } catch (errore) {
@@ -2937,18 +2983,23 @@ function cambiaLingua(lingua) {
     }
 
 
+    /*
+       Aggiorna subito la pagina.
+    */
+
     aggiornaInterfacciaLingua();
 
 }
 
 
 /* =====================================================
-   CARICAMENTO DELLA LINGUA SALVATA
+   CARICA LA LINGUA SALVATA
 ===================================================== */
 
 function caricaLingua() {
 
     let linguaSalvata = "it";
+
 
     try {
 
@@ -2956,6 +3007,13 @@ function caricaLingua() {
             localStorage.getItem(
                 "ecogameLingua"
             );
+
+
+        /*
+           Se la Home ha già salvato una lingua
+           e quella lingua esiste nelle traduzioni,
+           utilizziamo quella.
+        */
 
         if (
             salvata &&
@@ -2976,9 +3034,17 @@ function caricaLingua() {
     }
 
 
+    /*
+       Imposta la lingua trovata.
+    */
+
     linguaAttuale =
         linguaSalvata;
 
+
+    /*
+       Aggiorna tutta l'interfaccia.
+    */
 
     aggiornaInterfacciaLingua();
 
@@ -2986,19 +3052,51 @@ function caricaLingua() {
 
 
 /* =====================================================
-   APRE AUTOMATICAMENTE LA PRIMA SEZIONE
+   APERTURA AUTOMATICA PRIMA SEZIONE
 ===================================================== */
 
-document
-    .querySelector("#uso .contenuto")
-    .classList.add("aperto");
+function apriPrimaSezione() {
+
+    const primaSezione =
+        document.querySelector(
+            "#uso .contenuto"
+        );
+
+
+    if (primaSezione) {
+
+        primaSezione.classList.add(
+            "aperto"
+        );
+
+    }
+
+}
 
 
 /* =====================================================
-   AVVIO
+   AVVIO PAGINA
 ===================================================== */
 
-caricaLingua();
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        /*
+           Prima carichiamo la lingua salvata.
+        */
+
+        caricaLingua();
+
+
+        /*
+           Poi apriamo la prima sezione.
+        */
+
+        apriPrimaSezione();
+
+    }
+);
 
 </script>
 
