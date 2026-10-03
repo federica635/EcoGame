@@ -317,9 +317,7 @@ header {
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -360,9 +358,7 @@ header {
 
 </header>
 
-
 <div class="container">
-
 
     <div class="intro">
 
@@ -377,9 +373,7 @@ header {
 
     </div>
 
-
     <div class="statistiche">
-
 
         <div class="stat">
 
@@ -397,7 +391,6 @@ header {
 
         </div>
 
-
         <div class="stat">
 
             <div class="titolo" id="statAcqua">
@@ -413,7 +406,6 @@ header {
             </div>
 
         </div>
-
 
         <div class="stat">
 
@@ -431,7 +423,6 @@ header {
 
         </div>
 
-
         <div class="stat">
 
             <div class="titolo" id="statComunita">
@@ -448,22 +439,17 @@ header {
 
         </div>
 
-
     </div>
 
-
     <div class="card" id="gioco">
-
 
         <div class="scenario" id="scenario">
             SITUAZIONE 1 — PROTEZIONE
         </div>
 
-
         <h2 id="titolo">
             Il futuro della foresta
         </h2>
-
 
         <div class="testo" id="testo">
             Una parte della foresta ospita specie rare.
@@ -471,9 +457,7 @@ header {
             Devi decidere come intervenire.
         </div>
 
-
         <div class="opzioni">
-
 
             <button class="opzione" id="opzione0" onclick="scegli(0)">
 
@@ -490,7 +474,6 @@ header {
 
             </button>
 
-
             <button class="opzione" id="opzione1" onclick="scegli(1)">
 
                 <strong id="opzione1Titolo">
@@ -505,7 +488,6 @@ header {
                 </span>
 
             </button>
-
 
             <button class="opzione" id="opzione2" onclick="scegli(2)">
 
@@ -522,7 +504,6 @@ header {
 
             </button>
 
-
             <button class="opzione" id="opzione3" onclick="scegli(3)">
 
                 <strong id="opzione3Titolo">
@@ -538,22 +519,17 @@ header {
 
             </button>
 
-
         </div>
-
 
         <div id="feedback"></div>
 
         <div id="spiegazione"></div>
 
-
         <button id="continua" onclick="prossimoTurno()">
             ➡️ Continua
         </button>
 
-
     </div>
-
 
     <div class="card" id="fine">
 
@@ -597,16 +573,13 @@ header {
 
         </div>
 
-
         <p id="messaggioFinale"></p>
-
 
         <button class="finalButton"
                 id="nuovaGestione"
                 onclick="ricomincia()">
             🔄 Nuova gestione
         </button>
-
 
         <button class="finalButton"
                 id="tornaGiochi"
@@ -616,20 +589,33 @@ header {
 
     </div>
 
-
 </div>
-
 
 <script>
 
-
 /* =========================================================
-   LINGUE
+   LINGUA CONDIVISA TRA TUTTI I GIOCHI
 ========================================================= */
 
+/*
+   La lingua viene salvata nel browser con localStorage.
 
-let lingua = "it";
+   Chiave utilizzata:
+   "ecoGameLingua"
 
+   In questo modo:
+   - se giochi.html salva "en"
+   - questo gioco apre direttamente in inglese
+   - se scegli "fi", tutti i giochi possono recuperare "fi"
+   - se non esiste ancora una lingua salvata, viene usato "it"
+*/
+
+let lingua = localStorage.getItem("ecoGameLingua") || "it";
+
+
+/* =========================================================
+   TESTI
+========================================================= */
 
 const testi = {
 
@@ -1023,7 +1009,6 @@ const testi = {
    TURNI DEL GIOCO
 ========================================================= */
 
-
 const turni = [
 
     {
@@ -1249,7 +1234,6 @@ const turni = [
    VARIABILI
 ========================================================= */
 
-
 let turno = 0;
 
 let biodiversita = 70;
@@ -1263,7 +1247,6 @@ let rispostaData = false;
 /* =========================================================
    FUNZIONI PRINCIPALI
 ========================================================= */
-
 
 function limita(valore) {
 
@@ -1522,6 +1505,10 @@ function ricomincia() {
 }
 
 
+/* =========================================================
+   TORNA AI GIOCHI
+========================================================= */
+
 function tornaGiochi() {
 
     window.location.href =
@@ -1534,10 +1521,31 @@ function tornaGiochi() {
    CAMBIO LINGUA
 ========================================================= */
 
-
 function cambiaLingua(nuovaLingua) {
 
+    /*
+       Salva immediatamente la lingua scelta.
+
+       Questo è il punto fondamentale:
+       tutti gli altri giochi che usano la stessa chiave
+       "ecoGameLingua" potranno recuperare la scelta.
+    */
+
+    if (
+        nuovaLingua !== "it" &&
+        nuovaLingua !== "en" &&
+        nuovaLingua !== "fi"
+    ) {
+        nuovaLingua = "it";
+    }
+
+
     lingua = nuovaLingua;
+
+    localStorage.setItem(
+        "ecoGameLingua",
+        lingua
+    );
 
 
     document.documentElement.lang =
@@ -1595,6 +1603,7 @@ function cambiaLingua(nuovaLingua) {
     document.getElementById("btnEN").classList.remove("attiva");
     document.getElementById("btnFI").classList.remove("attiva");
 
+
     document.getElementById(
         "btn" + nuovaLingua.toUpperCase()
     ).classList.add("attiva");
@@ -1617,13 +1626,21 @@ function cambiaLingua(nuovaLingua) {
    AVVIO
 ========================================================= */
 
+/*
+   NON usiamo più:
+
+       cambiaLingua("it");
+
+   perché avrebbe sempre rimesso l'italiano.
+
+   Usiamo invece la lingua già salvata nel browser.
+*/
 
 aggiornaStatistiche();
 
-cambiaLingua("it");
+cambiaLingua(lingua);
 
 </script>
-
 
 </body>
 
