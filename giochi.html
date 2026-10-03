@@ -855,15 +855,11 @@ function cambiaLingua() {
 
 
     /*
-       IMPORTANTE:
-       Usiamo lo stesso nome utilizzato dalla Home:
-       ecoGameLingua
+       Salva la lingua usando
+       il sistema comune di EcoGame.
     */
 
-    localStorage.setItem(
-        "ecoGameLingua",
-        lingua
-    );
+    salvaLingua(lingua);
 
 }
 
@@ -873,10 +869,6 @@ function cambiaLingua() {
    ===================================================== */
 
 function caricaLinguaSalvata() {
-
-    /*
-       Usa la stessa chiave della Home.
-    */
 
     const linguaSalvata =
         localStorage.getItem("ecoGameLingua") || "it";
@@ -890,11 +882,6 @@ function caricaLinguaSalvata() {
         return;
     }
 
-
-    /*
-       Controlliamo che la lingua salvata
-       sia effettivamente disponibile.
-    */
 
     if (
         Object.prototype.hasOwnProperty.call(
@@ -911,18 +898,10 @@ function caricaLinguaSalvata() {
         selettoreLingua.value =
             "it";
 
-        localStorage.setItem(
-            "ecoGameLingua",
-            "it"
-        );
+        salvaLingua("it");
 
     }
 
-
-    /*
-       Applichiamo immediatamente
-       la lingua salvata alla pagina.
-    */
 
     cambiaLingua();
 
@@ -943,6 +922,16 @@ document.addEventListener(
 );
 
 </script>
+
+
+<!-- =====================================================
+     SISTEMA COMUNE ECOGAME
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="ecogame.js"></script>
+
 
 </body>
 
