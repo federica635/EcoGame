@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -814,6 +813,10 @@ function cambiaLingua() {
     const selettore =
         document.getElementById("lingua");
 
+    if (!selettore) {
+        return;
+    }
+
     const lingua =
         selettore.value;
 
@@ -851,8 +854,14 @@ function cambiaLingua() {
         lingua;
 
 
+    /*
+       IMPORTANTE:
+       Usiamo lo stesso nome utilizzato dalla Home:
+       ecoGameLingua
+    */
+
     localStorage.setItem(
-        "linguaEcoGame",
+        "ecoGameLingua",
         lingua
     );
 
@@ -863,37 +872,78 @@ function cambiaLingua() {
    CARICA LA LINGUA SALVATA
    ===================================================== */
 
-const linguaSalvata =
-    localStorage.getItem("linguaEcoGame") || "it";
+function caricaLinguaSalvata() {
+
+    /*
+       Usa la stessa chiave della Home.
+    */
+
+    const linguaSalvata =
+        localStorage.getItem("ecoGameLingua") || "it";
 
 
-const selettoreLingua =
-    document.getElementById("lingua");
+    const selettoreLingua =
+        document.getElementById("lingua");
 
 
-if (
-    Object.prototype.hasOwnProperty.call(
-        traduzioni,
-        linguaSalvata
-    )
-) {
+    if (!selettoreLingua) {
+        return;
+    }
 
-    selettoreLingua.value =
-        linguaSalvata;
 
-} else {
+    /*
+       Controlliamo che la lingua salvata
+       sia effettivamente disponibile.
+    */
 
-    selettoreLingua.value =
-        "it";
+    if (
+        Object.prototype.hasOwnProperty.call(
+            traduzioni,
+            linguaSalvata
+        )
+    ) {
+
+        selettoreLingua.value =
+            linguaSalvata;
+
+    } else {
+
+        selettoreLingua.value =
+            "it";
+
+        localStorage.setItem(
+            "ecoGameLingua",
+            "it"
+        );
+
+    }
+
+
+    /*
+       Applichiamo immediatamente
+       la lingua salvata alla pagina.
+    */
+
+    cambiaLingua();
 
 }
 
 
-cambiaLingua();
+/* =====================================================
+   AVVIO
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        caricaLinguaSalvata();
+
+    }
+);
 
 </script>
 
 </body>
 
 </html>
-```
