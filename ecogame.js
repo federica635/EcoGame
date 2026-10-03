@@ -16,14 +16,13 @@ const SUPABASE_KEY =
 
 
 /*
-   Creiamo il client Supabase.
+   Client Supabase.
 
-   ATTENZIONE:
-   Questo file deve essere caricato DOPO:
+   Questo file deve essere caricato dopo:
 
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-   e PRIMA dello script specifico del gioco.
+   e prima dello script specifico del gioco.
 */
 
 const supabaseClient =
@@ -50,32 +49,19 @@ function getLingua() {
 
 function salvaLingua(lingua) {
 
-    /*
-       Accettiamo solamente le tre lingue
-       utilizzate da EcoGame.
-    */
-
     if (!["it", "en", "fi"].includes(lingua)) {
 
         lingua = "it";
 
     }
 
-
     localStorage.setItem(
         "ecoGameLingua",
         lingua
     );
 
-
     document.documentElement.lang =
         lingua;
-
-
-    /*
-       Evento utile se una pagina vuole
-       reagire al cambio lingua.
-    */
 
     window.dispatchEvent(
         new CustomEvent(
@@ -87,7 +73,6 @@ function salvaLingua(lingua) {
             }
         )
     );
-
 
     return lingua;
 
@@ -103,20 +88,11 @@ function inizializzaLingua() {
     const lingua =
         getLingua();
 
-
     document.documentElement.lang =
         lingua;
 
-
-    /*
-       Se la pagina usa un normale
-       <select id="lingua">
-       lo sincronizziamo automaticamente.
-    */
-
     const selettore =
         document.getElementById("lingua");
-
 
     if (selettore) {
 
@@ -124,7 +100,6 @@ function inizializzaLingua() {
             lingua;
 
     }
-
 
     return lingua;
 
@@ -146,32 +121,39 @@ function cambiaLinguaComune(lingua) {
    ACCOUNT
 ===================================================== */
 
-/*
-   Restituisce l'utente attualmente autenticato.
-*/
-
 async function getEcoGameUser() {
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getUser();
+    try {
 
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
 
-    if (error) {
+        if (error) {
+
+            console.error(
+                "EcoGame - Errore recupero utente:",
+                error
+            );
+
+            return null;
+
+        }
+
+        return data.user || null;
+
+    } catch (errore) {
 
         console.error(
-            "EcoGame - Errore recupero utente:",
-            error
+            "EcoGame - Errore account:",
+            errore
         );
 
         return null;
 
     }
-
-
-    return data.user || null;
 
 }
 
@@ -180,25 +162,10 @@ async function getEcoGameUser() {
    PROFILO
 ===================================================== */
 
-/*
-   Recupera il profilo dell'utente.
-
-   Restituisce:
-
-   {
-       id,
-       green_points,
-       level
-   }
-
-   oppure null.
-*/
-
 async function getEcoGameProfile() {
 
     const user =
         await getEcoGameUser();
-
 
     if (!user) {
 
@@ -206,36 +173,46 @@ async function getEcoGameProfile() {
 
     }
 
+    try {
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("profiles")
-            .select(
-                "id, green_points, level"
-            )
-            .eq(
-                "id",
-                user.id
-            )
-            .single();
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "id, green_points, level"
+                )
+                .eq(
+                    "id",
+                    user.id
+                )
+                .single();
 
+        if (error) {
 
-    if (error) {
+            console.error(
+                "EcoGame - Errore recupero profilo:",
+                error
+            );
+
+            return null;
+
+        }
+
+        return data;
+
+    } catch (errore) {
 
         console.error(
-            "EcoGame - Errore recupero profilo:",
-            error
+            "EcoGame - Errore profilo:",
+            errore
         );
 
         return null;
 
     }
-
-
-    return data;
 
 }
 
@@ -248,7 +225,6 @@ async function getGreenPoints() {
 
     const profilo =
         await getEcoGameProfile();
-
 
     if (!profilo) {
 
@@ -266,7 +242,6 @@ async function getGreenPoints() {
         };
 
     }
-
 
     return {
 
@@ -288,21 +263,23 @@ async function getGreenPoints() {
 ===================================================== */
 
 /*
-   Funzione generale utilizzata dai giochi.
+   Questa funzione aggiunge ESATTAMENTE
+   il numero di GP passato.
 
    Esempio:
 
-       await aggiungiGreenPoints(50);
+   aggiungiGreenPoints(50)
 
-   Se l'utente possiede 200 GP:
+   significa:
 
-       200 + 50 = 250 GP
+   vecchi GP + 50
 */
+
 
 async function aggiungiGreenPoints(punti) {
 
     /*
-       Convertiamo il valore in numero.
+       Convertiamo in numero.
     */
 
     punti =
@@ -310,7 +287,7 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Controlliamo che sia valido.
+       Controllo valore.
     */
 
     if (
@@ -322,6 +299,8 @@ async function aggiungiGreenPoints(punti) {
 
             success: false,
 
+            pointsAdded: 0,
+
             error:
                 "Punti non validi"
 
@@ -331,7 +310,7 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       I Green Points sono interi.
+       I GP sono interi.
     */
 
     punti =
@@ -339,7 +318,7 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Recuperiamo l'utente autenticato.
+       Recuperiamo l'utente.
     */
 
     const user =
@@ -352,10 +331,11 @@ async function aggiungiGreenPoints(punti) {
             "EcoGame - Utente non autenticato."
         );
 
-
         return {
 
             success: false,
+
+            pointsAdded: 0,
 
             error:
                 "Utente non autenticato"
@@ -366,7 +346,7 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Recuperiamo il profilo attuale.
+       Recuperiamo il profilo.
     */
 
     const {
@@ -392,10 +372,11 @@ async function aggiungiGreenPoints(punti) {
             profileError
         );
 
-
         return {
 
             success: false,
+
+            pointsAdded: 0,
 
             error:
                 profileError
@@ -424,11 +405,11 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Calcolo livello.
+       Nuovo livello.
 
-       0-99 GP   -> livello 1
-       100-199   -> livello 2
-       200-299   -> livello 3
+       0-99     = livello 1
+       100-199  = livello 2
+       200-299  = livello 3
        ecc.
     */
 
@@ -439,7 +420,7 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Salviamo il nuovo totale.
+       Aggiorniamo il profilo.
     */
 
     const {
@@ -474,10 +455,11 @@ async function aggiungiGreenPoints(punti) {
             error
         );
 
-
         return {
 
             success: false,
+
+            pointsAdded: 0,
 
             error:
                 error
@@ -487,21 +469,15 @@ async function aggiungiGreenPoints(punti) {
     }
 
 
-    /*
-       Log utile durante i test.
-    */
-
     console.log(
         "🌱 EcoGame - GP aggiunti:",
         punti
     );
 
-
     console.log(
         "🌱 EcoGame - GP totali:",
         data.green_points
     );
-
 
     console.log(
         "⭐ EcoGame - Livello:",
@@ -535,34 +511,43 @@ async function aggiungiGreenPoints(punti) {
 
 
 /* =====================================================
-   SISTEMA ANTI DOPPIO ACCREDITO
+   ACCREDITO GREEN POINTS UNA SOLA VOLTA
 ===================================================== */
 
 /*
-   Questa funzione impedisce che la stessa partita
-   accrediti due volte i Green Points.
-
-   IMPORTANTE:
-
-   gameId deve essere UNICO per ogni partita.
+   Questa funzione viene utilizzata dai giochi.
 
    Esempio:
 
-       salva-foresta-17283920123
+   await accreditaGreenPointsUnaVolta(
+       "salva-foresta",
+       70
+   );
 
-   Una nuova partita avrà un nuovo gameId.
+   Il gioco riceve 70 GP.
+
+   Se la stessa funzione viene richiamata
+   nuovamente nella stessa sessione con
+   "salva-foresta", NON aggiunge altri GP.
 */
+
 
 async function accreditaGreenPointsUnaVolta(
     gameId,
     punti
 ) {
 
+    /*
+       Controllo gameId.
+    */
+
     if (!gameId) {
 
         return {
 
             success: false,
+
+            pointsAdded: 0,
 
             error:
                 "gameId mancante"
@@ -573,7 +558,37 @@ async function accreditaGreenPointsUnaVolta(
 
 
     /*
-       Chiave specifica per questa partita.
+       Controllo punti.
+    */
+
+    punti =
+        Number(punti);
+
+    if (
+        !Number.isFinite(punti) ||
+        punti <= 0
+    ) {
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "Punti non validi"
+
+        };
+
+    }
+
+
+    punti =
+        Math.floor(punti);
+
+
+    /*
+       Chiave univoca per il gioco.
     */
 
     const chiave =
@@ -582,8 +597,8 @@ async function accreditaGreenPointsUnaVolta(
 
 
     /*
-       Controlliamo se questa partita
-       è già stata accreditata.
+       Controlliamo se il gioco ha già
+       assegnato i GP in questa sessione.
     */
 
     const giaAccreditato =
@@ -595,7 +610,7 @@ async function accreditaGreenPointsUnaVolta(
     if (giaAccreditato === "true") {
 
         console.log(
-            "🌱 GP già accreditati per:",
+            "🌱 EcoGame - GP già assegnati:",
             gameId
         );
 
@@ -606,6 +621,8 @@ async function accreditaGreenPointsUnaVolta(
 
             alreadyAdded: true,
 
+            pointsAdded: 0,
+
             error:
                 "Green Points già accreditati"
 
@@ -615,7 +632,7 @@ async function accreditaGreenPointsUnaVolta(
 
 
     /*
-       Proviamo ad aggiungere i GP.
+       Aggiungiamo i GP.
     */
 
     const risultato =
@@ -625,13 +642,13 @@ async function accreditaGreenPointsUnaVolta(
 
 
     /*
-       Se il salvataggio è riuscito,
-       registriamo l'accredito.
+       Registriamo l'accredito SOLO
+       se Supabase ha confermato il salvataggio.
     */
 
     if (
         risultato &&
-        risultato.success
+        risultato.success === true
     ) {
 
         sessionStorage.setItem(
@@ -648,8 +665,149 @@ async function accreditaGreenPointsUnaVolta(
 
 
 /* =====================================================
-   AGGIORNA ELEMENTO GP NELLA PAGINA
+   FUNZIONE SPECIFICA PER SALVA LA FORESTA
 ===================================================== */
+
+/*
+   Questa funzione calcola i GP secondo
+   le regole richieste:
+
+   50 GP = tassa base per aver giocato.
+
+   Punteggio < 90:
+       50 GP totali
+
+   Punteggio da 90 a 94:
+       20 + 50 = 70 GP
+
+   Punteggio da 95 a 100:
+       40 + 50 = 90 GP
+
+
+   Esempi:
+
+   89  -> 50 GP
+   90  -> 70 GP
+   92  -> 70 GP
+   94  -> 70 GP
+   95  -> 90 GP
+   97  -> 90 GP
+   100 -> 90 GP
+*/
+
+
+function calcolaGreenPointsForesta(
+    punteggio
+) {
+
+    punteggio =
+        Number(punteggio);
+
+
+    if (!Number.isFinite(punteggio)) {
+
+        return 50;
+
+    }
+
+
+    /*
+       Fascia sotto 90.
+    */
+
+    if (punteggio < 90) {
+
+        return 50;
+
+    }
+
+
+    /*
+       Fascia 90-94.
+    */
+
+    if (punteggio < 95) {
+
+        return 70;
+
+    }
+
+
+    /*
+       Fascia 95-100.
+    */
+
+    return 90;
+
+}
+
+
+/* =====================================================
+   ACCREDITO SPECIFICO SALVA LA FORESTA
+===================================================== */
+
+/*
+   Il gioco può semplicemente chiamare:
+
+       await assegnaGreenPointsForesta(punteggio);
+
+   Esempio:
+
+       punteggio = 92
+
+       GP = 70
+
+   Esempio:
+
+       punteggio = 97
+
+       GP = 90
+*/
+
+
+async function assegnaGreenPointsForesta(
+    punteggio
+) {
+
+    const greenPoints =
+        calcolaGreenPointsForesta(
+            punteggio
+        );
+
+
+    console.log(
+        "🌳 Salva la Foresta - Punteggio:",
+        punteggio
+    );
+
+    console.log(
+        "🌱 Salva la Foresta - GP:",
+        greenPoints
+    );
+
+
+    return await accreditaGreenPointsUnaVolta(
+        "salva-foresta",
+        greenPoints
+    );
+
+}
+
+
+/* =====================================================
+   AGGIORNA ELEMENTO GREEN POINTS
+===================================================== */
+
+/*
+   Se una pagina contiene:
+
+       <span id="greenPoints">0</span>
+
+   può utilizzare:
+
+       await mostraGreenPoints("greenPoints");
+*/
+
 
 async function mostraGreenPoints(
     elementId
@@ -703,8 +861,13 @@ supabaseClient.auth.onAuthStateChange(
                 "ecoGameAuthChanged",
                 {
                     detail: {
-                        event: event,
-                        session: session
+
+                        event:
+                            event,
+
+                        session:
+                            session
+
                     }
                 }
             )
