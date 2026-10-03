@@ -1512,23 +1512,50 @@ let partitaId = null;
 
 
 /*
-   NUOVA VARIABILE
+   Green Points ottenuti nella partita corrente.
 
-   Tiene traccia dei Green Points guadagnati
-   nella partita corrente.
+   IMPORTANTE:
 
-   Ogni risposta corretta:
-   +10 Green Points
+   Questo valore NON rappresenta il totale
+   dell'account.
+
+   Esempio:
+
+   partita:
+   +10
+   +10
+   +10
+
+   greenPointsPartita = 30
+
+   Alla fine della partita:
+   aggiornaGreenPoints(30)
+
+   Se nel database c'erano già 80 GP:
+
+   80 + 30 = 110 GP
 */
 
 let greenPointsPartita = 0;
 
 
 /*
-   Numero fisso di Green Points per risposta corretta.
+   Green Points assegnati per ogni risposta corretta.
 */
 
 const GREEN_POINTS_RISPOSTA_CORRETTA = 10;
+
+
+/*
+   Evita che la stessa partita venga accreditata
+   più di una volta.
+
+   IMPORTANTE:
+   il valore viene salvato in sessionStorage
+   solo DOPO che Supabase conferma il salvataggio.
+*/
+
+let greenPointsPartitaSalvati = false;
 
 
 /* =====================================================
@@ -1762,14 +1789,14 @@ function mostraStatoAccount() {
 
 
 /* =====================================================
-   SUPABASE - AGGIORNA GREEN POINTS
+   SUPABASE - AGGIUNGI GREEN POINTS
    ===================================================== */
 
 async function aggiornaGreenPoints(punti) {
 
     /*
        Se non c'è un utente autenticato,
-       non facciamo nessun accredito.
+       non salviamo i punti.
     */
 
     if (!utente) {
@@ -1784,16 +1811,7 @@ async function aggiornaGreenPoints(punti) {
 
 
     /*
-       Sicurezza:
-
-       Questa funzione viene utilizzata
-       per aggiungere Green Points.
-
-       In questo gioco accettiamo solamente
-       valori positivi.
-
-       Quindi non verranno mai tolti
-       Green Points dal profilo.
+       Accettiamo solamente numeri interi positivi.
     */
 
     if (!Number.isInteger(punti) || punti <= 0) {
@@ -1809,6 +1827,24 @@ async function aggiornaGreenPoints(punti) {
 
 
     try {
+
+        /*
+           IMPORTANTE:
+
+           Questa RPC deve AGGIUNGERE i punti
+           al valore già presente nel database.
+
+           Esempio:
+
+           database = 80
+           punti = 40
+
+           risultato = 120
+
+           NON:
+
+           database = 40
+        */
 
         const risultato =
             await supabaseClient.rpc(
@@ -1836,21 +1872,26 @@ async function aggiornaGreenPoints(punti) {
 
 
         /*
-           Aggiorniamo il profilo locale
-           con il risultato restituito da Supabase.
+           La RPC restituisce il nuovo totale
+           dell'account.
+
+           Aggiorniamo il profilo locale.
         */
 
         if (dati && dati.length > 0) {
+
+            const risultatoRPC =
+                dati[0];
 
             profilo = {
 
                 ...(profilo || {}),
 
                 profile_green_points:
-                    dati[0].new_green_points,
+                    risultatoRPC.new_green_points,
 
                 profile_level:
-                    dati[0].new_level
+                    risultatoRPC.new_level
 
             };
 
@@ -1877,73 +1918,151 @@ async function aggiornaGreenPoints(punti) {
 
 
 /* =====================================================
-   CONTROLLO DOPPIO ACCREDITO
+   CHIAVE PARTITA
    ===================================================== */
 
-/*
-   Crea una chiave unica per ogni evento
-   della partita.
+function chiaveSalvataggioPartita() {
 
-   Esempio:
+    return (
+        "ecosort_green_points_" +
+        partitaId
+    );
 
-   ecosort_IDPARTITA_risposta_0
+}
 
-   significa:
 
-   partita X
-   risposta al caso 0
-*/
+/* =====================================================
+   CONTROLLO PARTITA GIÀ SALVATA
+   ===================================================== */
 
-function chiaveEvento(tipo, numeroCaso) {
+function partitaGiaSalvata() {
 
-    if (!partitaId) {
+    return (
+        sessionStorage.getItem(
+            chiaveSalvataggioPartita()
+        ) === "1"
+    );
 
-        partitaId =
-            crypto.randomUUID();
+}
+
+
+/* =====================================================
+   SALVA GREEN POINTS DELLA PARTITA
+   ===================================================== */
+
+async function salvaGreenPointsPartita() {
+
+    /*
+       Se la partita è già stata accreditata,
+       non facciamo un secondo accredito.
+    */
+
+    if (
+        greenPointsPartitaSalvati ||
+        partitaGiaSalvata()
+    ) {
+
+        console.log(
+            "🌱 Green Points della partita già salvati."
+        );
+
+        return true;
 
     }
 
-    return (
-        "ecosort_" +
-        partitaId +
-        "_" +
-        tipo +
-        "_" +
-        numeroCaso
+
+    /*
+       Se non sono stati ottenuti GP,
+       non c'è nulla da salvare.
+    */
+
+    if (greenPointsPartita <= 0) {
+
+        console.log(
+            "🌱 Nessun Green Point da salvare."
+        );
+
+        greenPointsPartitaSalvati = true;
+
+        sessionStorage.setItem(
+            chiaveSalvataggioPartita(),
+            "1"
+        );
+
+        return true;
+
+    }
+
+
+    /*
+       Se non c'è un utente autenticato,
+       non possiamo salvare.
+    */
+
+    if (!utente) {
+
+        console.warn(
+            "⚠️ Utente non autenticato: GP non salvati."
+        );
+
+        return false;
+
+    }
+
+
+    /*
+       Questo è il punto fondamentale:
+
+       NON sostituiamo il totale.
+
+       Aggiungiamo tutti i GP ottenuti
+       nella partita al totale esistente.
+    */
+
+    console.log(
+        "🌱 Aggiungo al totale account:",
+        greenPointsPartita,
+        "GP"
     );
 
-}
+
+    const salvato =
+        await aggiornaGreenPoints(
+            greenPointsPartita
+        );
 
 
-/*
-   Controlla se l'evento è già stato salvato.
-*/
+    if (!salvato) {
 
-function eventoGiaSalvato(tipo, numeroCaso) {
+        console.error(
+            "❌ I Green Points della partita non sono stati salvati."
+        );
 
-    return sessionStorage.getItem(
-        chiaveEvento(
-            tipo,
-            numeroCaso
-        )
-    ) === "1";
+        return false;
 
-}
+    }
 
 
-/*
-   Segna l'evento come già salvato.
-*/
+    /*
+       SOLO DOPO la conferma di Supabase
+       marchiamo la partita come salvata.
+    */
 
-function segnaEventoSalvato(tipo, numeroCaso) {
+    greenPointsPartitaSalvati = true;
 
     sessionStorage.setItem(
-        chiaveEvento(
-            tipo,
-            numeroCaso
-        ),
+        chiaveSalvataggioPartita(),
         "1"
     );
+
+
+    console.log(
+        "✅ Green Points salvati:",
+        greenPointsPartita
+    );
+
+
+    return true;
 
 }
 
@@ -2027,8 +2146,7 @@ function mostraCaso() {
 async function rispondi(scelta) {
 
     /*
-       Evita che l'utente possa cliccare
-       più volte sulla stessa domanda.
+       Evita risposte multiple sulla stessa domanda.
     */
 
     if (rispostaData) {
@@ -2039,7 +2157,7 @@ async function rispondi(scelta) {
 
 
     /*
-       Blocchiamo immediatamente i pulsanti.
+       Blocchiamo immediatamente tutti i pulsanti.
     */
 
     for (let i = 0; i < 4; i++) {
@@ -2067,16 +2185,6 @@ async function rispondi(scelta) {
         );
 
 
-    /*
-       Green Points da accreditare
-       per questa risposta.
-
-       Partiamo da 0.
-    */
-
-    let greenPointsDaSalvare = 0;
-
-
     /* =================================================
        RISPOSTA CORRETTA
        ================================================= */
@@ -2084,9 +2192,7 @@ async function rispondi(scelta) {
     if (scelta === caso.corretta) {
 
         /*
-           Punteggio del gioco.
-
-           Questo NON è il Green Points.
+           Punteggio normale del gioco.
         */
 
         let punti = 100;
@@ -2117,23 +2223,22 @@ async function rispondi(scelta) {
 
 
         /*
-           QUI avviene la cosa importante:
+           IMPORTANTISSIMO:
 
-           ogni risposta corretta
-           = +10 Green Points
-        */
+           Qui NON chiamiamo Supabase.
 
-        greenPointsDaSalvare =
-            GREEN_POINTS_RISPOSTA_CORRETTA;
+           Aggiungiamo semplicemente i GP
+           alla partita corrente.
 
+           Esempio:
 
-        /*
-           Aggiorniamo il totale Green Points
-           della partita.
+           prima = 20
+           risposta corretta = +10
+           dopo = 30
         */
 
         greenPointsPartita +=
-            greenPointsDaSalvare;
+            GREEN_POINTS_RISPOSTA_CORRETTA;
 
 
         feedback.innerText =
@@ -2150,7 +2255,6 @@ async function rispondi(scelta) {
         feedback.style.color =
             "#81c784";
 
-
     }
 
 
@@ -2161,12 +2265,9 @@ async function rispondi(scelta) {
     else {
 
         /*
-           Il punteggio del gioco perde 50 punti.
+           Il punteggio normale perde 50 punti.
 
-           ATTENZIONE:
-
-           NON togliamo Green Points
-           dall'account.
+           I Green Points NON vengono sottratti.
         */
 
         punteggio =
@@ -2177,14 +2278,6 @@ async function rispondi(scelta) {
 
 
         combo = 0;
-
-
-        /*
-           Nessun Green Point
-           per risposta sbagliata.
-        */
-
-        greenPointsDaSalvare = 0;
 
 
         feedback.innerText =
@@ -2244,80 +2337,10 @@ async function rispondi(scelta) {
 
 
     /* =================================================
-       SALVATAGGIO GREEN POINTS
-       ================================================= */
-
-    /*
-       L'indice identifica il caso corrente.
-    */
-
-    const numeroCaso =
-        indice;
-
-
-    /*
-       Accreditamento SOLO se:
-
-       1. la risposta è corretta
-       2. l'evento non è già stato salvato
-    */
-
-    if (
-        greenPointsDaSalvare > 0 &&
-        !eventoGiaSalvato(
-            "rispostaCorretta",
-            numeroCaso
-        )
-    ) {
-
-        /*
-           Segniamo l'evento prima
-           della chiamata a Supabase.
-
-           In questo modo un doppio click
-           o un secondo tentativo non
-           crea un doppio accredito.
-        */
-
-        segnaEventoSalvato(
-            "rispostaCorretta",
-            numeroCaso
-        );
-
-
-        /*
-           Accreditiamo +10 all'account.
-        */
-
-        const salvato =
-            await aggiornaGreenPoints(
-                greenPointsDaSalvare
-            );
-
-
-        /*
-           Se Supabase restituisce errore,
-           mostriamo un avviso nella console.
-
-           Il gioco continua comunque.
-        */
-
-        if (!salvato) {
-
-            console.warn(
-                "I Green Points di questa risposta non sono stati salvati."
-            );
-
-        }
-
-    }
-
-
-    /* =================================================
        PASSA AL CASO SUCCESSIVO
        ================================================= */
 
-    setTimeout(function() {
+    setTimeout(async function() {
 
         indice++;
 
@@ -2328,7 +2351,14 @@ async function rispondi(scelta) {
 
         } else {
 
-            fine();
+            /*
+               Ultima domanda completata.
+
+               fine() salverà una sola volta
+               tutti i Green Points della partita.
+            */
+
+            await fine();
 
         }
 
@@ -2365,10 +2395,10 @@ function usaSuggerimento() {
 
 
     /*
-       Il suggerimento continua a costare
-       25 punti del PUNTEGGIO DEL GIOCO.
+       Il suggerimento costa 25 punti
+       del punteggio normale.
 
-       Non modifica i Green Points dell'account.
+       NON modifica i Green Points.
     */
 
     punteggio =
@@ -2410,7 +2440,7 @@ function avviaTimer() {
 
 
     intervallo =
-        setInterval(function() {
+        setInterval(async function() {
 
             tempo--;
 
@@ -2445,7 +2475,14 @@ function avviaTimer() {
                 );
 
 
-                fine();
+                /*
+                   Il tempo è finito.
+
+                   fine() salva i GP già ottenuti
+                   fino a quel momento.
+                */
+
+                await fine();
 
             }
 
@@ -2458,12 +2495,72 @@ function avviaTimer() {
    FINE DEL GIOCO
    ===================================================== */
 
-function fine() {
+async function fine() {
+
+    /*
+       Evita che fine() venga eseguita
+       più volte contemporaneamente.
+    */
+
+    if (
+        document.getElementById(
+            "fine"
+        ).style.display === "block"
+    ) {
+
+        return;
+
+    }
+
 
     clearInterval(
         intervallo
     );
 
+
+    /*
+       =================================================
+       SALVATAGGIO GREEN POINTS
+       =================================================
+
+       Esempio:
+
+       partita:
+       +10
+       +10
+       +10
+
+       greenPointsPartita = 30
+
+       Se il database contiene:
+
+       50 GP
+
+       la RPC deve fare:
+
+       50 + 30 = 80 GP
+
+       NON:
+
+       50 -> 30
+    */
+
+    const salvataggio =
+        await salvaGreenPointsPartita();
+
+
+    if (!salvataggio) {
+
+        console.warn(
+            "⚠️ I Green Points non sono stati salvati."
+        );
+
+    }
+
+
+    /* =================================================
+       MOSTRA SCHERMATA FINALE
+       ================================================= */
 
     document.getElementById(
         "gioco"
@@ -2508,11 +2605,6 @@ function fine() {
     ).innerText =
         migliorCombo;
 
-
-    /*
-       Mostriamo i Green Points
-       guadagnati nella partita.
-    */
 
     document.getElementById(
         "greenPointsFinale"
@@ -2571,6 +2663,10 @@ function fine() {
 
 function ricomincia() {
 
+    /*
+       Nuova partita.
+    */
+
     indice = 0;
 
     punteggio = 0;
@@ -2583,14 +2679,17 @@ function ricomincia() {
 
     tempo = 60;
 
+    rispostaData = false;
+
     suggerimenti = 2;
 
 
     /*
-       Nuova partita = nuovo ID.
+       Nuovo ID per la nuova partita.
 
-       Questo permette di accreditare nuovamente
-       i +10 Green Points nella nuova partita.
+       Questo significa che i Green Points
+       ottenuti nella nuova partita verranno
+       accreditati separatamente.
     */
 
     partitaId =
@@ -2598,10 +2697,17 @@ function ricomincia() {
 
 
     /*
-       Reset Green Points della partita.
+       Reset GP della partita corrente.
     */
 
     greenPointsPartita = 0;
+
+
+    /*
+       La nuova partita non è ancora stata salvata.
+    */
+
+    greenPointsPartitaSalvati = false;
 
 
     document.getElementById(
@@ -2705,7 +2811,7 @@ mostraCaso();
 
 
 /*
-   Avviamo subito il timer.
+   Avviamo il timer.
 */
 
 avviaTimer();
