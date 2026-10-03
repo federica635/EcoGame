@@ -148,14 +148,6 @@ function cambiaLinguaComune(lingua) {
 
 /*
    Restituisce l'utente attualmente autenticato.
-
-   Esempio:
-
-   const user = await getEcoGameUser();
-
-   if (user) {
-       console.log(user.id);
-   }
 */
 
 async function getEcoGameUser() {
@@ -199,8 +191,7 @@ async function getEcoGameUser() {
        level
    }
 
-   oppure null se l'utente non è autenticato
-   o il profilo non viene trovato.
+   oppure null.
 */
 
 async function getEcoGameProfile() {
@@ -262,10 +253,16 @@ async function getGreenPoints() {
     if (!profilo) {
 
         return {
+
             success: false,
+
             points: 0,
+
             level: 1,
-            error: "Profilo non disponibile"
+
+            error:
+                "Profilo non disponibile"
+
         };
 
     }
@@ -291,25 +288,15 @@ async function getGreenPoints() {
 ===================================================== */
 
 /*
-   Questa è la funzione principale che
-   utilizzeranno tutti i giochi.
+   Funzione generale utilizzata dai giochi.
 
    Esempio:
 
        await aggiungiGreenPoints(50);
 
-   Se l'utente possiede:
+   Se l'utente possiede 200 GP:
 
-       200 GP
-
-   diventerà:
-
-       250 GP
-
-
-   I GP dei giochi NON vengono separati.
-
-   Tutti confluiscono nel totale dell'account.
+       200 + 50 = 250 GP
 */
 
 async function aggiungiGreenPoints(punti) {
@@ -344,7 +331,6 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
-       Evitiamo valori decimali.
        I Green Points sono interi.
     */
 
@@ -444,10 +430,6 @@ async function aggiungiGreenPoints(punti) {
        100-199   -> livello 2
        200-299   -> livello 3
        ecc.
-
-       Formula:
-
-       floor(GP / 100) + 1
     */
 
     const nuovoLivello =
@@ -557,20 +539,18 @@ async function aggiungiGreenPoints(punti) {
 ===================================================== */
 
 /*
-   Ogni gioco può usare questa funzione per evitare
-   che i GP vengano aggiunti due volte durante
-   la stessa partita.
+   Questa funzione impedisce che la stessa partita
+   accrediti due volte i Green Points.
+
+   IMPORTANTE:
+
+   gameId deve essere UNICO per ogni partita.
 
    Esempio:
 
-       await accreditaGreenPointsUnaVolta(
-           "salva-foresta",
-           80
-       );
+       salva-foresta-17283920123
 
-   Se viene richiamata nuovamente con lo stesso
-   gameId nella stessa sessione, non accredita
-   nuovamente i punti.
+   Una nuova partita avrà un nuovo gameId.
 */
 
 async function accreditaGreenPointsUnaVolta(
@@ -593,7 +573,7 @@ async function accreditaGreenPointsUnaVolta(
 
 
     /*
-       Chiave specifica per questo gioco.
+       Chiave specifica per questa partita.
     */
 
     const chiave =
@@ -646,10 +626,11 @@ async function accreditaGreenPointsUnaVolta(
 
     /*
        Se il salvataggio è riuscito,
-       registriamo l'accredito nella sessione.
+       registriamo l'accredito.
     */
 
     if (
+        risultato &&
         risultato.success
     ) {
 
@@ -669,16 +650,6 @@ async function accreditaGreenPointsUnaVolta(
 /* =====================================================
    AGGIORNA ELEMENTO GP NELLA PAGINA
 ===================================================== */
-
-/*
-   Se una pagina contiene:
-
-       <span id="greenPoints">0</span>
-
-   possiamo aggiornarlo con:
-
-       await mostraGreenPoints("greenPoints");
-*/
 
 async function mostraGreenPoints(
     elementId
@@ -724,24 +695,6 @@ async function mostraGreenPoints(
    EVENTO AUTH SUPABASE
 ===================================================== */
 
-/*
-   Questo permette alle pagine di reagire
-   automaticamente a login/logout.
-
-   Esempio:
-
-       window.addEventListener(
-           "ecoGameAuthChanged",
-           function(event) {
-
-               console.log(
-                   event.detail.event
-               );
-
-           }
-       );
-*/
-
 supabaseClient.auth.onAuthStateChange(
     function(event, session) {
 
@@ -773,40 +726,3 @@ document.addEventListener(
 
     }
 );
-
-Una cosa importante
-
-Ho lasciato la struttura compatibile con il database che mi hai mostrato:
-
-profiles
-├── id
-├── green_points
-└── level
-
-
-Quindi non dobbiamo creare un saldo GP separato per ogni gioco.
-
-Il prossimo passaggio, dopo che hai copiato questo ecogame.js, è collegare il tuo Salva la Foresta a:
-
-accreditaGreenPointsUnaVolta("salva-foresta", punteggio);
-
-
-Così, per esempio:
-
-Account
-  │
-  └── 350 GP
-       │
-       ├── Salva la Foresta → +82
-       │
-       ├── Altro gioco → +65
-       │
-       └── Altro gioco → +40
-              │
-              ▼
-             537 GP
-
-
-E soprattutto non accrediterà due volte gli 82 GP se l'utente ricarica la stessa schermata durante quella sessione.
-
-C'è però un miglioramento tecnico che faremo subito dopo: per rendere il sistema veramente robusto anche con più giochi aperti contemporaneamente, conviene spostare l'operazione GP attuali + nuovi GP in una funzione PostgreSQL/RPC di Supabase, così l'incremento è atomico. Per ora questo file è pronto per collegare i giochi uno alla volta.
