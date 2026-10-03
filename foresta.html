@@ -271,6 +271,29 @@ header {
     line-height: 1.5;
 }
 
+/* =========================================================
+   GREEN POINTS
+========================================================= */
+
+#greenPointsFinali {
+    margin: 20px auto;
+    padding: 15px 20px;
+    max-width: 400px;
+    background: #203228;
+    border: 1px solid #49634e;
+    border-radius: 12px;
+    color: #a5d6a7;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#greenPointsMessaggio {
+    margin-top: 8px;
+    font-size: 15px;
+    color: #b9c8bc;
+    font-weight: normal;
+}
+
 @media(max-width: 750px) {
 
     .statistiche {
@@ -573,6 +596,18 @@ header {
 
         </div>
 
+        <!-- GREEN POINTS -->
+
+        <div id="greenPointsFinali">
+
+            🌱 +<span id="greenPointsGuadagnati">0</span> Green Points
+
+            <div id="greenPointsMessaggio">
+                I tuoi Green Points sono stati aggiunti al tuo profilo.
+            </div>
+
+        </div>
+
         <p id="messaggioFinale"></p>
 
         <button class="finalButton"
@@ -591,24 +626,18 @@ header {
 
 </div>
 
+<!-- =========================================================
+     SISTEMA COMUNE ECOGAME
+========================================================= -->
+
+<script src="ecogamejs.js"></script>
+
+
 <script>
 
 /* =========================================================
    LINGUA CONDIVISA TRA TUTTI I GIOCHI
 ========================================================= */
-
-/*
-   La lingua viene salvata nel browser con localStorage.
-
-   Chiave utilizzata:
-   "ecoGameLingua"
-
-   In questo modo:
-   - se giochi.html salva "en"
-   - questo gioco apre direttamente in inglese
-   - se scegli "fi", tutti i giochi possono recuperare "fi"
-   - se non esiste ancora una lingua salvata, viene usato "it"
-*/
 
 let lingua = localStorage.getItem("ecoGameLingua") || "it";
 
@@ -648,6 +677,12 @@ const testi = {
             "🎮 Torna ai giochi",
 
         punti: " / 100",
+
+        greenPoints:
+            "Green Points",
+
+        greenPointsMessaggio:
+            "I tuoi Green Points sono stati aggiunti al tuo profilo.",
 
         messaggi: {
             eccellente:
@@ -777,6 +812,12 @@ const testi = {
 
         punti: " / 100",
 
+        greenPoints:
+            "Green Points",
+
+        greenPointsMessaggio:
+            "Your Green Points have been added to your profile.",
+
         messaggi: {
             eccellente:
                 "🏆 Excellent management: you maintained a good balance between the ecosystem and the community.",
@@ -904,6 +945,12 @@ const testi = {
             "🎮 Takaisin peleihin",
 
         punti: " / 100",
+
+        greenPoints:
+            "Green Points",
+
+        greenPointsMessaggio:
+            "Green Points -pisteesi on lisätty profiiliisi.",
 
         messaggi: {
             eccellente:
@@ -1244,6 +1291,14 @@ let comunita = 70;
 let rispostaData = false;
 
 
+/*
+   Serve per evitare di assegnare due volte
+   i GP della stessa partita.
+*/
+
+let greenPointsAssegnati = false;
+
+
 /* =========================================================
    FUNZIONI PRINCIPALI
 ========================================================= */
@@ -1323,6 +1378,7 @@ function mostraTurno() {
 
         document.getElementById("opzione" + i).disabled =
             false;
+
     }
 
 }
@@ -1419,6 +1475,84 @@ function calcolaPunteggio() {
 }
 
 
+/* =========================================================
+   GREEN POINTS
+========================================================= */
+
+async function assegnaGreenPoints(punteggio) {
+
+    /*
+       Evita di assegnare nuovamente i GP
+       se fine() viene chiamata più volte.
+    */
+
+    if (greenPointsAssegnati) {
+        return;
+    }
+
+    greenPointsAssegnati = true;
+
+
+    /*
+       Il punteggio finale del gioco diventa
+       il numero di Green Points ottenuti.
+
+       Esempio:
+
+       Punteggio finale: 82
+
+       Green Points: +82 GP
+    */
+
+    const risultato =
+        await aggiungiGreenPoints(punteggio);
+
+
+    if (risultato && risultato.success) {
+
+        document.getElementById(
+            "greenPointsGuadagnati"
+        ).innerText =
+            risultato.pointsAdded;
+
+        console.log(
+            "🌱 Green Points ottenuti:",
+            risultato.pointsAdded
+        );
+
+        console.log(
+            "🌱 Totale Green Points:",
+            risultato.totalPoints
+        );
+
+    } else {
+
+        /*
+           Se l'utente non è autenticato
+           oppure Supabase restituisce un errore,
+           mostriamo comunque 0 GP assegnati
+           senza bloccare il gioco.
+        */
+
+        document.getElementById(
+            "greenPointsGuadagnati"
+        ).innerText =
+            "0";
+
+        console.error(
+            "Impossibile assegnare i Green Points:",
+            risultato
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FINE GIOCO
+========================================================= */
+
 function fine() {
 
     document.getElementById("gioco").style.display =
@@ -1478,6 +1612,15 @@ function fine() {
     document.getElementById("messaggioFinale").innerText =
         messaggio;
 
+
+    /*
+       ASSEGNA I GREEN POINTS
+
+       Usiamo il punteggio finale come GP.
+    */
+
+    assegnaGreenPoints(punteggio);
+
 }
 
 
@@ -1489,6 +1632,19 @@ function ricomincia() {
     acqua = 70;
     suolo = 70;
     comunita = 70;
+
+    rispostaData = false;
+
+    /*
+       Una nuova partita può ottenere
+       nuovi Green Points.
+    */
+
+    greenPointsAssegnati = false;
+
+
+    document.getElementById("greenPointsGuadagnati").innerText =
+        "0";
 
 
     document.getElementById("fine").style.display =
@@ -1522,14 +1678,6 @@ function tornaGiochi() {
 ========================================================= */
 
 function cambiaLingua(nuovaLingua) {
-
-    /*
-       Salva immediatamente la lingua scelta.
-
-       Questo è il punto fondamentale:
-       tutti gli altri giochi che usano la stessa chiave
-       "ecoGameLingua" potranno recuperare la scelta.
-    */
 
     if (
         nuovaLingua !== "it" &&
@@ -1599,6 +1747,10 @@ function cambiaLingua(nuovaLingua) {
         testi[lingua].tornaGiochi;
 
 
+    document.getElementById("greenPointsMessaggio").innerText =
+        testi[lingua].greenPointsMessaggio;
+
+
     document.getElementById("btnIT").classList.remove("attiva");
     document.getElementById("btnEN").classList.remove("attiva");
     document.getElementById("btnFI").classList.remove("attiva");
@@ -1625,16 +1777,6 @@ function cambiaLingua(nuovaLingua) {
 /* =========================================================
    AVVIO
 ========================================================= */
-
-/*
-   NON usiamo più:
-
-       cambiaLingua("it");
-
-   perché avrebbe sempre rimesso l'italiano.
-
-   Usiamo invece la lingua già salvata nel browser.
-*/
 
 aggiornaStatistiche();
 
