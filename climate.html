@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌍 Climate Challenge - EcoGame</title>
 
+<!-- =====================================================
+     SUPABASE JS
+     DEVE ESSERE CARICATO PRIMA DEL CODICE DEL GIOCO
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 * {
@@ -201,6 +208,34 @@ header {
     margin: 15px;
 }
 
+.green-points {
+    margin: 20px auto;
+    padding: 15px 20px;
+    max-width: 400px;
+    background: #173b2b;
+    border: 1px solid #4caf78;
+    border-radius: 12px;
+    color: #9ff0bb;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.green-points strong {
+    color: #ffd54f;
+    font-size: 25px;
+}
+
+.gp-error {
+    margin: 15px auto;
+    max-width: 500px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #4b2729;
+    border: 1px solid #ff7078;
+    color: #ffd7d9;
+    display: none;
+}
+
 .restart,
 .back {
     padding: 13px 22px;
@@ -377,6 +412,25 @@ header {
 
             </div>
 
+            <!-- =====================================================
+                 GREEN POINTS
+                 ===================================================== -->
+
+            <div
+                class="green-points"
+                id="greenPointsBox">
+
+                🌱 Green Points:
+                <strong id="greenPointsAmount">0</strong>
+
+            </div>
+
+            <div
+                class="gp-error"
+                id="gpError">
+
+            </div>
+
             <p id="resultMessage"></p>
 
             <button
@@ -403,6 +457,330 @@ header {
 
 
 <script>
+
+/* =====================================================
+   SUPABASE
+   ===================================================== */
+
+/*
+   IMPORTANTE:
+
+   Se nel tuo progetto hai già queste due variabili
+   globali caricate da ecogame.js, verranno utilizzate.
+
+   In alternativa puoi impostare qui gli stessi valori
+   che utilizza il tuo Runner.
+*/
+
+let supabaseClient = null;
+
+
+/* =====================================================
+   INIZIALIZZA SUPABASE
+   ===================================================== */
+
+function inizializzaSupabase() {
+
+    try {
+
+        if (
+            typeof window.supabase === "undefined" ||
+            typeof window.supabase.createClient !== "function"
+        ) {
+
+            console.error(
+                "EcoGame: supabase-js non è stato caricato."
+            );
+
+            return false;
+
+        }
+
+
+        /*
+         * Cerchiamo prima eventuali configurazioni
+         * già presenti nel progetto.
+         */
+
+        const url =
+            window.SUPABASE_URL ||
+            window.supabaseUrl ||
+            localStorage.getItem("SUPABASE_URL");
+
+        const key =
+            window.SUPABASE_ANON_KEY ||
+            window.supabaseAnonKey ||
+            localStorage.getItem("SUPABASE_ANON_KEY");
+
+
+        if (!url || !key) {
+
+            console.error(
+                "EcoGame: configurazione Supabase non trovata."
+            );
+
+            return false;
+
+        }
+
+
+        supabaseClient =
+            window.supabase.createClient(
+                url,
+                key
+            );
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "EcoGame: errore inizializzazione Supabase:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   GREEN POINTS
+   ===================================================== */
+
+/*
+   Questo è il nome identificativo del gioco.
+
+   È importante che ogni gioco abbia un ID diverso.
+*/
+
+const GAME_ID =
+    "climate-challenge";
+
+
+/*
+   Green Points assegnati al completamento.
+
+   Il valore viene calcolato in base al risultato.
+*/
+
+function calcolaGreenPoints() {
+
+    /*
+     * 20 domande.
+     *
+     * Risultato massimo = 200.
+     *
+     * 200 punti -> 30 GP
+     * 160-199   -> 25 GP
+     * 120-159   -> 20 GP
+     * 80-119    -> 15 GP
+     * 40-79     -> 10 GP
+     * <40       -> 5 GP
+     */
+
+    if (score >= 200) {
+        return 30;
+    }
+
+    if (score >= 160) {
+        return 25;
+    }
+
+    if (score >= 120) {
+        return 20;
+    }
+
+    if (score >= 80) {
+        return 15;
+    }
+
+    if (score >= 40) {
+        return 10;
+    }
+
+    return 5;
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS
+   ===================================================== */
+
+async function accreditaGreenPoints() {
+
+    const gpAmount =
+        calcolaGreenPoints();
+
+
+    document
+        .getElementById("greenPointsAmount")
+        .innerText =
+        gpAmount;
+
+
+    /*
+     * Evita che il gioco accrediti i GP due volte
+     * se la funzione viene richiamata più volte.
+     */
+
+    const storageKey =
+        "ecogame_gp_" + GAME_ID;
+
+
+    if (
+        sessionStorage.getItem(storageKey) === "1"
+    ) {
+
+        return;
+
+    }
+
+
+    if (!supabaseClient) {
+
+        console.warn(
+            "EcoGame: Supabase non disponibile. GP non accreditati."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            data: {
+                user
+            },
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError) {
+
+            console.error(
+                "EcoGame: impossibile leggere l'utente:",
+                userError
+            );
+
+            return;
+
+        }
+
+
+        if (!user) {
+
+            console.warn(
+                "EcoGame: nessun utente autenticato. GP non accreditati."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Tentativo principale:
+         *
+         * utilizza la funzione RPC del sistema EcoGame.
+         *
+         * Se il tuo Runner utilizza questa stessa funzione,
+         * l'accredito sarà immediatamente compatibile.
+         */
+
+        const {
+            error
+        } =
+            await supabaseClient.rpc(
+                "add_green_points",
+                {
+                    p_user_id: user.id,
+                    p_amount: gpAmount,
+                    p_game: GAME_ID
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "EcoGame: GP non accreditati:",
+                error
+            );
+
+
+            /*
+             * Mostriamo l'errore soltanto nella pagina,
+             * senza bloccare il risultato del gioco.
+             */
+
+            const errorBox =
+                document.getElementById("gpError");
+
+
+            errorBox.innerText =
+                "⚠️ Green Points non accreditati. Riprova più tardi.";
+
+
+            errorBox.style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+        /*
+         * Memorizziamo l'accredito per evitare
+         * duplicazioni nella stessa sessione.
+         */
+
+        sessionStorage.setItem(
+            storageKey,
+            "1"
+        );
+
+
+        console.log(
+            "EcoGame: Green Points accreditati:",
+            gpAmount
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "EcoGame: errore durante l'accredito dei GP:",
+            error
+        );
+
+
+        const errorBox =
+            document.getElementById("gpError");
+
+
+        errorBox.innerText =
+            "⚠️ Errore durante l'accredito dei Green Points.";
+
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+}
+
 
 /* =====================================================
    LINGUA
@@ -1726,7 +2104,7 @@ function nextQuestion() {
    RISULTATO
    ===================================================== */
 
-function showResult() {
+async function showResult() {
 
     document
         .getElementById("quizCard")
@@ -1816,12 +2194,23 @@ function showResult() {
         .innerText =
         message;
 
+
+    /*
+     * =================================================
+     * ACCREDITO GREEN POINTS
+     * =================================================
+     */
+
+    await accreditaGreenPoints();
+
 }
 
 
 /* =====================================================
    AVVIO
    ===================================================== */
+
+inizializzaSupabase();
 
 loadQuestion();
 
