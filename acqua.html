@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 
@@ -479,11 +478,19 @@ header {
 </div>
 
 
+<!-- =====================================================
+     ECOGAME.JS
+     Deve essere caricato PRIMA dello script del gioco
+===================================================== -->
+
+<script src="ecogame.js"></script>
+
+
 <script>
 
 /* =========================================================
    LINGUA
-   ========================================================= */
+========================================================= */
 
 const traduzioni = {
 
@@ -704,7 +711,7 @@ const traduzioni = {
 
 /* =========================================================
    CASI
-   ========================================================= */
+========================================================= */
 
 const casi = {
 
@@ -1391,7 +1398,7 @@ spiegazione:
 
 /* =========================================================
    STATO DEL GIOCO
-   ========================================================= */
+========================================================= */
 
 let lingua =
     localStorage.getItem("linguaEcoGame") || "it";
@@ -1405,13 +1412,13 @@ let punteggio = 0;
 let risolte = 0;
 
 /*
-   GREEN POINTS
+   Green Points locali del gioco.
 
-   Ogni risposta corretta:
-   +100 punti
-   +10 Green Points
+   Questo valore serve solamente per visualizzare
+   quanti GP sono stati ottenuti durante questa partita.
 
-   8 casi = massimo 80 Green Points.
+   Il vero totale dell'account viene gestito da ecogame.js
+   e da Supabase.
 */
 
 let greenPoints = 0;
@@ -1420,8 +1427,250 @@ let giaRisposto = false;
 
 
 /* =========================================================
+   CARICA GREEN POINTS DALL'ACCOUNT
+========================================================= */
+
+async function sincronizzaGreenPointsAccount() {
+
+    /*
+       Controlliamo che ecogame.js sia stato caricato.
+    */
+
+    if (
+        typeof getGreenPoints !== "function"
+    ) {
+
+        console.error(
+            "EcoGame Acqua - getGreenPoints() non disponibile. Controlla ecogame.js."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await getGreenPoints();
+
+
+        if (
+            !risultato ||
+            risultato.success !== true
+        ) {
+
+            console.warn(
+                "EcoGame Acqua - Impossibile recuperare i Green Points dell'account."
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Questo è il totale REALE dell'account.
+        */
+
+        greenPoints =
+            Number(
+                risultato.points
+            ) || 0;
+
+
+        document.getElementById(
+            "greenPoints"
+        ).innerText =
+            greenPoints;
+
+
+        document.getElementById(
+            "greenPointsFinali"
+        ).innerText =
+            greenPoints;
+
+
+    } catch (errore) {
+
+        console.error(
+            "EcoGame Acqua - Errore sincronizzazione GP:",
+            errore
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   AGGIUNGI GREEN POINTS ALL'ACCOUNT
+========================================================= */
+
+/*
+   Questa è la parte importante.
+
+   Quando il giocatore risponde correttamente,
+   NON facciamo più solamente:
+
+       greenPoints += 10;
+
+   ma chiamiamo ecogame.js:
+
+       accreditaGreenPointsUnaVolta(
+           "dove-finisce-acqua",
+           10
+       );
+
+   ecogame.js:
+   - controlla l'utente
+   - legge i GP attuali
+   - aggiunge 10
+   - aggiorna profiles
+   - aggiorna il livello
+   - impedisce il doppio accredito nella stessa sessione
+*/
+
+async function accreditaGPAcqua() {
+
+    /*
+       Controlliamo che la funzione di ecogame.js
+       sia disponibile.
+    */
+
+    if (
+        typeof accreditaGreenPointsUnaVolta !== "function"
+    ) {
+
+        console.error(
+            "EcoGame Acqua - accreditaGreenPointsUnaVolta() non disponibile."
+        );
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "ecogame.js non caricato"
+
+        };
+
+    }
+
+
+    try {
+
+        const risultato =
+            await accreditaGreenPointsUnaVolta(
+                "dove-finisce-acqua",
+                10
+            );
+
+
+        /*
+           Se Supabase ha salvato correttamente
+           i punti, utilizziamo il totale restituito
+           dall'account.
+        */
+
+        if (
+            risultato &&
+            risultato.success === true
+        ) {
+
+            greenPoints =
+                Number(
+                    risultato.totalPoints
+                ) || 0;
+
+
+            document.getElementById(
+                "greenPoints"
+            ).innerText =
+                greenPoints;
+
+
+            document.getElementById(
+                "greenPointsFinali"
+            ).innerText =
+                greenPoints;
+
+
+            console.log(
+                "💧 EcoGame Acqua - +10 GP accreditati."
+            );
+
+
+            console.log(
+                "🌱 Totale account:",
+                greenPoints
+            );
+
+
+            return risultato;
+
+        }
+
+
+        /*
+           Se i punti erano già stati accreditati,
+           recuperiamo comunque il totale reale
+           dell'account.
+        */
+
+        if (
+            risultato &&
+            risultato.alreadyAdded === true
+        ) {
+
+            await sincronizzaGreenPointsAccount();
+
+            return risultato;
+
+        }
+
+
+        /*
+           Qualsiasi altro errore.
+        */
+
+        console.warn(
+            "EcoGame Acqua - GP non accreditati:",
+            risultato
+        );
+
+
+        return risultato;
+
+
+    } catch (errore) {
+
+        console.error(
+            "EcoGame Acqua - Errore accredito GP:",
+            errore
+        );
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error: errore
+
+        };
+
+    }
+
+}
+
+
+/* =========================================================
    CAMBIO LINGUA
-   ========================================================= */
+========================================================= */
 
 function cambiaLingua() {
 
@@ -1452,7 +1701,7 @@ function cambiaLingua() {
 
 /* =========================================================
    TESTI STATICI
-   ========================================================= */
+========================================================= */
 
 function applicaTraduzione() {
 
@@ -1509,7 +1758,7 @@ function applicaTraduzione() {
 
 /* =========================================================
    CARICA CASO
-   ========================================================= */
+========================================================= */
 
 function caricaCaso() {
 
@@ -1608,9 +1857,9 @@ function caricaCaso() {
 
 /* =========================================================
    RISPOSTA
-   ========================================================= */
+========================================================= */
 
-function rispondi(scelta) {
+async function rispondi(scelta) {
 
     if (giaRisposto) {
         return;
@@ -1636,6 +1885,9 @@ function rispondi(scelta) {
         button.style.cursor =
             "default";
 
+        button.disabled =
+            true;
+
     });
 
 
@@ -1644,16 +1896,73 @@ function rispondi(scelta) {
         /*
            Punteggio normale:
            +100
-
-           Green Points:
-           +10
         */
 
         punteggio += 100;
 
-        greenPoints += 10;
-
         risolte++;
+
+
+        /*
+           Accreditiamo i Green Points
+           direttamente all'account.
+
+           IMPORTANTE:
+           aspettiamo il risultato con await.
+        */
+
+        const risultatoGP =
+            await accreditaGPAcqua();
+
+
+        /*
+           Se l'accredito è andato a buon fine,
+           mostriamo il totale reale dell'account.
+
+           Se invece non è stato possibile,
+           NON inventiamo un totale.
+        */
+
+        let testoGP;
+
+
+        if (
+            risultatoGP &&
+            risultatoGP.success === true
+        ) {
+
+            testoGP =
+                "<strong>+10 " +
+                t.punti +
+                "</strong>" +
+                "<br>" +
+                "<span class='green-badge'>🌱 " +
+                greenPoints +
+                " " +
+                t.greenPointsPlural +
+                "</span>";
+
+        } else if (
+            risultatoGP &&
+            risultatoGP.alreadyAdded === true
+        ) {
+
+            testoGP =
+                "<strong>Green Points già assegnati per questa partita.</strong>" +
+                "<br>" +
+                "<span class='green-badge'>🌱 " +
+                greenPoints +
+                " " +
+                t.greenPointsPlural +
+                "</span>";
+
+        } else {
+
+            testoGP =
+                "<span class='green-badge'>🌱 Green Points non salvati nell'account.</span>";
+
+        }
+
 
         feedback.className =
             "correct";
@@ -1668,9 +1977,8 @@ function rispondi(scelta) {
             t.punti +
             "</strong>" +
             "<br>" +
-            "<span class='green-badge'>🌱 +10 " +
-            t.greenPoints +
-            "</span>";
+            testoGP;
+
 
     } else {
 
@@ -1698,6 +2006,11 @@ function rispondi(scelta) {
     document.getElementById("risolte").innerText =
         risolte;
 
+    /*
+       Il valore di greenPoints qui è quello
+       sincronizzato con l'account.
+    */
+
     document.getElementById("greenPoints").innerText =
         greenPoints;
 
@@ -1712,7 +2025,7 @@ function rispondi(scelta) {
 
 /* =========================================================
    CASO SUCCESSIVO
-   ========================================================= */
+========================================================= */
 
 function prossimoCaso() {
 
@@ -1733,9 +2046,18 @@ function prossimoCaso() {
 
 /* =========================================================
    FINE DEL GIOCO
-   ========================================================= */
+========================================================= */
 
-function fine() {
+async function fine() {
+
+    /*
+       Prima di mostrare il risultato finale
+       sincronizziamo ancora una volta i GP
+       con l'account.
+    */
+
+    await sincronizzaGreenPointsAccount();
+
 
     document.getElementById("gioco").style.display =
         "none";
@@ -1787,15 +2109,21 @@ function fine() {
 
 /* =========================================================
    RICOMINCIA
-   ========================================================= */
+========================================================= */
 
-function ricomincia() {
+async function ricomincia() {
 
     caso = 0;
 
     punteggio = 0;
 
     risolte = 0;
+
+    /*
+       NON azzeriamo il totale dell'account.
+
+       greenPoints viene ricaricato da Supabase.
+    */
 
     greenPoints = 0;
 
@@ -1814,11 +2142,16 @@ function ricomincia() {
     document.getElementById("risolte").innerText =
         "0";
 
-    document.getElementById("greenPoints").innerText =
-        "0";
+
+    /*
+       Ricarichiamo i GP reali dell'account.
+    */
+
+    await sincronizzaGreenPointsAccount();
+
 
     document.getElementById("greenPointsFinali").innerText =
-        "0";
+        greenPoints;
 
     caricaCaso();
 
@@ -1827,7 +2160,7 @@ function ricomincia() {
 
 /* =========================================================
    TORNA AI GIOCHI
-   ========================================================= */
+========================================================= */
 
 function tornaGiochi() {
 
@@ -1839,20 +2172,57 @@ function tornaGiochi() {
 
 /* =========================================================
    AVVIO
-   ========================================================= */
+========================================================= */
 
-document.getElementById("lingua").value =
-    lingua;
+async function avviaGioco() {
 
-document.documentElement.lang =
-    lingua;
+    document.getElementById("lingua").value =
+        lingua;
 
-applicaTraduzione();
+    document.documentElement.lang =
+        lingua;
 
-caricaCaso();
+    applicaTraduzione();
+
+    caricaCaso();
+
+
+    /*
+       Recuperiamo subito i Green Points
+       già presenti nell'account.
+
+       Esempio:
+       account = 350 GP
+
+       entrando nel gioco vedremo subito:
+       🌱 350
+    */
+
+    await sincronizzaGreenPointsAccount();
+
+}
+
+
+/*
+   Aspettiamo che il DOM sia pronto.
+*/
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        avviaGioco
+    );
+
+} else {
+
+    avviaGioco();
+
+}
 
 </script>
 
 </body>
 </html>
-```
