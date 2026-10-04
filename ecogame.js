@@ -18,14 +18,8 @@
 const SUPABASE_URL =
     "https://zrxssuigzisgpcdesjvc.supabase.co";
 
-/*
-   SOSTITUISCI questa chiave con la Publishable Key
-   ATTUALE del progetto Supabase.
-
-   NON usare service_role.
-*/
 const SUPABASE_KEY =
-    "INSERISCI_QUI_LA_TUA_PUBLISHABLE_KEY";
+    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
 
 
 let supabaseClient = null;
@@ -61,11 +55,7 @@ function inizializzaSupabase() {
     }
 
 
-    if (
-        !SUPABASE_KEY ||
-        SUPABASE_KEY ===
-        "INSERISCI_QUI_LA_TUA_PUBLISHABLE_KEY"
-    ) {
+    if (!SUPABASE_KEY) {
 
         console.error(
             "EcoGame: manca la Publishable Key di Supabase."
@@ -507,10 +497,6 @@ async function aggiungiGreenPoints(punti) {
 
     try {
 
-        /*
-           Leggiamo il valore attuale dal profilo.
-        */
-
         const {
             data: profilo,
             error: profileError
@@ -575,11 +561,6 @@ async function aggiungiGreenPoints(punti) {
                 nuoviPunti / 100
             ) + 1;
 
-
-        /*
-           Salviamo i nuovi GP nel profilo
-           collegato all'ID dell'account.
-        */
 
         const {
             data,
@@ -654,11 +635,6 @@ async function aggiungiGreenPoints(punti) {
             livello
         );
 
-
-        /*
-           Aggiorna automaticamente gli elementi
-           eventualmente presenti nella pagina.
-        */
 
         aggiornaGreenPointsPagina(
             totale
@@ -748,14 +724,6 @@ async function accreditaGreenPointsUnaVolta(
     }
 
 
-    /*
-       Evita doppio accredito durante la stessa
-       sessione del browser.
-
-       NON viene usato per collegare i GP
-       all'account: quello viene fatto da Supabase.
-    */
-
     const chiave =
         "ecoGameGP_" +
         gameId;
@@ -813,14 +781,6 @@ async function accreditaGreenPointsUnaVolta(
    ESTINZIONE
 ========================================================= */
 
-/*
-   Regola richiesta:
-
-   50 GP di base
-   +
-   10 GP per ogni risposta esatta
-*/
-
 function calcolaGreenPointsEstinzione(
     risposteEsatte
 ) {
@@ -858,11 +818,6 @@ function calcolaGreenPointsEstinzione(
     );
 }
 
-
-/*
-   Accredita i GP di Estinzione
-   collegandoli all'account.
-*/
 
 async function assegnaGreenPointsEstinzione(
     risposteEsatte
@@ -1066,12 +1021,6 @@ function aggiornaGreenPointsPagina(
         ) || 0;
 
 
-    /*
-       Supportiamo diversi ID possibili,
-       così i giochi possono usare quello
-       che hanno già nel loro HTML.
-    */
-
     const ids = [
 
         "greenPointsTotali",
@@ -1106,11 +1055,6 @@ function aggiornaGreenPointsPagina(
         }
     );
 
-
-    /*
-       Supporto anche per elementi con
-       data-green-points.
-    */
 
     const elementi =
         document.querySelectorAll(
@@ -1201,11 +1145,6 @@ function inizializzaEventiAuth() {
             );
 
 
-            /*
-               Quando l'utente effettua il login,
-               rileggiamo i GP dal profilo.
-            */
-
             if (
                 event === "SIGNED_IN" ||
                 event === "INITIAL_SESSION"
@@ -1245,8 +1184,6 @@ document.addEventListener(
 
 /* =========================================================
    ESPORTAZIONE GLOBALE
-   Utile se altri script devono chiamare
-   direttamente le funzioni EcoGame.
 ========================================================= */
 
 window.ecoGame = {
