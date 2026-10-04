@@ -1,6 +1,6 @@
 /* =====================================================
    ECOGAME - SISTEMA COMUNE
-   Lingua + Account + Green Points
+   Lingua + Account + Green Points + Supabase
    ===================================================== */
 
 
@@ -17,22 +17,49 @@ const SUPABASE_KEY =
 
 /*
    Client Supabase.
-   La libreria Supabase DEVE essere caricata
-   prima di questo file.
+   IMPORTANTE:
+   la libreria Supabase deve essere caricata
+   prima di ecogame.js.
 */
 
 let supabaseClient = null;
 
 
-if (
-    typeof window.supabase === "undefined"
-) {
+/* =====================================================
+   INIZIALIZZAZIONE SUPABASE
+===================================================== */
 
-    console.error(
-        "EcoGame - ERRORE: la libreria Supabase non è stata caricata."
-    );
+function inizializzaSupabase() {
 
-} else {
+    if (
+        typeof window === "undefined"
+    ) {
+
+        console.error(
+            "EcoGame - Window non disponibile."
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        typeof window.supabase === "undefined"
+    ) {
+
+        console.error(
+            "EcoGame - ERRORE: la libreria Supabase non è stata caricata."
+        );
+
+        console.error(
+            "EcoGame - Controlla che supabase-js venga caricato prima di ecogame.js."
+        );
+
+        return false;
+
+    }
+
 
     try {
 
@@ -42,9 +69,14 @@ if (
                 SUPABASE_KEY
             );
 
+
         console.log(
             "EcoGame - Supabase inizializzato correttamente."
         );
+
+
+        return true;
+
 
     } catch (errore) {
 
@@ -53,15 +85,26 @@ if (
             errore
         );
 
+
         supabaseClient = null;
+
+
+        return false;
 
     }
 
 }
 
 
+/*
+   Inizializza immediatamente.
+*/
+
+inizializzaSupabase();
+
+
 /* =====================================================
-   LINGUA CONDIVISA
+   LINGUA
 ===================================================== */
 
 function getLingua() {
@@ -155,7 +198,7 @@ function inizializzaLingua() {
 
 
 /* =====================================================
-   CAMBIO LINGUA GENERICO
+   CAMBIO LINGUA
 ===================================================== */
 
 function cambiaLinguaComune(
@@ -175,6 +218,20 @@ function cambiaLinguaComune(
 
 function supabaseDisponibile() {
 
+    /*
+       Se per qualche motivo non è stato
+       inizializzato prima, proviamo nuovamente.
+    */
+
+    if (
+        !supabaseClient
+    ) {
+
+        inizializzaSupabase();
+
+    }
+
+
     if (
         !supabaseClient
     ) {
@@ -186,6 +243,7 @@ function supabaseDisponibile() {
         return false;
 
     }
+
 
     return true;
 
@@ -242,6 +300,12 @@ async function getEcoGameUser() {
             return null;
 
         }
+
+
+        console.log(
+            "EcoGame - Utente autenticato:",
+            data.user.id
+        );
 
 
         return data.user;
@@ -310,6 +374,18 @@ async function getEcoGameProfile() {
             console.error(
                 "EcoGame - Errore recupero profilo:",
                 error
+            );
+
+            return null;
+
+        }
+
+
+        if (!data) {
+
+            console.error(
+                "EcoGame - Profilo non trovato per:",
+                user.id
             );
 
             return null;
@@ -499,6 +575,22 @@ async function aggiungiGreenPoints(
         }
 
 
+        if (!profilo) {
+
+            return {
+
+                success: false,
+
+                pointsAdded: 0,
+
+                error:
+                    "Profilo non trovato"
+
+            };
+
+        }
+
+
         const puntiAttuali =
             Number(
                 profilo.green_points
@@ -601,6 +693,7 @@ async function aggiungiGreenPoints(
                 )
 
         };
+
 
     } catch (errore) {
 
@@ -877,6 +970,12 @@ if (
             event,
             session
         ) {
+
+            console.log(
+                "EcoGame - Auth:",
+                event
+            );
+
 
             window.dispatchEvent(
                 new CustomEvent(
