@@ -515,11 +515,15 @@ header {
 
 
 <!-- =====================================================
-     ECOGAME.JS
-     
      IMPORTANTE:
-     ecogame.js deve essere nella stessa cartella
-     di questo file HTML.
+     PRIMA CARICHIAMO LA LIBRERIA SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =====================================================
+     POI CARICHIAMO ECOGAME.JS
 ===================================================== -->
 
 <script src="ecogame.js"></script>
@@ -1528,15 +1532,6 @@ let punteggio = 0;
 
 let risolte = 0;
 
-
-/*
-   Questo valore rappresenta il totale reale
-   dei Green Points dell'account.
-
-   NON viene salvato localmente come totale definitivo.
-   Viene letto da Supabase tramite ecogame.js.
-*/
-
 let greenPoints = 0;
 
 let giaRisposto = false;
@@ -1636,30 +1631,6 @@ async function sincronizzaGreenPointsAccount() {
    ACCREDITA GP DEL CASO CORRENTE
 ========================================================= */
 
-/*
-   CORREZIONE IMPORTANTE
-   ---------------------
-
-   Prima veniva utilizzato:
-
-       "dove-finisce-acqua"
-
-   per tutti gli 8 casi.
-
-   Questo significava che dopo il primo +10,
-   gli altri casi venivano considerati già accreditati.
-
-   Ora utilizziamo:
-
-       "dove-finisce-acqua-caso-1"
-       "dove-finisce-acqua-caso-2"
-       ...
-       "dove-finisce-acqua-caso-8"
-
-   In questo modo ogni caso può assegnare
-   i suoi +10 GP una sola volta per sessione.
-*/
-
 async function accreditaGPAcqua() {
 
     if (
@@ -1684,10 +1655,6 @@ async function accreditaGPAcqua() {
     }
 
 
-    /*
-       ID UNIVOCO DEL CASO.
-    */
-
     const gameId =
         "dove-finisce-acqua-caso-" +
         (caso + 1);
@@ -1701,10 +1668,6 @@ async function accreditaGPAcqua() {
                 10
             );
 
-
-        /*
-           Accredito riuscito.
-        */
 
         if (
             risultato &&
@@ -1762,11 +1725,6 @@ async function accreditaGPAcqua() {
 
         }
 
-
-        /*
-           Se il caso aveva già ricevuto i GP,
-           aggiorniamo comunque il totale reale.
-        */
 
         if (
             risultato &&
@@ -1833,20 +1791,11 @@ function cambiaLingua() {
         nuovaLingua;
 
 
-    /*
-       Usiamo la stessa chiave di ecogame.js.
-    */
-
     localStorage.setItem(
         "ecoGameLingua",
         lingua
     );
 
-
-    /*
-       Se ecogame.js è disponibile,
-       utilizziamo anche la sua funzione.
-    */
 
     if (
         typeof cambiaLinguaComune === "function"
@@ -2198,10 +2147,6 @@ async function rispondi(scelta) {
     );
 
 
-    /* =====================================================
-       RISPOSTA CORRETTA
-    ===================================================== */
-
     if (
         scelta === dati.corretta
     ) {
@@ -2211,21 +2156,12 @@ async function rispondi(scelta) {
         risolte++;
 
 
-        /*
-           Aspettiamo che Supabase
-           confermi l'accredito.
-        */
-
         const risultatoGP =
             await accreditaGPAcqua();
 
 
         let testoGP;
 
-
-        /*
-           GP appena accreditati.
-        */
 
         if (
             risultatoGP &&
@@ -2251,10 +2187,6 @@ async function rispondi(scelta) {
         }
 
 
-        /*
-           GP già assegnati.
-        */
-
         else if (
             risultatoGP &&
             risultatoGP.alreadyAdded === true
@@ -2274,10 +2206,6 @@ async function rispondi(scelta) {
 
         }
 
-
-        /*
-           Errore.
-        */
 
         else {
 
@@ -2309,10 +2237,6 @@ async function rispondi(scelta) {
 
     }
 
-
-    /* =====================================================
-       RISPOSTA ERRATA
-    ===================================================== */
 
     else {
 
@@ -2398,11 +2322,6 @@ function prossimoCaso() {
 ========================================================= */
 
 async function fine() {
-
-    /*
-       Recuperiamo il totale reale
-       prima di mostrare il risultato.
-    */
 
     await sincronizzaGreenPointsAccount();
 
@@ -2496,14 +2415,6 @@ async function ricomincia() {
     giaRisposto = false;
 
 
-    /*
-       NON azzeriamo i Green Points dell'account.
-
-       Il totale viene nuovamente letto
-       da Supabase.
-    */
-
-
     document.getElementById(
         "gioco"
     ).style.display =
@@ -2560,11 +2471,6 @@ function tornaGiochi() {
 
 async function avviaGioco() {
 
-    /*
-       Prima recuperiamo la lingua condivisa
-       da ecogame.js, se disponibile.
-    */
-
     if (
         typeof getLingua === "function"
     ) {
@@ -2585,17 +2491,9 @@ async function avviaGioco() {
     }
 
 
-    /*
-       Impostiamo lingua HTML.
-    */
-
     document.documentElement.lang =
         lingua;
 
-
-    /*
-       Impostiamo il selettore.
-    */
 
     document.getElementById(
         "lingua"
@@ -2603,23 +2501,11 @@ async function avviaGioco() {
         lingua;
 
 
-    /*
-       Applichiamo traduzioni.
-    */
-
     applicaTraduzione();
 
 
-    /*
-       Carichiamo il primo caso.
-    */
-
     caricaCaso();
 
-
-    /*
-       Recuperiamo i GP REALI dell'account.
-    */
 
     await sincronizzaGreenPointsAccount();
 
@@ -2627,7 +2513,7 @@ async function avviaGioco() {
 
 
 /* =========================================================
-   EVENTO CAMBIO LINGUA DA ECOGAME.JS
+   EVENTO CAMBIO LINGUA
 ========================================================= */
 
 window.addEventListener(
@@ -2677,11 +2563,6 @@ window.addEventListener(
 window.addEventListener(
     "ecoGameAuthChanged",
     async function() {
-
-        /*
-           Se l'utente fa login/logout,
-           aggiorniamo il valore mostrato.
-        */
 
         await sincronizzaGreenPointsAccount();
 
