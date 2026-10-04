@@ -1,63 +1,77 @@
-/* =====================================================
+/* =========================================================
    ECOGAME - SISTEMA COMUNE
    Lingua + Account + Green Points + Supabase
-   ===================================================== */
+
+   Usato da tutti i giochi EcoGame.
+
+   IMPORTANTE:
+   1. supabase-js deve essere caricato PRIMA di questo file.
+   2. Nel browser usare SOLO la Publishable/anon key.
+   3. La service_role key NON deve MAI essere inserita qui.
+   ========================================================= */
 
 
-/* =====================================================
+/* =========================================================
    SUPABASE
-===================================================== */
+========================================================= */
 
 const SUPABASE_URL =
     "https://zrxssuigzisgpcdesjvc.supabase.co";
 
-const SUPABASE_KEY =
-    "sb_publishable_PXJEogyOyTRmaVIlW8ey_g_WhJHnNKw";
-
-
 /*
-   Client Supabase.
-   IMPORTANTE:
-   la libreria Supabase deve essere caricata
-   prima di ecogame.js.
+   SOSTITUISCI questa chiave con la Publishable Key
+   ATTUALE del progetto Supabase.
+
+   NON usare service_role.
 */
+const SUPABASE_KEY =
+    "INSERISCI_QUI_LA_TUA_PUBLISHABLE_KEY";
+
 
 let supabaseClient = null;
 
 
-/* =====================================================
+/* =========================================================
    INIZIALIZZAZIONE SUPABASE
-===================================================== */
+========================================================= */
 
 function inizializzaSupabase() {
 
-    if (
-        typeof window === "undefined"
-    ) {
+    if (typeof window === "undefined") {
 
         console.error(
-            "EcoGame - Window non disponibile."
+            "EcoGame: window non disponibile."
         );
 
         return false;
+    }
 
+
+    if (typeof window.supabase === "undefined") {
+
+        console.error(
+            "EcoGame: supabase-js non è stato caricato."
+        );
+
+        console.error(
+            "EcoGame: carica supabase-js prima di ecogame.js."
+        );
+
+        return false;
     }
 
 
     if (
-        typeof window.supabase === "undefined"
+        !SUPABASE_KEY ||
+        SUPABASE_KEY ===
+        "INSERISCI_QUI_LA_TUA_PUBLISHABLE_KEY"
     ) {
 
         console.error(
-            "EcoGame - ERRORE: la libreria Supabase non è stata caricata."
-        );
-
-        console.error(
-            "EcoGame - Controlla che supabase-js venga caricato prima di ecogame.js."
+            "EcoGame: manca la Publishable Key di Supabase."
         );
 
         return false;
-
     }
 
 
@@ -71,41 +85,29 @@ function inizializzaSupabase() {
 
 
         console.log(
-            "EcoGame - Supabase inizializzato correttamente."
+            "EcoGame: Supabase inizializzato."
         );
 
 
         return true;
 
-
     } catch (errore) {
 
         console.error(
-            "EcoGame - Errore inizializzazione Supabase:",
+            "EcoGame: errore inizializzazione Supabase:",
             errore
         );
 
-
         supabaseClient = null;
 
-
         return false;
-
     }
-
 }
 
 
-/*
-   Inizializza immediatamente.
-*/
-
-inizializzaSupabase();
-
-
-/* =====================================================
+/* =========================================================
    LINGUA
-===================================================== */
+========================================================= */
 
 function getLingua() {
 
@@ -114,13 +116,8 @@ function getLingua() {
             "ecoGameLingua"
         ) || "it"
     );
-
 }
 
-
-/* =====================================================
-   SALVA LINGUA
-===================================================== */
 
 function salvaLingua(lingua) {
 
@@ -133,7 +130,6 @@ function salvaLingua(lingua) {
     ) {
 
         lingua = "it";
-
     }
 
 
@@ -143,8 +139,11 @@ function salvaLingua(lingua) {
     );
 
 
-    document.documentElement.lang =
-        lingua;
+    if (document.documentElement) {
+
+        document.documentElement.lang =
+            lingua;
+    }
 
 
     window.dispatchEvent(
@@ -160,13 +159,8 @@ function salvaLingua(lingua) {
 
 
     return lingua;
-
 }
 
-
-/* =====================================================
-   INIZIALIZZA LINGUA
-===================================================== */
 
 function inizializzaLingua() {
 
@@ -174,8 +168,11 @@ function inizializzaLingua() {
         getLingua();
 
 
-    document.documentElement.lang =
-        lingua;
+    if (document.documentElement) {
+
+        document.documentElement.lang =
+            lingua;
+    }
 
 
     const selettore =
@@ -188,80 +185,46 @@ function inizializzaLingua() {
 
         selettore.value =
             lingua;
-
     }
 
 
     return lingua;
-
 }
 
 
-/* =====================================================
-   CAMBIO LINGUA
-===================================================== */
-
-function cambiaLinguaComune(
-    lingua
-) {
+function cambiaLinguaComune(lingua) {
 
     return salvaLingua(
         lingua
     );
-
 }
 
 
-/* =====================================================
+/* =========================================================
    CONTROLLO SUPABASE
-===================================================== */
+========================================================= */
 
 function supabaseDisponibile() {
 
-    /*
-       Se per qualche motivo non è stato
-       inizializzato prima, proviamo nuovamente.
-    */
-
-    if (
-        !supabaseClient
-    ) {
+    if (!supabaseClient) {
 
         inizializzaSupabase();
-
     }
 
 
-    if (
-        !supabaseClient
-    ) {
-
-        console.error(
-            "EcoGame - supabaseClient non disponibile."
-        );
-
-        return false;
-
-    }
-
-
-    return true;
-
+    return !!supabaseClient;
 }
 
 
-/* =====================================================
+/* =========================================================
    ACCOUNT
-===================================================== */
+========================================================= */
 
 async function getEcoGameUser() {
 
-    if (
-        !supabaseDisponibile()
-    ) {
+    if (!supabaseDisponibile()) {
 
         return null;
-
     }
 
 
@@ -279,12 +242,11 @@ async function getEcoGameUser() {
         if (error) {
 
             console.error(
-                "EcoGame - Errore recupero utente:",
+                "EcoGame: errore recupero utente:",
                 error
             );
 
             return null;
-
         }
 
 
@@ -294,40 +256,84 @@ async function getEcoGameUser() {
         ) {
 
             console.warn(
-                "EcoGame - Nessun utente autenticato."
+                "EcoGame: nessun utente autenticato."
             );
 
             return null;
-
         }
 
 
         console.log(
-            "EcoGame - Utente autenticato:",
+            "EcoGame: utente autenticato:",
             data.user.id
         );
 
 
         return data.user;
 
-
     } catch (errore) {
 
         console.error(
-            "EcoGame - Errore account:",
+            "EcoGame: errore account:",
             errore
         );
 
         return null;
-
     }
-
 }
 
 
-/* =====================================================
-   PROFILO
-===================================================== */
+/* =========================================================
+   SESSIONE
+========================================================= */
+
+async function getEcoGameSession() {
+
+    if (!supabaseDisponibile()) {
+
+        return null;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if (error) {
+
+            console.error(
+                "EcoGame: errore recupero sessione:",
+                error
+            );
+
+            return null;
+        }
+
+
+        return data?.session || null;
+
+    } catch (errore) {
+
+        console.error(
+            "EcoGame: errore sessione:",
+            errore
+        );
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   PROFILO ACCOUNT
+========================================================= */
 
 async function getEcoGameProfile() {
 
@@ -338,16 +344,6 @@ async function getEcoGameProfile() {
     if (!user) {
 
         return null;
-
-    }
-
-
-    if (
-        !supabaseDisponibile()
-    ) {
-
-        return null;
-
     }
 
 
@@ -372,47 +368,42 @@ async function getEcoGameProfile() {
         if (error) {
 
             console.error(
-                "EcoGame - Errore recupero profilo:",
+                "EcoGame: errore recupero profilo:",
                 error
             );
 
             return null;
-
         }
 
 
         if (!data) {
 
             console.error(
-                "EcoGame - Profilo non trovato per:",
+                "EcoGame: profilo non trovato:",
                 user.id
             );
 
             return null;
-
         }
 
 
         return data;
 
-
     } catch (errore) {
 
         console.error(
-            "EcoGame - Errore profilo:",
+            "EcoGame: errore profilo:",
             errore
         );
 
         return null;
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    GREEN POINTS ATTUALI
-===================================================== */
+========================================================= */
 
 async function getGreenPoints() {
 
@@ -432,9 +423,7 @@ async function getGreenPoints() {
 
             error:
                 "Profilo non disponibile"
-
         };
-
     }
 
 
@@ -451,22 +440,20 @@ async function getGreenPoints() {
             Number(
                 profilo.level
             ) || 1
-
     };
-
 }
 
 
-/* =====================================================
+/* =========================================================
    AGGIUNGI GREEN POINTS
-===================================================== */
+========================================================= */
 
-async function aggiungiGreenPoints(
-    punti
-) {
+async function aggiungiGreenPoints(punti) {
 
     punti =
-        Number(punti);
+        Math.floor(
+            Number(punti)
+        );
 
 
     if (
@@ -482,19 +469,11 @@ async function aggiungiGreenPoints(
 
             error:
                 "Punti non validi"
-
         };
-
     }
 
 
-    punti =
-        Math.floor(punti);
-
-
-    if (
-        !supabaseDisponibile()
-    ) {
+    if (!supabaseDisponibile()) {
 
         return {
 
@@ -504,9 +483,7 @@ async function aggiungiGreenPoints(
 
             error:
                 "Supabase non disponibile"
-
         };
-
     }
 
 
@@ -516,11 +493,6 @@ async function aggiungiGreenPoints(
 
     if (!user) {
 
-        console.error(
-            "EcoGame - Utente non autenticato."
-        );
-
-
         return {
 
             success: false,
@@ -529,13 +501,15 @@ async function aggiungiGreenPoints(
 
             error:
                 "Utente non autenticato"
-
         };
-
     }
 
 
     try {
+
+        /*
+           Leggiamo il valore attuale dal profilo.
+        */
 
         const {
             data: profilo,
@@ -556,10 +530,9 @@ async function aggiungiGreenPoints(
         if (profileError) {
 
             console.error(
-                "EcoGame - Errore recupero profilo:",
+                "EcoGame: errore lettura profilo:",
                 profileError
             );
-
 
             return {
 
@@ -569,9 +542,7 @@ async function aggiungiGreenPoints(
 
                 error:
                     profileError
-
             };
-
         }
 
 
@@ -585,9 +556,7 @@ async function aggiungiGreenPoints(
 
                 error:
                     "Profilo non trovato"
-
             };
-
         }
 
 
@@ -606,6 +575,11 @@ async function aggiungiGreenPoints(
                 nuoviPunti / 100
             ) + 1;
 
+
+        /*
+           Salviamo i nuovi GP nel profilo
+           collegato all'ID dell'account.
+        */
 
         const {
             data,
@@ -627,7 +601,7 @@ async function aggiungiGreenPoints(
                     user.id
                 )
                 .select(
-                    "green_points, level"
+                    "id, green_points, level"
                 )
                 .single();
 
@@ -635,10 +609,9 @@ async function aggiungiGreenPoints(
         if (error) {
 
             console.error(
-                "EcoGame - ERRORE SALVATAGGIO GP:",
+                "EcoGame: ERRORE SALVATAGGIO GP:",
                 error
             );
-
 
             return {
 
@@ -648,27 +621,47 @@ async function aggiungiGreenPoints(
 
                 error:
                     error
-
             };
-
         }
 
 
+        const totale =
+            Number(
+                data.green_points
+            ) || 0;
+
+
+        const livello =
+            Number(
+                data.level
+            ) || 1;
+
+
         console.log(
-            "🌱 EcoGame - GP aggiunti:",
+            "🌱 EcoGame: GP aggiunti:",
             punti
         );
 
 
         console.log(
-            "🌱 EcoGame - GP totali:",
-            data.green_points
+            "🌱 EcoGame: GP totali account:",
+            totale
         );
 
 
         console.log(
-            "⭐ EcoGame - Livello:",
-            data.level
+            "⭐ EcoGame: livello:",
+            livello
+        );
+
+
+        /*
+           Aggiorna automaticamente gli elementi
+           eventualmente presenti nella pagina.
+        */
+
+        aggiornaGreenPointsPagina(
+            totale
         );
 
 
@@ -683,25 +676,18 @@ async function aggiungiGreenPoints(
                 puntiAttuali,
 
             totalPoints:
-                Number(
-                    data.green_points
-                ),
+                totale,
 
             level:
-                Number(
-                    data.level
-                )
-
+                livello
         };
-
 
     } catch (errore) {
 
         console.error(
-            "EcoGame - Errore durante aggiunta GP:",
+            "EcoGame: errore aggiunta GP:",
             errore
         );
-
 
         return {
 
@@ -711,17 +697,14 @@ async function aggiungiGreenPoints(
 
             error:
                 errore
-
         };
-
     }
-
 }
 
 
-/* =====================================================
-   ACCREDITO GREEN POINTS UNA SOLA VOLTA
-===================================================== */
+/* =========================================================
+   ACCREDITO UNA SOLA VOLTA PER GIOCO
+========================================================= */
 
 async function accreditaGreenPointsUnaVolta(
     gameId,
@@ -738,14 +721,14 @@ async function accreditaGreenPointsUnaVolta(
 
             error:
                 "gameId mancante"
-
         };
-
     }
 
 
     punti =
-        Number(punti);
+        Math.floor(
+            Number(punti)
+        );
 
 
     if (
@@ -761,33 +744,31 @@ async function accreditaGreenPointsUnaVolta(
 
             error:
                 "Punti non validi"
-
         };
-
     }
 
 
-    punti =
-        Math.floor(punti);
+    /*
+       Evita doppio accredito durante la stessa
+       sessione del browser.
 
+       NON viene usato per collegare i GP
+       all'account: quello viene fatto da Supabase.
+    */
 
     const chiave =
         "ecoGameGP_" +
         gameId;
 
 
-    const giaAccreditato =
+    if (
         sessionStorage.getItem(
             chiave
-        );
-
-
-    if (
-        giaAccreditato === "true"
+        ) === "true"
     ) {
 
         console.log(
-            "🌱 EcoGame - GP già assegnati:",
+            "EcoGame: GP già accreditati per:",
             gameId
         );
 
@@ -802,9 +783,7 @@ async function accreditaGreenPointsUnaVolta(
 
             error:
                 "Green Points già accreditati"
-
         };
-
     }
 
 
@@ -816,32 +795,155 @@ async function accreditaGreenPointsUnaVolta(
 
     if (
         risultato &&
-        risultato.success === true
+        risultato.success
     ) {
 
         sessionStorage.setItem(
             chiave,
             "true"
         );
-
     }
 
 
     return risultato;
-
 }
 
 
-/* =====================================================
+/* =========================================================
+   ESTINZIONE
+========================================================= */
+
+/*
+   Regola richiesta:
+
+   50 GP di base
+   +
+   10 GP per ogni risposta esatta
+*/
+
+function calcolaGreenPointsEstinzione(
+    risposteEsatte
+) {
+
+    risposteEsatte =
+        Number(
+            risposteEsatte
+        );
+
+
+    if (
+        !Number.isFinite(
+            risposteEsatte
+        )
+    ) {
+
+        risposteEsatte = 0;
+    }
+
+
+    risposteEsatte =
+        Math.max(
+            0,
+            Math.floor(
+                risposteEsatte
+            )
+        );
+
+
+    return (
+        50 +
+        (
+            risposteEsatte * 10
+        )
+    );
+}
+
+
+/*
+   Accredita i GP di Estinzione
+   collegandoli all'account.
+*/
+
+async function assegnaGreenPointsEstinzione(
+    risposteEsatte
+) {
+
+    const greenPoints =
+        calcolaGreenPointsEstinzione(
+            risposteEsatte
+        );
+
+
+    console.log(
+        "🦁 Estinzione - risposte esatte:",
+        risposteEsatte
+    );
+
+
+    console.log(
+        "🌱 Estinzione - GP da assegnare:",
+        greenPoints
+    );
+
+
+    const risultato =
+        await accreditaGreenPointsUnaVolta(
+            "estinzione",
+            greenPoints
+        );
+
+
+    if (
+        risultato &&
+        risultato.success
+    ) {
+
+        console.log(
+            "🌱 Estinzione - GP accreditati:",
+            risultato.pointsAdded
+        );
+
+
+        console.log(
+            "🌱 Estinzione - GP totali account:",
+            risultato.totalPoints
+        );
+    }
+
+
+    return risultato;
+}
+
+
+/* =========================================================
+   FUNZIONE GENERICA PER I GIOCHI
+========================================================= */
+
+async function assegnaGreenPointsGioco(
+    gameId,
+    punti
+) {
+
+    return await
+        accreditaGreenPointsUnaVolta(
+            gameId,
+            punti
+        );
+}
+
+
+/* =========================================================
    SALVA LA FORESTA
-===================================================== */
+========================================================= */
 
 function calcolaGreenPointsForesta(
     punteggio
 ) {
 
     punteggio =
-        Number(punteggio);
+        Number(
+            punteggio
+        );
 
 
     if (
@@ -851,7 +953,6 @@ function calcolaGreenPointsForesta(
     ) {
 
         return 50;
-
     }
 
 
@@ -860,7 +961,6 @@ function calcolaGreenPointsForesta(
     ) {
 
         return 50;
-
     }
 
 
@@ -869,18 +969,12 @@ function calcolaGreenPointsForesta(
     ) {
 
         return 70;
-
     }
 
 
     return 90;
-
 }
 
-
-/* =====================================================
-   ACCREDITO SALVA LA FORESTA
-===================================================== */
 
 async function assegnaGreenPointsForesta(
     punteggio
@@ -893,7 +987,7 @@ async function assegnaGreenPointsForesta(
 
 
     console.log(
-        "🌳 Salva la Foresta - Punteggio:",
+        "🌳 Salva la Foresta - punteggio:",
         punteggio
     );
 
@@ -909,13 +1003,12 @@ async function assegnaGreenPointsForesta(
             "salva-foresta",
             greenPoints
         );
-
 }
 
 
-/* =====================================================
+/* =========================================================
    MOSTRA GREEN POINTS
-===================================================== */
+========================================================= */
 
 async function mostraGreenPoints(
     elementId
@@ -929,8 +1022,12 @@ async function mostraGreenPoints(
 
     if (!elemento) {
 
-        return null;
+        console.warn(
+            "EcoGame: elemento GP non trovato:",
+            elementId
+        );
 
+        return null;
     }
 
 
@@ -941,10 +1038,9 @@ async function mostraGreenPoints(
     if (!risultato.success) {
 
         elemento.innerText =
-            "0";
+            "—";
 
         return risultato;
-
     }
 
 
@@ -953,17 +1049,128 @@ async function mostraGreenPoints(
 
 
     return risultato;
-
 }
 
 
-/* =====================================================
-   EVENTO AUTH SUPABASE
-===================================================== */
+/* =========================================================
+   AGGIORNA GP NELLA PAGINA
+========================================================= */
 
-if (
-    supabaseClient
+function aggiornaGreenPointsPagina(
+    punti
 ) {
+
+    punti =
+        Number(
+            punti
+        ) || 0;
+
+
+    /*
+       Supportiamo diversi ID possibili,
+       così i giochi possono usare quello
+       che hanno già nel loro HTML.
+    */
+
+    const ids = [
+
+        "greenPointsTotali",
+
+        "green-points-totali",
+
+        "greenPoints",
+
+        "gpTotali",
+
+        "gp-totali",
+
+        "accountGreenPoints"
+
+    ];
+
+
+    ids.forEach(
+        function(id) {
+
+            const elemento =
+                document.getElementById(
+                    id
+                );
+
+
+            if (elemento) {
+
+                elemento.innerText =
+                    punti;
+            }
+        }
+    );
+
+
+    /*
+       Supporto anche per elementi con
+       data-green-points.
+    */
+
+    const elementi =
+        document.querySelectorAll(
+            "[data-green-points]"
+        );
+
+
+    elementi.forEach(
+        function(elemento) {
+
+            elemento.innerText =
+                punti;
+        }
+    );
+}
+
+
+/* =========================================================
+   CARICA GP DELL'ACCOUNT NELLA PAGINA
+========================================================= */
+
+async function caricaGreenPointsAccount() {
+
+    const risultato =
+        await getGreenPoints();
+
+
+    if (
+        !risultato ||
+        !risultato.success
+    ) {
+
+        console.warn(
+            "EcoGame: impossibile leggere i GP dell'account."
+        );
+
+        return risultato;
+    }
+
+
+    aggiornaGreenPointsPagina(
+        risultato.points
+    );
+
+
+    return risultato;
+}
+
+
+/* =========================================================
+   EVENTO AUTH
+========================================================= */
+
+function inizializzaEventiAuth() {
+
+    if (!supabaseDisponibile()) {
+
+        return;
+    }
+
 
     supabaseClient.auth.onAuthStateChange(
         function(
@@ -972,7 +1179,7 @@ if (
         ) {
 
             console.log(
-                "EcoGame - Auth:",
+                "EcoGame: Auth:",
                 event
             );
 
@@ -988,21 +1195,39 @@ if (
 
                             session:
                                 session
-
                         }
                     }
                 )
             );
 
+
+            /*
+               Quando l'utente effettua il login,
+               rileggiamo i GP dal profilo.
+            */
+
+            if (
+                event === "SIGNED_IN" ||
+                event === "INITIAL_SESSION"
+            ) {
+
+                setTimeout(
+                    function() {
+
+                        caricaGreenPointsAccount();
+
+                    },
+                    100
+                );
+            }
         }
     );
-
 }
 
 
-/* =====================================================
-   AVVIO SISTEMA
-===================================================== */
+/* =========================================================
+   AVVIO
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1010,5 +1235,59 @@ document.addEventListener(
 
         inizializzaLingua();
 
+        inizializzaEventiAuth();
+
+        caricaGreenPointsAccount();
+
     }
 );
+
+
+/* =========================================================
+   ESPORTAZIONE GLOBALE
+   Utile se altri script devono chiamare
+   direttamente le funzioni EcoGame.
+========================================================= */
+
+window.ecoGame = {
+
+    getUser:
+        getEcoGameUser,
+
+    getSession:
+        getEcoGameSession,
+
+    getProfile:
+        getEcoGameProfile,
+
+    getGreenPoints:
+        getGreenPoints,
+
+    addGreenPoints:
+        aggiungiGreenPoints,
+
+    addOnce:
+        accreditaGreenPointsUnaVolta,
+
+    addGamePoints:
+        assegnaGreenPointsGioco,
+
+    addExtinctionPoints:
+        assegnaGreenPointsEstinzione,
+
+    addForestPoints:
+        assegnaGreenPointsForesta,
+
+    calculateExtinctionPoints:
+        calcolaGreenPointsEstinzione,
+
+    showGreenPoints:
+        mostraGreenPoints,
+
+    loadAccountPoints:
+        caricaGreenPointsAccount,
+
+    changeLanguage:
+        cambiaLinguaComune
+
+};
