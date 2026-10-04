@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
@@ -13,13 +12,11 @@
 
     <title>Animali Estinti 🐾</title>
 
-
     <!-- =====================================================
          SUPABASE
     ====================================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
     <style>
 
@@ -27,13 +24,9 @@
             box-sizing: border-box;
         }
 
-
         body {
-
             margin: 0;
-
             font-family: Arial, sans-serif;
-
             background:
                 linear-gradient(
                     135deg,
@@ -41,425 +34,240 @@
                     #10251a,
                     #08110d
                 );
-
             color: #e8f5e9;
-
             text-align: center;
-
             min-height: 100vh;
-
         }
-
 
         header {
-
             background: #0b1f13;
-
             padding: 30px 20px;
-
-            border-bottom:
-                2px solid #2e7d32;
-
-            box-shadow:
-                0 5px 20px
-                rgba(0,0,0,0.4);
-
+            border-bottom: 2px solid #2e7d32;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
-
 
         header h1 {
-
             margin: 5px;
-
             font-size: 42px;
-
             color: #81c784;
-
         }
-
 
         header p {
-
             color: #c8e6c9;
-
             font-size: 18px;
-
         }
-
 
         .game {
-
             width: 90%;
-
             max-width: 850px;
-
             margin: 35px auto;
-
             background: #12241a;
-
-            border:
-                1px solid #285c35;
-
+            border: 1px solid #285c35;
             border-radius: 25px;
-
             padding: 35px;
-
-            box-shadow:
-                0 10px 35px
-                rgba(0,0,0,0.5);
-
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
         }
-
 
         #numero {
-
             color: #81c784;
-
             font-size: 18px;
-
             font-weight: bold;
-
         }
-
 
         #animale {
-
             font-size: 80px;
-
             margin: 15px;
-
         }
-
 
         #nomeAnimale {
-
             color: #a5d6a7;
-
             font-size: 32px;
-
             margin: 10px;
-
         }
-
 
         #descrizione {
-
             max-width: 700px;
-
             margin: 20px auto;
-
             line-height: 1.6;
-
             color: #d7ead9;
-
         }
-
 
         .info {
-
             background: #0c1911;
-
-            border-left:
-                5px solid #43a047;
-
+            border-left: 5px solid #43a047;
             border-radius: 10px;
-
             padding: 18px;
-
             margin: 20px auto;
-
             max-width: 700px;
-
             text-align: left;
-
             line-height: 1.6;
-
         }
-
 
         .info strong {
-
             color: #81c784;
-
         }
-
 
         #domanda {
-
             font-size: 23px;
-
-            margin:
-                30px 10px 20px;
-
+            margin: 30px 10px 20px;
             color: white;
-
         }
-
 
         .risposta {
-
             display: block;
-
             width: 90%;
-
             max-width: 650px;
-
             margin: 12px auto;
-
             padding: 15px;
-
-            border:
-                1px solid #397545;
-
+            border: 1px solid #397545;
             border-radius: 12px;
-
             background: #1b3524;
-
             color: white;
-
             font-size: 17px;
-
             cursor: pointer;
-
             transition: 0.2s;
-
         }
-
 
         .risposta:hover {
-
             background: #2e7d32;
-
             transform: scale(1.02);
-
         }
-
 
         .risposta:disabled {
-
             cursor: default;
-
             opacity: 0.8;
-
         }
-
 
         #risultato {
-
             font-size: 21px;
-
             font-weight: bold;
-
             margin: 25px;
-
         }
-
 
         #spiegazione {
-
             display: none;
-
             background: #0b1710;
-
-            border-left:
-                5px solid #66bb6a;
-
+            border-left: 5px solid #66bb6a;
             padding: 18px;
-
             margin: 20px auto;
-
             max-width: 700px;
-
             text-align: left;
-
             line-height: 1.6;
-
             color: #d7ead9;
-
         }
-
 
         #gpPartita {
-
             display: none;
-
             background: #102a18;
-
-            border:
-                1px solid #43a047;
-
+            border: 1px solid #43a047;
             border-radius: 15px;
-
             padding: 15px;
-
             margin: 20px auto;
-
             max-width: 500px;
-
             color: #a5d6a7;
-
             font-size: 18px;
-
             font-weight: bold;
-
         }
-
 
         #prossima,
         #ricomincia,
         #home {
-
             border: none;
-
             border-radius: 12px;
-
-            padding:
-                14px 25px;
-
+            padding: 14px 25px;
             font-size: 17px;
-
             font-weight: bold;
-
             cursor: pointer;
-
             margin: 10px;
-
         }
-
 
         #prossima {
-
             background: #1565c0;
-
             color: white;
-
             display: none;
-
         }
-
 
         #prossima:hover {
-
             background: #0d47a1;
-
         }
-
 
         #home {
-
             background: #37474f;
-
             color: white;
-
         }
-
 
         #home:hover {
-
             background: #263238;
-
         }
-
 
         #ricomincia {
-
             background: #43a047;
-
             color: white;
-
         }
-
 
         #ricomincia:hover {
-
             background: #1b5e20;
-
         }
-
 
         #finale {
-
             display: none;
-
         }
-
 
         #punteggioFinale {
-
             font-size: 35px;
-
             color: #81c784;
-
             font-weight: bold;
-
         }
-
 
         #gpGuadagnatiFinale {
-
             font-size: 28px;
-
             color: #66bb6a;
-
             font-weight: bold;
-
             margin: 20px;
-
         }
-
 
         #gpTotaliFinale {
-
             font-size: 24px;
-
             color: #a5d6a7;
-
             font-weight: bold;
-
             margin: 20px;
-
         }
-
 
         #messaggioFinale {
-
             font-size: 20px;
-
             color: #d7ead9;
-
             line-height: 1.6;
-
         }
-
 
         #statoGP {
-
             font-size: 14px;
-
             color: #81a889;
-
             margin-top: 10px;
-
             min-height: 20px;
-
         }
 
-
         footer {
-
             padding: 25px;
-
             color: #81a889;
+        }
 
+        #avvisoSupabase {
+            display: none;
+            max-width: 700px;
+            margin: 15px auto;
+            padding: 14px;
+            background: #351515;
+            border: 1px solid #b74b4b;
+            border-radius: 10px;
+            color: #ffcdd2;
+            line-height: 1.5;
         }
 
     </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -473,6 +281,15 @@
 
 </header>
 
+
+<div
+    id="avvisoSupabase"
+>
+    ⚠️ <strong>Account non disponibile:</strong>
+    controlla la Publishable/anon key di Supabase nel codice.
+    Il gioco funziona comunque, ma i Green Points non possono essere
+    salvati sull'account finché la configurazione non è corretta.
+</div>
 
 
 <div
@@ -501,7 +318,6 @@
 
     <div id="spiegazione"></div>
 
-
     <div id="gpPartita">
 
         🌱
@@ -515,9 +331,7 @@
 
     </div>
 
-
     <div id="statoGP"></div>
-
 
     <button
         id="prossima"
@@ -529,7 +343,6 @@
 </div>
 
 
-
 <div
     class="game"
     id="finale"
@@ -539,23 +352,17 @@
         🎉 Missione completata!
     </h2>
 
-
     <p id="testoFinale">
         Hai analizzato tutti e 6 gli animali.
     </p>
 
-
     <p id="punteggioFinale"></p>
-
 
     <p id="gpGuadagnatiFinale"></p>
 
-
     <p id="gpTotaliFinale"></p>
 
-
     <p id="messaggioFinale"></p>
-
 
     <button
         id="ricomincia"
@@ -563,7 +370,6 @@
     >
         🔄 Ricomincia
     </button>
-
 
     <button
         id="home"
@@ -575,37 +381,50 @@
 </div>
 
 
-
 <footer id="footer">
-
     🌱 Conoscere il passato aiuta a proteggere la biodiversità.
-
 </footer>
-
 
 
 <script>
 
 /* =====================================================
-   =====================================================
-   ECOGAME - SISTEMA ACCOUNT + GREEN POINTS
-   =====================================================
+   ECOGAME
+   SISTEMA ACCOUNT + GREEN POINTS
 ===================================================== */
 
 
 /* =====================================================
-   SUPABASE
+   CONFIGURAZIONE SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
     "https://zrxssuigzisgpcdesjvc.supabase.co";
 
 
+/*
+   IMPORTANTE:
+
+   Inserisci qui la Publishable key oppure la anon key
+   COPIATA DIRETTAMENTE DA:
+
+   Supabase
+   → Project Settings
+   → API
+
+   NON inserire mai una service_role key in questo file.
+
+   La chiave presente nel file precedente restituiva:
+   401 Invalid API key
+*/
+
 const SUPABASE_KEY =
-    "sb_publishable_PXJEogyOyTRmaVIlW8eyg_WhJHnNKw";
+    "INSERISCI_QUI_LA_TUA_PUBLISHABLE_O_ANON_KEY";
 
 
 let supabaseClient = null;
+
+let supabaseConfigurato = false;
 
 
 /* =====================================================
@@ -627,6 +446,26 @@ function inizializzaSupabase() {
     }
 
 
+    if (
+        !SUPABASE_KEY ||
+        SUPABASE_KEY.includes(
+            "INSERISCI_QUI"
+        )
+    ) {
+
+        console.warn(
+            "EcoGame: Publishable/anon key Supabase non configurata."
+        );
+
+        document.getElementById(
+            "avvisoSupabase"
+        ).style.display = "block";
+
+        return false;
+
+    }
+
+
     try {
 
         supabaseClient =
@@ -634,6 +473,9 @@ function inizializzaSupabase() {
                 SUPABASE_URL,
                 SUPABASE_KEY
             );
+
+
+        supabaseConfigurato = true;
 
 
         console.log(
@@ -648,13 +490,13 @@ function inizializzaSupabase() {
     catch (errore) {
 
         console.error(
-            "EcoGame: errore Supabase:",
+            "EcoGame: errore inizializzazione Supabase:",
             errore
         );
 
-
         supabaseClient = null;
 
+        supabaseConfigurato = false;
 
         return false;
 
@@ -666,31 +508,33 @@ function inizializzaSupabase() {
 inizializzaSupabase();
 
 
-
 /* =====================================================
    CONTROLLO SUPABASE
 ===================================================== */
 
 function supabaseDisponibile() {
 
-    if (!supabaseClient) {
+    if (
+        !supabaseClient
+    ) {
 
         inizializzaSupabase();
 
     }
 
-
-    return !!supabaseClient;
+    return (
+        !!supabaseClient &&
+        supabaseConfigurato
+    );
 
 }
 
 
-
 /* =====================================================
-   OTTIENI UTENTE
+   OTTIENI SESSIONE
 ===================================================== */
 
-async function getEcoGameUser() {
+async function getEcoGameSession() {
 
     if (
         !supabaseDisponibile()
@@ -709,15 +553,33 @@ async function getEcoGameUser() {
         } =
             await supabaseClient
                 .auth
-                .getUser();
+                .getSession();
 
 
         if (error) {
 
             console.error(
-                "EcoGame: errore recupero utente:",
+                "EcoGame: errore recupero sessione:",
                 error
             );
+
+            /*
+               Se la chiave è invalida evitiamo di
+               continuare a fare richieste inutili.
+            */
+
+            if (
+                error.message &&
+                error.message
+                    .toLowerCase()
+                    .includes("invalid api key")
+            ) {
+
+                document.getElementById(
+                    "avvisoSupabase"
+                ).style.display = "block";
+
+            }
 
             return null;
 
@@ -726,26 +588,22 @@ async function getEcoGameUser() {
 
         if (
             !data ||
-            !data.user
+            !data.session
         ) {
-
-            console.warn(
-                "EcoGame: nessun utente autenticato."
-            );
 
             return null;
 
         }
 
 
-        return data.user;
+        return data.session;
 
     }
 
     catch (errore) {
 
         console.error(
-            "EcoGame: errore account:",
+            "EcoGame: errore sessione:",
             errore
         );
 
@@ -755,6 +613,30 @@ async function getEcoGameUser() {
 
 }
 
+
+/* =====================================================
+   OTTIENI UTENTE
+===================================================== */
+
+async function getEcoGameUser() {
+
+    const session =
+        await getEcoGameSession();
+
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        return null;
+
+    }
+
+
+    return session.user;
+
+}
 
 
 /* =====================================================
@@ -822,12 +704,30 @@ async function getEcoGameProfile() {
 }
 
 
-
 /* =====================================================
    OTTIENI GREEN POINTS
 ===================================================== */
 
 async function getGreenPoints() {
+
+    if (
+        !supabaseDisponibile()
+    ) {
+
+        return {
+
+            success: false,
+
+            points: 0,
+
+            level: 1,
+
+            error: "Supabase non configurato"
+
+        };
+
+    }
+
 
     const profilo =
         await getEcoGameProfile();
@@ -867,9 +767,8 @@ async function getGreenPoints() {
 }
 
 
-
 /* =====================================================
-   AGGIUNGI GREEN POINTS ALL'ACCOUNT
+   AGGIUNGI GREEN POINTS
 ===================================================== */
 
 async function aggiungiGreenPoints(
@@ -966,7 +865,6 @@ async function aggiungiGreenPoints(
                 profileError
             );
 
-
             return {
 
                 success: false,
@@ -1045,7 +943,6 @@ async function aggiungiGreenPoints(
                 error
             );
 
-
             return {
 
                 success: false,
@@ -1103,7 +1000,6 @@ async function aggiungiGreenPoints(
             errore
         );
 
-
         return {
 
             success: false,
@@ -1118,7 +1014,6 @@ async function aggiungiGreenPoints(
     }
 
 }
-
 
 
 /* =====================================================
@@ -1224,52 +1119,6 @@ async function accreditaGreenPointsUnaVolta(
 }
 
 
-
-/* =====================================================
-   MOSTRA GP ACCOUNT
-===================================================== */
-
-async function mostraGreenPoints(
-    elementId
-) {
-
-    const elemento =
-        document.getElementById(
-            elementId
-        );
-
-
-    if (!elemento) {
-
-        return null;
-
-    }
-
-
-    const risultato =
-        await getGreenPoints();
-
-
-    if (!risultato.success) {
-
-        elemento.innerText =
-            "0";
-
-        return risultato;
-
-    }
-
-
-    elemento.innerText =
-        risultato.points;
-
-
-    return risultato;
-
-}
-
-
-
 /* =====================================================
    LINGUA
 ===================================================== */
@@ -1294,7 +1143,6 @@ let lingua =
 
 document.documentElement.lang =
     lingua;
-
 
 
 /* =====================================================
@@ -1373,7 +1221,6 @@ const testi = {
 
     },
 
-
     en: {
 
         titoloPagina:
@@ -1443,7 +1290,6 @@ const testi = {
             "⚠️ Green Points could not be saved. Check that you are logged into your account."
 
     },
-
 
     fi: {
 
@@ -1518,7 +1364,6 @@ const testi = {
 };
 
 
-
 /* =====================================================
    ANIMALI
 ===================================================== */
@@ -1526,864 +1371,605 @@ const testi = {
 const animali = [
 
     {
-
         emoji: "🦣",
 
         nome: {
-
             it: "Mammut lanoso",
-
             en: "Woolly Mammoth",
-
             fi: "Villamammutti"
-
         },
 
         descrizione: {
-
             it: "Il mammut lanoso viveva nelle regioni fredde dell'emisfero settentrionale ed era adattato ai climi glaciali.",
-
             en: "The woolly mammoth lived in the cold regions of the Northern Hemisphere and was adapted to glacial climates.",
-
             fi: "Villamammutti eli pohjoisen pallonpuoliskon kylmillä alueilla ja oli sopeutunut jääkauden ilmastoon."
-
         },
 
         causa: {
-
             it: "Le popolazioni diminuirono per una combinazione di cambiamenti climatici e pressione umana. Alcune popolazioni sopravvissero più a lungo in aree isolate.",
-
             en: "Populations declined due to a combination of climate change and human pressure. Some populations survived longer in isolated areas.",
-
             fi: "Kannat vähenivät ilmastonmuutoksen ja ihmisen aiheuttaman paineen yhteisvaikutuksesta. Jotkin kannat selviytyivät pidempään eristyneillä alueilla."
-
         },
 
         protezione: {
-
             it: "La riduzione della pressione di caccia e la protezione degli habitat avrebbero potuto contribuire a preservare alcune popolazioni.",
-
             en: "Reducing hunting pressure and protecting habitats could have helped preserve some populations.",
-
             fi: "Metsästyspaineen vähentäminen ja elinympäristöjen suojeleminen olisivat voineet auttaa säilyttämään joitakin kantoja."
-
         },
 
         domanda: {
-
             it: "Quale combinazione di fattori è associata alla scomparsa del mammut lanoso?",
-
             en: "Which combination of factors is associated with the disappearance of the woolly mammoth?",
-
             fi: "Mikä tekijöiden yhdistelmä liittyy villamammutin katoamiseen?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "Cambiamenti ambientali e pressione umana",
                     corretta: true
                 },
-
                 {
                     testo: "Solo terremoti",
                     corretta: false
                 },
-
                 {
                     testo: "Solo malattie moderne",
                     corretta: false
                 },
-
                 {
                     testo: "La mancanza di acqua potabile causata dall'uomo",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Environmental changes and human pressure",
                     corretta: true
                 },
-
                 {
                     testo: "Only earthquakes",
                     corretta: false
                 },
-
                 {
                     testo: "Only modern diseases",
                     corretta: false
                 },
-
                 {
                     testo: "Lack of drinking water caused by humans",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Ympäristön muutokset ja ihmisen aiheuttama paine",
                     corretta: true
                 },
-
                 {
                     testo: "Vain maanjäristykset",
                     corretta: false
                 },
-
                 {
                     testo: "Vain nykyajan sairaudet",
                     corretta: false
                 },
-
                 {
                     testo: "Ihmisen aiheuttama juomaveden puute",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "La scomparsa del mammut lanoso è stata collegata a cambiamenti climatici e, in diverse aree e periodi, alla pressione della caccia umana.",
-
             en: "The disappearance of the woolly mammoth has been linked to climate change and, in different areas and periods, to human hunting pressure.",
-
             fi: "Villamammutin katoaminen on yhdistetty ilmastonmuutokseen ja eri alueilla ja ajanjaksoina myös ihmisen aiheuttamaan metsästyspaineeseen."
-
         }
-
     },
 
 
     {
-
         emoji: "🦤",
 
         nome: {
-
             it: "Dodo",
-
             en: "Dodo",
-
             fi: "Dodo"
-
         },
 
         descrizione: {
-
             it: "Il dodo era un uccello incapace di volare che viveva sull'isola di Mauritius nell'Oceano Indiano.",
-
             en: "The dodo was a flightless bird that lived on the island of Mauritius in the Indian Ocean.",
-
             fi: "Dodo oli lentokyvytön lintu, joka eli Mauritiuksen saarella Intian valtamerellä."
-
         },
 
         causa: {
-
             it: "La sua scomparsa è legata soprattutto all'arrivo degli esseri umani, alla caccia e alla presenza di animali introdotti che predavano uova e giovani.",
-
             en: "Its disappearance was mainly linked to the arrival of humans, hunting, and introduced animals that preyed on eggs and young birds.",
-
             fi: "Sen katoaminen liittyi erityisesti ihmisten saapumiseen, metsästykseen ja alueelle tuotuihin eläimiin, jotka söivät munia ja poikasia."
-
         },
 
         protezione: {
-
             it: "La protezione dell'habitat e dei siti di nidificazione, insieme al controllo degli animali introdotti, avrebbe potuto ridurre la pressione sulla specie.",
-
             en: "Protecting habitats and nesting sites, together with controlling introduced animals, could have reduced pressure on the species.",
-
             fi: "Elinympäristöjen ja pesimäpaikkojen suojeleminen sekä vieraslajien torjunta olisi voinut vähentää lajiin kohdistunutta painetta."
-
         },
 
         domanda: {
-
             it: "Perché il dodo era particolarmente vulnerabile all'arrivo di nuovi predatori?",
-
             en: "Why was the dodo particularly vulnerable to the arrival of new predators?",
-
             fi: "Miksi dodo oli erityisen haavoittuvainen uusien petoeläinten saapuessa?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "Perché non poteva volare e nidificava a terra",
                     corretta: true
                 },
-
                 {
                     testo: "Perché viveva sott'acqua",
                     corretta: false
                 },
-
                 {
                     testo: "Perché era un animale notturno",
                     corretta: false
                 },
-
                 {
                     testo: "Perché non poteva mangiare frutta",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Because it could not fly and nested on the ground",
                     corretta: true
                 },
-
                 {
                     testo: "Because it lived underwater",
                     corretta: false
                 },
-
                 {
                     testo: "Because it was a nocturnal animal",
                     corretta: false
                 },
-
                 {
                     testo: "Because it could not eat fruit",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Koska se ei osannut lentää ja pesi maassa",
                     corretta: true
                 },
-
                 {
                     testo: "Koska se eli veden alla",
                     corretta: false
                 },
-
                 {
                     testo: "Koska se oli yöeläin",
                     corretta: false
                 },
-
                 {
                     testo: "Koska se ei voinut syödä hedelmiä",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "Il dodo non volava e deponeva le uova a terra, caratteristiche che lo rendevano vulnerabile a predatori introdotti nell'isola.",
-
             en: "The dodo could not fly and laid its eggs on the ground, making it vulnerable to predators introduced to the island.",
-
             fi: "Dodo ei osannut lentää ja muni maahan, mikä teki siitä haavoittuvan saarelle tuotujen petoeläinten saalistukselle."
-
         }
-
     },
 
 
     {
-
         emoji: "🐯",
 
         nome: {
-
             it: "Tilacino",
-
             en: "Thylacine",
-
             fi: "Tasmaniantiikeri"
-
         },
 
         descrizione: {
-
             it: "Il tilacino, noto anche come tigre della Tasmania, era un marsupiale carnivoro originario dell'Australia e della Tasmania.",
-
             en: "The thylacine, also known as the Tasmanian tiger, was a carnivorous marsupial native to Australia and Tasmania.",
-
             fi: "Tasmaniantiikeri eli tilakiini oli Australiasta ja Tasmaniasta peräisin ollut lihansyöjäpussieläin."
-
         },
 
         causa: {
-
             it: "In Tasmania fu perseguitato dagli esseri umani e sottoposto a campagne di abbattimento. Anche la perdita dell'habitat e altri fattori possono aver contribuito al declino.",
-
             en: "In Tasmania it was persecuted by humans and subjected to culling campaigns. Habitat loss and other factors may also have contributed to its decline.",
-
             fi: "Tasmaniassa ihmiset vainosivat sitä ja sitä vastaan järjestettiin hävityskampanjoita. Myös elinympäristöjen menetys ja muut tekijät saattoivat vaikuttaa sen vähenemiseen."
-
         },
 
         protezione: {
-
             it: "Una protezione anticipata della specie e la riduzione delle campagne di abbattimento avrebbero potuto aumentare le possibilità di sopravvivenza.",
-
             en: "Earlier protection of the species and reducing culling campaigns could have increased its chances of survival.",
-
             fi: "Lajin aikaisempi suojelu ja hävityskampanjoiden vähentäminen olisivat voineet parantaa sen selviytymismahdollisuuksia."
-
         },
 
         domanda: {
-
             it: "Quale intervento avrebbe potuto contribuire maggiormente alla conservazione del tilacino?",
-
             en: "Which intervention could have contributed most to the conservation of the thylacine?",
-
             fi: "Mikä toimenpide olisi voinut edistää eniten tasmaniantiikerin suojelua?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "Proteggere la specie e limitare l'abbattimento",
                     corretta: true
                 },
-
                 {
                     testo: "Aumentare la caccia",
                     corretta: false
                 },
-
                 {
                     testo: "Distruggere il suo habitat",
                     corretta: false
                 },
-
                 {
                     testo: "Introdurre nuovi predatori",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Protect the species and limit culling",
                     corretta: true
                 },
-
                 {
                     testo: "Increase hunting",
                     corretta: false
                 },
-
                 {
                     testo: "Destroy its habitat",
                     corretta: false
                 },
-
                 {
                     testo: "Introduce new predators",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Suojella lajia ja rajoittaa tappamista",
                     corretta: true
                 },
-
                 {
                     testo: "Lisätä metsästystä",
                     corretta: false
                 },
-
                 {
                     testo: "Tuhota sen elinympäristö",
                     corretta: false
                 },
-
                 {
                     testo: "Tuoda alueelle uusia petoeläimiä",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "La protezione legale e la riduzione della persecuzione avrebbero potuto diminuire una delle principali pressioni esercitate sulla popolazione.",
-
             en: "Legal protection and reducing persecution could have decreased one of the main pressures on the population.",
-
             fi: "Lainsäädännöllinen suojelu ja vainon vähentäminen olisivat voineet pienentää yhtä tärkeimmistä kantaan kohdistuneista paineista."
-
         }
-
     },
 
 
     {
-
         emoji: "🐦",
 
         nome: {
-
             it: "Alca impenne",
-
             en: "Great Auk",
-
             fi: "Isoruokki"
-
         },
 
         descrizione: {
-
             it: "L'alca impenne era un grande uccello marino incapace di volare che viveva nell'Atlantico settentrionale.",
-
             en: "The great auk was a large flightless seabird that lived in the North Atlantic.",
-
             fi: "Isoruokki oli suuri lentokyvytön merilintu, joka eli Pohjois-Atlantilla."
-
         },
 
         causa: {
-
             it: "Fu fortemente cacciato per carne, piume e altri materiali. La pressione della caccia contribuì al rapido declino delle popolazioni.",
-
             en: "It was heavily hunted for meat, feathers and other materials. Hunting pressure contributed to the rapid decline of its populations.",
-
             fi: "Sitä metsästettiin runsaasti lihan, höyhenten ja muiden materiaalien vuoksi. Metsästyspaine vaikutti kantojen nopeaan vähenemiseen."
-
         },
 
         protezione: {
-
             it: "La regolamentazione della caccia e la protezione delle colonie riproduttive avrebbero potuto ridurre il rischio di estinzione.",
-
             en: "Hunting regulations and protection of breeding colonies could have reduced the risk of extinction.",
-
             fi: "Metsästyksen sääntely ja lisääntymisyhdyskuntien suojelu olisivat voineet vähentää sukupuuton riskiä."
-
         },
 
         domanda: {
-
             it: "Quale fu una delle principali minacce per l'alca impenne?",
-
             en: "What was one of the main threats to the great auk?",
-
             fi: "Mikä oli yksi isoruokin tärkeimmistä uhkista?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "La caccia da parte degli esseri umani",
                     corretta: true
                 },
-
                 {
                     testo: "La fotosintesi delle alghe",
                     corretta: false
                 },
-
                 {
                     testo: "La mancanza di alberi tropicali",
                     corretta: false
                 },
-
                 {
                     testo: "L'inquinamento luminoso moderno",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Human hunting",
                     corretta: true
                 },
-
                 {
                     testo: "Algae photosynthesis",
                     corretta: false
                 },
-
                 {
                     testo: "Lack of tropical trees",
                     corretta: false
                 },
-
                 {
                     testo: "Modern light pollution",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Ihmisten harjoittama metsästys",
                     corretta: true
                 },
-
                 {
                     testo: "Levien fotosynteesi",
                     corretta: false
                 },
-
                 {
                     testo: "Trooppisten puiden puute",
                     corretta: false
                 },
-
                 {
                     testo: "Nykyajan valosaaste",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "L'alca impenne fu sottoposta a una forte pressione di caccia e raccolta, che contribuì al suo declino fino all'estinzione.",
-
             en: "The great auk was subjected to intense hunting and collection pressure, contributing to its decline and eventual extinction.",
-
             fi: "Isoruokki joutui voimakkaan metsästyksen ja keräilyn kohteeksi, mikä vaikutti sen vähenemiseen ja lopulta sukupuuttoon."
-
         }
-
     },
 
 
     {
-
         emoji: "🐸",
 
         nome: {
-
             it: "Rana dorata del Costa Rica",
-
             en: "Golden Toad of Costa Rica",
-
             fi: "Costa Rican kultakonna"
-
         },
 
         descrizione: {
-
             it: "La rana dorata del Costa Rica era una piccola rana conosciuta per il caratteristico colore arancione-dorato. È considerata estinta.",
-
             en: "The golden toad of Costa Rica was a small frog known for its distinctive golden-orange color. It is considered extinct.",
-
             fi: "Costa Rican kultakonna oli pieni sammakko, joka tunnettiin tunnusomaisesta kullanoranssista väristään. Sen katsotaan kuolleen sukupuuttoon."
-
         },
 
         causa: {
-
             it: "Il suo declino è stato associato a cambiamenti climatici, alterazioni dell'habitat e alla diffusione di malattie fungine tra gli anfibi.",
-
             en: "Its decline has been associated with climate change, habitat changes and the spread of fungal diseases among amphibians.",
-
             fi: "Sen väheneminen on yhdistetty ilmastonmuutokseen, elinympäristöjen muutoksiin ja sammakkoeläinten sienitautien leviämiseen."
-
         },
 
         protezione: {
-
             it: "Il monitoraggio delle popolazioni, la protezione dell'habitat e la ricerca sulle malattie degli anfibi sono strumenti importanti per prevenire perdite simili.",
-
             en: "Population monitoring, habitat protection and research into amphibian diseases are important tools for preventing similar losses.",
-
             fi: "Kantojen seuranta, elinympäristöjen suojelu ja sammakkoeläinten sairauksien tutkiminen ovat tärkeitä keinoja vastaavien menetysten ehkäisemiseksi."
-
         },
 
         domanda: {
-
             it: "Quale problema ha contribuito al declino di molte popolazioni di anfibi, compresa la rana dorata?",
-
             en: "Which problem contributed to the decline of many amphibian populations, including the golden toad?",
-
             fi: "Mikä ongelma vaikutti monien sammakkoeläinkantojen, myös kultakonnan, vähenemiseen?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "Malattie fungine e cambiamenti ambientali",
                     corretta: true
                 },
-
                 {
                     testo: "La pesca industriale",
                     corretta: false
                 },
-
                 {
                     testo: "La caccia alle balene",
                     corretta: false
                 },
-
                 {
                     testo: "L'eccesso di neve",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Fungal diseases and environmental changes",
                     corretta: true
                 },
-
                 {
                     testo: "Industrial fishing",
                     corretta: false
                 },
-
                 {
                     testo: "Whaling",
                     corretta: false
                 },
-
                 {
                     testo: "Excessive snowfall",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Sienitaudit ja ympäristön muutokset",
                     corretta: true
                 },
-
                 {
                     testo: "Teollinen kalastus",
                     corretta: false
                 },
-
                 {
                     testo: "Valaanpyynti",
                     corretta: false
                 },
-
                 {
                     testo: "Liiallinen lumi",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "La perdita di habitat, i cambiamenti ambientali e malattie come la chytridiomicosi hanno contribuito al declino di numerosi anfibi.",
-
             en: "Habitat loss, environmental changes and diseases such as chytridiomycosis have contributed to the decline of many amphibians.",
-
             fi: "Elinympäristöjen häviäminen, ympäristön muutokset ja kytridiomykoosin kaltaiset sairaudet ovat vaikuttaneet monien sammakkoeläinten vähenemiseen."
-
         }
-
     },
 
 
     {
-
         emoji: "🐦",
 
         nome: {
-
             it: "Piccione migratore",
-
             en: "Passenger Pigeon",
-
             fi: "Vaeltajakyyhky"
-
         },
 
         descrizione: {
-
             it: "Il piccione migratore era un uccello nordamericano che un tempo formava stormi enormi.",
-
             en: "The passenger pigeon was a North American bird that once formed enormous flocks.",
-
             fi: "Vaeltajakyyhky oli pohjoisamerikkalainen lintu, joka muodosti aikoinaan valtavia parvia."
-
         },
 
         causa: {
-
             it: "La specie subì una caccia commerciale su larga scala e una forte perdita dell'habitat forestale. La combinazione di queste pressioni provocò un drastico declino.",
-
             en: "The species experienced large-scale commercial hunting and severe forest habitat loss. The combination of these pressures caused a dramatic decline.",
-
             fi: "Lajia metsästettiin kaupallisesti laajassa mittakaavassa, ja sen metsäelinympäristöt vähenivät voimakkaasti. Näiden paineiden yhdistelmä aiheutti jyrkän kannan romahduksen."
-
         },
 
         protezione: {
-
             it: "Limitare la caccia e proteggere le foreste avrebbe potuto ridurre fortemente le pressioni sulla specie.",
-
             en: "Limiting hunting and protecting forests could have greatly reduced pressure on the species.",
-
             fi: "Metsästyksen rajoittaminen ja metsien suojeleminen olisivat voineet vähentää merkittävästi lajiin kohdistunutta painetta."
-
         },
 
         domanda: {
-
             it: "Quale combinazione contribuì maggiormente al declino del piccione migratore?",
-
             en: "Which combination contributed most to the decline of the passenger pigeon?",
-
             fi: "Mikä yhdistelmä vaikutti eniten vaeltajakyyhkyn vähenemiseen?"
-
         },
 
         risposte: {
-
             it: [
-
                 {
                     testo: "Caccia su larga scala e perdita dell'habitat",
                     corretta: true
                 },
-
                 {
                     testo: "Solo eruzioni vulcaniche",
                     corretta: false
                 },
-
                 {
                     testo: "Solo cambiamenti delle maree",
                     corretta: false
                 },
-
                 {
                     testo: "La mancanza di acqua negli oceani",
                     corretta: false
                 }
-
             ],
 
             en: [
-
                 {
                     testo: "Large-scale hunting and habitat loss",
                     corretta: true
                 },
-
                 {
                     testo: "Only volcanic eruptions",
                     corretta: false
                 },
-
                 {
                     testo: "Only changes in tides",
                     corretta: false
                 },
-
                 {
                     testo: "Lack of water in the oceans",
                     corretta: false
                 }
-
             ],
 
             fi: [
-
                 {
                     testo: "Laajamittainen metsästys ja elinympäristöjen häviäminen",
                     corretta: true
                 },
-
                 {
                     testo: "Vain tulivuorenpurkaukset",
                     corretta: false
                 },
-
                 {
                     testo: "Vain vuorovesien muutokset",
                     corretta: false
                 },
-
                 {
                     testo: "Veden puute valtamerissä",
                     corretta: false
                 }
-
             ]
-
         },
 
         spiegazione: {
-
             it: "Il piccione migratore fu colpito dalla caccia commerciale su larga scala e dalla distruzione del suo habitat forestale.",
-
             en: "The passenger pigeon was affected by large-scale commercial hunting and the destruction of its forest habitat.",
-
             fi: "Vaeltajakyyhky kärsi laajamittaisesta kaupallisesta metsästyksestä ja metsäisen elinympäristönsä tuhoutumisesta."
-
         }
-
     }
 
 ];
-
 
 
 /* =====================================================
@@ -2396,34 +1982,19 @@ let punteggio = 0;
 
 let rispostaData = false;
 
-
-/*
-   GP guadagnati SOLTANTO in questa partita.
-*/
-
 let gpGuadagnatiPartita = 0;
-
-
-/*
-   Ogni risposta ha un suo ID.
-   Questo impedisce di assegnare
-   due volte i GP per la stessa risposta.
-*/
 
 const GAME_ID =
     "animali-estinti";
 
 
-
 /* =====================================================
-   MESCOLA RISPOSTE
+   MESCOLA
 ===================================================== */
 
 function mescola(array) {
 
-    const copia =
-        [...array];
-
+    const copia = [...array];
 
     for (
         let i = copia.length - 1;
@@ -2437,23 +2008,19 @@ function mescola(array) {
                 (i + 1)
             );
 
-
         [
             copia[i],
             copia[j]
-        ] =
-        [
+        ] = [
             copia[j],
             copia[i]
         ];
 
     }
 
-
     return copia;
 
 }
-
 
 
 /* =====================================================
@@ -2465,54 +2032,45 @@ function applicaLingua() {
     const t =
         testi[lingua];
 
-
     document.getElementById(
         "titoloPagina"
     ).innerText =
         t.titoloPagina;
-
 
     document.getElementById(
         "sottotitoloPagina"
     ).innerText =
         t.sottotitoloPagina;
 
-
     document.getElementById(
         "titoloFinale"
     ).innerText =
         t.finale;
-
 
     document.getElementById(
         "testoFinale"
     ).innerText =
         t.finaleTesto;
 
-
     document.getElementById(
         "ricomincia"
     ).innerText =
         t.ricomincia;
-
 
     document.getElementById(
         "home"
     ).innerText =
         t.home;
 
-
     document.getElementById(
         "footer"
     ).innerText =
         t.footer;
 
-
     document.getElementById(
         "prossima"
     ).innerText =
         t.prossimo;
-
 
     document.getElementById(
         "gpPartitaTesto"
@@ -2520,7 +2078,6 @@ function applicaLingua() {
         t.gpPartita;
 
 }
-
 
 
 /* =====================================================
@@ -2531,21 +2088,17 @@ function mostraAnimale() {
 
     rispostaData = false;
 
-
     const animale =
         animali[
             animaleAttuale
         ];
 
-
     const t =
         testi[lingua];
-
 
     document.getElementById(
         "numero"
     ).innerText =
-
         t.animale +
         " " +
         (animaleAttuale + 1) +
@@ -2554,107 +2107,85 @@ function mostraAnimale() {
         " " +
         animali.length;
 
-
     document.getElementById(
         "animale"
     ).innerText =
         animale.emoji;
-
 
     document.getElementById(
         "nomeAnimale"
     ).innerText =
         animale.nome[lingua];
 
-
     document.getElementById(
         "descrizione"
     ).innerText =
         animale.descrizione[lingua];
 
-
     document.getElementById(
         "informazioni"
     ).innerHTML =
-
         "<strong>" +
         t.causa +
         "</strong><br>" +
-
         animale.causa[lingua] +
-
         "<br><br>" +
-
         "<strong>" +
         t.protezione +
         "</strong><br>" +
-
         animale.protezione[lingua];
-
 
     document.getElementById(
         "domanda"
     ).innerText =
         animale.domanda[lingua];
 
-
     document.getElementById(
         "risultato"
     ).innerText =
         "";
-
 
     document.getElementById(
         "spiegazione"
     ).style.display =
         "none";
 
-
     document.getElementById(
         "prossima"
     ).style.display =
         "none";
-
 
     document.getElementById(
         "statoGP"
     ).innerText =
         "";
 
-
     const contenitore =
         document.getElementById(
             "risposte"
         );
 
-
     contenitore.innerHTML =
         "";
-
 
     const risposteMescolate =
         mescola(
             animale.risposte[lingua]
         );
 
-
     risposteMescolate.forEach(
         function(risposta) {
-
 
             const bottone =
                 document.createElement(
                     "button"
                 );
 
-
             bottone.className =
                 "risposta";
 
-
             bottone.innerText =
                 risposta.testo;
-
 
             bottone.onclick =
                 function() {
@@ -2664,7 +2195,6 @@ function mostraAnimale() {
                     );
 
                 };
-
 
             contenitore.appendChild(
                 bottone
@@ -2676,7 +2206,6 @@ function mostraAnimale() {
 }
 
 
-
 /* =====================================================
    CONTROLLA RISPOSTA
 ===================================================== */
@@ -2686,29 +2215,18 @@ async function controllaRisposta(
 ) {
 
     if (rispostaData) {
-
         return;
-
     }
-
 
     rispostaData = true;
 
-
     const t =
         testi[lingua];
-
-
-    /*
-       Disabilitiamo tutti i pulsanti
-       immediatamente.
-    */
 
     const pulsanti =
         document.querySelectorAll(
             ".risposta"
         );
-
 
     pulsanti.forEach(
         function(bottone) {
@@ -2720,32 +2238,12 @@ async function controllaRisposta(
     );
 
 
-
-    /* =================================================
-       RISPOSTA CORRETTA
-    ================================================= */
-
     if (risposta.corretta) {
 
         punteggio++;
 
-
-        /*
-           +10 GP per questa risposta.
-        */
-
         const puntiDaAggiungere =
             10;
-
-
-        /*
-           ID UNICO DELLA RISPOSTA.
-           
-           Esempio:
-           animali-estinti-0
-           animali-estinti-1
-           ecc.
-        */
 
         const gameIdRisposta =
             GAME_ID +
@@ -2754,8 +2252,9 @@ async function controllaRisposta(
 
 
         /*
-           Salviamo i GP direttamente
-           nell'account Supabase.
+           Se Supabase non è configurato,
+           il gioco continua comunque senza
+           bloccare la risposta.
         */
 
         const risultatoGP =
@@ -2765,12 +2264,6 @@ async function controllaRisposta(
             );
 
 
-        /*
-           Se il salvataggio è riuscito,
-           aggiorniamo il contatore
-           della partita.
-        */
-
         if (
             risultatoGP &&
             risultatoGP.success === true
@@ -2779,33 +2272,27 @@ async function controllaRisposta(
             gpGuadagnatiPartita +=
                 risultatoGP.pointsAdded;
 
-
             document.getElementById(
                 "gpPartitaNumero"
             ).innerText =
                 gpGuadagnatiPartita;
-
 
             document.getElementById(
                 "gpPartita"
             ).style.display =
                 "block";
 
-
             document.getElementById(
                 "risultato"
             ).innerText =
                 t.corretta;
 
-
             document.getElementById(
                 "statoGP"
             ).innerText =
-
                 "🌱 +" +
                 risultatoGP.pointsAdded +
                 " GP salvati nel tuo account.";
-
 
         }
 
@@ -2818,7 +2305,6 @@ async function controllaRisposta(
                 "risultato"
             ).innerText =
                 t.corretta;
-
 
             document.getElementById(
                 "statoGP"
@@ -2833,7 +2319,6 @@ async function controllaRisposta(
                 "risultato"
             ).innerText =
                 t.corretta;
-
 
             document.getElementById(
                 "statoGP"
@@ -2854,31 +2339,22 @@ async function controllaRisposta(
     }
 
 
-
-    /* =================================================
-       SPIEGAZIONE
-    ================================================= */
-
     const animale =
         animali[
             animaleAttuale
         ];
 
-
     document.getElementById(
         "spiegazione"
     ).innerText =
-
         t.spiegazione +
         " " +
         animale.spiegazione[lingua];
-
 
     document.getElementById(
         "spiegazione"
     ).style.display =
         "block";
-
 
     document.getElementById(
         "prossima"
@@ -2888,7 +2364,6 @@ async function controllaRisposta(
 }
 
 
-
 /* =====================================================
    PROSSIMO ANIMALE
 ===================================================== */
@@ -2896,7 +2371,6 @@ async function controllaRisposta(
 function prossimaDomanda() {
 
     animaleAttuale++;
-
 
     if (
         animaleAttuale <
@@ -2916,7 +2390,6 @@ function prossimaDomanda() {
 }
 
 
-
 /* =====================================================
    RISULTATO FINALE
 ===================================================== */
@@ -2926,47 +2399,30 @@ async function mostraRisultatoFinale() {
     const t =
         testi[lingua];
 
-
     document.getElementById(
         "gioco"
     ).style.display =
         "none";
-
 
     document.getElementById(
         "finale"
     ).style.display =
         "block";
 
-
     document.getElementById(
         "punteggioFinale"
     ).innerText =
-
         punteggio +
         " / " +
         animali.length;
 
-
-    /*
-       Mostra quanti GP sono stati
-       guadagnati SOLO in questa partita.
-    */
-
     document.getElementById(
         "gpGuadagnatiFinale"
     ).innerText =
-
         "🌱 +" +
         gpGuadagnatiPartita +
         " GP in questa partita";
 
-
-
-    /*
-       Recuperiamo il saldo REALE
-       dell'account da Supabase.
-    */
 
     const risultato =
         await getGreenPoints();
@@ -2979,11 +2435,9 @@ async function mostraRisultatoFinale() {
         document.getElementById(
             "gpTotaliFinale"
         ).innerText =
-
             t.gpTotali +
             " " +
             risultato.points;
-
 
     }
 
@@ -2992,17 +2446,11 @@ async function mostraRisultatoFinale() {
         document.getElementById(
             "gpTotaliFinale"
         ).innerText =
-
             t.gpTotali +
             " —";
 
     }
 
-
-
-    /* =================================================
-       MESSAGGIO FINALE
-    ================================================= */
 
     if (
         punteggio ===
@@ -3050,7 +2498,6 @@ async function mostraRisultatoFinale() {
 }
 
 
-
 /* =====================================================
    RICOMINCIA
 ===================================================== */
@@ -3060,45 +2507,35 @@ function ricomincia() {
     animaleAttuale =
         0;
 
-
     punteggio =
         0;
 
-
-    /*
-       IMPORTANTE:
-       azzeriamo SOLO i GP guadagnati
-       visualizzati per questa nuova partita.
-
-       NON tocchiamo i GP dell'account.
-    */
-
     gpGuadagnatiPartita =
         0;
-
 
     document.getElementById(
         "gpPartitaNumero"
     ).innerText =
         "0";
 
+    document.getElementById(
+        "gpPartita"
+    ).style.display =
+        "none";
 
     document.getElementById(
         "finale"
     ).style.display =
         "none";
 
-
     document.getElementById(
         "gioco"
     ).style.display =
         "block";
 
-
     mostraAnimale();
 
 }
-
 
 
 /* =====================================================
@@ -3112,9 +2549,27 @@ mostraAnimale();
 
 /*
    Controllo iniziale dell'account.
+
+   Se Supabase non è configurato oppure
+   l'utente non è autenticato, il gioco
+   continua normalmente.
 */
 
 (async function() {
+
+    if (
+        !supabaseDisponibile()
+    ) {
+
+        console.warn(
+            "EcoGame: Supabase non configurato. " +
+            "Il gioco funziona senza salvataggio GP."
+        );
+
+        return;
+
+    }
+
 
     const risultato =
         await getGreenPoints();
@@ -3129,7 +2584,6 @@ mostraAnimale();
             risultato.points
         );
 
-
         console.log(
             "⭐ Livello account:",
             risultato.level
@@ -3140,7 +2594,8 @@ mostraAnimale();
     else {
 
         console.warn(
-            "EcoGame: impossibile leggere i GP dell'account."
+            "EcoGame: nessun account disponibile " +
+            "oppure impossibile leggere i GP."
         );
 
     }
@@ -3149,7 +2604,5 @@ mostraAnimale();
 
 </script>
 
-
 </body>
-
 </html>
