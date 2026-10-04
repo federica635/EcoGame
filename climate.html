@@ -2,16 +2,13 @@
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🌍 Climate Challenge - EcoGame</title>
 
-<!-- =====================================================
-     SUPABASE JS
-     DEVE ESSERE CARICATO PRIMA DEL CODICE DEL GIOCO
-     ===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -19,12 +16,14 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #101820;
     color: #edf7fa;
 }
+
 
 header {
     background: #172630;
@@ -35,16 +34,19 @@ header {
     align-items: center;
 }
 
+
 .logo {
     color: #81d4fa;
     font-size: 24px;
     font-weight: bold;
 }
 
+
 .menu {
     color: #b9cbd1;
     cursor: pointer;
 }
+
 
 .container {
     width: 94%;
@@ -52,9 +54,11 @@ header {
     margin: 30px auto;
 }
 
+
 .title {
     text-align: center;
 }
+
 
 .title h1 {
     color: #81d4fa;
@@ -62,10 +66,12 @@ header {
     margin-bottom: 8px;
 }
 
+
 .title p {
     color: #b9cbd1;
     line-height: 1.6;
 }
+
 
 .progress {
     margin: 25px auto 10px;
@@ -76,12 +82,14 @@ header {
     overflow: hidden;
 }
 
+
 .progress-bar {
     height: 100%;
     width: 0%;
     background: #29b6f6;
     transition: width 0.3s;
 }
+
 
 .info {
     display: flex;
@@ -91,10 +99,12 @@ header {
     color: #b9cbd1;
 }
 
+
 .info span {
     color: #81d4fa;
     font-weight: bold;
 }
+
 
 .card {
     background: #152831;
@@ -104,6 +114,7 @@ header {
     margin-top: 20px;
 }
 
+
 .category {
     color: #81d4fa;
     font-size: 14px;
@@ -112,11 +123,13 @@ header {
     margin-bottom: 15px;
 }
 
+
 .question {
     font-size: 23px;
     line-height: 1.5;
     margin-bottom: 25px;
 }
+
 
 .scenario {
     background: #1d343e;
@@ -128,10 +141,12 @@ header {
     margin-bottom: 20px;
 }
 
+
 .answers {
     display: grid;
     gap: 12px;
 }
+
 
 .answer {
     width: 100%;
@@ -146,20 +161,24 @@ header {
     transition: 0.15s;
 }
 
+
 .answer:hover {
     border-color: #81d4fa;
     background: #243d47;
 }
+
 
 .answer.correct {
     background: #164d35;
     border-color: #4caf78;
 }
 
+
 .answer.wrong {
     background: #55282b;
     border-color: #ff7078;
 }
+
 
 .feedback {
     margin-top: 20px;
@@ -170,6 +189,7 @@ header {
     line-height: 1.6;
     display: none;
 }
+
 
 .next {
     display: block;
@@ -183,23 +203,28 @@ header {
     cursor: pointer;
 }
 
+
 .next:hover {
     background: #03a9f4;
 }
+
 
 .result {
     text-align: center;
     padding: 35px;
 }
 
+
 .result-icon {
     font-size: 70px;
 }
+
 
 .result h2 {
     color: #81d4fa;
     font-size: 32px;
 }
+
 
 .final-score {
     font-size: 48px;
@@ -208,33 +233,26 @@ header {
     margin: 15px;
 }
 
-.green-points {
-    margin: 20px auto;
-    padding: 15px 20px;
-    max-width: 400px;
-    background: #173b2b;
-    border: 1px solid #4caf78;
+
+.green-points-result {
+    margin: 15px auto;
+    padding: 13px 20px;
+    max-width: 360px;
     border-radius: 12px;
-    color: #9ff0bb;
-    font-size: 18px;
+    background: #1d3b2d;
+    border: 1px solid #4d8c62;
+    color: #a5d6a7;
+    font-size: 20px;
     font-weight: bold;
 }
 
-.green-points strong {
-    color: #ffd54f;
-    font-size: 25px;
+
+.green-points-total {
+    color: #b9cbd1;
+    font-size: 15px;
+    margin-bottom: 15px;
 }
 
-.gp-error {
-    margin: 15px auto;
-    max-width: 500px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #4b2729;
-    border: 1px solid #ff7078;
-    color: #ffd7d9;
-    display: none;
-}
 
 .restart,
 .back {
@@ -246,19 +264,23 @@ header {
     font-size: 16px;
 }
 
+
 .restart {
     background: #0288d1;
     color: white;
 }
+
 
 .back {
     background: #37474f;
     color: white;
 }
 
+
 .hidden {
     display: none;
 }
+
 
 @media(max-width: 650px) {
 
@@ -289,9 +311,12 @@ header {
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -299,17 +324,20 @@ header {
         🌍 EcoGame
     </div>
 
+
     <div
         class="menu"
-        onclick="location.href='giochi.html'">
-
+        onclick="location.href='giochi.html'"
+        data-testo="giochi"
+    >
         🎮 Giochi
-
     </div>
 
 </header>
 
+
 <div class="container">
+
 
     <div class="title">
 
@@ -324,6 +352,7 @@ header {
 
     </div>
 
+
     <div class="progress">
 
         <div
@@ -333,488 +362,228 @@ header {
 
     </div>
 
+
     <div class="info">
 
         <div>
-            <span id="questionLabel">Domanda:</span>
-            <span id="questionNumber">1/20</span>
+
+            <span id="questionLabel">
+                Domanda:
+            </span>
+
+            <span id="questionNumber">
+                1/20
+            </span>
+
         </div>
 
+
         <div>
-            <span id="scoreLabel">Punti:</span>
-            <span id="score">0</span>
+
+            <span id="scoreLabel">
+                Punti:
+            </span>
+
+            <span id="score">
+                0
+            </span>
+
         </div>
 
     </div>
 
-    <div class="card" id="quizCard">
+
+    <div
+        class="card"
+        id="quizCard"
+    >
+
 
         <div
             class="category"
             id="category">
         </div>
 
+
         <div
             class="question"
             id="question">
         </div>
+
 
         <div
             class="scenario"
             id="scenario">
         </div>
 
+
         <div
             class="answers"
             id="answers">
         </div>
+
 
         <div
             class="feedback"
             id="feedback">
         </div>
 
+
         <button
             class="next"
             id="next"
             style="display:none"
-            onclick="nextQuestion()">
+            onclick="nextQuestion()"
+        >
 
             Prossima sfida →
 
         </button>
 
+
     </div>
+
 
     <div
         class="card hidden"
-        id="resultCard">
+        id="resultCard"
+    >
+
 
         <div class="result">
+
 
             <div class="result-icon">
                 🌍
             </div>
 
+
             <h2 id="resultTitle">
                 Climate Challenge completata!
             </h2>
+
 
             <p id="resultObtained">
                 Hai ottenuto:
             </p>
 
+
             <div
                 class="final-score"
-                id="finalScore">
-
+                id="finalScore"
+            >
                 0
-
             </div>
 
-            <!-- =====================================================
-                 GREEN POINTS
-                 ===================================================== -->
 
             <div
-                class="green-points"
-                id="greenPointsBox">
-
-                🌱 Green Points:
-                <strong id="greenPointsAmount">0</strong>
-
+                class="green-points-result"
+                id="greenPointsResult"
+            >
+                🌱 +0 Green Points
             </div>
+
 
             <div
-                class="gp-error"
-                id="gpError">
-
+                class="green-points-total"
+                id="greenPointsTotal"
+            >
+                🌱 Green Points totali: —
             </div>
+
 
             <p id="resultMessage"></p>
 
+
             <button
                 class="restart"
-                onclick="location.reload()">
-
+                onclick="location.reload()"
+            >
                 🔄 Riprova
-
             </button>
+
 
             <button
                 class="back"
-                onclick="location.href='giochi.html'">
-
+                onclick="location.href='giochi.html'"
+            >
                 🎮 Torna ai giochi
-
             </button>
+
 
         </div>
 
     </div>
 
+
 </div>
+
+
+<!-- =====================================================
+     SUPABASE JS
+
+     IMPORTANTE:
+     DEVE ESSERE CARICATO PRIMA DI ECOGAME.JS
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =====================================================
+     ECOGAME.JS
+
+     DEVE ESSERE NELLA STESSA CARTELLA DI CLIMATE.HTML
+===================================================== -->
+
+<script src="ecogame.js"></script>
 
 
 <script>
 
 /* =====================================================
-   SUPABASE
-   ===================================================== */
-
-/*
-   IMPORTANTE:
-
-   Se nel tuo progetto hai già queste due variabili
-   globali caricate da ecogame.js, verranno utilizzate.
-
-   In alternativa puoi impostare qui gli stessi valori
-   che utilizza il tuo Runner.
-*/
-
-let supabaseClient = null;
-
-
-/* =====================================================
-   INIZIALIZZA SUPABASE
-   ===================================================== */
-
-function inizializzaSupabase() {
-
-    try {
-
-        if (
-            typeof window.supabase === "undefined" ||
-            typeof window.supabase.createClient !== "function"
-        ) {
-
-            console.error(
-                "EcoGame: supabase-js non è stato caricato."
-            );
-
-            return false;
-
-        }
-
-
-        /*
-         * Cerchiamo prima eventuali configurazioni
-         * già presenti nel progetto.
-         */
-
-        const url =
-            window.SUPABASE_URL ||
-            window.supabaseUrl ||
-            localStorage.getItem("SUPABASE_URL");
-
-        const key =
-            window.SUPABASE_ANON_KEY ||
-            window.supabaseAnonKey ||
-            localStorage.getItem("SUPABASE_ANON_KEY");
-
-
-        if (!url || !key) {
-
-            console.error(
-                "EcoGame: configurazione Supabase non trovata."
-            );
-
-            return false;
-
-        }
-
-
-        supabaseClient =
-            window.supabase.createClient(
-                url,
-                key
-            );
-
-
-        return true;
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "EcoGame: errore inizializzazione Supabase:",
-            error
-        );
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   GREEN POINTS
-   ===================================================== */
-
-/*
-   Questo è il nome identificativo del gioco.
-
-   È importante che ogni gioco abbia un ID diverso.
-*/
-
-const GAME_ID =
-    "climate-challenge";
-
-
-/*
-   Green Points assegnati al completamento.
-
-   Il valore viene calcolato in base al risultato.
-*/
-
-function calcolaGreenPoints() {
-
-    /*
-     * 20 domande.
-     *
-     * Risultato massimo = 200.
-     *
-     * 200 punti -> 30 GP
-     * 160-199   -> 25 GP
-     * 120-159   -> 20 GP
-     * 80-119    -> 15 GP
-     * 40-79     -> 10 GP
-     * <40       -> 5 GP
-     */
-
-    if (score >= 200) {
-        return 30;
-    }
-
-    if (score >= 160) {
-        return 25;
-    }
-
-    if (score >= 120) {
-        return 20;
-    }
-
-    if (score >= 80) {
-        return 15;
-    }
-
-    if (score >= 40) {
-        return 10;
-    }
-
-    return 5;
-
-}
-
-
-/* =====================================================
-   ACCREDITA GREEN POINTS
-   ===================================================== */
-
-async function accreditaGreenPoints() {
-
-    const gpAmount =
-        calcolaGreenPoints();
-
-
-    document
-        .getElementById("greenPointsAmount")
-        .innerText =
-        gpAmount;
-
-
-    /*
-     * Evita che il gioco accrediti i GP due volte
-     * se la funzione viene richiamata più volte.
-     */
-
-    const storageKey =
-        "ecogame_gp_" + GAME_ID;
-
-
-    if (
-        sessionStorage.getItem(storageKey) === "1"
-    ) {
-
-        return;
-
-    }
-
-
-    if (!supabaseClient) {
-
-        console.warn(
-            "EcoGame: Supabase non disponibile. GP non accreditati."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const {
-            data: {
-                user
-            },
-            error: userError
-        } =
-            await supabaseClient.auth.getUser();
-
-
-        if (userError) {
-
-            console.error(
-                "EcoGame: impossibile leggere l'utente:",
-                userError
-            );
-
-            return;
-
-        }
-
-
-        if (!user) {
-
-            console.warn(
-                "EcoGame: nessun utente autenticato. GP non accreditati."
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Tentativo principale:
-         *
-         * utilizza la funzione RPC del sistema EcoGame.
-         *
-         * Se il tuo Runner utilizza questa stessa funzione,
-         * l'accredito sarà immediatamente compatibile.
-         */
-
-        const {
-            error
-        } =
-            await supabaseClient.rpc(
-                "add_green_points",
-                {
-                    p_user_id: user.id,
-                    p_amount: gpAmount,
-                    p_game: GAME_ID
-                }
-            );
-
-
-        if (error) {
-
-            console.error(
-                "EcoGame: GP non accreditati:",
-                error
-            );
-
-
-            /*
-             * Mostriamo l'errore soltanto nella pagina,
-             * senza bloccare il risultato del gioco.
-             */
-
-            const errorBox =
-                document.getElementById("gpError");
-
-
-            errorBox.innerText =
-                "⚠️ Green Points non accreditati. Riprova più tardi.";
-
-
-            errorBox.style.display =
-                "block";
-
-
-            return;
-
-        }
-
-
-        /*
-         * Memorizziamo l'accredito per evitare
-         * duplicazioni nella stessa sessione.
-         */
-
-        sessionStorage.setItem(
-            storageKey,
-            "1"
-        );
-
-
-        console.log(
-            "EcoGame: Green Points accreditati:",
-            gpAmount
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "EcoGame: errore durante l'accredito dei GP:",
-            error
-        );
-
-
-        const errorBox =
-            document.getElementById("gpError");
-
-
-        errorBox.innerText =
-            "⚠️ Errore durante l'accredito dei Green Points.";
-
-
-        errorBox.style.display =
-            "block";
-
-    }
-
-}
-
-
-/* =====================================================
    LINGUA
-   ===================================================== */
+===================================================== */
 
 const linguaSalvata =
-    localStorage.getItem("ecoGameLingua") || "it";
+    localStorage.getItem(
+        "ecoGameLingua"
+    ) || "it";
+
 
 const lingua =
-    ["it", "en", "fi"].includes(linguaSalvata)
+    ["it", "en", "fi"].includes(
+        linguaSalvata
+    )
         ? linguaSalvata
         : "it";
 
-document.documentElement.lang = lingua;
+
+document.documentElement.lang =
+    lingua;
 
 
 /* =====================================================
    TESTI INTERFACCIA
-   ===================================================== */
+===================================================== */
 
 const testi = {
 
     it: {
 
-        title: "🌍 Climate Challenge",
+        title:
+            "🌍 Climate Challenge",
 
         description:
             "20 sfide sul clima, sull'atmosfera e sui cambiamenti ambientali.",
 
-        giochi: "🎮 Giochi",
+        giochi:
+            "🎮 Giochi",
 
-        domanda: "Domanda:",
+        domanda:
+            "Domanda:",
 
-        punti: "Punti:",
+        punti:
+            "Punti:",
 
         prossima:
             "Prossima sfida →",
@@ -856,7 +625,19 @@ const testi = {
             "📚 Discreto punto di partenza. Ripassando alcuni concetti potrai migliorare molto.",
 
         imparare:
-            "🌱 C'è ancora da imparare! Riprova e usa le spiegazioni dopo ogni domanda per ripassare."
+            "🌱 C'è ancora da imparare! Riprova e usa le spiegazioni dopo ogni domanda per ripassare.",
+
+        greenPoints:
+            "Green Points",
+
+        greenPointsTotali:
+            "🌱 Green Points totali:",
+
+        greenPointsErrore:
+            "⚠️ Green Points non accreditati.",
+
+        greenPointsGiaAccreditati:
+            "🌱 Green Points già accreditati."
 
     },
 
@@ -918,7 +699,19 @@ const testi = {
             "📚 A good starting point. Reviewing some concepts will help you improve a lot.",
 
         imparare:
-            "🌱 There is still more to learn! Try again and use the explanations after each question to review."
+            "🌱 There is still more to learn! Try again and use the explanations after each question to review.",
+
+        greenPoints:
+            "Green Points",
+
+        greenPointsTotali:
+            "🌱 Total Green Points:",
+
+        greenPointsErrore:
+            "⚠️ Green Points were not added.",
+
+        greenPointsGiaAccreditati:
+            "🌱 Green Points already credited."
 
     },
 
@@ -980,7 +773,19 @@ const testi = {
             "📚 Hyvä lähtökohta. Kertaamalla joitakin käsitteitä voit kehittyä paljon.",
 
         imparare:
-            "🌱 Opittavaa riittää vielä! Yritä uudelleen ja käytä kysymysten jälkeisiä selityksiä kertaamiseen."
+            "🌱 Opittavaa riittää vielä! Yritä uudelleen ja käytä kysymysten jälkeisiä selityksiä kertaamiseen.",
+
+        greenPoints:
+            "Green Points",
+
+        greenPointsTotali:
+            "🌱 Green Points yhteensä:",
+
+        greenPointsErrore:
+            "⚠️ Green Pointseja ei lisätty.",
+
+        greenPointsGiaAccreditati:
+            "🌱 Green Points on jo lisätty."
 
     }
 
@@ -993,7 +798,7 @@ const T =
 
 /* =====================================================
    DOMANDE
-   ===================================================== */
+===================================================== */
 
 const questions = {
 
@@ -1275,7 +1080,7 @@ explanation:"L'effetto serra naturale è fondamentale per la vita. Il suo raffor
 
 /* =====================================================
    INGLESE
-   ===================================================== */
+===================================================== */
 
 en: [
 
@@ -1554,7 +1359,7 @@ explanation:"The natural greenhouse effect is essential for life. Its strengthen
 
 /* =====================================================
    FINLANDESE
-   ===================================================== */
+===================================================== */
 
 fi: [
 
@@ -1834,102 +1639,264 @@ explanation:"Luonnollinen kasvihuoneilmiö on välttämätön elämälle. Kasvih
 
 
 /* =====================================================
-   TESTI PAGINA
-   ===================================================== */
+   ELEMENTI
+===================================================== */
 
-document.getElementById("gameTitle").innerText =
-    T.title;
+const category =
+    document.getElementById(
+        "category"
+    );
 
-document.getElementById("gameDescription").innerText =
-    T.description;
 
-document.querySelector(".menu").innerText =
-    T.giochi;
+const question =
+    document.getElementById(
+        "question"
+    );
 
-document.getElementById("questionLabel").innerText =
-    T.domanda;
 
-document.getElementById("scoreLabel").innerText =
-    T.punti;
+const scenario =
+    document.getElementById(
+        "scenario"
+    );
 
-document.getElementById("next").innerText =
-    T.prossima;
+
+const answers =
+    document.getElementById(
+        "answers"
+    );
+
+
+const feedback =
+    document.getElementById(
+        "feedback"
+    );
+
+
+const next =
+    document.getElementById(
+        "next"
+    );
+
+
+const scoreElement =
+    document.getElementById(
+        "score"
+    );
+
+
+const questionNumber =
+    document.getElementById(
+        "questionNumber"
+    );
+
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+
+const greenPointsResult =
+    document.getElementById(
+        "greenPointsResult"
+    );
+
+
+const greenPointsTotal =
+    document.getElementById(
+        "greenPointsTotal"
+    );
 
 
 /* =====================================================
-   DOMANDE DELLA LINGUA SELEZIONATA
-   ===================================================== */
+   DOMANDE DELLA LINGUA
+===================================================== */
 
 const gameQuestions =
-    questions[lingua] || questions.it;
+    questions[lingua] ||
+    questions.it;
 
 
 /* =====================================================
    VARIABILI
-   ===================================================== */
+===================================================== */
 
-let current = 0;
-
-let score = 0;
-
-let answered = false;
+let current =
+    0;
 
 
-const category =
-    document.getElementById("category");
+let score =
+    0;
 
-const question =
-    document.getElementById("question");
 
-const scenario =
-    document.getElementById("scenario");
+let answered =
+    false;
 
-const answers =
-    document.getElementById("answers");
 
-const feedback =
-    document.getElementById("feedback");
+let greenPointsAccreditati =
+    false;
 
-const next =
-    document.getElementById("next");
 
-const scoreElement =
-    document.getElementById("score");
+let greenPointsUltimi =
+    0;
 
-const questionNumber =
-    document.getElementById("questionNumber");
 
-const progressBar =
-    document.getElementById("progressBar");
+let greenPointsTotale =
+    null;
+
+
+/* =====================================================
+   APPLICA TESTI
+===================================================== */
+
+function applicaTesti() {
+
+    const testiLingua =
+        testi[lingua];
+
+
+    document.documentElement.lang =
+        lingua;
+
+
+    document.getElementById(
+        "gameTitle"
+    ).innerText =
+        testiLingua.title;
+
+
+    document.getElementById(
+        "gameDescription"
+    ).innerText =
+        testiLingua.description;
+
+
+    document.querySelector(
+        ".menu"
+    ).innerText =
+        testiLingua.giochi;
+
+
+    document.getElementById(
+        "questionLabel"
+    ).innerText =
+        testiLingua.domanda;
+
+
+    document.getElementById(
+        "scoreLabel"
+    ).innerText =
+        testiLingua.punti;
+
+
+    document.getElementById(
+        "next"
+    ).innerText =
+        testiLingua.prossima;
+
+
+    document.getElementById(
+        "resultTitle"
+    ).innerText =
+        testiLingua.completata;
+
+
+    document.getElementById(
+        "resultObtained"
+    ).innerText =
+        testiLingua.ottenuto;
+
+
+    document.querySelector(
+        ".restart"
+    ).innerText =
+        testiLingua.riprova;
+
+
+    document.querySelector(
+        ".back"
+    ).innerText =
+        testiLingua.torna;
+
+
+    aggiornaTestoGreenPoints();
+
+}
+
+
+/* =====================================================
+   AGGIORNA TESTO GREEN POINTS
+===================================================== */
+
+function aggiornaTestoGreenPoints() {
+
+    const testiLingua =
+        testi[lingua];
+
+
+    if (
+        greenPointsAccreditati &&
+        greenPointsUltimi > 0
+    ) {
+
+        greenPointsResult.innerText =
+            "🌱 +" +
+            greenPointsUltimi +
+            " " +
+            testiLingua.greenPoints;
+
+    }
+
+
+    if (
+        greenPointsTotale !== null
+    ) {
+
+        greenPointsTotal.innerText =
+            testiLingua.greenPointsTotali +
+            " " +
+            greenPointsTotale;
+
+    }
+
+}
 
 
 /* =====================================================
    CARICA DOMANDA
-   ===================================================== */
+===================================================== */
 
 function loadQuestion() {
 
-    answered = false;
+    answered =
+        false;
+
 
     feedback.style.display =
         "none";
 
+
     next.style.display =
         "none";
+
 
     next.innerText =
         T.prossima;
 
 
     const q =
-        gameQuestions[current];
+        gameQuestions[
+            current
+        ];
 
 
     category.innerText =
         q.category;
 
+
     question.innerText =
         q.question;
+
 
     scenario.innerText =
         q.scenario;
@@ -1939,41 +1906,58 @@ function loadQuestion() {
         "";
 
 
-    q.answers.forEach(function(answer, index) {
+    q.answers.forEach(
+        function(answer, index) {
 
-        const button =
-            document.createElement("button");
-
-
-        button.className =
-            "answer";
-
-
-        button.innerText =
-            answer;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-        button.onclick =
-            function() {
-
-                checkAnswer(button, index);
-
-            };
+            button.className =
+                "answer";
 
 
-        answers.appendChild(button);
+            button.innerText =
+                answer;
 
-    });
+
+            button.onclick =
+                function() {
+
+                    checkAnswer(
+                        button,
+                        index
+                    );
+
+                };
+
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
 
 
     questionNumber.innerText =
-        (current + 1) +
+        (
+            current + 1
+        ) +
         "/" +
         gameQuestions.length;
 
 
     progressBar.style.width =
-        ((current / gameQuestions.length) * 100) +
+        (
+            (
+                current /
+                gameQuestions.length
+            ) *
+            100
+        ) +
         "%";
 
 }
@@ -1981,36 +1965,50 @@ function loadQuestion() {
 
 /* =====================================================
    CONTROLLO RISPOSTA
-   ===================================================== */
+===================================================== */
 
-function checkAnswer(selected, index) {
+function checkAnswer(
+    selected,
+    index
+) {
 
-    if (answered) {
+    if (
+        answered
+    ) {
 
         return;
 
     }
 
 
-    answered = true;
+    answered =
+        true;
 
 
     const q =
-        gameQuestions[current];
+        gameQuestions[
+            current
+        ];
 
 
     const allAnswers =
-        document.querySelectorAll(".answer");
+        document.querySelectorAll(
+            ".answer"
+        );
 
 
-    if (index === q.correct) {
+    if (
+        index ===
+        q.correct
+    ) {
 
         selected.classList.add(
             "correct"
         );
 
 
-        score += 10;
+        score +=
+            10;
 
 
         feedback.innerHTML =
@@ -2028,11 +2026,15 @@ function checkAnswer(selected, index) {
         );
 
 
-        allAnswers[q.correct]
-            .classList.add("correct");
+        allAnswers[
+            q.correct
+        ].classList.add(
+            "correct"
+        );
 
 
-        score -= 5;
+        score -=
+            5;
 
 
         feedback.innerHTML =
@@ -2041,7 +2043,9 @@ function checkAnswer(selected, index) {
             "</strong><br><br>" +
             T.rispostaCorretta +
             " <strong>" +
-            q.answers[q.correct] +
+            q.answers[
+                q.correct
+            ] +
             "</strong><br><br>" +
             q.explanation;
 
@@ -2075,7 +2079,7 @@ function checkAnswer(selected, index) {
 
 /* =====================================================
    PROSSIMA DOMANDA
-   ===================================================== */
+===================================================== */
 
 function nextQuestion() {
 
@@ -2101,19 +2105,330 @@ function nextQuestion() {
 
 
 /* =====================================================
+   CALCOLO GREEN POINTS
+===================================================== */
+
+function calcolaGreenPointsClimate() {
+
+    /*
+     * Il Climate Challenge usa il punteggio
+     * finale del quiz come Green Points.
+     *
+     * 20 domande:
+     *
+     * risposta corretta = +10
+     * risposta errata   = -5
+     *
+     * Il massimo è quindi 200 GP.
+     *
+     * Non permettiamo però un risultato
+     * negativo nei Green Points.
+     */
+
+    const punti =
+        Math.max(
+            0,
+            Math.floor(
+                Number(
+                    score
+                )
+            )
+        );
+
+
+    return punti;
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS CLIMATE
+===================================================== */
+
+async function accreditaGreenPointsClimate() {
+
+    if (
+        greenPointsAccreditati
+    ) {
+
+        return;
+
+    }
+
+
+    const punti =
+        calcolaGreenPointsClimate();
+
+
+    greenPointsUltimi =
+        punti;
+
+
+    greenPointsResult.innerText =
+        "🌱 +" +
+        punti +
+        " " +
+        T.greenPoints;
+
+
+    /*
+     * Controlliamo che ecogame.js
+     * sia stato caricato correttamente.
+     */
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.addGamePoints !==
+        "function"
+    ) {
+
+        console.error(
+            "Climate: ecoGame non disponibile."
+        );
+
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+
+        return;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.addGamePoints(
+                "climate-challenge",
+                punti
+            );
+
+
+        console.log(
+            "Climate: risultato accredito GP:",
+            risultato
+        );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            greenPointsAccreditati =
+                true;
+
+
+            greenPointsUltimi =
+                Number(
+                    risultato.pointsAdded
+                ) || punti;
+
+
+            greenPointsTotale =
+                Number(
+                    risultato.totalPoints
+                ) || 0;
+
+
+            greenPointsResult.innerText =
+                "🌱 +" +
+                greenPointsUltimi +
+                " " +
+                T.greenPoints;
+
+
+            greenPointsTotal.innerText =
+                T.greenPointsTotali +
+                " " +
+                greenPointsTotale;
+
+
+            console.log(
+                "🌱 Climate: GP aggiunti:",
+                greenPointsUltimi
+            );
+
+
+            console.log(
+                "🌱 Climate: GP totali:",
+                greenPointsTotale
+            );
+
+        }
+
+
+        else if (
+            risultato &&
+            risultato.alreadyAdded
+        ) {
+
+            greenPointsAccreditati =
+                true;
+
+
+            greenPointsResult.innerText =
+                T.greenPointsGiaAccreditati;
+
+
+            /*
+             * Anche quando i punti sono già
+             * stati accreditati rileggiamo
+             * il totale dell'account.
+             */
+
+            await caricaGreenPointsClimate();
+
+        }
+
+
+        else {
+
+            console.error(
+                "Climate: GP non accreditati:",
+                risultato
+            );
+
+
+            greenPointsResult.innerText =
+                T.greenPointsErrore;
+
+        }
+
+    }
+
+
+    catch (
+        errore
+    ) {
+
+        console.error(
+            "Climate: errore Green Points:",
+            errore
+        );
+
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+    }
+
+}
+
+
+/* =====================================================
+   CARICA GREEN POINTS ACCOUNT
+===================================================== */
+
+async function caricaGreenPointsClimate() {
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.getGreenPoints !==
+        "function"
+    ) {
+
+        console.error(
+            "Climate: ecoGame.getGreenPoints non disponibile."
+        );
+
+
+        return null;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.getGreenPoints();
+
+
+        console.log(
+            "Climate: risultato lettura GP:",
+            risultato
+        );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            greenPointsTotale =
+                Number(
+                    risultato.points
+                ) || 0;
+
+
+            greenPointsTotal.innerText =
+                T.greenPointsTotali +
+                " " +
+                greenPointsTotale;
+
+
+            console.log(
+                "🌱 Climate: GP account:",
+                greenPointsTotale
+            );
+
+
+            return risultato;
+
+        }
+
+
+        console.warn(
+            "Climate: impossibile leggere i GP:",
+            risultato
+        );
+
+
+        return risultato;
+
+    }
+
+
+    catch (
+        errore
+    ) {
+
+        console.error(
+            "Climate: errore caricamento GP:",
+            errore
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
    RISULTATO
-   ===================================================== */
+===================================================== */
 
 async function showResult() {
 
     document
-        .getElementById("quizCard")
-        .classList.add("hidden");
+        .getElementById(
+            "quizCard"
+        )
+        .classList.add(
+            "hidden"
+        );
 
 
     document
-        .getElementById("resultCard")
-        .classList.remove("hidden");
+        .getElementById(
+            "resultCard"
+        )
+        .classList.remove(
+            "hidden"
+        );
 
 
     progressBar.style.width =
@@ -2121,60 +2436,79 @@ async function showResult() {
 
 
     document
-        .getElementById("finalScore")
+        .getElementById(
+            "finalScore"
+        )
         .innerText =
-        score + " / 200";
+        score +
+        " / 200";
 
 
     document
-        .getElementById("resultTitle")
+        .getElementById(
+            "resultTitle"
+        )
         .innerText =
         T.completata;
 
 
     document
-        .getElementById("resultObtained")
+        .getElementById(
+            "resultObtained"
+        )
         .innerText =
         T.ottenuto;
 
 
-    document
-        .querySelector(".restart")
-        .innerText =
+    document.querySelector(
+        ".restart"
+    ).innerText =
         T.riprova;
 
 
-    document
-        .querySelector(".back")
-        .innerText =
+    document.querySelector(
+        ".back"
+    ).innerText =
         T.torna;
 
 
     let message;
 
 
-    if (score >= 170) {
+    if (
+        score >=
+        170
+    ) {
 
         message =
             T.eccellente;
 
     }
 
-    else if (score >= 140) {
+    else if (
+        score >=
+        140
+    ) {
 
         message =
             T.ottimo;
 
     }
 
-    else if (score >= 100) {
+    else if (
+        score >=
+        100
+    ) {
 
         message =
             T.buona;
 
     }
 
-    else if (score >= 60) {
+    else if (
+        score >=
+        60
+    ) {
 
         message =
             T.discreto;
@@ -2190,31 +2524,85 @@ async function showResult() {
 
 
     document
-        .getElementById("resultMessage")
+        .getElementById(
+            "resultMessage"
+        )
         .innerText =
         message;
 
 
     /*
-     * =================================================
-     * ACCREDITO GREEN POINTS
-     * =================================================
+     * Prima leggiamo il totale attuale.
      */
 
-    await accreditaGreenPoints();
+    await caricaGreenPointsClimate();
+
+
+    /*
+     * Poi accreditiamo i GP del gioco.
+     */
+
+    await accreditaGreenPointsClimate();
 
 }
 
 
 /* =====================================================
-   AVVIO
-   ===================================================== */
+   CAMBIO LINGUA
+===================================================== */
 
-inizializzaSupabase();
+window.addEventListener(
+    "ecoGameLinguaCambiata",
+    function(event) {
+
+        const nuovaLingua =
+            event.detail &&
+            event.detail.lingua
+                ? event.detail.lingua
+                : "it";
+
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                testi,
+                nuovaLingua
+            )
+        ) {
+
+            /*
+             * Ricarichiamo la pagina con
+             * la nuova lingua salvata.
+             */
+
+            localStorage.setItem(
+                "ecoGameLingua",
+                nuovaLingua
+            );
+
+
+            location.reload();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AVVIO
+===================================================== */
+
+applicaTesti();
+
+
+caricaGreenPointsClimate();
+
 
 loadQuestion();
 
 </script>
 
+
 </body>
+
 </html>
