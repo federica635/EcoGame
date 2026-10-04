@@ -16,29 +16,46 @@ const SUPABASE_KEY =
 
 
 /*
-   Controlliamo che la libreria Supabase
-   sia stata caricata prima di creare il client.
+   Client Supabase.
+   La libreria Supabase DEVE essere caricata
+   prima di questo file.
 */
+
+let supabaseClient = null;
+
 
 if (
     typeof window.supabase === "undefined"
 ) {
 
     console.error(
-        "EcoGame - La libreria Supabase non è stata caricata."
+        "EcoGame - ERRORE: la libreria Supabase non è stata caricata."
     );
 
 } else {
 
-    /*
-       Client Supabase.
-    */
+    try {
 
-    var supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+        console.log(
+            "EcoGame - Supabase inizializzato correttamente."
         );
+
+    } catch (errore) {
+
+        console.error(
+            "EcoGame - Errore inizializzazione Supabase:",
+            errore
+        );
+
+        supabaseClient = null;
+
+    }
 
 }
 
@@ -153,19 +170,37 @@ function cambiaLinguaComune(
 
 
 /* =====================================================
+   CONTROLLO SUPABASE
+===================================================== */
+
+function supabaseDisponibile() {
+
+    if (
+        !supabaseClient
+    ) {
+
+        console.error(
+            "EcoGame - supabaseClient non disponibile."
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* =====================================================
    ACCOUNT
 ===================================================== */
 
 async function getEcoGameUser() {
 
     if (
-        typeof supabaseClient ===
-        "undefined"
+        !supabaseDisponibile()
     ) {
-
-        console.error(
-            "EcoGame - supabaseClient non disponibile."
-        );
 
         return null;
 
@@ -195,10 +230,21 @@ async function getEcoGameUser() {
         }
 
 
-        return (
-            data.user ||
-            null
-        );
+        if (
+            !data ||
+            !data.user
+        ) {
+
+            console.warn(
+                "EcoGame - Nessun utente autenticato."
+            );
+
+            return null;
+
+        }
+
+
+        return data.user;
 
 
     } catch (errore) {
@@ -233,8 +279,7 @@ async function getEcoGameProfile() {
 
 
     if (
-        typeof supabaseClient ===
-        "undefined"
+        !supabaseDisponibile()
     ) {
 
         return null;
@@ -340,34 +385,13 @@ async function getGreenPoints() {
    AGGIUNGI GREEN POINTS
 ===================================================== */
 
-/*
-   Questa funzione aggiunge ESATTAMENTE
-   il numero di GP passato.
-
-   Esempio:
-
-   aggiungiGreenPoints(50)
-
-   significa:
-
-   vecchi GP + 50
-*/
-
 async function aggiungiGreenPoints(
     punti
 ) {
 
-    /*
-       Convertiamo in numero.
-    */
-
     punti =
         Number(punti);
 
-
-    /*
-       Controllo valore.
-    */
 
     if (
         !Number.isFinite(punti) ||
@@ -388,21 +412,12 @@ async function aggiungiGreenPoints(
     }
 
 
-    /*
-       I GP sono interi.
-    */
-
     punti =
         Math.floor(punti);
 
 
-    /*
-       Controlliamo Supabase.
-    */
-
     if (
-        typeof supabaseClient ===
-        "undefined"
+        !supabaseDisponibile()
     ) {
 
         return {
@@ -418,10 +433,6 @@ async function aggiungiGreenPoints(
 
     }
 
-
-    /*
-       Recuperiamo l'utente.
-    */
 
     const user =
         await getEcoGameUser();
@@ -448,115 +459,154 @@ async function aggiungiGreenPoints(
     }
 
 
-    /*
-       Recuperiamo il profilo.
-    */
+    try {
 
-    const {
-        data: profilo,
-        error: profileError
-    } =
-        await supabaseClient
-            .from("profiles")
-            .select(
-                "green_points, level"
-            )
-            .eq(
-                "id",
-                user.id
-            )
-            .single();
+        const {
+            data: profilo,
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "green_points, level"
+                )
+                .eq(
+                    "id",
+                    user.id
+                )
+                .single();
 
 
-    if (profileError) {
+        if (profileError) {
 
-        console.error(
-            "EcoGame - Errore recupero profilo:",
-            profileError
-        );
-
-
-        return {
-
-            success: false,
-
-            pointsAdded: 0,
-
-            error:
+            console.error(
+                "EcoGame - Errore recupero profilo:",
                 profileError
+            );
+
+
+            return {
+
+                success: false,
+
+                pointsAdded: 0,
+
+                error:
+                    profileError
+
+            };
+
+        }
+
+
+        const puntiAttuali =
+            Number(
+                profilo.green_points
+            ) || 0;
+
+
+        const nuoviPunti =
+            puntiAttuali + punti;
+
+
+        const nuovoLivello =
+            Math.floor(
+                nuoviPunti / 100
+            ) + 1;
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+
+                    green_points:
+                        nuoviPunti,
+
+                    level:
+                        nuovoLivello
+
+                })
+                .eq(
+                    "id",
+                    user.id
+                )
+                .select(
+                    "green_points, level"
+                )
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "EcoGame - ERRORE SALVATAGGIO GP:",
+                error
+            );
+
+
+            return {
+
+                success: false,
+
+                pointsAdded: 0,
+
+                error:
+                    error
+
+            };
+
+        }
+
+
+        console.log(
+            "🌱 EcoGame - GP aggiunti:",
+            punti
+        );
+
+
+        console.log(
+            "🌱 EcoGame - GP totali:",
+            data.green_points
+        );
+
+
+        console.log(
+            "⭐ EcoGame - Livello:",
+            data.level
+        );
+
+
+        return {
+
+            success: true,
+
+            pointsAdded:
+                punti,
+
+            previousPoints:
+                puntiAttuali,
+
+            totalPoints:
+                Number(
+                    data.green_points
+                ),
+
+            level:
+                Number(
+                    data.level
+                )
 
         };
 
-    }
-
-
-    /*
-       GP attuali.
-    */
-
-    const puntiAttuali =
-        Number(
-            profilo.green_points
-        ) || 0;
-
-
-    /*
-       Nuovo totale.
-    */
-
-    const nuoviPunti =
-        puntiAttuali + punti;
-
-
-    /*
-       Nuovo livello.
-
-       0-99     = livello 1
-       100-199  = livello 2
-       200-299  = livello 3
-       ecc.
-    */
-
-    const nuovoLivello =
-        Math.floor(
-            nuoviPunti / 100
-        ) + 1;
-
-
-    /*
-       Aggiorniamo il profilo.
-    */
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("profiles")
-            .update({
-
-                green_points:
-                    nuoviPunti,
-
-                level:
-                    nuovoLivello
-
-            })
-            .eq(
-                "id",
-                user.id
-            )
-            .select(
-                "green_points, level"
-            )
-            .single();
-
-
-    if (error) {
+    } catch (errore) {
 
         console.error(
-            "EcoGame - Errore salvataggio GP:",
-            error
+            "EcoGame - Errore durante aggiunta GP:",
+            errore
         );
 
 
@@ -567,52 +617,11 @@ async function aggiungiGreenPoints(
             pointsAdded: 0,
 
             error:
-                error
+                errore
 
         };
 
     }
-
-
-    console.log(
-        "🌱 EcoGame - GP aggiunti:",
-        punti
-    );
-
-
-    console.log(
-        "🌱 EcoGame - GP totali:",
-        data.green_points
-    );
-
-
-    console.log(
-        "⭐ EcoGame - Livello:",
-        data.level
-    );
-
-
-    return {
-
-        success: true,
-
-        pointsAdded:
-            punti,
-
-        previousPoints:
-            puntiAttuali,
-
-        totalPoints:
-            Number(
-                data.green_points
-            ),
-
-        level:
-            Number(
-                data.level
-            )
-
-    };
 
 }
 
@@ -621,31 +630,10 @@ async function aggiungiGreenPoints(
    ACCREDITO GREEN POINTS UNA SOLA VOLTA
 ===================================================== */
 
-/*
-   Questa funzione viene utilizzata dai giochi.
-
-   Esempio:
-
-   await accreditaGreenPointsUnaVolta(
-       "salva-foresta",
-       70
-   );
-
-   Il gioco riceve 70 GP.
-
-   Se la stessa funzione viene richiamata
-   nuovamente nella stessa sessione con
-   "salva-foresta", NON aggiunge altri GP.
-*/
-
 async function accreditaGreenPointsUnaVolta(
     gameId,
     punti
 ) {
-
-    /*
-       Controllo gameId.
-    */
 
     if (!gameId) {
 
@@ -662,10 +650,6 @@ async function accreditaGreenPointsUnaVolta(
 
     }
 
-
-    /*
-       Controllo punti.
-    */
 
     punti =
         Number(punti);
@@ -694,19 +678,10 @@ async function accreditaGreenPointsUnaVolta(
         Math.floor(punti);
 
 
-    /*
-       Chiave univoca per il gioco.
-    */
-
     const chiave =
         "ecoGameGP_" +
         gameId;
 
-
-    /*
-       Controlliamo se il gioco ha già
-       assegnato i GP in questa sessione.
-    */
 
     const giaAccreditato =
         sessionStorage.getItem(
@@ -740,21 +715,11 @@ async function accreditaGreenPointsUnaVolta(
     }
 
 
-    /*
-       Aggiungiamo i GP.
-    */
-
     const risultato =
         await aggiungiGreenPoints(
             punti
         );
 
-
-    /*
-       Registriamo l'accredito SOLO
-       se Supabase ha confermato
-       il salvataggio.
-    */
 
     if (
         risultato &&
@@ -775,24 +740,8 @@ async function accreditaGreenPointsUnaVolta(
 
 
 /* =====================================================
-   FUNZIONE SPECIFICA PER SALVA LA FORESTA
+   SALVA LA FORESTA
 ===================================================== */
-
-/*
-   Questa funzione calcola i GP secondo
-   le regole richieste:
-
-   50 GP = base
-
-   Punteggio < 90:
-       50 GP
-
-   Punteggio 90-94:
-       70 GP
-
-   Punteggio 95-100:
-       90 GP
-*/
 
 function calcolaGreenPointsForesta(
     punteggio
@@ -813,10 +762,6 @@ function calcolaGreenPointsForesta(
     }
 
 
-    /*
-       Fascia sotto 90.
-    */
-
     if (
         punteggio < 90
     ) {
@@ -825,10 +770,6 @@ function calcolaGreenPointsForesta(
 
     }
 
-
-    /*
-       Fascia 90-94.
-    */
 
     if (
         punteggio < 95
@@ -839,24 +780,14 @@ function calcolaGreenPointsForesta(
     }
 
 
-    /*
-       Fascia 95-100.
-    */
-
     return 90;
 
 }
 
 
 /* =====================================================
-   ACCREDITO SPECIFICO SALVA LA FORESTA
+   ACCREDITO SALVA LA FORESTA
 ===================================================== */
-
-/*
-   Il gioco può chiamare:
-
-       await assegnaGreenPointsForesta(punteggio);
-*/
 
 async function assegnaGreenPointsForesta(
     punteggio
@@ -890,18 +821,8 @@ async function assegnaGreenPointsForesta(
 
 
 /* =====================================================
-   AGGIORNA ELEMENTO GREEN POINTS
+   MOSTRA GREEN POINTS
 ===================================================== */
-
-/*
-   Se una pagina contiene:
-
-       <span id="greenPoints">0</span>
-
-   può utilizzare:
-
-       await mostraGreenPoints("greenPoints");
-*/
 
 async function mostraGreenPoints(
     elementId
@@ -948,8 +869,7 @@ async function mostraGreenPoints(
 ===================================================== */
 
 if (
-    typeof supabaseClient !==
-    "undefined"
+    supabaseClient
 ) {
 
     supabaseClient.auth.onAuthStateChange(
