@@ -481,7 +481,9 @@
    ===================================================== */
 
 const lingua =
-    localStorage.getItem("linguaEcoGame") || "it";
+    localStorage.getItem("linguaEcoGame") ||
+    localStorage.getItem("ecoGameLingua") ||
+    "it";
 
 
 /* =====================================================
@@ -728,6 +730,8 @@ const missions = [
 
             ],
 
+            correct: 1,
+
             explanation:
                 "Proteggere gli animali dal bracconaggio e conservare il loro habitat sono interventi fondamentali per la loro tutela."
 
@@ -757,6 +761,8 @@ const missions = [
 
             ],
 
+            correct: 1,
+
             explanation:
                 "Protecting animals from poaching and conserving their habitat are fundamental measures for their protection."
 
@@ -785,6 +791,8 @@ const missions = [
                 "Vähentää suojelualueita."
 
             ],
+
+            correct: 1,
 
             explanation:
                 "Eläinten suojeleminen salametsästykseltä ja niiden elinympäristön säilyttäminen ovat keskeisiä suojelutoimia."
@@ -823,6 +831,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "La protezione delle popolazioni e la conservazione degli habitat sono componenti fondamentali delle strategie di conservazione."
 
@@ -852,6 +862,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Protecting populations and conserving habitats are fundamental components of conservation strategies."
 
@@ -880,6 +892,8 @@ const missions = [
                 "Luonnonalueiden tuhoaminen."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Kantojen suojeleminen ja elinympäristöjen säilyttäminen ovat luonnonsuojelustrategioiden keskeisiä osia."
@@ -918,6 +932,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "I corridoi ecologici possono favorire gli spostamenti degli animali tra aree di habitat separate."
 
@@ -947,6 +963,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Wildlife corridors can help animals move between separate habitat areas."
 
@@ -975,6 +993,8 @@ const missions = [
                 "Lisätä liikennettä alueella."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Ekologiset käytävät voivat auttaa eläimiä siirtymään erillään olevien elinympäristöjen välillä."
@@ -1013,6 +1033,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Le specie insulari possono essere vulnerabili alla perdita di habitat, alle specie introdotte e alla pressione umana."
 
@@ -1042,6 +1064,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Island species can be vulnerable to habitat loss, introduced species and human pressure."
 
@@ -1070,6 +1094,8 @@ const missions = [
                 "Dodo on edelleen yleinen laji."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Saarilajit voivat olla alttiita elinympäristöjen häviämiselle, vieraslajeille ja ihmisen aiheuttamalle paineelle."
@@ -1108,6 +1134,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "La conservazione dell'habitat è una componente essenziale della protezione delle popolazioni di gorilla."
 
@@ -1137,6 +1165,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Habitat conservation is an essential part of protecting gorilla populations."
 
@@ -1165,6 +1195,8 @@ const missions = [
                 "Poistaa suojelualueet."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Elinympäristöjen suojelu on olennainen osa gorillakantojen suojelua."
@@ -1203,6 +1235,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "La riduzione del ghiaccio marino modifica l'habitat artico e può rendere più difficili alcune attività fondamentali per gli orsi polari."
 
@@ -1232,6 +1266,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "The reduction of sea ice changes the Arctic habitat and can make some essential activities more difficult for polar bears."
 
@@ -1260,6 +1296,8 @@ const missions = [
                 "Pysyvän lumen lisääntyminen kaikkina vuodenaikoina."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Merijään väheneminen muuttaa arktista elinympäristöä ja voi vaikeuttaa jääkarhujen tärkeitä toimintoja."
@@ -1298,6 +1336,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Una specie è considerata estinta quando non esistono più individui viventi della specie."
 
@@ -1327,6 +1367,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "A species is considered extinct when no living individuals of the species remain."
 
@@ -1355,6 +1397,8 @@ const missions = [
                 "Laji on siirtynyt toiselle mantereelle."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Laji katsotaan sukupuuttoon kuolleeksi, kun yhtään elävää yksilöä ei enää ole."
@@ -1393,6 +1437,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "La protezione e il collegamento degli habitat possono favorire la sopravvivenza delle popolazioni e la loro variabilità genetica."
 
@@ -1422,6 +1468,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Protecting and connecting habitats can support population survival and genetic diversity."
 
@@ -1450,6 +1498,8 @@ const missions = [
                 "Vähentää luonnonalueita."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Elinympäristöjen suojeleminen ja yhdistäminen voi edistää kantojen säilymistä ja geneettistä monimuotoisuutta."
@@ -1488,6 +1538,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "La conservazione può includere strategie che proteggono gli habitat e tengono conto delle esigenze delle comunità locali."
 
@@ -1517,6 +1569,8 @@ const missions = [
 
             ],
 
+            correct: 0,
+
             explanation:
                 "Conservation can include strategies that protect habitats while taking the needs of local communities into account."
 
@@ -1545,6 +1599,8 @@ const missions = [
                 "Lisätä elinympäristöjen pirstoutumista."
 
             ],
+
+            correct: 0,
 
             explanation:
                 "Luonnonsuojeluun voi kuulua strategioita, jotka suojelevat elinympäristöjä ja ottavat samalla paikallisten yhteisöjen tarpeet huomioon."
@@ -1668,52 +1724,141 @@ let answered = false;
 
 
 /* =====================================================
+   ACCREDITO GREEN POINTS
+===================================================== */
+
+async function accreditaGreenPointsSpeciesRescue() {
+
+    /*
+       I Green Points vengono assegnati una sola volta
+       per questo gioco.
+
+       Il numero di GP corrisponde al punteggio finale:
+       0-100 punti = 0-100 Green Points.
+    */
+
+    if (
+        typeof window.ecoGame === "undefined" ||
+        typeof window.ecoGame.addGamePoints !== "function"
+    ) {
+
+        console.error(
+            "EcoGame: ecogame.js non è caricato oppure ecoGame.addGamePoints non è disponibile."
+        );
+
+        return null;
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.addGamePoints(
+                "species-rescue",
+                score
+            );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            console.log(
+                "🌱 Species Rescue: GP accreditati:",
+                risultato.pointsAdded
+            );
+
+            console.log(
+                "🌱 Species Rescue: GP totali:",
+                risultato.totalPoints
+            );
+
+        } else {
+
+            console.warn(
+                "🌱 Species Rescue: GP non accreditati:",
+                risultato
+            );
+
+        }
+
+
+        return risultato;
+
+    } catch (errore) {
+
+        console.error(
+            "🌱 Species Rescue: errore accredito GP:",
+            errore
+        );
+
+        return null;
+    }
+}
+
+
+/* =====================================================
    APPLICA TESTI GENERALI
-   ===================================================== */
+===================================================== */
 
 function applicaLingua() {
 
     const t =
         testiLingua();
 
+
     document.documentElement.lang =
         lingua;
+
 
     document.title =
         "🐾 Species Rescue - EcoGame";
 
+
     document.querySelector(".title h1").innerText =
         t.titolo;
+
 
     document.getElementById("intro").innerText =
         t.intro;
 
+
     document.getElementById("menu").innerText =
         t.menu;
+
 
     document.getElementById("savedLabel").innerText =
         t.specieSalvate;
 
+
     document.getElementById("scoreLabel").innerText =
         t.punti;
+
 
     document.getElementById("missionLabel").innerText =
         t.missione;
 
+
     document.getElementById("resultTitle").innerText =
         t.programmaCompletato;
+
 
     document.getElementById("resultDescription").innerText =
         t.descrizioneFinale;
 
+
     document.getElementById("restartButton").innerText =
         t.riprova;
+
 
     document.getElementById("backButton").innerText =
         t.torna;
 
+
     document.getElementById("footer").innerText =
         t.footer;
+
 
     document.getElementById("animalImage").alt =
         t.alt;
@@ -1723,12 +1868,14 @@ function applicaLingua() {
 
 /* =====================================================
    RECUPERA LINGUA
-   ===================================================== */
+===================================================== */
 
 function testiLingua() {
 
     if (testi[lingua]) {
+
         return testi[lingua];
+
     }
 
     return testi.it;
@@ -1738,14 +1885,17 @@ function testiLingua() {
 
 /* =====================================================
    CARICA MISSIONE
-   ===================================================== */
+===================================================== */
 
 function loadMission() {
 
     answered = false;
 
+
     const mission =
-        missions[current][lingua] || missions[current].it;
+        missions[current][lingua] ||
+        missions[current].it;
+
 
     const t =
         testiLingua();
@@ -1796,6 +1946,7 @@ function loadMission() {
     const options =
         document.getElementById("options");
 
+
     options.innerHTML = "";
 
 
@@ -1805,18 +1956,25 @@ function loadMission() {
             const button =
                 document.createElement("button");
 
+
             button.className =
                 "option";
+
 
             button.innerText =
                 option;
 
+
             button.onclick =
                 function() {
 
-                    checkAnswer(button, index);
+                    checkAnswer(
+                        button,
+                        index
+                    );
 
                 };
+
 
             options.appendChild(button);
 
@@ -1828,59 +1986,91 @@ function loadMission() {
 
 /* =====================================================
    CONTROLLO RISPOSTA
-   ===================================================== */
+===================================================== */
 
-function checkAnswer(selected, index) {
+function checkAnswer(
+    selected,
+    index
+) {
 
     if (answered) {
+
         return;
+
     }
+
 
     answered = true;
 
 
     const mission =
-        missions[current][lingua] || missions[current].it;
+        missions[current][lingua] ||
+        missions[current].it;
 
 
     const all =
         document.querySelectorAll(".option");
 
 
-    all.forEach(function(button) {
+    all.forEach(
+        function(button) {
 
-        button.disabled = true;
+            button.disabled = true;
 
-    });
+        }
+    );
 
 
     const correctIndex =
         mission.correct !== undefined
             ? mission.correct
-            : missions[current].it.correct;
+            : (
+                missions[current].it.correct !== undefined
+                    ? missions[current].it.correct
+                    : 0
+            );
 
 
-    if (index === correctIndex) {
+    if (
+        index === correctIndex
+    ) {
 
-        selected.classList.add("correct");
+        selected.classList.add(
+            "correct"
+        );
+
 
         score += 10;
+
 
         saved++;
 
 
-        document.getElementById("feedback").innerHTML =
+        document.getElementById(
+            "feedback"
+        ).innerHTML =
             testiLingua().riuscita +
             mission.explanation;
 
     } else {
 
-        selected.classList.add("wrong");
+        selected.classList.add(
+            "wrong"
+        );
 
-        all[correctIndex].classList.add("correct");
+
+        if (all[correctIndex]) {
+
+            all[correctIndex].classList.add(
+                "correct"
+            );
+
+        }
 
 
-        document.getElementById("feedback").innerHTML =
+        document.getElementById(
+            "feedback"
+        ).innerHTML =
             testiLingua().errata +
             testiLingua().rispostaCorretta +
             " <strong>" +
@@ -1891,17 +2081,27 @@ function checkAnswer(selected, index) {
     }
 
 
-    document.getElementById("score").innerText =
+    document.getElementById(
+        "score"
+    ).innerText =
         score;
 
-    document.getElementById("saved").innerText =
+
+    document.getElementById(
+        "saved"
+    ).innerText =
         saved;
 
 
-    document.getElementById("feedback").style.display =
+    document.getElementById(
+        "feedback"
+    ).style.display =
         "block";
 
-    document.getElementById("next").style.display =
+
+    document.getElementById(
+        "next"
+    ).style.display =
         "block";
 
 }
@@ -1909,14 +2109,16 @@ function checkAnswer(selected, index) {
 
 /* =====================================================
    PROSSIMA MISSIONE
-   ===================================================== */
+===================================================== */
 
 function nextMission() {
 
     current++;
 
 
-    if (current < missions.length) {
+    if (
+        current < missions.length
+    ) {
 
         loadMission();
 
@@ -1931,35 +2133,43 @@ function nextMission() {
 
 /* =====================================================
    RISULTATO FINALE
-   ===================================================== */
+===================================================== */
 
-function showResult() {
+async function showResult() {
 
     document.getElementById("gameCard")
         .classList.add("hidden");
+
 
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
 
-    document.getElementById("finalScore").innerText =
+    document.getElementById("finalScore")
+        .innerText =
         score + " / 100";
 
 
     let message;
 
 
-    if (score === 100) {
+    if (
+        score === 100
+    ) {
 
         message =
             testiLingua().messaggio100;
 
-    } else if (score >= 70) {
+    } else if (
+        score >= 70
+    ) {
 
         message =
             testiLingua().messaggio70;
 
-    } else if (score >= 50) {
+    } else if (
+        score >= 50
+    ) {
 
         message =
             testiLingua().messaggio50;
@@ -1972,35 +2182,70 @@ function showResult() {
     }
 
 
-    document.getElementById("message").innerText =
+    document.getElementById(
+        "message"
+    ).innerText =
         message;
+
+
+    /*
+       =================================================
+       GREEN POINTS
+       =================================================
+
+       Qui viene salvato il punteggio del gioco
+       nell'account Supabase.
+
+       Esempio:
+       100 punti -> +100 GP
+       80 punti  -> +80 GP
+       50 punti  -> +50 GP
+
+       ecogame.js impedisce un secondo accredito
+       dello stesso gioco nella stessa sessione.
+    */
+
+    await accreditaGreenPointsSpeciesRescue();
 
 }
 
 
 /* =====================================================
    RIAVVIA
-   ===================================================== */
+===================================================== */
 
 function restartGame() {
 
     current = 0;
+
     score = 0;
+
     saved = 0;
+
     answered = false;
 
 
-    document.getElementById("score").innerText =
+    document.getElementById(
+        "score"
+    ).innerText =
         "0";
 
-    document.getElementById("saved").innerText =
+
+    document.getElementById(
+        "saved"
+    ).innerText =
         "0";
 
 
-    document.getElementById("gameCard")
+    document.getElementById(
+        "gameCard"
+    )
         .classList.remove("hidden");
 
-    document.getElementById("resultCard")
+
+    document.getElementById(
+        "resultCard"
+    )
         .classList.add("hidden");
 
 
@@ -2011,7 +2256,7 @@ function restartGame() {
 
 /* =====================================================
    AVVIO
-   ===================================================== */
+===================================================== */
 
 applicaLingua();
 
