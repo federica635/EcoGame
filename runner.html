@@ -10,19 +10,6 @@
 
 <title>🐝 Eco Bee Runner - EcoGame</title>
 
-<!-- =====================================================
-     SUPABASE
-     ===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- =====================================================
-     SISTEMA COMUNE ECOGAME
-     ===================================================== -->
-
-<script src="ecogame.js"></script>
-
-
 <style>
 
 * {
@@ -96,19 +83,6 @@ header {
 
 .stat span {
     color: #ffd54f;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.green-points {
-    background: #17251d;
-    border: 1px solid #4d604b;
-    padding: 12px 25px;
-    border-radius: 12px;
-}
-
-.green-points span {
-    color: #81c784;
     font-weight: bold;
     font-size: 22px;
 }
@@ -260,7 +234,7 @@ header {
     inset: 0;
 
     background:
-        rgba(10,20,15,0.84);
+        rgba(10,20,15,0.88);
 
     display: none;
 
@@ -271,6 +245,8 @@ header {
     z-index: 20;
 
     text-align: center;
+
+    padding: 20px;
 }
 
 .gameover h2 {
@@ -284,16 +260,21 @@ header {
     font-size: 18px;
 }
 
-.gp-result {
-    color: #81c784 !important;
-    font-size: 24px !important;
+.green-points-result {
+    margin: 12px 0;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: #263c2c;
+    border: 1px solid #5f8f68;
+    color: #a5d6a7;
+    font-size: 21px;
     font-weight: bold;
-    margin-top: 10px;
 }
 
-.gp-total {
-    color: #c8e6c9 !important;
-    font-size: 16px !important;
+.green-points-total {
+    color: #c5d2c8;
+    font-size: 15px;
+    margin-bottom: 12px;
 }
 
 button {
@@ -357,7 +338,6 @@ kbd {
 
 </head>
 
-
 <body>
 
 
@@ -383,10 +363,7 @@ kbd {
         🐝 Eco Bee Runner
     </h1>
 
-    <p
-        data-testo="intro"
-        id="introTesto"
-    >
+    <p data-testo="intro">
         Aiuta l'ape a ripulire il suo ambiente!
         <br>
         Salta i rifiuti e non farti colpire.
@@ -423,21 +400,6 @@ kbd {
         </span>
 
         m
-
-    </div>
-
-
-    <div class="green-points">
-
-        🌱
-
-        <span data-testo="gp">
-            Green Points:
-        </span>
-
-        <span id="greenPointsTotali">
-            —
-        </span>
 
     </div>
 
@@ -545,23 +507,23 @@ kbd {
         </p>
 
 
-        <p
-            class="gp-result"
-            id="gpResult"
+        <div
+            class="green-points-result"
+            id="greenPointsResult"
         >
             🌱 +0 Green Points
-        </p>
+        </div>
 
 
-        <p
-            class="gp-total"
-            id="gpTotal"
+        <div
+            class="green-points-total"
+            id="greenPointsTotal"
         >
-        </p>
+            🌱 Green Points totali: —
+        </div>
 
 
         <div>
-
 
             <button
                 onclick="restart()"
@@ -578,7 +540,6 @@ kbd {
                 🎮 Menu
             </button>
 
-
         </div>
 
 
@@ -590,43 +551,43 @@ kbd {
 
 <div class="help">
 
-
     <span data-testo="premi">
         Premi
     </span>
 
-
     <kbd>SPAZIO</kbd>
-
 
     <span data-testo="oppure">
         o
     </span>
 
-
     <kbd>↑</kbd>
-
 
     <span data-testo="saltare">
         per saltare.
     </span>
 
-
 </div>
 
 
 </div>
+
+
+<!-- =====================================================
+     ECOGAME.JS
+     DEVE ESSERE NELLA STESSA CARTELLA DI RUNNER.HTML
+===================================================== -->
+
+<script src="ecogame.js"></script>
 
 
 <script>
-
 
 /* =====================================================
    TRADUZIONI
 ===================================================== */
 
 const traduzioni = {
-
 
     it: {
 
@@ -644,9 +605,6 @@ const traduzioni = {
 
         record:
             "Record:",
-
-        gp:
-            "Green Points:",
 
         gameoverTitolo:
             "💥 Ops!",
@@ -672,11 +630,14 @@ const traduzioni = {
         saltare:
             "per saltare.",
 
-        gpOttenuti:
-            "🌱 +{punti} Green Points",
+        greenPoints:
+            "Green Points",
 
-        gpTotali:
-            "🌱 Green Points totali: {punti}"
+        greenPointsTotali:
+            "🌱 Green Points totali:",
+
+        greenPointsErrore:
+            "⚠️ Green Points non accreditati. Accedi al tuo account."
 
     },
 
@@ -697,9 +658,6 @@ const traduzioni = {
 
         record:
             "Record:",
-
-        gp:
-            "Green Points:",
 
         gameoverTitolo:
             "💥 Oops!",
@@ -725,11 +683,14 @@ const traduzioni = {
         saltare:
             "to jump.",
 
-        gpOttenuti:
-            "🌱 +{punti} Green Points",
+        greenPoints:
+            "Green Points",
 
-        gpTotali:
-            "🌱 Total Green Points: {punti}"
+        greenPointsTotali:
+            "🌱 Total Green Points:",
+
+        greenPointsErrore:
+            "⚠️ Green Points were not added. Please log in to your account."
 
     },
 
@@ -750,9 +711,6 @@ const traduzioni = {
 
         record:
             "Ennätys:",
-
-        gp:
-            "Green Points:",
 
         gameoverTitolo:
             "💥 Hups!",
@@ -778,11 +736,14 @@ const traduzioni = {
         saltare:
             "hypätäksesi.",
 
-        gpOttenuti:
-            "🌱 +{punti} Green Points",
+        greenPoints:
+            "Green Points",
 
-        gpTotali:
-            "🌱 Green Points yhteensä: {punti}"
+        greenPointsTotali:
+            "🌱 Green Points yhteensä:",
+
+        greenPointsErrore:
+            "⚠️ Green Pointseja ei lisätty. Kirjaudu tilillesi."
 
     }
 
@@ -793,7 +754,7 @@ const traduzioni = {
    LINGUA
 ===================================================== */
 
-let lingua =
+let linguaCorrente =
     localStorage.getItem(
         "ecoGameLingua"
     ) || "it";
@@ -802,17 +763,13 @@ let lingua =
 if (
     !Object.prototype.hasOwnProperty.call(
         traduzioni,
-        lingua
+        linguaCorrente
     )
 ) {
 
-    lingua = "it";
+    linguaCorrente = "it";
 
 }
-
-
-document.documentElement.lang =
-    lingua;
 
 
 /* =====================================================
@@ -822,98 +779,43 @@ document.documentElement.lang =
 function applicaLingua() {
 
     const testi =
-        traduzioni[lingua];
+        traduzioni[linguaCorrente];
 
 
     document.documentElement.lang =
-        lingua;
+        linguaCorrente;
 
 
     document
         .querySelectorAll("[data-testo]")
-        .forEach(function(elemento) {
+        .forEach(
+            function(elemento) {
 
-            const chiave =
-                elemento.getAttribute(
-                    "data-testo"
-                );
+                const chiave =
+                    elemento.getAttribute(
+                        "data-testo"
+                    );
 
 
-            if (
-                Object.prototype.hasOwnProperty.call(
-                    testi,
-                    chiave
-                )
-            ) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        testi,
+                        chiave
+                    )
+                ) {
 
-                elemento.innerHTML =
-                    testi[chiave];
+                    elemento.innerHTML =
+                        testi[chiave];
+
+                }
 
             }
-
-        });
-
-
-    aggiornaTestoGreenPoints();
+        );
 
 }
 
 
-/* =====================================================
-   AGGIORNA TESTI GREEN POINTS
-===================================================== */
-
-function aggiornaTestoGreenPoints() {
-
-    const gpResult =
-        document.getElementById(
-            "gpResult"
-        );
-
-
-    const gpTotal =
-        document.getElementById(
-            "gpTotal"
-        );
-
-
-    if (!gpResult || !gpTotal) {
-        return;
-    }
-
-
-    const testi =
-        traduzioni[lingua];
-
-
-    const punti =
-        gpResult.dataset.punti ||
-        "0";
-
-
-    const totale =
-        gpTotal.dataset.totale ||
-        "";
-
-
-    gpResult.innerHTML =
-        testi.gpOttenuti.replace(
-            "{punti}",
-            punti
-        );
-
-
-    if (totale !== "") {
-
-        gpTotal.innerHTML =
-            testi.gpTotali.replace(
-                "{punti}",
-                totale
-            );
-
-    }
-
-}
+applicaLingua();
 
 
 /* =====================================================
@@ -938,7 +840,7 @@ window.addEventListener(
             )
         ) {
 
-            lingua =
+            linguaCorrente =
                 nuovaLingua;
 
             applicaLingua();
@@ -1001,15 +903,15 @@ const finalScore =
     );
 
 
-const gpResult =
+const greenPointsResult =
     document.getElementById(
-        "gpResult"
+        "greenPointsResult"
     );
 
 
-const gpTotal =
+const greenPointsTotal =
     document.getElementById(
-        "gpTotal"
+        "greenPointsTotal"
     );
 
 
@@ -1074,40 +976,10 @@ recordElement.innerText =
 
 
 /* =====================================================
-   RIFIUTO CASUALE
+   CALCOLO GREEN POINTS RUNNER
 ===================================================== */
 
-function rifiutoCasuale() {
-
-    return rifiuti[
-        Math.floor(
-            Math.random() *
-            rifiuti.length
-        )
-    ];
-
-}
-
-
-/* =====================================================
-   CALCOLO GREEN POINTS
-===================================================== */
-
-/*
- * 10 GP ogni 100 metri.
- *
- * Esempi:
- *
- * 10 metri  = 10 GP
- * 90 metri  = 10 GP
- * 100 metri = 10 GP
- * 200 metri = 20 GP
- * 500 metri = 50 GP
- *
- * Il massimo è 100 GP per una partita.
- */
-
-function calcolaGreenPointsBee(
+function calcolaGreenPointsRunner(
     distanza
 ) {
 
@@ -1119,27 +991,43 @@ function calcolaGreenPointsBee(
 
     if (
         !Number.isFinite(distanza) ||
-        distanza <= 0
+        distanza < 0
     ) {
 
-        return 0;
+        distanza = 0;
 
     }
 
 
-    const punti =
-        Math.floor(
-            distanza / 100
-        ) * 10;
+    if (distanza < 50) {
+
+        return 10;
+
+    }
 
 
-    return Math.min(
-        100,
-        Math.max(
-            10,
-            punti
-        )
-    );
+    if (distanza < 100) {
+
+        return 20;
+
+    }
+
+
+    if (distanza < 200) {
+
+        return 30;
+
+    }
+
+
+    if (distanza < 300) {
+
+        return 40;
+
+    }
+
+
+    return 50;
 
 }
 
@@ -1148,7 +1036,7 @@ function calcolaGreenPointsBee(
    ACCREDITA GREEN POINTS
 ===================================================== */
 
-async function accreditaGreenPointsBee() {
+async function accreditaGreenPointsRunner() {
 
     if (greenPointsAccreditati) {
 
@@ -1162,43 +1050,31 @@ async function accreditaGreenPointsBee() {
 
 
     const punti =
-        calcolaGreenPointsBee(
+        calcolaGreenPointsRunner(
             score
         );
 
 
-    gpResult.dataset.punti =
-        punti;
+    greenPointsResult.innerText =
+        "🌱 +" +
+        punti +
+        " " +
+        traduzioni[linguaCorrente].greenPoints;
 
 
-    gpResult.innerHTML =
-        traduzioni[lingua]
-            .gpOttenuti
-            .replace(
-                "{punti}",
-                punti
-            );
-
-
-    /*
-     * Se il giocatore non ha raggiunto
-     * nessuna distanza, non accreditiamo nulla.
-     */
-
-    if (punti <= 0) {
-
-        return;
-
-    }
+    greenPointsTotal.innerText =
+        traduzioni[
+            linguaCorrente
+        ].greenPointsTotali +
+        " —";
 
 
     /*
-     * ecoGame.addGamePoints usa il sistema
-     * comune di ecogame.js.
+     * Questa funzione arriva direttamente
+     * da ecogame.js.
      *
-     * Il gameId "eco-bee-runner"
-     * impedisce accrediti multipli
-     * nella stessa sessione.
+     * gameId:
+     * eco-bee-runner
      */
 
     if (
@@ -1211,8 +1087,12 @@ async function accreditaGreenPointsBee() {
             "EcoGame: ecogame.js non disponibile."
         );
 
-        greenPointsAccreditati =
-            false;
+
+        greenPointsResult.innerText =
+            traduzioni[
+                linguaCorrente
+            ].greenPointsErrore;
+
 
         return;
 
@@ -1234,109 +1114,83 @@ async function accreditaGreenPointsBee() {
         ) {
 
             console.log(
-                "🐝 Eco Bee Runner - GP aggiunti:",
+                "🌱 Runner: GP aggiunti:",
                 risultato.pointsAdded
             );
 
 
             console.log(
-                "🌱 GP totali:",
+                "🌱 Runner: GP totali:",
                 risultato.totalPoints
             );
 
 
-            gpTotal.dataset.totale =
+            greenPointsResult.innerText =
+                "🌱 +" +
+                risultato.pointsAdded +
+                " " +
+                traduzioni[
+                    linguaCorrente
+                ].greenPoints;
+
+
+            greenPointsTotal.innerText =
+                traduzioni[
+                    linguaCorrente
+                ].greenPointsTotali +
+                " " +
                 risultato.totalPoints;
-
-
-            gpTotal.innerHTML =
-                traduzioni[lingua]
-                    .gpTotali
-                    .replace(
-                        "{punti}",
-                        risultato.totalPoints
-                    );
-
-
-            aggiornaGreenPointsPaginaLocale(
-                risultato.totalPoints
-            );
-
-
-        } else if (
-            risultato &&
-            risultato.alreadyAdded
-        ) {
-
-            /*
-             * I punti erano già stati accreditati.
-             *
-             * Proviamo comunque a leggere
-             * il totale aggiornato dall'account.
-             */
-
-            console.log(
-                "🐝 Eco Bee Runner: GP già accreditati."
-            );
-
-
-            if (
-                window.ecoGame &&
-                typeof window.ecoGame.getGreenPoints ===
-                "function"
-            ) {
-
-                const totale =
-                    await window.ecoGame.getGreenPoints();
-
-
-                if (
-                    totale &&
-                    totale.success
-                ) {
-
-                    gpTotal.dataset.totale =
-                        totale.points;
-
-
-                    gpTotal.innerHTML =
-                        traduzioni[lingua]
-                            .gpTotali
-                            .replace(
-                                "{punti}",
-                                totale.points
-                            );
-
-
-                    aggiornaGreenPointsPaginaLocale(
-                        totale.points
-                    );
-
-                }
-
-            }
 
         } else {
 
-            console.error(
-                "EcoGame: impossibile accreditare i GP:",
+            console.warn(
+                "Runner: GP non accreditati:",
                 risultato
             );
 
-            greenPointsAccreditati =
-                false;
+
+            /*
+             * Se il sistema dice che i punti
+             * sono già stati assegnati,
+             * non lo consideriamo un errore grave.
+             */
+
+            if (
+                risultato &&
+                risultato.alreadyAdded
+            ) {
+
+                greenPointsResult.innerText =
+                    "🌱 " +
+                    traduzioni[
+                        linguaCorrente
+                    ].greenPoints +
+                    " già accreditati.";
+
+                return;
+
+            }
+
+
+            greenPointsResult.innerText =
+                traduzioni[
+                    linguaCorrente
+                ].greenPointsErrore;
 
         }
 
     } catch (errore) {
 
         console.error(
-            "EcoGame: errore accredito GP:",
+            "Runner: errore Green Points:",
             errore
         );
 
-        greenPointsAccreditati =
-            false;
+
+        greenPointsResult.innerText =
+            traduzioni[
+                linguaCorrente
+            ].greenPointsErrore;
 
     }
 
@@ -1344,112 +1198,17 @@ async function accreditaGreenPointsBee() {
 
 
 /* =====================================================
-   AGGIORNA GREEN POINTS VISIBILI
+   RIFIUTO CASUALE
 ===================================================== */
 
-function aggiornaGreenPointsPaginaLocale(
-    punti
-) {
+function rifiutoCasuale() {
 
-    punti =
-        Number(punti) || 0;
-
-
-    const ids = [
-
-        "greenPointsTotali",
-
-        "green-points-totali",
-
-        "greenPoints",
-
-        "gpTotali",
-
-        "gp-totali",
-
-        "accountGreenPoints"
-
-    ];
-
-
-    ids.forEach(
-        function(id) {
-
-            const elemento =
-                document.getElementById(
-                    id
-                );
-
-
-            if (elemento) {
-
-                elemento.innerText =
-                    punti;
-
-            }
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            "[data-green-points]"
+    return rifiuti[
+        Math.floor(
+            Math.random() *
+            rifiuti.length
         )
-        .forEach(
-            function(elemento) {
-
-                elemento.innerText =
-                    punti;
-
-            }
-        );
-
-}
-
-
-/* =====================================================
-   CARICA GREEN POINTS ACCOUNT
-===================================================== */
-
-async function caricaGPAccount() {
-
-    if (
-        !window.ecoGame ||
-        typeof window.ecoGame.loadAccountPoints !==
-        "function"
-    ) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const risultato =
-            await window.ecoGame.loadAccountPoints();
-
-
-        if (
-            risultato &&
-            risultato.success
-        ) {
-
-            aggiornaGreenPointsPaginaLocale(
-                risultato.points
-            );
-
-        }
-
-    } catch (errore) {
-
-        console.error(
-            "EcoGame: errore caricamento GP:",
-            errore
-        );
-
-    }
+    ];
 
 }
 
@@ -1461,7 +1220,9 @@ async function caricaGPAccount() {
 function jump() {
 
     if (!gameRunning) {
+
         return;
+
     }
 
 
@@ -1528,6 +1289,7 @@ function collisione(a, b) {
     const r1 =
         a.getBoundingClientRect();
 
+
     const r2 =
         b.getBoundingClientRect();
 
@@ -1552,38 +1314,47 @@ function collisione(a, b) {
 function gameLoop(timestamp) {
 
     if (!lastTime) {
-        lastTime = timestamp;
+
+        lastTime =
+            timestamp;
+
     }
 
 
     const delta =
         Math.min(
             2,
-            (timestamp - lastTime) /
-            16.67
+            (
+                timestamp -
+                lastTime
+            ) / 16.67
         );
 
 
-    lastTime = timestamp;
+    lastTime =
+        timestamp;
 
 
     if (gameRunning) {
 
 
-        /* =================================================
-           SALTO
-        ================================================= */
+        /* SALTO */
 
         if (jumping) {
 
             playerY +=
-                velocity * delta;
+                velocity *
+                delta;
+
 
             velocity -=
-                0.8 * delta;
+                0.8 *
+                delta;
 
 
-            if (playerY <= 0) {
+            if (
+                playerY <= 0
+            ) {
 
                 playerY = 0;
 
@@ -1597,53 +1368,59 @@ function gameLoop(timestamp) {
 
 
         player.style.bottom =
-            (60 + playerY) + "px";
+            (
+                60 +
+                playerY
+            ) +
+            "px";
 
 
-        /* =================================================
-           PRIMO RIFIUTO
-        ================================================= */
+        /* PRIMO RIFIUTO */
 
         obstacleX +=
-            speed * delta;
+            speed *
+            delta;
 
 
         obstacle.style.right =
-            obstacleX + "px";
+            obstacleX +
+            "px";
 
 
-        /* =================================================
-           SECONDO RIFIUTO
-        ================================================= */
+        /* SECONDO RIFIUTO */
 
         if (secondActive) {
 
             obstacle2X +=
-                speed * delta;
+                speed *
+                delta;
+
 
             obstacle2.style.right =
-                obstacle2X + "px";
+                obstacle2X +
+                "px";
 
         }
 
 
-        /* =================================================
-           NUOVO GRUPPO DI RIFIUTI
-        ================================================= */
+        /* NUOVO GRUPPO DI RIFIUTI */
 
         if (
             obstacleX >
-            game.offsetWidth + 100
+            game.offsetWidth +
+            100
         ) {
 
-            obstacleX = -100;
+            obstacleX =
+                -100;
 
 
             obstacle.innerText =
                 rifiutoCasuale();
 
 
-            score += 10;
+            score +=
+                10;
 
 
             scoreElement.innerText =
@@ -1655,14 +1432,16 @@ function gameLoop(timestamp) {
                 Math.random() < 0.35
             ) {
 
-                secondActive = true;
+                secondActive =
+                    true;
 
 
                 obstacle2X =
                     -100 -
                     (
                         90 +
-                        Math.random() * 110
+                        Math.random() *
+                        110
                     );
 
 
@@ -1671,10 +1450,13 @@ function gameLoop(timestamp) {
 
             } else {
 
-                secondActive = false;
+                secondActive =
+                    false;
+
 
                 obstacle2X =
                     -220;
+
 
                 obstacle2.style.right =
                     "-220px";
@@ -1688,9 +1470,7 @@ function gameLoop(timestamp) {
         }
 
 
-        /* =================================================
-           COLLISIONE PRIMO OSTACOLO
-        ================================================= */
+        /* COLLISIONE PRIMO OSTACOLO */
 
         if (
             collisione(
@@ -1704,9 +1484,7 @@ function gameLoop(timestamp) {
         }
 
 
-        /* =================================================
-           COLLISIONE SECONDO OSTACOLO
-        ================================================= */
+        /* COLLISIONE SECONDO OSTACOLO */
 
         if (
             secondActive &&
@@ -1743,14 +1521,20 @@ async function fine() {
     }
 
 
-    gameRunning = false;
+    gameRunning =
+        false;
 
 
     finalScore.innerText =
         score;
 
 
-    if (score > record) {
+    /* RECORD */
+
+    if (
+        score >
+        record
+    ) {
 
         record =
             score;
@@ -1773,11 +1557,11 @@ async function fine() {
 
 
     /*
-     * Accreditiamo i Green Points dopo
-     * aver mostrato il Game Over.
+     * Accreditiamo i Green Points
+     * dopo aver mostrato il Game Over.
      */
 
-    await accreditaGreenPointsBee();
+    await accreditaGreenPointsRunner();
 
 }
 
@@ -1836,25 +1620,18 @@ function restart() {
         "📄";
 
 
-    gpResult.dataset.punti =
-        "0";
+    greenPointsResult.innerText =
+        "🌱 +0 " +
+        traduzioni[
+            linguaCorrente
+        ].greenPoints;
 
 
-    gpResult.innerHTML =
-        traduzioni[lingua]
-            .gpOttenuti
-            .replace(
-                "{punti}",
-                "0"
-            );
-
-
-    gpTotal.dataset.totale =
-        "";
-
-
-    gpTotal.innerHTML =
-        "";
+    greenPointsTotal.innerText =
+        traduzioni[
+            linguaCorrente
+        ].greenPointsTotali +
+        " —";
 
 
     gameover.style.display =
@@ -1867,14 +1644,60 @@ function restart() {
 
 
 /* =====================================================
+   CARICA GREEN POINTS ACCOUNT
+===================================================== */
+
+async function caricaGreenPointsRunner() {
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.getGreenPoints !==
+        "function"
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.getGreenPoints();
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            console.log(
+                "🌱 Runner: GP account:",
+                risultato.points
+            );
+
+        }
+
+    } catch (errore) {
+
+        console.error(
+            "Runner: errore caricamento GP:",
+            errore
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    AVVIO
 ===================================================== */
 
-applicaLingua();
-
-caricaGPAccount();
-
 restart();
+
+
+caricaGreenPointsRunner();
 
 
 requestAnimationFrame(
