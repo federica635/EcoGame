@@ -7,6 +7,9 @@
 
     <title>🐾 Species Rescue - EcoGame</title>
 
+    <!-- Sistema globale EcoGame -->
+    <script src="ecogame.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -26,12 +29,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
 
         .logo {
             color: #a5d6a7;
             font-size: 24px;
             font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-select {
+            background: #203328;
+            color: #edf5ef;
+            border: 1px solid #405746;
+            border-radius: 8px;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language-select:focus {
+            outline: 2px solid #66bb6a;
+            outline-offset: 2px;
         }
 
         .menu {
@@ -229,6 +254,17 @@
             margin: 15px;
         }
 
+        .green-points {
+            display: inline-block;
+            margin: 10px 0 20px;
+            padding: 10px 18px;
+            background: #254b2c;
+            border: 1px solid #66bb6a;
+            border-radius: 12px;
+            color: #c8e6c9;
+            font-weight: bold;
+        }
+
         .restart,
         .back {
             padding: 13px 22px;
@@ -244,9 +280,17 @@
             color: white;
         }
 
+        .restart:hover {
+            background: #4caf50;
+        }
+
         .back {
             background: #455a64;
             color: white;
+        }
+
+        .back:hover {
+            background: #546e7a;
         }
 
         .hidden {
@@ -261,6 +305,10 @@
 
             .logo {
                 font-size: 20px;
+            }
+
+            .header-right {
+                gap: 5px;
             }
 
             .container {
@@ -291,6 +339,10 @@
             .result {
                 padding: 30px 20px;
             }
+
+            .final-score {
+                font-size: 42px;
+            }
         }
     </style>
 </head>
@@ -303,14 +355,30 @@
         🌍 EcoGame
     </div>
 
-    <div
-        class="menu"
-        id="gamesMenu"
-        onclick="goToGames()">
-        🎮 Giochi
+    <div class="header-right">
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            aria-label="Language">
+
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="fi">🇫🇮 Suomi</option>
+
+        </select>
+
+        <div
+            class="menu"
+            id="gamesMenu"
+            onclick="goToGames()">
+            🎮 Giochi
+        </div>
+
     </div>
 
 </header>
+
 
 <div class="container">
 
@@ -429,6 +497,11 @@
                 id="finalScore">
             </div>
 
+            <div
+                class="green-points"
+                id="greenPointsResult">
+            </div>
+
             <p id="message"></p>
 
             <button
@@ -456,27 +529,27 @@
 
 /*
 ========================================================
-LINGUA
+LINGUA GLOBALE
 ========================================================
 
-giochi.html deve salvare:
+La lingua viene letta da:
 
-localStorage.setItem("ecoGameLanguage", "it");
-localStorage.setItem("ecoGameLanguage", "en");
-localStorage.setItem("ecoGameLanguage", "fi");
+localStorage.getItem("ecoGameLanguage")
 
-Se non trova una lingua, usa italiano.
+Valori supportati:
+
+it
+en
+fi
+
+Il valore viene anche aggiornato quando l'utente
+cambia lingua dal menu presente in questa pagina.
+========================================================
 */
 
-const language =
+let language =
     localStorage.getItem("ecoGameLanguage") || "it";
 
-
-/*
-========================================================
-TRADUZIONI GENERALI
-========================================================
-*/
 
 const translations = {
 
@@ -536,7 +609,11 @@ const translations = {
             "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni.",
 
         imageAlt:
-            "Immagine di"
+            "Immagine di",
+
+        greenPoints:
+            "🌱 Green Points ottenuti:"
+
     },
 
 
@@ -596,7 +673,11 @@ const translations = {
             "🔎 There is still much to discover. Try again and pay attention to the explanations.",
 
         imageAlt:
-            "Image of"
+            "Image of",
+
+        greenPoints:
+            "🌱 Green Points earned:"
+
     },
 
 
@@ -656,44 +737,43 @@ const translations = {
             "🔎 Opittavaa on vielä paljon. Yritä uudelleen ja kiinnitä huomiota selityksiin.",
 
         imageAlt:
-            "Kuva lajista"
+            "Kuva lajista",
+
+        greenPoints:
+            "🌱 Saadut Green Points -pisteet:"
+
     }
 
 };
 
 
 /*
-Se per errore arriva una lingua non supportata,
-torniamo all'italiano.
+========================================================
+LINGUA CORRENTE
+========================================================
 */
 
-const t =
-    translations[language] || translations.it;
+function getCurrentLanguage() {
+
+    const stored =
+        localStorage.getItem("ecoGameLanguage");
+
+    if (
+        stored === "it" ||
+        stored === "en" ||
+        stored === "fi"
+    ) {
+        return stored;
+    }
+
+    return "it";
+}
 
 
 /*
 ========================================================
 MISSIONI
 ========================================================
-
-Le immagini sono locali.
-
-Crea una cartella:
-
-images/
-
-e inserisci:
-
-elefante.jpg
-rinoceronte.jpg
-tigre.jpg
-dodo.jpg
-gorilla.jpg
-orso-polare.jpg
-tilacino.jpg
-panda.jpg
-leone.jpg
-
 */
 
 const missions = [
@@ -1494,37 +1574,496 @@ let answered = false;
 
 /*
 ========================================================
-TESTI INTERFACCIA
+GREEN POINTS
+========================================================
+
+Questo identificatore rappresenta questo specifico gioco.
+
+Deve essere sempre uguale.
+
+La funzione accreditaGreenPointsUnaVolta()
+può così distinguere questo gioco dagli altri.
+
+Il completamento viene registrato solo quando il gioco
+arriva realmente alla schermata finale.
+========================================================
+*/
+
+const GREEN_POINTS_GAME_ID =
+    "species-rescue";
+
+
+/*
+Numero di Green Points assegnati per il completamento.
+
+Modifica questo valore se nel tuo ecogame.js hai
+un sistema con valori differenti.
+*/
+
+const GREEN_POINTS_REWARD = 20;
+
+
+/*
+========================================================
+STATO GREEN POINTS
+========================================================
+*/
+
+let greenPointsAwarded = false;
+
+
+/*
+Controlla se il gioco è già stato completato.
+
+Questo controllo locale serve anche nel caso in cui
+l'utente ricarichi la pagina dopo aver completato il gioco.
+*/
+
+function hasAlreadyReceivedGreenPoints() {
+
+    const key =
+        "ecoGameGreenPoints_" +
+        GREEN_POINTS_GAME_ID;
+
+    return localStorage.getItem(key) === "true";
+}
+
+
+/*
+Segna il gioco come completato.
+
+La funzione principale resta quella del sistema
+ecogame.js, se disponibile.
+*/
+
+function markGreenPointsAwarded() {
+
+    const key =
+        "ecoGameGreenPoints_" +
+        GREEN_POINTS_GAME_ID;
+
+    localStorage.setItem(key, "true");
+}
+
+
+/*
+========================================================
+ACCREDITO GREEN POINTS
+========================================================
+*/
+
+function awardGreenPoints() {
+
+    if (greenPointsAwarded) {
+        return 0;
+    }
+
+    /*
+    Se il gioco è già stato completato in precedenza,
+    non accreditiamo nuovamente i punti.
+    */
+
+    if (hasAlreadyReceivedGreenPoints()) {
+
+        greenPointsAwarded = true;
+
+        return 0;
+    }
+
+
+    let awarded = 0;
+
+
+    /*
+    Usa la funzione globale di ecogame.js quando presente.
+    */
+
+    if (
+        typeof window.accreditaGreenPointsUnaVolta ===
+        "function"
+    ) {
+
+        try {
+
+            /*
+            La funzione viene chiamata con un identificatore
+            univoco e il numero di punti.
+
+            Se il tuo ecogame.js utilizza una firma diversa,
+            è sufficiente adattare questa singola chiamata.
+            */
+
+            const result =
+                window.accreditaGreenPointsUnaVolta(
+                    GREEN_POINTS_GAME_ID,
+                    GREEN_POINTS_REWARD
+                );
+
+
+            /*
+            Se la funzione restituisce un numero,
+            lo usiamo come valore accreditato.
+            Altrimenti usiamo il premio previsto.
+            */
+
+            if (typeof result === "number") {
+
+                awarded = result;
+
+            } else {
+
+                awarded =
+                    GREEN_POINTS_REWARD;
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                "Errore durante l'accredito dei Green Points:",
+                error
+            );
+
+            /*
+            Non accreditiamo punti una seconda volta
+            in caso di errore.
+            */
+
+            awarded = 0;
+        }
+
+    }
+
+    else {
+
+        /*
+        Fallback locale.
+
+        Se ecogame.js non è caricato, salviamo comunque
+        il completamento per impedire che un semplice
+        riavvio possa assegnare nuovamente i punti.
+        */
+
+        awarded =
+            GREEN_POINTS_REWARD;
+
+    }
+
+
+    /*
+    Se l'accredito è andato a buon fine, registriamo
+    il completamento.
+    */
+
+    if (awarded > 0) {
+
+        markGreenPointsAwarded();
+
+        greenPointsAwarded = true;
+
+    }
+
+
+    return awarded;
+
+}
+
+
+/*
+========================================================
+TESTO INTERFACCIA
 ========================================================
 */
 
 function applyTranslations() {
 
-    document.documentElement.lang = language;
+    language =
+        getCurrentLanguage();
+
+    const t =
+        translations[language] || translations.it;
+
+
+    document.documentElement.lang =
+        language;
+
 
     document.getElementById("gameTitle").innerText =
         t.title;
 
+
     document.getElementById("gameSubtitle").innerText =
         t.subtitle;
+
 
     document.getElementById("savedLabel").innerText =
         t.saved;
 
+
     document.getElementById("scoreLabel").innerText =
         t.points;
+
 
     document.getElementById("missionLabel").innerText =
         t.mission;
 
+
     document.getElementById("restartButton").innerText =
         t.retry;
+
 
     document.getElementById("backButton").innerText =
         t.back;
 
+
     document.getElementById("gamesMenu").innerText =
         t.back;
+
+
+    document.getElementById("languageSelect").value =
+        language;
+
+
+    /*
+    Se siamo nella schermata finale,
+    aggiorna anche il testo del risultato.
+    */
+
+    if (
+        !document
+            .getElementById("resultCard")
+            .classList.contains("hidden")
+    ) {
+
+        updateResultText();
+
+    }
+
+}
+
+
+/*
+========================================================
+CAMBIO LINGUA
+========================================================
+*/
+
+function changeLanguage(newLanguage) {
+
+    if (
+        newLanguage !== "it" &&
+        newLanguage !== "en" &&
+        newLanguage !== "fi"
+    ) {
+
+        newLanguage = "it";
+
+    }
+
+
+    /*
+    Salva la lingua globalmente.
+    */
+
+    localStorage.setItem(
+        "ecoGameLanguage",
+        newLanguage
+    );
+
+
+    language =
+        newLanguage;
+
+
+    /*
+    Aggiorna tutta l'interfaccia.
+    */
+
+    applyTranslations();
+
+
+    /*
+    Se il gioco è ancora in corso,
+    aggiorna anche domanda, risposte e feedback.
+    */
+
+    if (
+        current < missions.length &&
+        document
+            .getElementById("gameCard")
+            .classList.contains("hidden") === false
+    ) {
+
+        refreshCurrentMissionLanguage();
+
+    }
+
+}
+
+
+/*
+========================================================
+AGGIORNA MISSIONE NELLA NUOVA LINGUA
+========================================================
+*/
+
+function refreshCurrentMissionLanguage() {
+
+    const mission =
+        missions[current];
+
+    const t =
+        translations[language] || translations.it;
+
+
+    /*
+    Immagine.
+    */
+
+    document.getElementById("animalImage").alt =
+        t.imageAlt +
+        " " +
+        mission.name[language];
+
+
+    /*
+    Testi principali.
+    */
+
+    document.getElementById("status").innerText =
+        mission.status[language];
+
+
+    document.getElementById("animalName").innerText =
+        mission.name[language];
+
+
+    document.getElementById("info").innerText =
+        mission.info[language];
+
+
+    document.getElementById("mission").innerText =
+        mission.mission[language];
+
+
+    /*
+    Se la domanda non è ancora stata risposta,
+    ricrea semplicemente le risposte nella nuova lingua.
+    */
+
+    if (!answered) {
+
+        createOptions();
+
+        document.getElementById("feedback").style.display =
+            "none";
+
+        document.getElementById("next").style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    /*
+    Se la domanda è già stata risposta,
+    aggiorniamo feedback e risposte mantenendo
+    lo stato corretto/sbagliato.
+    */
+
+    const options =
+        document.querySelectorAll(".option");
+
+
+    const selectedIndex =
+        Array.from(options).findIndex(
+            function(button) {
+
+                return button.classList.contains("wrong") ||
+                    button.classList.contains("correct");
+
+            }
+        );
+
+
+    /*
+    Ricrea i pulsanti mantenendo il risultato.
+    */
+
+    const optionsContainer =
+        document.getElementById("options");
+
+    optionsContainer.innerHTML = "";
+
+
+    mission.options[language].forEach(
+        function(option, index) {
+
+            const button =
+                document.createElement("button");
+
+            button.type =
+                "button";
+
+            button.className =
+                "option";
+
+            button.innerText =
+                option;
+
+            button.disabled =
+                true;
+
+
+            /*
+            Se l'indice è la risposta corretta,
+            evidenzialo.
+            */
+
+            if (index === mission.correct) {
+
+                button.classList.add("correct");
+
+            }
+
+
+            /*
+            Se era la risposta sbagliata selezionata,
+            mantieni il rosso.
+            */
+
+            if (
+                index === selectedIndex &&
+                index !== mission.correct
+            ) {
+
+                button.classList.remove("correct");
+
+                button.classList.add("wrong");
+
+            }
+
+
+            optionsContainer.appendChild(button);
+
+        }
+    );
+
+
+    /*
+    Ricostruisce il feedback nella nuova lingua.
+    */
+
+    updateFeedback();
+
+
+    document.getElementById("next").innerText =
+        current === missions.length - 1
+            ? t.final
+            : t.next;
 
 }
 
@@ -1539,21 +2078,31 @@ function loadMission() {
 
     answered = false;
 
+
     const mission =
         missions[current];
 
+
+    const t =
+        translations[language] || translations.it;
+
+
     /*
-    IMMAGINE CORRETTA
+    IMMAGINE
     */
 
     const image =
         document.getElementById("animalImage");
 
+
     image.src =
         mission.image;
 
+
     image.alt =
-        t.imageAlt + " " + mission.name[language];
+        t.imageAlt +
+        " " +
+        mission.name[language];
 
 
     /*
@@ -1563,11 +2112,14 @@ function loadMission() {
     document.getElementById("status").innerText =
         mission.status[language];
 
+
     document.getElementById("animalName").innerText =
         mission.name[language];
 
+
     document.getElementById("info").innerText =
         mission.info[language];
+
 
     document.getElementById("mission").innerText =
         mission.mission[language];
@@ -1601,6 +2153,7 @@ function loadMission() {
     document.getElementById("feedback").style.display =
         "none";
 
+
     document.getElementById("next").style.display =
         "none";
 
@@ -1619,8 +2172,26 @@ function loadMission() {
     CREA RISPOSTE
     */
 
+    createOptions();
+
+}
+
+
+/*
+========================================================
+CREAZIONE RISPOSTE
+========================================================
+*/
+
+function createOptions() {
+
+    const mission =
+        missions[current];
+
+
     const options =
         document.getElementById("options");
+
 
     options.innerHTML = "";
 
@@ -1631,14 +2202,18 @@ function loadMission() {
             const button =
                 document.createElement("button");
 
+
             button.type =
                 "button";
+
 
             button.className =
                 "option";
 
+
             button.innerText =
                 option;
+
 
             button.onclick =
                 function() {
@@ -1649,6 +2224,7 @@ function loadMission() {
                     );
 
                 };
+
 
             options.appendChild(button);
 
@@ -1670,10 +2246,13 @@ function checkAnswer(selected, index) {
         return;
     }
 
+
     answered = true;
+
 
     const mission =
         missions[current];
+
 
     const all =
         document.querySelectorAll(".option");
@@ -1685,7 +2264,9 @@ function checkAnswer(selected, index) {
 
     all.forEach(
         function(button) {
+
             button.disabled = true;
+
         }
     );
 
@@ -1698,19 +2279,15 @@ function checkAnswer(selected, index) {
 
         selected.classList.add("correct");
 
-        score += mission.points;
+
+        score +=
+            mission.points;
+
 
         saved++;
 
 
-        document.getElementById("feedback").innerHTML =
-            t.success +
-            " <strong>+" +
-            mission.points +
-            " " +
-            t.points.toLowerCase() +
-            "</strong><br><br>" +
-            mission.explanation[language];
+        updateFeedback();
 
     }
 
@@ -1723,7 +2300,9 @@ function checkAnswer(selected, index) {
 
         selected.classList.add("wrong");
 
-        all[mission.correct].classList.add("correct");
+
+        all[mission.correct]
+            .classList.add("correct");
 
 
         /*
@@ -1733,14 +2312,7 @@ function checkAnswer(selected, index) {
         score += 2;
 
 
-        document.getElementById("feedback").innerHTML =
-            t.wrong +
-            "<br><br>" +
-            t.correctAnswer +
-            " <strong>" +
-            mission.options[language][mission.correct] +
-            "</strong><br><br>" +
-            mission.explanation[language];
+        updateFeedback();
 
     }
 
@@ -1751,6 +2323,7 @@ function checkAnswer(selected, index) {
 
     document.getElementById("score").innerText =
         score;
+
 
     document.getElementById("saved").innerText =
         saved;
@@ -1776,6 +2349,73 @@ function checkAnswer(selected, index) {
 
 /*
 ========================================================
+FEEDBACK
+========================================================
+*/
+
+function updateFeedback() {
+
+    const mission =
+        missions[current];
+
+
+    const t =
+        translations[language] || translations.it;
+
+
+    const feedback =
+        document.getElementById("feedback");
+
+
+    /*
+    Capisce se la risposta selezionata era corretta.
+    */
+
+    const options =
+        document.querySelectorAll(".option");
+
+
+    const selectedWrong =
+        Array.from(options).some(
+            function(button) {
+
+                return button.classList.contains("wrong");
+
+            }
+        );
+
+
+    if (!selectedWrong) {
+
+        feedback.innerHTML =
+            t.success +
+            " <strong>+" +
+            mission.points +
+            " " +
+            t.points.toLowerCase() +
+            "</strong><br><br>" +
+            mission.explanation[language];
+
+    }
+
+    else {
+
+        feedback.innerHTML =
+            t.wrong +
+            "<br><br>" +
+            t.correctAnswer +
+            " <strong>" +
+            mission.options[language][mission.correct] +
+            "</strong><br><br>" +
+            mission.explanation[language];
+
+    }
+
+}
+
+
+/*
+========================================================
 MISSIONE SUCCESSIVA
 ========================================================
 */
@@ -1784,13 +2424,18 @@ function nextMission() {
 
     current++;
 
+
     if (current < missions.length) {
 
         loadMission();
 
+
         window.scrollTo({
+
             top: 0,
+
             behavior: "smooth"
+
         });
 
     }
@@ -1815,6 +2460,7 @@ function showResult() {
     document.getElementById("gameCard")
         .classList.add("hidden");
 
+
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
@@ -1826,6 +2472,51 @@ function showResult() {
     document.getElementById("finalScore")
         .innerText =
         score + " / 100";
+
+
+    /*
+    Accredita i Green Points una sola volta.
+    */
+
+    const awarded =
+        awardGreenPoints();
+
+
+    /*
+    Salva il valore per la schermata.
+    */
+
+    document.getElementById("greenPointsResult")
+        .innerText =
+        translations[language].greenPoints +
+        " " +
+        awarded;
+
+
+    updateResultText();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/*
+========================================================
+TESTO RISULTATO
+========================================================
+*/
+
+function updateResultText() {
+
+    const t =
+        translations[language] || translations.it;
 
 
     let message;
@@ -1864,13 +2555,59 @@ function showResult() {
         .innerText =
         t.completed;
 
+
     document.getElementById("resultObtained")
         .innerText =
         t.obtained;
 
+
     document.getElementById("message")
         .innerText =
         message;
+
+
+    /*
+    Mantiene il valore già ottenuto.
+    Se il gioco è già stato completato,
+    mostra 0 al secondo tentativo.
+    */
+
+    let displayedGreenPoints = 0;
+
+
+    if (hasAlreadyReceivedGreenPoints()) {
+
+        /*
+        Se il risultato è già stato mostrato dopo
+        l'accredito, manteniamo il premio standard
+        solo nella prima schermata.
+
+        Il testo viene comunque aggiornato alla lingua
+        corrente.
+        */
+
+        if (greenPointsAwarded) {
+
+            displayedGreenPoints =
+                GREEN_POINTS_REWARD;
+
+        }
+
+        else {
+
+            displayedGreenPoints =
+                0;
+
+        }
+
+    }
+
+
+    document.getElementById("greenPointsResult")
+        .innerText =
+        t.greenPoints +
+        " " +
+        displayedGreenPoints;
 
 }
 
@@ -1878,6 +2615,18 @@ function showResult() {
 /*
 ========================================================
 RIAVVIA
+========================================================
+
+Importante:
+
+riavviare il gioco resetta solamente il punteggio
+della partita corrente.
+
+NON resetta:
+
+- ecoGameLanguage
+- Green Points già ottenuti
+- completamento del gioco
 ========================================================
 */
 
@@ -1889,19 +2638,46 @@ function restartGame() {
 
     saved = 0;
 
+    answered = false;
+
+
+    /*
+    Il premio Green Points NON viene azzerato.
+    */
+
+    greenPointsAwarded =
+        hasAlreadyReceivedGreenPoints();
+
+
     document.getElementById("score").innerText =
         "0";
+
 
     document.getElementById("saved").innerText =
         "0";
 
+
     document.getElementById("gameCard")
         .classList.remove("hidden");
+
 
     document.getElementById("resultCard")
         .classList.add("hidden");
 
+
+    applyTranslations();
+
+
     loadMission();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
 
 }
 
@@ -1914,6 +2690,12 @@ TORNA A GIOCHI
 
 function goToGames() {
 
+    /*
+    La lingua è già stata salvata in localStorage,
+    quindi giochi.html può leggerla senza perdere
+    la scelta dell'utente.
+    */
+
     location.href =
         "giochi.html";
 
@@ -1922,11 +2704,88 @@ function goToGames() {
 
 /*
 ========================================================
+CAMBIO LINGUA DAL MENU
+========================================================
+*/
+
+document
+    .getElementById("languageSelect")
+    .addEventListener(
+        "change",
+        function(event) {
+
+            changeLanguage(
+                event.target.value
+            );
+
+        }
+    );
+
+
+/*
+========================================================
+SINCRONIZZAZIONE LINGUA
+========================================================
+
+Se un'altra pagina cambia ecoGameLanguage e poi
+l'utente torna a questa pagina tramite la cronologia,
+la lingua viene riletta.
+========================================================
+*/
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            event.key ===
+            "ecoGameLanguage"
+        ) {
+
+            language =
+                getCurrentLanguage();
+
+
+            applyTranslations();
+
+
+            if (
+                current < missions.length &&
+                !document
+                    .getElementById("gameCard")
+                    .classList.contains("hidden")
+            ) {
+
+                refreshCurrentMissionLanguage();
+
+            }
+
+        }
+
+    }
+);
+
+
+/*
+========================================================
 AVVIO
 ========================================================
 */
 
+language =
+    getCurrentLanguage();
+
+
+document.getElementById("languageSelect").value =
+    language;
+
+
+greenPointsAwarded =
+    hasAlreadyReceivedGreenPoints();
+
+
 applyTranslations();
+
 
 loadMission();
 
