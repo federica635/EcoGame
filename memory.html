@@ -44,7 +44,6 @@ header {
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-wrap: wrap;
 }
 
 .info {
@@ -53,9 +52,9 @@ header {
 
 .green-points {
     background: #1c3324;
-    border: 1px solid #4caf50;
+    border: 1px solid #42614a;
     color: #81c784;
-    padding: 9px 14px;
+    padding: 9px 13px;
     border-radius: 10px;
     font-weight: bold;
 }
@@ -245,20 +244,44 @@ header {
     margin: 15px;
 }
 
+.final-points {
+    font-size: 25px;
+    color: #c8e6c9;
+    font-weight: bold;
+    margin: 15px;
+}
+
 .final-text {
     color: #c5d2c8;
     line-height: 1.7;
     font-size: 18px;
 }
 
-.final-points {
-    color: #a5d6a7;
-    font-size: 22px;
-    font-weight: bold;
-    margin: 15px 0;
+.account-status {
+    max-width: 760px;
+    margin: 15px auto;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    display: none;
+    line-height: 1.5;
 }
 
-@media(max-width: 850px) {
+.account-status.success {
+    display: block;
+    background: #1c3324;
+    border: 1px solid #4caf50;
+    color: #a5d6a7;
+}
+
+.account-status.error {
+    display: block;
+    background: #3b2020;
+    border: 1px solid #ef5350;
+    color: #ffcdd2;
+}
+
+@media(max-width: 800px) {
 
     .stats {
         grid-template-columns: repeat(2, 1fr);
@@ -273,7 +296,7 @@ header {
     }
 
     .stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
     header {
@@ -282,7 +305,24 @@ header {
     }
 
     .destra {
+        flex-wrap: wrap;
         justify-content: center;
+    }
+
+}
+
+@media(max-width: 450px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        height: 135px;
+    }
+
+    .intro h1 {
+        font-size: 30px;
     }
 
 }
@@ -292,7 +332,6 @@ header {
 </head>
 
 <body>
-
 
 <header>
 
@@ -308,10 +347,14 @@ header {
 
     <div class="green-points">
         🌱 <span data-testo="greenPoints">Green Points</span>:
-        <span id="greenPoints">0</span>
+        <span id="greenPointsTotali">—</span>
     </div>
 
-    <select class="lingua" id="lingua" onchange="cambiaLingua()">
+    <select
+        class="lingua"
+        id="lingua"
+        onchange="cambiaLingua()"
+    >
 
         <option value="it">🇮🇹 Italiano</option>
 
@@ -349,7 +392,6 @@ header {
 
 <div class="stats">
 
-
     <div class="stat">
 
         <div class="stat-title" data-testo="tempoTitolo">
@@ -357,11 +399,8 @@ header {
         </div>
 
         <div class="stat-number">
-
             <span id="tempo">0</span>
-
             <span id="secondi">s</span>
-
         </div>
 
     </div>
@@ -374,9 +413,7 @@ header {
         </div>
 
         <div class="stat-number">
-
             <span id="tentativi">0</span>
-
         </div>
 
     </div>
@@ -389,9 +426,7 @@ header {
         </div>
 
         <div class="stat-number">
-
             <span id="coppie">0</span> / 8
-
         </div>
 
     </div>
@@ -399,18 +434,15 @@ header {
 
     <div class="stat">
 
-        <div class="stat-title" data-testo="puntiTitolo">
-            🌱 Green Points
+        <div class="stat-title" data-testo="gpPartitaTitolo">
+            🌱 GP partita
         </div>
 
         <div class="stat-number">
-
-            <span id="puntiPartita">0</span>
-
+            <span id="gpPartita">0</span>
         </div>
 
     </div>
-
 
 </div>
 
@@ -419,6 +451,12 @@ header {
 
 
 <div class="feedback" id="feedback"></div>
+
+
+<div
+    class="account-status"
+    id="accountStatus"
+></div>
 
 
 <button
@@ -437,26 +475,19 @@ header {
     </h2>
 
     <div class="final-score">
-
         <span id="punteggio">0</span>
-
+        <span id="puntiFinali">punti</span>
     </div>
 
     <div class="final-points">
-
         🌱
         <span data-testo="greenPointsGuadagnati">
             Green Points guadagnati
         </span>:
-
-        <span id="puntiFinali">
-            0
-        </span>
-
+        <span id="greenPointsGuadagnati">0</span>
     </div>
 
     <p class="final-text" id="finalText"></p>
-
 
     <button
         class="reset"
@@ -465,7 +496,6 @@ header {
     >
         🔄 Gioca ancora
     </button>
-
 
     <button
         class="reset"
@@ -481,19 +511,31 @@ header {
 </div>
 
 
-<script>
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =====================================================
+     SISTEMA COMUNE ECOGAME
+     
+     IMPORTANTE:
+     Questo file deve trovarsi nella stessa cartella
+     del memory.html, oppure bisogna modificare il percorso.
+===================================================== -->
+
+<script src="ecogame.js"></script>
+
+
+<script>
 
 /* =====================================================
    TRADUZIONI
-   ===================================================== */
+===================================================== */
 
 const traduzioni = {
-
-
-    /* =================================================
-       ITALIANO
-       ================================================= */
 
     it: {
 
@@ -511,29 +553,37 @@ const traduzioni = {
 
         coppieTitolo: "🧩 Coppie",
 
-        puntiTitolo: "🌱 Green Points",
+        gpPartitaTitolo: "🌱 GP partita",
 
         greenPoints: "Green Points",
 
-        greenPointsGuadagnati:
-            "Green Points guadagnati",
+        greenPointsGuadagnati: "Green Points guadagnati",
 
         nuovaPartita: "🔄 Nuova partita",
 
-        finaleTitolo:
-            "🏆 Biodiversità completata!",
+        finaleTitolo: "🏆 Biodiversità completata!",
 
-        giocaAncora:
-            "🔄 Gioca ancora",
+        giocaAncora: "🔄 Gioca ancora",
 
-        tornaGiochi:
-            "🎮 Torna ai giochi",
+        tornaGiochi: "🎮 Torna ai giochi",
 
         secondi: "s",
 
         punti: "punti",
 
         feedbackPrefix: "🧠",
+
+        accreditoInCorso:
+            "🌱 Salvataggio dei Green Points in corso...",
+
+        accreditoSuccesso:
+            "✅ I Green Points sono stati aggiunti al tuo account.",
+
+        accreditoNonAutenticato:
+            "⚠️ Accedi al tuo account per salvare i Green Points.",
+
+        accreditoErrore:
+            "⚠️ Non è stato possibile salvare i Green Points.",
 
         messaggio800:
             "🏆 Memoria ecologica eccellente! Hai trovato rapidamente le relazioni tra i concetti.",
@@ -545,7 +595,7 @@ const traduzioni = {
             "🧠 Buon risultato. Alcune coppie richiedevano un po' più di ragionamento.",
 
         messaggioBasso:
-            "🔎 Hai completato il memory! Prova a migliorare tempo e numero di tentativi.",
+            "🔎 Hai completato il Memory! Prova a migliorare tempo e numero di tentativi.",
 
         carte: {
 
@@ -634,21 +684,15 @@ const traduzioni = {
     },
 
 
-    /* =================================================
-       INGLESE
-       ================================================= */
-
     en: {
 
         info: "🧠 Ecology Memory",
 
         titolo: "🐝 Biodiversity Memory",
 
-        intro:
-            "Find the pairs of connected concepts.",
+        intro: "Find the pairs of connected concepts.",
 
-        ragiona:
-            "think about ecological relationships.",
+        ragiona: "think about ecological relationships.",
 
         tempoTitolo: "⏱️ Time",
 
@@ -656,29 +700,37 @@ const traduzioni = {
 
         coppieTitolo: "🧩 Pairs",
 
-        puntiTitolo: "🌱 Green Points",
+        gpPartitaTitolo: "🌱 Game GP",
 
         greenPoints: "Green Points",
 
-        greenPointsGuadagnati:
-            "Green Points earned",
+        greenPointsGuadagnati: "Green Points earned",
 
         nuovaPartita: "🔄 New Game",
 
-        finaleTitolo:
-            "🏆 Biodiversity Completed!",
+        finaleTitolo: "🏆 Biodiversity Completed!",
 
-        giocaAncora:
-            "🔄 Play Again",
+        giocaAncora: "🔄 Play Again",
 
-        tornaGiochi:
-            "🎮 Back to Games",
+        tornaGiochi: "🎮 Back to Games",
 
         secondi: "s",
 
         punti: "points",
 
         feedbackPrefix: "🧠",
+
+        accreditoInCorso:
+            "🌱 Saving Green Points...",
+
+        accreditoSuccesso:
+            "✅ Green Points have been added to your account.",
+
+        accreditoNonAutenticato:
+            "⚠️ Log in to your account to save Green Points.",
+
+        accreditoErrore:
+            "⚠️ Green Points could not be saved.",
 
         messaggio800:
             "🏆 Excellent ecological memory! You quickly found the relationships between the concepts.",
@@ -779,59 +831,53 @@ const traduzioni = {
     },
 
 
-    /* =================================================
-       FINLANDESE
-       ================================================= */
-
     fi: {
 
-        info:
-            "🧠 Ekologinen muistipeli",
+        info: "🧠 Ekologinen muistipeli",
 
-        titolo:
-            "🐝 Luonnon monimuotoisuus -muistipeli",
+        titolo: "🐝 Luonnon monimuotoisuus -muistipeli",
 
-        intro:
-            "Etsi toisiinsa liittyvien käsitteiden parit.",
+        intro: "Etsi toisiinsa liittyvien käsitteiden parit.",
 
-        ragiona:
-            "pohdi ekologisia suhteita.",
+        ragiona: "pohdi ekologisia suhteita.",
 
-        tempoTitolo:
-            "⏱️ Aika",
+        tempoTitolo: "⏱️ Aika",
 
-        tentativiTitolo:
-            "🎯 Yritykset",
+        tentativiTitolo: "🎯 Yritykset",
 
-        coppieTitolo:
-            "🧩 Parit",
+        coppieTitolo: "🧩 Parit",
 
-        puntiTitolo:
-            "🌱 Green Points",
+        gpPartitaTitolo: "🌱 Pelin GP",
 
-        greenPoints:
-            "Green Points",
+        greenPoints: "Green Points",
 
-        greenPointsGuadagnati:
-            "Ansaitut Green Points -pisteet",
+        greenPointsGuadagnati: "Ansaitut Green Points -pisteet",
 
-        nuovaPartita:
-            "🔄 Uusi peli",
+        nuovaPartita: "🔄 Uusi peli",
 
-        finaleTitolo:
-            "🏆 Luonnon monimuotoisuus suoritettu!",
+        finaleTitolo: "🏆 Luonnon monimuotoisuus suoritettu!",
 
-        giocaAncora:
-            "🔄 Pelaa uudelleen",
+        giocaAncora: "🔄 Pelaa uudelleen",
 
-        tornaGiochi:
-            "🎮 Takaisin peleihin",
+        tornaGiochi: "🎮 Takaisin peleihin",
 
         secondi: "s",
 
         punti: "pistettä",
 
         feedbackPrefix: "🧠",
+
+        accreditoInCorso:
+            "🌱 Green Points -pisteitä tallennetaan...",
+
+        accreditoSuccesso:
+            "✅ Green Points on lisätty tilillesi.",
+
+        accreditoNonAutenticato:
+            "⚠️ Kirjaudu tilillesi tallentaaksesi Green Points -pisteet.",
+
+        accreditoErrore:
+            "⚠️ Green Points -pisteitä ei voitu tallentaa.",
 
         messaggio800:
             "🏆 Erinomainen ekologinen muisti! Löysit nopeasti käsitteiden väliset suhteet.",
@@ -936,7 +982,7 @@ const traduzioni = {
 
 /* =====================================================
    DATI DELLE CARTE
-   ===================================================== */
+===================================================== */
 
 const coppie = [
 
@@ -1041,7 +1087,7 @@ const coppie = [
 
 /* =====================================================
    VARIABILI
-   ===================================================== */
+===================================================== */
 
 let carte = [];
 
@@ -1059,44 +1105,56 @@ let tempo = 0;
 
 let timer = null;
 
-let puntiPartita = 0;
+let partitaTerminata = false;
 
 
 /* =====================================================
-   GREEN POINTS
-   ===================================================== */
+   OTTIENI LINGUA
+===================================================== */
 
-let greenPoints =
-    Number(
-        localStorage.getItem("greenPointsEcoGame")
-    ) || 0;
+function linguaCorrente() {
+
+    let lingua = "it";
+
+    if (typeof getLingua === "function") {
+
+        lingua = getLingua();
+
+    } else {
+
+        lingua =
+            localStorage.getItem(
+                "ecoGameLingua"
+            ) || "it";
+
+    }
 
 
-/* =====================================================
-   AGGIORNA GREEN POINTS
-   ===================================================== */
+    if (
+        !Object.prototype.hasOwnProperty.call(
+            traduzioni,
+            lingua
+        )
+    ) {
 
-function aggiornaGreenPoints() {
+        lingua = "it";
 
-    document.getElementById("greenPoints").textContent =
-        greenPoints;
+    }
 
-    localStorage.setItem(
-        "greenPointsEcoGame",
-        greenPoints
-    );
+
+    return lingua;
 
 }
 
 
 /* =====================================================
-   OTTIENI TESTO CORRETTO DELLA CARTA
-   ===================================================== */
+   OTTIENI TESTO CARTA
+===================================================== */
 
 function ottieniCartaTradotta(carta) {
 
     const lingua =
-        document.getElementById("lingua").value;
+        linguaCorrente();
 
     const testi =
         traduzioni[lingua];
@@ -1117,21 +1175,84 @@ function ottieniCartaTradotta(carta) {
 
 /* =====================================================
    CAMBIO LINGUA
-   ===================================================== */
+===================================================== */
 
 function cambiaLingua() {
 
     const selettore =
         document.getElementById("lingua");
 
+
     const lingua =
         selettore.value;
+
+
+    if (
+        !Object.prototype.hasOwnProperty.call(
+            traduzioni,
+            lingua
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * Utilizziamo il sistema comune EcoGame.
+     */
+
+    if (
+        typeof cambiaLinguaComune === "function"
+    ) {
+
+        cambiaLinguaComune(
+            lingua
+        );
+
+    } else {
+
+        localStorage.setItem(
+            "ecoGameLingua",
+            lingua
+        );
+
+    }
+
+
+    applicaTraduzioni();
+
+}
+
+
+/* =====================================================
+   APPLICA TRADUZIONI
+===================================================== */
+
+function applicaTraduzioni() {
+
+    const lingua =
+        linguaCorrente();
+
 
     const testi =
         traduzioni[lingua];
 
-    if (!testi) {
-        return;
+
+    document.documentElement.lang =
+        lingua;
+
+
+    const selettore =
+        document.getElementById("lingua");
+
+
+    if (selettore) {
+
+        selettore.value =
+            lingua;
+
     }
 
 
@@ -1140,7 +1261,10 @@ function cambiaLingua() {
         .forEach(function(elemento) {
 
             const chiave =
-                elemento.getAttribute("data-testo");
+                elemento.getAttribute(
+                    "data-testo"
+                );
+
 
             if (
                 Object.prototype.hasOwnProperty.call(
@@ -1157,93 +1281,127 @@ function cambiaLingua() {
         });
 
 
-    document.getElementById("secondi").textContent =
+    document.getElementById(
+        "secondi"
+    ).textContent =
         testi.secondi;
 
 
-    document.documentElement.lang =
-        lingua;
-
-
-    localStorage.setItem(
-        "linguaEcoGame",
-        lingua
-    );
+    document.getElementById(
+        "puntiFinali"
+    ).textContent =
+        testi.punti;
 
 
     aggiornaCarteVisibili();
 
-    aggiornaGreenPoints();
+
+    if (partitaTerminata) {
+
+        aggiornaTestoFinale();
+
+    }
 
 }
 
 
 /* =====================================================
-   AGGIORNA TESTI DELLE CARTE
-   ===================================================== */
+   EVENTO LINGUA COMUNE
+===================================================== */
+
+window.addEventListener(
+    "ecoGameLinguaCambiata",
+    function() {
+
+        applicaTraduzioni();
+
+    }
+);
+
+
+/* =====================================================
+   AGGIORNA CARTE VISIBILI
+===================================================== */
 
 function aggiornaCarteVisibili() {
 
     const elementi =
-        document.querySelectorAll(".card");
+        document.querySelectorAll(
+            ".card"
+        );
 
 
-    elementi.forEach(function(elemento) {
+    elementi.forEach(
+        function(elemento) {
 
-        const numero =
-            Number(
-                elemento.dataset.numero
-            );
-
-
-        const carta =
-            carte.find(function(c) {
-
-                return c.numero === numero;
-
-            });
+            const numero =
+                Number(
+                    elemento.dataset.numero
+                );
 
 
-        if (!carta) {
-            return;
+            const carta =
+                carte.find(
+                    function(c) {
+
+                        return (
+                            c.numero ===
+                            numero
+                        );
+
+                    }
+                );
+
+
+            if (!carta) {
+
+                return;
+
+            }
+
+
+            const dati =
+                ottieniCartaTradotta(
+                    carta
+                );
+
+
+            const testo =
+                elemento.querySelector(
+                    ".text"
+                );
+
+
+            const descrizione =
+                elemento.querySelector(
+                    "small"
+                );
+
+
+            if (testo) {
+
+                testo.textContent =
+                    dati.titolo;
+
+            }
+
+
+            if (descrizione) {
+
+                descrizione.textContent =
+                    dati.descrizione;
+
+            }
+
         }
-
-
-        const dati =
-            ottieniCartaTradotta(carta);
-
-
-        const testo =
-            elemento.querySelector(".text");
-
-
-        const descrizione =
-            elemento.querySelector("small");
-
-
-        if (testo) {
-
-            testo.textContent =
-                dati.titolo;
-
-        }
-
-
-        if (descrizione) {
-
-            descrizione.textContent =
-                dati.descrizione;
-
-        }
-
-    });
+    );
 
 }
 
 
 /* =====================================================
    MESCOLA
-   ===================================================== */
+===================================================== */
 
 function mescola(array) {
 
@@ -1259,7 +1417,8 @@ function mescola(array) {
 
         const j =
             Math.floor(
-                Math.random() * (i + 1)
+                Math.random() *
+                (i + 1)
             );
 
 
@@ -1282,7 +1441,7 @@ function mescola(array) {
 
 /* =====================================================
    NUOVA PARTITA
-   ===================================================== */
+===================================================== */
 
 function nuovaPartita() {
 
@@ -1301,159 +1460,230 @@ function nuovaPartita() {
 
     tempo = 0;
 
-    puntiPartita = 0;
+    partitaTerminata = false;
 
 
-    document.getElementById("tempo").textContent =
+    document.getElementById(
+        "tempo"
+    ).textContent =
         "0";
 
 
-    document.getElementById("tentativi").textContent =
+    document.getElementById(
+        "tentativi"
+    ).textContent =
         "0";
 
 
-    document.getElementById("coppie").textContent =
+    document.getElementById(
+        "coppie"
+    ).textContent =
         "0";
 
 
-    document.getElementById("puntiPartita").textContent =
+    document.getElementById(
+        "gpPartita"
+    ).textContent =
         "0";
 
 
-    document.getElementById("finale").style.display =
+    document.getElementById(
+        "finale"
+    ).style.display =
         "none";
 
 
-    document.getElementById("feedback").style.display =
+    document.getElementById(
+        "feedback"
+    ).style.display =
         "none";
+
+
+    document.getElementById(
+        "accountStatus"
+    ).className =
+        "account-status";
+
+
+    document.getElementById(
+        "accountStatus"
+    ).textContent =
+        "";
 
 
     carte =
-        mescola(coppie);
+        mescola(
+            coppie
+        );
 
 
     const memory =
-        document.getElementById("memory");
+        document.getElementById(
+            "memory"
+        );
 
 
-    memory.innerHTML = "";
+    memory.innerHTML =
+        "";
 
 
-    carte.forEach(function(carta) {
+    carte.forEach(
+        function(carta) {
 
-        const elemento =
-            document.createElement("div");
-
-
-        elemento.className =
-            "card";
-
-
-        elemento.dataset.numero =
-            carta.numero;
+            const elemento =
+                document.createElement(
+                    "div"
+                );
 
 
-        const dati =
-            ottieniCartaTradotta(carta);
+            elemento.className =
+                "card";
 
 
-        elemento.innerHTML = `
-
-            <div class="card-inner">
-
-                <div class="face front">
-                    ?
-                </div>
-
-                <div class="face back">
-
-                    <div class="emoji">
-                        ${carta.emoji}
-                    </div>
-
-                    <div class="text">
-                        ${dati.titolo}
-                    </div>
-
-                    <small>
-                        ${dati.descrizione}
-                    </small>
-
-                </div>
-
-            </div>
-
-        `;
+            elemento.dataset.numero =
+                carta.numero;
 
 
-        elemento.onclick =
-            function() {
-
-                giraCarta(
-                    elemento,
+            const dati =
+                ottieniCartaTradotta(
                     carta
                 );
 
-            };
+
+            elemento.innerHTML = `
+
+                <div class="card-inner">
+
+                    <div class="face front">
+                        ?
+                    </div>
+
+                    <div class="face back">
+
+                        <div class="emoji">
+                            ${carta.emoji}
+                        </div>
+
+                        <div class="text">
+                            ${dati.titolo}
+                        </div>
+
+                        <small>
+                            ${dati.descrizione}
+                        </small>
+
+                    </div>
+
+                </div>
+
+            `;
 
 
-        memory.appendChild(elemento);
+            elemento.onclick =
+                function() {
 
-    });
+                    giraCarta(
+                        elemento,
+                        carta
+                    );
+
+                };
+
+
+            memory.appendChild(
+                elemento
+            );
+
+        }
+    );
+
+
+    applicaTraduzioni();
 
 
     timer =
-        setInterval(function() {
+        setInterval(
+            function() {
 
-            tempo++;
-
-
-            document.getElementById("tempo").textContent =
-                tempo;
+                tempo++;
 
 
-        }, 1000);
+                document.getElementById(
+                    "tempo"
+                ).textContent =
+                    tempo;
+
+            },
+            1000
+        );
 
 }
 
 
 /* =====================================================
    GIRA CARTA
-   ===================================================== */
+===================================================== */
 
-function giraCarta(elemento, carta) {
+function giraCarta(
+    elemento,
+    carta
+) {
 
     if (blocco) {
+
         return;
+
     }
 
 
     if (
-        elemento.classList.contains("flipped")
+        partitaTerminata
     ) {
+
         return;
+
     }
 
 
     if (
-        elemento.classList.contains("matched")
+        elemento.classList.contains(
+            "flipped"
+        )
     ) {
+
         return;
+
     }
 
 
-    elemento.classList.add("flipped");
+    if (
+        elemento.classList.contains(
+            "matched"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    elemento.classList.add(
+        "flipped"
+    );
 
 
     if (!primaCarta) {
 
         primaCarta = {
 
-            elemento: elemento,
+            elemento:
+                elemento,
 
-            carta: carta
+            carta:
+                carta
 
         };
+
 
         return;
 
@@ -1462,9 +1692,11 @@ function giraCarta(elemento, carta) {
 
     secondaCarta = {
 
-        elemento: elemento,
+        elemento:
+            elemento,
 
-        carta: carta
+        carta:
+            carta
 
     };
 
@@ -1472,7 +1704,9 @@ function giraCarta(elemento, carta) {
     tentativi++;
 
 
-    document.getElementById("tentativi").textContent =
+    document.getElementById(
+        "tentativi"
+    ).textContent =
         tentativi;
 
 
@@ -1483,7 +1717,7 @@ function giraCarta(elemento, carta) {
 
 /* =====================================================
    CONTROLLA COPPIA
-   ===================================================== */
+===================================================== */
 
 function controllaCoppia() {
 
@@ -1496,93 +1730,70 @@ function controllaCoppia() {
     ) {
 
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            primaCarta.elemento.classList.add(
-                "matched"
-            );
-
-
-            secondaCarta.elemento.classList.add(
-                "matched"
-            );
+                primaCarta.elemento.classList.add(
+                    "matched"
+                );
 
 
-            coppieTrovate++;
+                secondaCarta.elemento.classList.add(
+                    "matched"
+                );
 
 
-            document.getElementById("coppie").textContent =
-                coppieTrovate;
+                coppieTrovate++;
 
 
-            /*
-             * GREEN POINTS
-             *
-             * Ogni coppia corretta vale 10 punti.
-             */
-
-            let puntiCoppia = 10;
+                document.getElementById(
+                    "coppie"
+                ).textContent =
+                    coppieTrovate;
 
 
-            /*
-             * Bonus per chi trova la coppia
-             * senza aver fatto troppi tentativi.
-             */
-
-            if (tentativi <= coppieTrovate) {
-
-                puntiCoppia += 5;
-
-            }
+                mostraSpiegazione(
+                    primaCarta.carta
+                );
 
 
-            puntiPartita +=
-                puntiCoppia;
+                primaReset();
 
 
-            document.getElementById("puntiPartita").textContent =
-                puntiPartita;
+                if (
+                    coppieTrovate === 8
+                ) {
 
+                    termina();
 
-            mostraSpiegazione(
-                primaCarta.carta
-            );
+                }
 
-
-            primaReset();
-
-
-            if (
-                coppieTrovate === 8
-            ) {
-
-                termina();
-
-            }
-
-
-        }, 500);
+            },
+            500
+        );
 
 
     } else {
 
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            primaCarta.elemento.classList.remove(
-                "flipped"
-            );
-
-
-            secondaCarta.elemento.classList.remove(
-                "flipped"
-            );
+                primaCarta.elemento.classList.remove(
+                    "flipped"
+                );
 
 
-            primaReset();
+                secondaCarta.elemento.classList.remove(
+                    "flipped"
+                );
 
 
-        }, 1000);
+                primaReset();
+
+            },
+            1000
+        );
 
     }
 
@@ -1591,7 +1802,7 @@ function controllaCoppia() {
 
 /* =====================================================
    RESET CARTE
-   ===================================================== */
+===================================================== */
 
 function primaReset() {
 
@@ -1606,16 +1817,20 @@ function primaReset() {
 
 /* =====================================================
    MOSTRA SPIEGAZIONE
-   ===================================================== */
+===================================================== */
 
-function mostraSpiegazione(carta) {
+function mostraSpiegazione(
+    carta
+) {
 
     const feedback =
-        document.getElementById("feedback");
+        document.getElementById(
+            "feedback"
+        );
 
 
     const lingua =
-        document.getElementById("lingua").value;
+        linguaCorrente();
 
 
     const testi =
@@ -1623,7 +1838,9 @@ function mostraSpiegazione(carta) {
 
 
     const dati =
-        ottieniCartaTradotta(carta);
+        ottieniCartaTradotta(
+            carta
+        );
 
 
     feedback.innerHTML =
@@ -1641,221 +1858,427 @@ function mostraSpiegazione(carta) {
 
 
 /* =====================================================
-   CALCOLO BONUS GREEN POINTS
-   ===================================================== */
+   CALCOLO PUNTEGGIO
+===================================================== */
 
-function calcolaBonusGreenPoints() {
+function calcolaPunteggio() {
 
-    let bonus = 0;
-
-
-    /*
-     * Bonus per il tempo.
-     */
-
-    if (tempo <= 30) {
-
-        bonus += 100;
-
-    } else if (tempo <= 60) {
-
-        bonus += 60;
-
-    } else if (tempo <= 90) {
-
-        bonus += 30;
-
-    }
+    const base =
+        1000;
 
 
-    /*
-     * Bonus per il numero di tentativi.
-     */
-
-    if (tentativi <= 10) {
-
-        bonus += 100;
-
-    } else if (tentativi <= 14) {
-
-        bonus += 60;
-
-    } else if (tentativi <= 18) {
-
-        bonus += 30;
-
-    }
-
-
-    return bonus;
-
-}
-
-
-/* =====================================================
-   FINE PARTITA
-   ===================================================== */
-
-function termina() {
-
-    clearInterval(timer);
-
-
-    /*
-     * PUNTEGGIO DEL MEMORY
-     */
-
-    let base = 1000;
-
-
-    let penalitaTempo =
+    const penalitaTempo =
         tempo * 3;
 
 
-    let penalitaTentativi =
+    const penalitaTentativi =
         Math.max(
             0,
             tentativi - 8
         ) * 30;
 
 
-    let punteggioFinale =
-        Math.max(
-            100,
+    return Math.max(
+        100,
+        Math.round(
             base -
             penalitaTempo -
             penalitaTentativi
-        );
+        )
+    );
+
+}
 
 
-    /*
-     * GREEN POINTS
-     *
-     * I punti ottenuti durante le coppie
-     * vengono sommati al bonus finale.
-     */
+/* =====================================================
+   MESSAGGIO FINALE
+===================================================== */
 
-    const bonus =
-        calcolaBonusGreenPoints();
-
-
-    const greenPointsGuadagnati =
-        puntiPartita +
-        bonus;
-
-
-    greenPoints +=
-        greenPointsGuadagnati;
-
-
-    aggiornaGreenPoints();
-
-
-    document.getElementById("puntiFinali").textContent =
-        greenPointsGuadagnati;
-
-
-    const lingua =
-        document.getElementById("lingua").value;
-
+function ottieniMessaggioFinale(
+    punteggioFinale
+) {
 
     const testi =
-        traduzioni[lingua];
-
-
-    document.getElementById("punteggio").textContent =
-        punteggioFinale +
-        " " +
-        testi.punti;
-
-
-    let messaggio;
+        traduzioni[
+            linguaCorrente()
+        ];
 
 
     if (
         punteggioFinale >= 800
     ) {
 
-        messaggio =
-            testi.messaggio800;
-
-    } else if (
-        punteggioFinale >= 600
-    ) {
-
-        messaggio =
-            testi.messaggio600;
-
-    } else if (
-        punteggioFinale >= 400
-    ) {
-
-        messaggio =
-            testi.messaggio400;
-
-    } else {
-
-        messaggio =
-            testi.messaggioBasso;
+        return testi.messaggio800;
 
     }
 
 
-    document.getElementById("finalText").textContent =
-        messaggio;
+    if (
+        punteggioFinale >= 600
+    ) {
+
+        return testi.messaggio600;
+
+    }
 
 
-    document.getElementById("finale").style.display =
-        "block";
+    if (
+        punteggioFinale >= 400
+    ) {
+
+        return testi.messaggio400;
+
+    }
+
+
+    return testi.messaggioBasso;
 
 }
 
 
 /* =====================================================
-   CARICA LINGUA SALVATA
-   ===================================================== */
+   AGGIORNA TESTO FINALE
+===================================================== */
 
-const linguaSalvata =
-    localStorage.getItem("linguaEcoGame") || "it";
+function aggiornaTestoFinale() {
+
+    const punteggio =
+        Number(
+            document.getElementById(
+                "punteggio"
+            ).dataset.valore
+        ) || 0;
 
 
-const selettoreLingua =
-    document.getElementById("lingua");
+    document.getElementById(
+        "finalText"
+    ).textContent =
+        ottieniMessaggioFinale(
+            punteggio
+        );
+
+}
 
 
-if (
-    Object.prototype.hasOwnProperty.call(
-        traduzioni,
-        linguaSalvata
-    )
+/* =====================================================
+   ACCREDITA GREEN POINTS
+===================================================== */
+
+async function accreditaPuntiMemory(
+    punti
 ) {
 
-    selettoreLingua.value =
-        linguaSalvata;
+    const status =
+        document.getElementById(
+            "accountStatus"
+        );
 
-} else {
 
-    selettoreLingua.value =
-        "it";
+    const testi =
+        traduzioni[
+            linguaCorrente()
+        ];
+
+
+    status.className =
+        "account-status success";
+
+
+    status.textContent =
+        testi.accreditoInCorso;
+
+
+    status.style.display =
+        "block";
+
+
+    /*
+     * Usiamo il sistema comune EcoGame.
+     *
+     * addOnce evita che il gioco accrediti
+     * accidentalmente gli stessi punti due volte.
+     */
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.addOnce !== "function"
+    ) {
+
+        status.className =
+            "account-status error";
+
+
+        status.textContent =
+            testi.accreditoErrore;
+
+
+        return {
+
+            success: false,
+
+            error:
+                "ecogame.js non disponibile"
+
+        };
+
+    }
+
+
+    const risultato =
+        await window.ecoGame.addOnce(
+            "memory-biodiversita",
+            punti
+        );
+
+
+    if (
+        risultato &&
+        risultato.success
+    ) {
+
+        status.className =
+            "account-status success";
+
+
+        status.textContent =
+            testi.accreditoSuccesso;
+
+
+        /*
+         * Aggiorniamo il totale visualizzato
+         * nella pagina.
+         */
+
+        if (
+            typeof window.ecoGame
+                .loadAccountPoints ===
+            "function"
+        ) {
+
+            await window.ecoGame.loadAccountPoints();
+
+        }
+
+
+        return resultadoCorretto(
+            risultato
+        );
+
+    }
+
+
+    if (
+        risultato &&
+        risultato.alreadyAdded
+    ) {
+
+        status.className =
+            "account-status success";
+
+
+        status.textContent =
+            testi.accreditoSuccesso;
+
+
+        /*
+         * Recuperiamo comunque il saldo attuale.
+         */
+
+        if (
+            typeof window.ecoGame
+                .loadAccountPoints ===
+            "function"
+        ) {
+
+            await window.ecoGame.loadAccountPoints();
+
+        }
+
+
+        return risultato;
+
+    }
+
+
+    /*
+     * Se non c'è un utente autenticato,
+     * non facciamo finta che i punti siano stati salvati.
+     */
+
+    if (
+        risultato &&
+        risultato.error ===
+        "Utente non autenticato"
+    ) {
+
+        status.className =
+            "account-status error";
+
+
+        status.textContent =
+            testi.accreditoNonAutenticato;
+
+
+        return risultato;
+
+    }
+
+
+    status.className =
+        "account-status error";
+
+
+    status.textContent =
+        testi.accreditoErrore;
+
+
+    return risultato;
 
 }
 
 
-cambiaLingua();
+/* =====================================================
+   NORMALIZZA RISULTATO
+===================================================== */
+
+function resultadoCorretto(
+    risultato
+) {
+
+    return {
+
+        ...risultato
+
+    };
+
+}
 
 
 /* =====================================================
-   CARICA GREEN POINTS
-   ===================================================== */
+   FINE PARTITA
+===================================================== */
 
-aggiornaGreenPoints();
+async function termina() {
+
+    if (partitaTerminata) {
+
+        return;
+
+    }
+
+
+    partitaTerminata = true;
+
+
+    clearInterval(timer);
+
+
+    blocco = true;
+
+
+    const punteggioFinale =
+        calcolaPunteggio();
+
+
+    /*
+     * Il punteggio del Memory viene utilizzato
+     * direttamente come Green Points.
+     *
+     * Esempio:
+     *
+     * punteggio = 140
+     *
+     * GP guadagnati = 140
+     */
+
+    const greenPointsGuadagnati =
+        punteggioFinale;
+
+
+    document.getElementById(
+        "punteggio"
+    ).textContent =
+        punteggioFinale;
+
+
+    document.getElementById(
+        "punteggio"
+    ).dataset.valore =
+        punteggioFinale;
+
+
+    document.getElementById(
+        "greenPointsGuadagnati"
+    ).textContent =
+        greenPointsGuadagnati;
+
+
+    document.getElementById(
+        "gpPartita"
+    ).textContent =
+        greenPointsGuadagnati;
+
+
+    aggiornaTestoFinale();
+
+
+    document.getElementById(
+        "finale"
+    ).style.display =
+        "block";
+
+
+    /*
+     * Accreditamento Supabase.
+     */
+
+    await accreditaPuntiMemory(
+        greenPointsGuadagnati
+    );
+
+}
 
 
 /* =====================================================
-   AVVIA PARTITA
-   ===================================================== */
+   AVVIO
+===================================================== */
 
-nuovaPartita();
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        /*
+         * Il sistema comune ha già inizializzato
+         * la lingua e Supabase.
+         */
+
+        applicaTraduzioni();
+
+
+        /*
+         * Carichiamo il saldo attuale
+         * dell'account.
+         */
+
+        if (
+            window.ecoGame &&
+            typeof window.ecoGame.loadAccountPoints ===
+            "function"
+        ) {
+
+            await window.ecoGame.loadAccountPoints();
+
+        }
+
+
+        /*
+         * Avviamo il Memory.
+         */
+
+        nuovaPartita();
+
+    }
+);
 
 </script>
 
