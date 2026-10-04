@@ -280,12 +280,10 @@
 const linguaSalvata =
     localStorage.getItem("linguaEcoGame") || "it";
 
-
 let lingua =
     ["it", "en", "fi"].includes(linguaSalvata)
         ? linguaSalvata
         : "it";
-
 
 document.documentElement.lang = lingua;
 
@@ -295,49 +293,34 @@ document.documentElement.lang = lingua;
    ===================================================== */
 
 /*
-   Il gioco assegna:
+   Il giocatore parte da 50 Green Points.
 
-   50 GP di base
-   +10 GP per ogni risposta corretta
+   IMPORTANTE:
+   I 50 GP vengono aggiunti SOLO se non esiste
+   ancora un valore salvato.
 
-   I punti vengono salvati in localStorage.
+   Quindi NON vengono aggiunti ogni volta che
+   si apre il gioco.
 */
 
-const GREEN_POINTS_BASE = 50;
-
+const GREEN_POINTS_INIZIALI = 50;
 const GREEN_POINTS_PER_CORRECT_ANSWER = 10;
 
 
-/*
-   Diamo i 50 GP iniziali una sola volta
-   per questo gioco.
-*/
+/* =====================================================
+   INIZIALIZZA GREEN POINTS
+   ===================================================== */
 
-function assegnaGreenPointsBase() {
+function inizializzaGreenPoints() {
 
-    const chiave =
-        "greenPointsBaseAnimaliEstinti";
+    const puntiSalvati =
+        localStorage.getItem("greenPoints");
 
-    const giaAssegnati =
-        localStorage.getItem(chiave);
-
-    if (giaAssegnati !== "true") {
-
-        let greenPoints =
-            parseInt(
-                localStorage.getItem("greenPoints") || "0"
-            );
-
-        greenPoints += GREEN_POINTS_BASE;
+    if (puntiSalvati === null) {
 
         localStorage.setItem(
             "greenPoints",
-            greenPoints
-        );
-
-        localStorage.setItem(
-            chiave,
-            "true"
+            GREEN_POINTS_INIZIALI
         );
 
     }
@@ -345,19 +328,25 @@ function assegnaGreenPointsBase() {
 }
 
 
-/*
-   Aggiunge 10 GP per ogni risposta corretta.
-*/
+/* =====================================================
+   AGGIUNGI GREEN POINTS
+   ===================================================== */
 
 function aggiungiGreenPoints() {
 
+    inizializzaGreenPoints();
+
     let greenPoints =
         parseInt(
-            localStorage.getItem("greenPoints") || "0"
+            localStorage.getItem("greenPoints"),
+            10
         );
 
-    greenPoints +=
-        GREEN_POINTS_PER_CORRECT_ANSWER;
+    if (isNaN(greenPoints)) {
+        greenPoints = GREEN_POINTS_INIZIALI;
+    }
+
+    greenPoints += GREEN_POINTS_PER_CORRECT_ANSWER;
 
     localStorage.setItem(
         "greenPoints",
@@ -365,6 +354,13 @@ function aggiungiGreenPoints() {
     );
 
 }
+
+
+/* =====================================================
+   AVVIO GREEN POINTS
+   ===================================================== */
+
+inizializzaGreenPoints();
 
 
 /* =====================================================
@@ -393,7 +389,7 @@ const testi = {
             "🛡️ Cosa si sarebbe potuto fare?",
 
         corretta:
-            "✅ Risposta corretta!",
+            "✅ Risposta corretta! +10 Green Points",
 
         sbagliata:
             "❌ Risposta sbagliata!",
@@ -454,7 +450,7 @@ const testi = {
             "🛡️ What could have been done?",
 
         corretta:
-            "✅ Correct answer!",
+            "✅ Correct answer! +10 Green Points",
 
         sbagliata:
             "❌ Wrong answer!",
@@ -515,7 +511,7 @@ const testi = {
             "🛡️ Mitä olisi voitu tehdä?",
 
         corretta:
-            "✅ Oikea vastaus!",
+            "✅ Oikea vastaus! +10 Green Points",
 
         sbagliata:
             "❌ Väärä vastaus!",
@@ -1403,8 +1399,8 @@ function controllaRisposta(risposta) {
         punteggio++;
 
         /*
-           +10 GREEN POINTS
-           per ogni risposta corretta.
+           QUI vengono aggiunti realmente
+           i 10 Green Points.
         */
 
         aggiungiGreenPoints();
@@ -1523,6 +1519,14 @@ function ricomincia() {
 
     punteggio = 0;
 
+    /*
+       NOTA:
+       NON azzeriamo greenPoints.
+
+       I Green Points sono un totale generale
+       del giocatore e devono rimanere salvati.
+    */
+
 
     document.getElementById("finale").style.display =
         "none";
@@ -1540,17 +1544,6 @@ function ricomincia() {
 /* =====================================================
    AVVIO DEL GIOCO
    ===================================================== */
-
-/*
-   Prima assegniamo i 50 GP di base.
-*/
-
-assegnaGreenPointsBase();
-
-
-/*
-   Poi avviamo normalmente il gioco.
-*/
 
 applicaLingua();
 
