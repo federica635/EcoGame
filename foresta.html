@@ -700,9 +700,12 @@
 
     <!-- =====================================================
          SISTEMA COMUNE ECOGAME
+         
+         IMPORTANTE:
+         Il file si chiama ecogame.js
     ===================================================== -->
 
-    <script src="ecogamejs.js"></script>
+    <script src="ecogame.js"></script>
 
 
     <script>
@@ -1206,7 +1209,6 @@
                 ]
             },
 
-
             {
                 scenario: {
                     it: "SITUAZIONE 2 — ACQUA",
@@ -1233,7 +1235,6 @@
                     [0, -2, 0, 0]
                 ]
             },
-
 
             {
                 scenario: {
@@ -1262,7 +1263,6 @@
                 ]
             },
 
-
             {
                 scenario: {
                     it: "SITUAZIONE 4 — INCENDI",
@@ -1289,7 +1289,6 @@
                     [-3, -3, -2, 0]
                 ]
             },
-
 
             {
                 scenario: {
@@ -1318,7 +1317,6 @@
                 ]
             },
 
-
             {
                 scenario: {
                     it: "SITUAZIONE 6 — ECONOMIA LOCALE",
@@ -1346,7 +1344,6 @@
                 ]
             },
 
-
             {
                 scenario: {
                     it: "SITUAZIONE 7 — BIODIVERSITÀ",
@@ -1373,7 +1370,6 @@
                     [-3, 0, -2, -1]
                 ]
             },
-
 
             {
                 scenario: {
@@ -1674,7 +1670,6 @@
 
             }
 
-
             greenPointsAssegnati = true;
 
 
@@ -1683,15 +1678,32 @@
 
 
             /*
-             * IMPORTANTE:
-             *
-             * Usiamo la funzione comune
-             * anti-doppio accredito.
-             *
-             * Il gameId è fisso per questo gioco:
-             *
-             * "salva-foresta"
+             * Controlliamo che la funzione comune
+             * sia realmente disponibile.
              */
+
+            if (
+                typeof accreditaGreenPointsUnaVolta !==
+                "function"
+            ) {
+
+                console.error(
+                    "EcoGame - accreditaGreenPointsUnaVolta non è disponibile. Controlla che ecogame.js sia caricato correttamente."
+                );
+
+                document.getElementById(
+                    "greenPointsGuadagnati"
+                ).innerText = "0";
+
+                document.getElementById(
+                    "greenPointsMessaggio"
+                ).innerText =
+                    testi[lingua].greenPointsErrore;
+
+                return;
+
+            }
+
 
             const risultato =
                 await accreditaGreenPointsUnaVolta(
@@ -1732,12 +1744,6 @@
                 );
 
             } else {
-
-                /*
-                 * Se è già stato accreditato durante
-                 * questa sessione, mostriamo comunque
-                 * 0 per evitare di conteggiarlo nuovamente.
-                 */
 
                 elemento.innerText =
                     "0";
@@ -1850,7 +1856,14 @@
 
             assegnaGreenPoints(
                 punteggio
-            );
+            ).catch(function(error) {
+
+                console.error(
+                    "EcoGame - Errore inatteso durante l'accredito dei GP:",
+                    error
+                );
+
+            });
 
         }
 
@@ -1874,10 +1887,7 @@
             rispostaData = false;
 
             /*
-             * IMPORTANTE:
-             *
-             * NON resettiamo qui la chiave
-             * sessionStorage di:
+             * NON resettiamo la chiave sessionStorage:
              *
              * ecoGameGP_salva-foresta
              *
@@ -1947,10 +1957,6 @@
             lingua =
                 nuovaLingua;
 
-
-            /*
-             * Usiamo anche il sistema comune EcoGame.
-             */
 
             if (
                 typeof salvaLingua === "function"
@@ -2092,13 +2098,6 @@
                 mostraTurno();
 
             } else {
-
-                /*
-                 * Non richiamiamo fine()
-                 * durante il cambio lingua,
-                 * perché fine() tenta di
-                 * assegnare nuovamente i GP.
-                 */
 
                 aggiornaSchermataFinale();
 
