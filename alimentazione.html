@@ -3,9 +3,13 @@
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🍽️ Food Impact - EcoGame</title>
+
 
 <style>
 
@@ -195,6 +199,26 @@ h2 {
     margin: 15px;
 }
 
+.green-points-result {
+    margin: 20px auto;
+    padding: 16px 22px;
+    max-width: 420px;
+    background: #203b29;
+    border: 1px solid #4d7855;
+    border-radius: 14px;
+    color: #a5d6a7;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.green-points-result small {
+    display: block;
+    margin-top: 6px;
+    color: #bfd0c3;
+    font-size: 14px;
+    font-weight: normal;
+}
+
 .restart,
 .back {
     padding: 13px 22px;
@@ -239,7 +263,9 @@ h2 {
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -251,15 +277,15 @@ h2 {
     class="menu"
     onclick="location.href='giochi.html'">
 
-```
-🎮 <span id="gamesMenu">Giochi</span>
-```
+    🎮 <span id="gamesMenu">Giochi</span>
 
 </div>
 
 </header>
 
+
 <div class="container">
+
 
 <div class="title">
 
@@ -275,11 +301,12 @@ h2 {
 
 </div>
 
+
 <div class="stats">
+
 
 <div class="stat">
 
-```
 <div class="stat-icon">💰</div>
 
 <div
@@ -293,13 +320,12 @@ h2 {
     id="cost">
     0 €
 </div>
-```
 
 </div>
 
+
 <div class="stat">
 
-```
 <div class="stat-icon">🌡️</div>
 
 <div
@@ -313,13 +339,12 @@ h2 {
     id="climate">
     0
 </div>
-```
 
 </div>
 
+
 <div class="stat">
 
-```
 <div class="stat-icon">💧</div>
 
 <div
@@ -333,13 +358,12 @@ h2 {
     id="water">
     0
 </div>
-```
 
 </div>
 
+
 <div class="stat">
 
-```
 <div class="stat-icon">🗑️</div>
 
 <div
@@ -353,15 +377,17 @@ h2 {
     id="waste">
     0
 </div>
-```
 
 </div>
 
+
 </div>
+
 
 <div
     class="card"
     id="gameCard">
+
 
 <div
     class="step"
@@ -369,62 +395,86 @@ h2 {
     FASE 1 / 4
 </div>
 
+
 <h2 id="title"></h2>
+
 
 <div
     class="description"
     id="description">
 </div>
 
+
 <div
     class="options"
     id="options">
 </div>
+
 
 <div
     class="summary hidden"
     id="summary">
 </div>
 
-<button
- class="continue"
- id="continue"
- style="display:none"
- onclick="nextStep()">
 
-```
-Continua →
-```
+<button
+    class="continue"
+    id="continue"
+    style="display:none"
+    onclick="nextStep()">
+
+    Continua →
 
 </button>
 
+
 </div>
+
 
 <div
     class="card hidden"
     id="resultCard">
 
+
 <div class="result">
 
-```
+
 <div class="result-icon">
     🍽️
 </div>
+
 
 <h2 id="resultTitle">
     Il tuo pasto è pronto!
 </h2>
 
+
 <p id="resultDescription">
     Hai ottenuto un punteggio ambientale di:
 </p>
+
 
 <div
     class="final-score"
     id="finalScore">
 </div>
 
+
+<div
+    class="green-points-result"
+    id="greenPointsResult">
+
+    🌱 +0 Green Points
+
+    <small id="greenPointsMessage">
+        I tuoi punti sono stati aggiunti al tuo account.
+    </small>
+
+</div>
+
+
 <p id="message"></p>
+
 
 <button
     class="restart"
@@ -435,6 +485,7 @@ Continua →
 
 </button>
 
+
 <button
     class="back"
     onclick="location.href='giochi.html'"
@@ -443,19 +494,41 @@ Continua →
     🎮 Torna ai giochi
 
 </button>
-```
+
 
 </div>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPABASE JS
+     DEVE ESSERE CARICATO PRIMA DI ECOGAME.JS
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<!-- =====================================================
+     ECOGAME COMUNE
+===================================================== -->
+
+<script src="ecogame.js"></script>
+
+
 
 <script>
 
 /* =====================================================
    LINGUA
-   ===================================================== */
+===================================================== */
 
 const lingua =
     localStorage.getItem("ecoGameLingua") || "it";
@@ -503,6 +576,15 @@ const traduzioni = {
 
         back:
             "🎮 Torna ai giochi",
+
+        gpMessage:
+            "I Green Points sono stati aggiunti al tuo account.",
+
+        gpLogin:
+            "Accedi al tuo account per ricevere i Green Points.",
+
+        gpAlready:
+            "I Green Points di questo gioco sono già stati accreditati.",
 
         messages: {
 
@@ -624,6 +706,15 @@ const traduzioni = {
         back:
             "🎮 Back to games",
 
+        gpMessage:
+            "The Green Points have been added to your account.",
+
+        gpLogin:
+            "Log in to your account to receive Green Points.",
+
+        gpAlready:
+            "The Green Points for this game have already been credited.",
+
         messages: {
 
             excellent:
@@ -744,6 +835,15 @@ const traduzioni = {
         back:
             "🎮 Takaisin peleihin",
 
+        gpMessage:
+            "Green Points -pisteet lisättiin tilillesi.",
+
+        gpLogin:
+            "Kirjaudu tilillesi saadaksesi Green Points -pisteitä.",
+
+        gpAlready:
+            "Tämän pelin Green Points -pisteet on jo hyvitetty.",
+
         messages: {
 
             excellent:
@@ -835,7 +935,7 @@ document.documentElement.lang =
 
 /* =====================================================
    APPLICA TRADUZIONI STATICHE
-   ===================================================== */
+===================================================== */
 
 document.getElementById("gamesMenu").innerText =
     testi.gamesMenu;
@@ -876,7 +976,7 @@ document.getElementById("continue").innerText =
 
 /* =====================================================
    DATI DEL GIOCO
-   ===================================================== */
+===================================================== */
 
 let step = 0;
 
@@ -897,12 +997,12 @@ const steps =
 
 /* =====================================================
    AGGIORNA STATISTICHE
-   ===================================================== */
+===================================================== */
 
 function updateStats() {
 
     document.getElementById("cost").innerText =
-        stats.cost + (lingua === "fi" ? " €" : " €");
+        stats.cost + " €";
 
     document.getElementById("climate").innerText =
         stats.climate;
@@ -918,7 +1018,7 @@ function updateStats() {
 
 /* =====================================================
    CARICA FASE
-   ===================================================== */
+===================================================== */
 
 function loadStep() {
 
@@ -1002,7 +1102,7 @@ function loadStep() {
 
 /* =====================================================
    SCELTA
-   ===================================================== */
+===================================================== */
 
 function chooseOption(option, button) {
 
@@ -1068,7 +1168,7 @@ function chooseOption(option, button) {
 
 /* =====================================================
    PROSSIMA FASE
-   ===================================================== */
+===================================================== */
 
 function nextStep() {
 
@@ -1092,10 +1192,238 @@ function nextStep() {
 
 
 /* =====================================================
-   RISULTATO
-   ===================================================== */
+   CALCOLO GREEN POINTS
+===================================================== */
 
-function showResult() {
+function calcolaGreenPointsFood(score) {
+
+    score =
+        Number(score);
+
+
+    if (!Number.isFinite(score)) {
+
+        return 30;
+
+    }
+
+
+    if (score >= 85) {
+
+        return 90;
+
+    }
+
+
+    if (score >= 70) {
+
+        return 70;
+
+    }
+
+
+    if (score >= 50) {
+
+        return 50;
+
+    }
+
+
+    return 30;
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS FOOD IMPACT
+===================================================== */
+
+async function assegnaGreenPointsFood(score) {
+
+    const greenPoints =
+        calcolaGreenPointsFood(score);
+
+
+    const risultatoElement =
+        document.getElementById(
+            "greenPointsResult"
+        );
+
+
+    const messaggioElement =
+        document.getElementById(
+            "greenPointsMessage"
+        );
+
+
+    /*
+       Controlliamo che ecoGame sia stato
+       caricato correttamente.
+    */
+
+    if (
+        typeof window.ecoGame === "undefined"
+    ) {
+
+        console.error(
+            "Food Impact: ecoGame non disponibile. Controlla ecogame.js."
+        );
+
+
+        risultatoElement.innerText =
+            "🌱 Green Points non disponibili";
+
+
+        messaggioElement.innerText =
+            "Errore nel caricamento del sistema EcoGame.";
+
+
+        return null;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.addOnce(
+                "food-impact",
+                greenPoints
+            );
+
+
+        /*
+           GP accreditati correttamente.
+        */
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            risultatoElement.innerText =
+                "🌱 +" +
+                risultato.pointsAdded +
+                " Green Points";
+
+
+            messaggioElement.innerText =
+                testi.gpMessage;
+
+
+            console.log(
+                "🍽️ Food Impact:",
+                risultato.pointsAdded,
+                "GP accreditati."
+            );
+
+
+            return risultato;
+
+        }
+
+
+        /*
+           GP già accreditati.
+        */
+
+        if (
+            risultato &&
+            risultato.alreadyAdded
+        ) {
+
+            risultatoElement.innerText =
+                "🌱 " +
+                greenPoints +
+                " Green Points";
+
+
+            messaggioElement.innerText =
+                testi.gpAlready;
+
+
+            return risultato;
+
+        }
+
+
+        /*
+           Utente non autenticato.
+        */
+
+        if (
+            risultato &&
+            risultato.error ===
+                "Utente non autenticato"
+        ) {
+
+            risultatoElement.innerText =
+                "🌱 +" +
+                greenPoints +
+                " Green Points";
+
+
+            messaggioElement.innerText =
+                testi.gpLogin;
+
+
+            return risultato;
+
+        }
+
+
+        /*
+           Altro errore.
+        */
+
+        risultatoElement.innerText =
+            "🌱 +" +
+            greenPoints +
+            " Green Points";
+
+
+        messaggioElement.innerText =
+            "Non è stato possibile accreditare i Green Points.";
+
+
+        console.error(
+            "Food Impact: errore accredito GP:",
+            risultato
+        );
+
+
+        return risultato;
+
+    } catch (errore) {
+
+        console.error(
+            "Food Impact: errore Green Points:",
+            errore
+        );
+
+
+        risultatoElement.innerText =
+            "🌱 +" +
+            greenPoints +
+            " Green Points";
+
+
+        messaggioElement.innerText =
+            "Errore durante l'accredito dei Green Points.";
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   RISULTATO
+===================================================== */
+
+async function showResult() {
 
     document.getElementById("gameCard")
         .classList.add("hidden");
@@ -1156,18 +1484,29 @@ function showResult() {
     document.getElementById("message").innerText =
         message;
 
+
+    /*
+       Accredita i Green Points DOPO
+       aver calcolato il punteggio finale.
+    */
+
+    await assegnaGreenPointsFood(
+        score
+    );
+
 }
 
 
 /* =====================================================
    AVVIO
-   ===================================================== */
+===================================================== */
 
 updateStats();
 
 loadStep();
 
 </script>
+
 
 </body>
 
