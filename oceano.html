@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
@@ -424,7 +423,7 @@ header {
 
 
 /* =====================================================
-   GREEN POINTS RISULTATO
+   GREEN POINTS
 ===================================================== */
 
 .green-points-result {
@@ -496,6 +495,8 @@ header {
     font-size: 14px;
 
     color: #b7dfc7;
+
+    min-height: 20px;
 }
 
 
@@ -589,9 +590,7 @@ header {
 <header>
 
     <div class="logo">
-
         🌍 EcoGame
-
     </div>
 
 
@@ -670,24 +669,18 @@ header {
                 🐠
             </div>
 
-
             <div
                 class="stat-name"
                 id="biodiversityName"
             >
-
                 Biodiversità
-
             </div>
-
 
             <div
                 class="stat-value"
                 id="biodiversity"
             >
-
                 70
-
             </div>
 
         </div>
@@ -699,24 +692,18 @@ header {
                 🌊
             </div>
 
-
             <div
                 class="stat-name"
                 id="healthName"
             >
-
                 Salute del mare
-
             </div>
-
 
             <div
                 class="stat-value"
                 id="health"
             >
-
                 70
-
             </div>
 
         </div>
@@ -728,24 +715,18 @@ header {
                 🧪
             </div>
 
-
             <div
                 class="stat-name"
                 id="waterName"
             >
-
                 Qualità acqua
-
             </div>
-
 
             <div
                 class="stat-value"
                 id="water"
             >
-
                 70
-
             </div>
 
         </div>
@@ -757,24 +738,18 @@ header {
                 🎣
             </div>
 
-
             <div
                 class="stat-name"
                 id="activityName"
             >
-
                 Attività umane
-
             </div>
-
 
             <div
                 class="stat-value"
                 id="activity"
             >
-
                 70
-
             </div>
 
         </div>
@@ -805,14 +780,11 @@ header {
         id="gameCard"
     >
 
-
         <div
             class="turn"
             id="turn"
         >
-
             TURNO 1 / 5
-
         </div>
 
 
@@ -846,9 +818,7 @@ header {
             style="display:none"
             onclick="nextTurn()"
         >
-
             Continua →
-
         </button>
 
     </div>
@@ -865,23 +835,18 @@ header {
 
         <div class="result">
 
-
             <div class="result-icon">
                 🌊
             </div>
 
 
             <h2 id="resultTitle">
-
                 La tua gestione è terminata
-
             </h2>
 
 
             <p id="finalState">
-
                 Stato finale della riserva:
-
             </p>
 
 
@@ -897,7 +862,6 @@ header {
 
             <div class="green-points-result">
 
-
                 <div class="green-points-icon">
                     🌱
                 </div>
@@ -907,9 +871,7 @@ header {
                     class="green-points-label"
                     id="greenPointsEarnedLabel"
                 >
-
                     Green Points ottenuti
-
                 </div>
 
 
@@ -917,9 +879,7 @@ header {
                     class="green-points-value"
                     id="greenPointsEarned"
                 >
-
                     +0 GP
-
                 </div>
 
 
@@ -927,9 +887,7 @@ header {
                     class="green-points-total"
                     id="greenPointsTotal"
                 >
-
                     GP totali account: —
-
                 </div>
 
 
@@ -952,9 +910,7 @@ header {
                 onclick="location.reload()"
                 id="restartButton"
             >
-
                 🔄 Ricomincia
-
             </button>
 
 
@@ -963,9 +919,7 @@ header {
                 onclick="location.href='giochi.html'"
                 id="backButton"
             >
-
                 🎮 Torna ai giochi
-
             </button>
 
         </div>
@@ -978,28 +932,31 @@ header {
 <!-- =====================================================
      SUPABASE JS
      
-     IMPORTANTE:
-     DEVE ESSERE CARICATO PRIMA DI ECOGAME.JS
+     DEVE ESSERE PRIMA DI ECOGAME.JS
 ===================================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    onload="window.supabaseCaricato = true; console.log('EcoGame: supabase-js caricato correttamente.');"
+    onerror="console.error('EcoGame: impossibile caricare supabase-js dal CDN.');"
+></script>
 
 
 <!-- =====================================================
-     SISTEMA COMUNE ECOGAME
+     ECOGAME.JS
 ===================================================== -->
 
 <script src="ecogame.js"></script>
 
 
 <!-- =====================================================
-     CODICE DEL GIOCO
+     CODICE OCEAN RESCUE
 ===================================================== -->
 
 <script>
 
 /* =====================================================
-   TRADUZIONI INTERFACCIA
+   TRADUZIONI
 ===================================================== */
 
 const interfaccia = {
@@ -1008,29 +965,22 @@ const interfaccia = {
 
         menu: "Giochi",
 
-        title:
-            "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
             "Sei il responsabile di una riserva marina. Hai 5 turni per proteggere il suo equilibrio.",
 
-        biodiversity:
-            "Biodiversità",
+        biodiversity: "Biodiversità",
 
-        health:
-            "Salute del mare",
+        health: "Salute del mare",
 
-        water:
-            "Qualità acqua",
+        water: "Qualità acqua",
 
-        activity:
-            "Attività umane",
+        activity: "Attività umane",
 
-        turn:
-            "TURNO",
+        turn: "TURNO",
 
-        continue:
-            "Continua →",
+        continue: "Continua →",
 
         resultTitle:
             "La tua gestione è terminata",
@@ -1081,29 +1031,22 @@ const interfaccia = {
 
         menu: "Games",
 
-        title:
-            "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
             "You are responsible for a marine reserve. You have 5 turns to protect its balance.",
 
-        biodiversity:
-            "Biodiversity",
+        biodiversity: "Biodiversity",
 
-        health:
-            "Ocean health",
+        health: "Ocean health",
 
-        water:
-            "Water quality",
+        water: "Water quality",
 
-        activity:
-            "Human activity",
+        activity: "Human activity",
 
-        turn:
-            "TURN",
+        turn: "TURN",
 
-        continue:
-            "Continue →",
+        continue: "Continue →",
 
         resultTitle:
             "Your management has ended",
@@ -1154,8 +1097,7 @@ const interfaccia = {
 
         menu: "Pelit",
 
-        title:
-            "🌊 Ocean Rescue",
+        title: "🌊 Ocean Rescue",
 
         intro:
             "Olet merensuojelualueen vastuuhenkilö. Sinulla on 5 vuoroa aikaa suojella sen tasapainoa.",
@@ -1226,7 +1168,7 @@ const interfaccia = {
 
 
 /* =====================================================
-   EVENTI DEL GIOCO
+   EVENTI
 ===================================================== */
 
 const events = [
@@ -1234,18 +1176,10 @@ const events = [
     {
 
         title: {
-
-            it:
-                "🎣 Aumento della pesca",
-
-            en:
-                "🎣 Increase in fishing",
-
-            fi:
-                "🎣 Kalastuksen lisääntyminen"
-
+            it: "🎣 Aumento della pesca",
+            en: "🎣 Increase in fishing",
+            fi: "🎣 Kalastuksen lisääntyminen"
         },
-
 
         description: {
 
@@ -1259,7 +1193,6 @@ const events = [
                 "Paikalliset kalastajat haluavat lisätä pyydettävien kalojen määrää. Kalastus on tärkeää alueen taloudelle, mutta joidenkin lajien määrä vähenee."
 
         },
-
 
         options: [
 
@@ -1278,23 +1211,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        10,
-
-                    health:
-                        8,
-
-                    water:
-                        0,
-
-                    activity:
-                        -8
-
+                    biodiversity: 10,
+                    health: 8,
+                    water: 0,
+                    activity: -8
                 },
-
 
                 explanation: {
 
@@ -1311,7 +1233,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1327,23 +1248,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        -10,
-
-                    health:
-                        -7,
-
-                    water:
-                        0,
-
-                    activity:
-                        10
-
+                    biodiversity: -10,
+                    health: -7,
+                    water: 0,
+                    activity: 10
                 },
-
 
                 explanation: {
 
@@ -1360,7 +1270,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1376,23 +1285,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        6,
-
-                    health:
-                        5,
-
-                    water:
-                        0,
-
-                    activity:
-                        4
-
+                    biodiversity: 6,
+                    health: 5,
+                    water: 0,
+                    activity: 4
                 },
-
 
                 explanation: {
 
@@ -1417,18 +1315,10 @@ const events = [
     {
 
         title: {
-
-            it:
-                "🧴 Plastica sulla costa",
-
-            en:
-                "🧴 Plastic on the coast",
-
-            fi:
-                "🧴 Muovia rannikolla"
-
+            it: "🧴 Plastica sulla costa",
+            en: "🧴 Plastic on the coast",
+            fi: "🧴 Muovia rannikolla"
         },
-
 
         description: {
 
@@ -1442,7 +1332,6 @@ const events = [
                 "Voimakkaan myrskyn jälkeen rannikolle on päätynyt paljon muovijätettä. Sinun on päätettävä, miten tilanteeseen puututaan."
 
         },
-
 
         options: [
 
@@ -1461,23 +1350,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        5,
-
-                    health:
-                        8,
-
-                    water:
-                        10,
-
-                    activity:
-                        0
-
+                    biodiversity: 5,
+                    health: 8,
+                    water: 10,
+                    activity: 0
                 },
-
 
                 explanation: {
 
@@ -1494,7 +1372,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1510,23 +1387,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        -8,
-
-                    health:
-                        -8,
-
-                    water:
-                        -12,
-
-                    activity:
-                        0
-
+                    biodiversity: -8,
+                    health: -8,
+                    water: -12,
+                    activity: 0
                 },
-
 
                 explanation: {
 
@@ -1543,7 +1409,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1559,23 +1424,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        8,
-
-                    health:
-                        10,
-
-                    water:
-                        12,
-
-                    activity:
-                        2
-
+                    biodiversity: 8,
+                    health: 10,
+                    water: 12,
+                    activity: 2
                 },
-
 
                 explanation: {
 
@@ -1600,18 +1454,10 @@ const events = [
     {
 
         title: {
-
-            it:
-                "🌡️ Acqua sempre più calda",
-
-            en:
-                "🌡️ Increasingly warm water",
-
-            fi:
-                "🌡️ Vesi lämpenee"
-
+            it: "🌡️ Acqua sempre più calda",
+            en: "🌡️ Increasingly warm water",
+            fi: "🌡️ Vesi lämpenee"
         },
-
 
         description: {
 
@@ -1625,7 +1471,6 @@ const events = [
                 "Veden lämpötila nousee ja jotkin merilajit alkavat siirtyä kylmemmille alueille."
 
         },
-
 
         options: [
 
@@ -1644,23 +1489,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        7,
-
-                    health:
-                        8,
-
-                    water:
-                        0,
-
-                    activity:
-                        -3
-
+                    biodiversity: 7,
+                    health: 8,
+                    water: 0,
+                    activity: -3
                 },
-
 
                 explanation: {
 
@@ -1677,7 +1511,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1693,23 +1526,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        -8,
-
-                    health:
-                        -6,
-
-                    water:
-                        -3,
-
-                    activity:
-                        8
-
+                    biodiversity: -8,
+                    health: -6,
+                    water: -3,
+                    activity: 8
                 },
-
 
                 explanation: {
 
@@ -1726,7 +1548,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1742,23 +1563,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        8,
-
-                    health:
-                        7,
-
-                    water:
-                        2,
-
-                    activity:
-                        2
-
+                    biodiversity: 8,
+                    health: 7,
+                    water: 2,
+                    activity: 2
                 },
-
 
                 explanation: {
 
@@ -1783,18 +1593,10 @@ const events = [
     {
 
         title: {
-
-            it:
-                "🧪 Problema di qualità dell'acqua",
-
-            en:
-                "🧪 Water quality problem",
-
-            fi:
-                "🧪 Vedenlaatuongelma"
-
+            it: "🧪 Problema di qualità dell'acqua",
+            en: "🧪 Water quality problem",
+            fi: "🧪 Vedenlaatuongelma"
         },
-
 
         description: {
 
@@ -1808,7 +1610,6 @@ const events = [
                 "Seuranta osoittaa saastumisen lisääntyneen joen suulla. Osa saasteista saattaa tulla mantereelta."
 
         },
-
 
         options: [
 
@@ -1827,23 +1628,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        7,
-
-                    health:
-                        10,
-
-                    water:
-                        12,
-
-                    activity:
-                        -2
-
+                    biodiversity: 7,
+                    health: 10,
+                    water: 12,
+                    activity: -2
                 },
-
 
                 explanation: {
 
@@ -1860,7 +1650,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1876,23 +1665,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        5,
-
-                    health:
-                        7,
-
-                    water:
-                        5,
-
-                    activity:
-                        -12
-
+                    biodiversity: 5,
+                    health: 7,
+                    water: 5,
+                    activity: -12
                 },
-
 
                 explanation: {
 
@@ -1909,7 +1687,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -1925,23 +1702,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        -9,
-
-                    health:
-                        -10,
-
-                    water:
-                        -12,
-
-                    activity:
-                        3
-
+                    biodiversity: -9,
+                    health: -10,
+                    water: -12,
+                    activity: 3
                 },
-
 
                 explanation: {
 
@@ -1966,18 +1732,10 @@ const events = [
     {
 
         title: {
-
-            it:
-                "🐠 Ultima decisione",
-
-            en:
-                "🐠 Final decision",
-
-            fi:
-                "🐠 Viimeinen päätös"
-
+            it: "🐠 Ultima decisione",
+            en: "🐠 Final decision",
+            fi: "🐠 Viimeinen päätös"
         },
-
 
         description: {
 
@@ -1991,7 +1749,6 @@ const events = [
                 "Matkailukausi on alkamassa. Suojelualue on parantunut, mutta sinun on päätettävä, miten matkailua hallitaan seuraavalla kaudella."
 
         },
-
 
         options: [
 
@@ -2010,23 +1767,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        -8,
-
-                    health:
-                        -7,
-
-                    water:
-                        -5,
-
-                    activity:
-                        12
-
+                    biodiversity: -8,
+                    health: -7,
+                    water: -5,
+                    activity: 12
                 },
-
 
                 explanation: {
 
@@ -2043,7 +1789,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -2059,23 +1804,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        8,
-
-                    health:
-                        8,
-
-                    water:
-                        5,
-
-                    activity:
-                        7
-
+                    biodiversity: 8,
+                    health: 8,
+                    water: 5,
+                    activity: 7
                 },
-
 
                 explanation: {
 
@@ -2092,7 +1826,6 @@ const events = [
 
             },
 
-
             {
 
                 text: {
@@ -2108,23 +1841,12 @@ const events = [
 
                 },
 
-
                 effects: {
-
-                    biodiversity:
-                        10,
-
-                    health:
-                        8,
-
-                    water:
-                        5,
-
-                    activity:
-                        -15
-
+                    biodiversity: 10,
+                    health: 8,
+                    water: 5,
+                    activity: -15
                 },
-
 
                 explanation: {
 
@@ -2149,27 +1871,25 @@ const events = [
 
 
 /* =====================================================
-   STATO DEL GIOCO
+   STATO
 ===================================================== */
 
 let currentTurn = 0;
 
 let chosen = false;
 
+let risultatoGiaMostrato = false;
+
 
 let stats = {
 
-    biodiversity:
-        70,
+    biodiversity: 70,
 
-    health:
-        70,
+    health: 70,
 
-    water:
-        70,
+    water: 70,
 
-    activity:
-        70
+    activity: 70
 
 };
 
@@ -2186,8 +1906,7 @@ let linguaCorrente =
 
 if (!interfaccia[linguaCorrente]) {
 
-    linguaCorrente =
-        "it";
+    linguaCorrente = "it";
 }
 
 
@@ -2213,11 +1932,9 @@ function cambiaLingua() {
 
     if (!interfaccia[linguaCorrente]) {
 
-        linguaCorrente =
-            "it";
+        linguaCorrente = "it";
 
-        selettoreLingua.value =
-            "it";
+        selettoreLingua.value = "it";
     }
 
 
@@ -2225,6 +1942,19 @@ function cambiaLingua() {
         "ecoGameLingua",
         linguaCorrente
     );
+
+
+    if (
+        window.ecoGame &&
+        typeof window.ecoGame.changeLanguage ===
+            "function"
+    ) {
+
+        window.ecoGame.changeLanguage(
+            linguaCorrente
+        );
+
+    }
 
 
     applicaLingua();
@@ -2432,11 +2162,9 @@ function loadTurn() {
 
         (
             (
-                (
-                    currentTurn + 1
-                ) / 5
-            ) * 100
-        ) +
+                currentTurn + 1
+            ) / events.length
+        ) * 100 +
         "%";
 
 
@@ -2446,8 +2174,7 @@ function loadTurn() {
         );
 
 
-    options.innerHTML =
-        "";
+    options.innerHTML = "";
 
 
     document.getElementById(
@@ -2470,7 +2197,6 @@ function loadTurn() {
 
     event.options.forEach(
         function(option) {
-
 
             const button =
                 document.createElement(
@@ -2509,7 +2235,7 @@ function loadTurn() {
 
 
 /* =====================================================
-   SCELTA OPZIONE
+   SCELTA
 ===================================================== */
 
 function chooseOption(option) {
@@ -2612,6 +2338,12 @@ function chooseOption(option) {
 
 function nextTurn() {
 
+    if (!chosen) {
+
+        return;
+    }
+
+
     currentTurn++;
 
 
@@ -2632,7 +2364,7 @@ function nextTurn() {
 
 
 /* =====================================================
-   CALCOLO GREEN POINTS
+   CALCOLO GP
 ===================================================== */
 
 function calcolaGreenPointsOceanRescue(
@@ -2685,7 +2417,59 @@ function calcolaGreenPointsOceanRescue(
 
 
 /* =====================================================
-   ACCREDITO GREEN POINTS OCEAN RESCUE
+   ASPETTA ECOGAME
+===================================================== */
+
+function aspettaEcoGame(
+    tentativi = 0
+) {
+
+    return new Promise(
+        function(resolve) {
+
+            if (
+                window.ecoGame &&
+                typeof window.ecoGame.addGamePoints ===
+                    "function"
+            ) {
+
+                resolve(true);
+
+                return;
+            }
+
+
+            if (
+                tentativi >= 50
+            ) {
+
+                resolve(false);
+
+                return;
+            }
+
+
+            setTimeout(
+                function() {
+
+                    resolve(
+                        aspettaEcoGame(
+                            tentativi + 1
+                        )
+                    );
+
+                },
+                100
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS
 ===================================================== */
 
 async function accreditaGreenPointsOceanRescue(
@@ -2733,17 +2517,18 @@ async function accreditaGreenPointsOceanRescue(
 
 
     /*
-       Controlliamo che il sistema comune
-       EcoGame sia disponibile.
+       Aspettiamo che ecogame.js abbia
+       creato window.ecoGame.
     */
 
-    if (
-        typeof window.ecoGame ===
-        "undefined"
-    ) {
+    const ecoGamePronto =
+        await aspettaEcoGame();
+
+
+    if (!ecoGamePronto) {
 
         console.error(
-            "EcoGame: window.ecoGame non disponibile."
+            "Ocean Rescue: EcoGame non disponibile."
         );
 
 
@@ -2753,11 +2538,9 @@ async function accreditaGreenPointsOceanRescue(
 
         return {
 
-            success:
-                false,
+            success: false,
 
-            pointsAdded:
-                0
+            pointsAdded: 0
 
         };
 
@@ -2765,10 +2548,14 @@ async function accreditaGreenPointsOceanRescue(
 
 
     /*
-       accreditaGreenPointsUnaVolta()
-       usa sessionStorage per impedire
-       un secondo accredito durante
-       la stessa sessione del browser.
+       Accredito UNA SOLA VOLTA per
+       la partita corrente.
+       
+       ecogame.js usa:
+       
+       ecoGameGP_ocean-rescue
+       
+       in sessionStorage.
     */
 
     try {
@@ -2807,9 +2594,9 @@ async function accreditaGreenPointsOceanRescue(
 
 
         /*
-           Se la partita è già stata accreditata,
-           mostriamo comunque il totale
-           attuale dell'account.
+           Se il gioco è già stato accreditato
+           durante questa sessione, recuperiamo
+           comunque il totale dell'account.
         */
 
         if (
@@ -2817,40 +2604,42 @@ async function accreditaGreenPointsOceanRescue(
             risultato.alreadyAdded
         ) {
 
-            const accountPoints =
-                await window.ecoGame.getGreenPoints();
+            try {
+
+                const accountPoints =
+                    await window.ecoGame.getGreenPoints();
 
 
-            if (
-                accountPoints &&
-                accountPoints.success
-            ) {
+                if (
+                    accountPoints &&
+                    accountPoints.success
+                ) {
 
-                totalElement.innerText =
-                    t.greenPointsTotal +
-                    " " +
-                    accountPoints.points;
+                    totalElement.innerText =
+                        t.greenPointsTotal +
+                        " " +
+                        accountPoints.points;
+
+                }
+
+            } catch (erroreTotale) {
+
+                console.error(
+                    "Ocean Rescue: errore lettura totale GP:",
+                    erroreTotale
+                );
 
             }
 
 
             statusElement.innerText =
-                t.greenPointsError;
-
-
-            console.warn(
-                "Ocean Rescue: GP già accreditati."
-            );
+                t.greenPointsSuccess;
 
 
             return risultato;
 
         }
 
-
-        /*
-           Utente non autenticato.
-        */
 
         if (
             risultato &&
@@ -2861,9 +2650,16 @@ async function accreditaGreenPointsOceanRescue(
             statusElement.innerText =
                 t.greenPointsLogin;
 
+
             return risultato;
 
         }
+
+
+        console.error(
+            "Ocean Rescue: accredito GP fallito:",
+            risultato
+        );
 
 
         statusElement.innerText =
@@ -2876,7 +2672,7 @@ async function accreditaGreenPointsOceanRescue(
     } catch (errore) {
 
         console.error(
-            "Ocean Rescue: errore accredito GP:",
+            "Ocean Rescue: errore durante accredito GP:",
             errore
         );
 
@@ -2887,14 +2683,11 @@ async function accreditaGreenPointsOceanRescue(
 
         return {
 
-            success:
-                false,
+            success: false,
 
-            pointsAdded:
-                0,
+            pointsAdded: 0,
 
-            error:
-                errore
+            error: errore
 
         };
 
@@ -2904,10 +2697,24 @@ async function accreditaGreenPointsOceanRescue(
 
 
 /* =====================================================
-   RISULTATO FINALE
+   RISULTATO
 ===================================================== */
 
 async function showResult() {
+
+    /*
+       Evita che showResult venga eseguito
+       due volte.
+    */
+
+    if (risultatoGiaMostrato) {
+
+        return;
+    }
+
+
+    risultatoGiaMostrato = true;
+
 
     document.getElementById(
         "gameCard"
@@ -2991,21 +2798,9 @@ async function showResult() {
 
 
     /*
-       =================================================
-       ACCREDITO GP
-       =================================================
-
-       Questa funzione viene eseguita soltanto
-       quando la partita è terminata.
-
-       Il sistema comune:
-       - verifica l'account corrente;
-       - legge i GP attuali da Supabase;
-       - somma i nuovi GP;
-       - aggiorna il livello;
-       - salva il nuovo totale;
-       - impedisce un secondo accredito
-         per "ocean-rescue".
+       ================================================
+       ACCREDITO GREEN POINTS
+       ================================================
     */
 
     await accreditaGreenPointsOceanRescue(
