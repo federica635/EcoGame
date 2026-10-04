@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -9,6 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🌊 Ocean Rescue - EcoGame</title>
+
+<!--
+    IMPORTANTE:
+    ecogame.js deve essere caricato prima dello script
+    del gioco, perché contiene il collegamento a Supabase
+    e il sistema Green Points.
+-->
+
+<script src="ecogame.js"></script>
 
 <style>
 
@@ -219,6 +227,43 @@ header {
     color: #ffd54f;
     font-weight: bold;
     margin: 15px;
+}
+
+/* =====================================================
+   GREEN POINTS RISULTATO
+===================================================== */
+
+.gp-result {
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 500px;
+    background: #123d32;
+    border: 1px solid #2e7d64;
+    border-radius: 15px;
+}
+
+.gp-result-title {
+    color: #81c784;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.gp-result-value {
+    color: #69f0ae;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.gp-result-total {
+    color: #b7cbd2;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.gp-result-message {
+    margin-top: 10px;
+    color: #d7eee7;
+    line-height: 1.5;
 }
 
 .restart,
@@ -516,6 +561,46 @@ header {
         </div>
 
 
+        <!-- =================================================
+             GREEN POINTS
+        ================================================== -->
+
+        <div
+            class="gp-result"
+            id="gpResult"
+            style="display:none;">
+
+            <div
+                class="gp-result-title"
+                id="gpResultTitle">
+
+                🌱 Green Points ottenuti
+
+            </div>
+
+            <div
+                class="gp-result-value"
+                id="gpResultValue">
+
+                +0 GP
+
+            </div>
+
+            <div
+                class="gp-result-total"
+                id="gpResultTotal">
+
+            </div>
+
+            <div
+                class="gp-result-message"
+                id="gpResultMessage">
+
+            </div>
+
+        </div>
+
+
         <p id="message"></p>
 
 
@@ -603,7 +688,25 @@ const interfaccia = {
             "🌊 La riserva è sotto pressione. Alcune delle tue decisioni hanno avuto conseguenze importanti sull'ecosistema.",
 
         resultBad:
-            "⚠️ L'ecosistema è in difficoltà. Prova a considerare meglio le conseguenze a lungo termine delle tue decisioni."
+            "⚠️ L'ecosistema è in difficoltà. Prova a considerare meglio le conseguenze a lungo termine delle tue decisioni.",
+
+        gpTitle:
+            "🌱 Green Points ottenuti",
+
+        gpTotal:
+            "Green Points totali dell'account:",
+
+        gpSaved:
+            "I Green Points sono stati aggiunti al tuo account.",
+
+        gpLogin:
+            "Accedi al tuo account per ricevere i Green Points.",
+
+        gpAlready:
+            "I Green Points di questo gioco erano già stati accreditati.",
+
+        gpError:
+            "Non è stato possibile accreditare i Green Points."
 
     },
 
@@ -654,7 +757,25 @@ const interfaccia = {
             "🌊 The reserve is under pressure. Some of your decisions had important consequences for the ecosystem.",
 
         resultBad:
-            "⚠️ The ecosystem is struggling. Try to consider the long-term consequences of your decisions more carefully."
+            "⚠️ The ecosystem is struggling. Try to consider the long-term consequences of your decisions more carefully.",
+
+        gpTitle:
+            "🌱 Green Points earned",
+
+        gpTotal:
+            "Total Green Points in your account:",
+
+        gpSaved:
+            "The Green Points have been added to your account.",
+
+        gpLogin:
+            "Log in to your account to receive Green Points.",
+
+        gpAlready:
+            "The Green Points for this game have already been credited.",
+
+        gpError:
+            "The Green Points could not be credited."
 
     },
 
@@ -705,7 +826,25 @@ const interfaccia = {
             "🌊 Suojelualue on paineen alla. Jotkin päätöksesi vaikuttivat merkittävästi ekosysteemiin.",
 
         resultBad:
-            "⚠️ Ekosysteemillä on vaikeuksia. Yritä ottaa päätöstesi pitkän aikavälin seuraukset paremmin huomioon."
+            "⚠️ Ekosysteemillä on vaikeuksia. Yritä ottaa päätöstesi pitkän aikavälin seuraukset paremmin huomioon.",
+
+        gpTitle:
+            "🌱 Saadut Green Points -pisteet",
+
+        gpTotal:
+            "Tilisi Green Points -pisteet yhteensä:",
+
+        gpSaved:
+            "Green Points -pisteet lisättiin tilillesi.",
+
+        gpLogin:
+            "Kirjaudu tilillesi saadaksesi Green Points -pisteitä.",
+
+        gpAlready:
+            "Tämän pelin Green Points -pisteet on jo lisätty.",
+
+        gpError:
+            "Green Points -pisteiden lisääminen epäonnistui."
 
     }
 
@@ -1267,7 +1406,7 @@ const events = [
 
 /* =====================================================
    STATO DEL GIOCO
-   ===================================================== */
+===================================================== */
 
 let currentTurn = 0;
 
@@ -1288,7 +1427,7 @@ let stats = {
 
 /* =====================================================
    LINGUA
-   ===================================================== */
+===================================================== */
 
 let linguaCorrente =
     localStorage.getItem("ecoGameLingua") || "it";
@@ -1311,7 +1450,7 @@ selettoreLingua.value =
 
 /* =====================================================
    CAMBIO LINGUA
-   ===================================================== */
+===================================================== */
 
 function cambiaLingua() {
 
@@ -1341,7 +1480,7 @@ function cambiaLingua() {
 
 /* =====================================================
    APPLICA LINGUA
-   ===================================================== */
+===================================================== */
 
 function applicaLingua() {
 
@@ -1424,6 +1563,12 @@ function applicaLingua() {
         t.back;
 
 
+    document.getElementById(
+        "gpResultTitle"
+    ).innerText =
+        t.gpTitle;
+
+
     loadTurn();
 
 }
@@ -1431,7 +1576,7 @@ function applicaLingua() {
 
 /* =====================================================
    STATISTICHE
-   ===================================================== */
+===================================================== */
 
 function updateStats() {
 
@@ -1476,7 +1621,7 @@ function limit(value) {
 
 /* =====================================================
    CARICA TURNO
-   ===================================================== */
+===================================================== */
 
 function loadTurn() {
 
@@ -1587,11 +1732,12 @@ function loadTurn() {
 
 /* =====================================================
    SCELTA OPZIONE
-   ===================================================== */
+===================================================== */
 
 function chooseOption(option) {
 
     if (chosen) {
+
         return;
     }
 
@@ -1677,7 +1823,7 @@ function chooseOption(option) {
 
 /* =====================================================
    TURNO SUCCESSIVO
-   ===================================================== */
+===================================================== */
 
 function nextTurn() {
 
@@ -1701,10 +1847,335 @@ function nextTurn() {
 
 
 /* =====================================================
-   RISULTATO FINALE
-   ===================================================== */
+   CALCOLO GREEN POINTS OCEAN RESCUE
+===================================================== */
 
-function showResult() {
+function calcolaGreenPointsOceanRescue(
+    punteggio
+) {
+
+    punteggio =
+        Number(
+            punteggio
+        );
+
+
+    if (
+        !Number.isFinite(
+            punteggio
+        )
+    ) {
+
+        return 30;
+    }
+
+
+    /*
+        SISTEMA GP:
+
+        85 - 100  = 90 GP
+        70 - 84   = 70 GP
+        50 - 69   = 50 GP
+        0  - 49   = 30 GP
+    */
+
+
+    if (
+        punteggio >= 85
+    ) {
+
+        return 90;
+    }
+
+
+    if (
+        punteggio >= 70
+    ) {
+
+        return 70;
+    }
+
+
+    if (
+        punteggio >= 50
+    ) {
+
+        return 50;
+    }
+
+
+    return 30;
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS OCEAN RESCUE
+===================================================== */
+
+async function assegnaGreenPointsOceanRescue(
+    punteggio
+) {
+
+    const greenPoints =
+        calcolaGreenPointsOceanRescue(
+            punteggio
+        );
+
+
+    const gpResult =
+        document.getElementById(
+            "gpResult"
+        );
+
+
+    const gpValue =
+        document.getElementById(
+            "gpResultValue"
+        );
+
+
+    const gpTotal =
+        document.getElementById(
+            "gpResultTotal"
+        );
+
+
+    const gpMessage =
+        document.getElementById(
+            "gpResultMessage"
+        );
+
+
+    const t =
+        interfaccia[linguaCorrente];
+
+
+    gpResult.style.display =
+        "block";
+
+
+    gpValue.innerText =
+        "+" +
+        greenPoints +
+        " GP";
+
+
+    gpTotal.innerText =
+        "";
+
+
+    gpMessage.innerText =
+        "";
+
+
+    /*
+        Controlliamo che il sistema comune
+        EcoGame sia effettivamente disponibile.
+    */
+
+    if (
+        typeof window.ecoGame === "undefined"
+    ) {
+
+        console.error(
+            "EcoGame: ecogame.js non disponibile."
+        );
+
+
+        gpMessage.innerText =
+            t.gpError;
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "ecogame.js non disponibile"
+
+        };
+
+    }
+
+
+    try {
+
+        /*
+            addOnce utilizza il gameId
+            "ocean-rescue".
+
+            Questo impedisce di accreditare
+            nuovamente i GP dello stesso gioco
+            nella stessa sessione/browser.
+        */
+
+        const risultato =
+            await window.ecoGame.addOnce(
+                "ocean-rescue",
+                greenPoints
+            );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            gpMessage.innerText =
+                t.gpSaved;
+
+
+            gpTotal.innerText =
+                t.gpTotal +
+                " " +
+                risultato.totalPoints;
+
+
+            console.log(
+                "🌊 Ocean Rescue: GP accreditati:",
+                risultato.pointsAdded
+            );
+
+
+            console.log(
+                "🌱 Ocean Rescue: GP totali account:",
+                risultato.totalPoints
+            );
+
+
+            console.log(
+                "⭐ Ocean Rescue: livello account:",
+                risultato.level
+            );
+
+
+            return risultato;
+
+        }
+
+
+        /*
+            Se addOnce restituisce alreadyAdded,
+            significa che il gioco ha già assegnato
+            i GP durante questa sessione.
+        */
+
+        if (
+            risultato &&
+            risultato.alreadyAdded
+        ) {
+
+            gpMessage.innerText =
+                t.gpAlready;
+
+
+            /*
+                Proviamo comunque a leggere
+                il totale attuale dell'account.
+            */
+
+            try {
+
+                const puntiAccount =
+                    await window.ecoGame.getGreenPoints();
+
+
+                if (
+                    puntiAccount &&
+                    puntiAccount.success
+                ) {
+
+                    gpTotal.innerText =
+                        t.gpTotal +
+                        " " +
+                        puntiAccount.points;
+
+                }
+
+            } catch (erroreLettura) {
+
+                console.warn(
+                    "EcoGame: impossibile leggere il totale GP:",
+                    erroreLettura
+                );
+
+            }
+
+
+            return risultato;
+
+        }
+
+
+        /*
+            Se l'utente non è autenticato,
+            aggiungiGreenPoints restituisce
+            success false.
+        */
+
+        if (
+            risultato &&
+            risultato.error ===
+            "Utente non autenticato"
+        ) {
+
+            gpMessage.innerText =
+                t.gpLogin;
+
+
+            return risultato;
+
+        }
+
+
+        gpMessage.innerText =
+            t.gpError;
+
+
+        console.error(
+            "EcoGame: errore accredito Ocean Rescue:",
+            risultato
+        );
+
+
+        return risultato;
+
+    } catch (errore) {
+
+        console.error(
+            "EcoGame: errore Green Points Ocean Rescue:",
+            errore
+        );
+
+
+        gpMessage.innerText =
+            t.gpError;
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                errore
+
+        };
+
+    }
+
+}
+
+
+/* =====================================================
+   RISULTATO FINALE
+===================================================== */
+
+async function showResult() {
 
     document.getElementById(
         "gameCard"
@@ -1728,10 +2199,16 @@ function showResult() {
         ) / 3;
 
 
+    const punteggioFinale =
+        Math.round(
+            average
+        );
+
+
     document.getElementById(
         "finalScore"
     ).innerText =
-        Math.round(average) +
+        punteggioFinale +
         " / 100";
 
 
@@ -1742,17 +2219,23 @@ function showResult() {
     let message;
 
 
-    if (average >= 85) {
+    if (
+        average >= 85
+    ) {
 
         message =
             t.resultExcellent;
 
-    } else if (average >= 70) {
+    } else if (
+        average >= 70
+    ) {
 
         message =
             t.resultGood;
 
-    } else if (average >= 50) {
+    } else if (
+        average >= 50
+    ) {
 
         message =
             t.resultMedium;
@@ -1770,12 +2253,26 @@ function showResult() {
     ).innerText =
         message;
 
+
+    /*
+        =================================================
+        ACCREDITO GP
+
+        L'accredito avviene SOLO alla fine del gioco,
+        quando il risultato finale è stato calcolato.
+        =================================================
+    */
+
+    await assegnaGreenPointsOceanRescue(
+        punteggioFinale
+    );
+
 }
 
 
 /* =====================================================
    AVVIO
-   ===================================================== */
+===================================================== */
 
 updateStats();
 
@@ -1786,4 +2283,3 @@ applicaLingua();
 </body>
 
 </html>
-```
