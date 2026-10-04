@@ -16,20 +16,31 @@ const SUPABASE_KEY =
 
 
 /*
-   Client Supabase.
-
-   Questo file deve essere caricato dopo:
-
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-   e prima dello script specifico del gioco.
+   Controlliamo che la libreria Supabase
+   sia stata caricata prima di creare il client.
 */
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
+if (
+    typeof window.supabase === "undefined"
+) {
+
+    console.error(
+        "EcoGame - La libreria Supabase non è stata caricata."
     );
+
+} else {
+
+    /*
+       Client Supabase.
+    */
+
+    var supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+}
 
 
 /* =====================================================
@@ -38,7 +49,11 @@ const supabaseClient =
 
 function getLingua() {
 
-    return localStorage.getItem("ecoGameLingua") || "it";
+    return (
+        localStorage.getItem(
+            "ecoGameLingua"
+        ) || "it"
+    );
 
 }
 
@@ -49,19 +64,28 @@ function getLingua() {
 
 function salvaLingua(lingua) {
 
-    if (!["it", "en", "fi"].includes(lingua)) {
+    if (
+        ![
+            "it",
+            "en",
+            "fi"
+        ].includes(lingua)
+    ) {
 
         lingua = "it";
 
     }
+
 
     localStorage.setItem(
         "ecoGameLingua",
         lingua
     );
 
+
     document.documentElement.lang =
         lingua;
+
 
     window.dispatchEvent(
         new CustomEvent(
@@ -73,6 +97,7 @@ function salvaLingua(lingua) {
             }
         )
     );
+
 
     return lingua;
 
@@ -88,11 +113,16 @@ function inizializzaLingua() {
     const lingua =
         getLingua();
 
+
     document.documentElement.lang =
         lingua;
 
+
     const selettore =
-        document.getElementById("lingua");
+        document.getElementById(
+            "lingua"
+        );
+
 
     if (selettore) {
 
@@ -100,6 +130,7 @@ function inizializzaLingua() {
             lingua;
 
     }
+
 
     return lingua;
 
@@ -110,9 +141,13 @@ function inizializzaLingua() {
    CAMBIO LINGUA GENERICO
 ===================================================== */
 
-function cambiaLinguaComune(lingua) {
+function cambiaLinguaComune(
+    lingua
+) {
 
-    return salvaLingua(lingua);
+    return salvaLingua(
+        lingua
+    );
 
 }
 
@@ -123,13 +158,30 @@ function cambiaLinguaComune(lingua) {
 
 async function getEcoGameUser() {
 
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
+
+        console.error(
+            "EcoGame - supabaseClient non disponibile."
+        );
+
+        return null;
+
+    }
+
+
     try {
 
         const {
             data,
             error
         } =
-            await supabaseClient.auth.getUser();
+            await supabaseClient
+                .auth
+                .getUser();
+
 
         if (error) {
 
@@ -142,7 +194,12 @@ async function getEcoGameUser() {
 
         }
 
-        return data.user || null;
+
+        return (
+            data.user ||
+            null
+        );
+
 
     } catch (errore) {
 
@@ -167,11 +224,23 @@ async function getEcoGameProfile() {
     const user =
         await getEcoGameUser();
 
+
     if (!user) {
 
         return null;
 
     }
+
+
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
+
+        return null;
+
+    }
+
 
     try {
 
@@ -190,6 +259,7 @@ async function getEcoGameProfile() {
                 )
                 .single();
 
+
         if (error) {
 
             console.error(
@@ -201,7 +271,9 @@ async function getEcoGameProfile() {
 
         }
 
+
         return data;
+
 
     } catch (errore) {
 
@@ -226,6 +298,7 @@ async function getGreenPoints() {
     const profilo =
         await getEcoGameProfile();
 
+
     if (!profilo) {
 
         return {
@@ -243,15 +316,20 @@ async function getGreenPoints() {
 
     }
 
+
     return {
 
         success: true,
 
         points:
-            Number(profilo.green_points) || 0,
+            Number(
+                profilo.green_points
+            ) || 0,
 
         level:
-            Number(profilo.level) || 1
+            Number(
+                profilo.level
+            ) || 1
 
     };
 
@@ -275,8 +353,9 @@ async function getGreenPoints() {
    vecchi GP + 50
 */
 
-
-async function aggiungiGreenPoints(punti) {
+async function aggiungiGreenPoints(
+    punti
+) {
 
     /*
        Convertiamo in numero.
@@ -318,6 +397,29 @@ async function aggiungiGreenPoints(punti) {
 
 
     /*
+       Controlliamo Supabase.
+    */
+
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "Supabase non disponibile"
+
+        };
+
+    }
+
+
+    /*
        Recuperiamo l'utente.
     */
 
@@ -330,6 +432,7 @@ async function aggiungiGreenPoints(punti) {
         console.error(
             "EcoGame - Utente non autenticato."
         );
+
 
         return {
 
@@ -371,6 +474,7 @@ async function aggiungiGreenPoints(punti) {
             "EcoGame - Errore recupero profilo:",
             profileError
         );
+
 
         return {
 
@@ -455,6 +559,7 @@ async function aggiungiGreenPoints(punti) {
             error
         );
 
+
         return {
 
             success: false,
@@ -474,10 +579,12 @@ async function aggiungiGreenPoints(punti) {
         punti
     );
 
+
     console.log(
         "🌱 EcoGame - GP totali:",
         data.green_points
     );
+
 
     console.log(
         "⭐ EcoGame - Livello:",
@@ -531,7 +638,6 @@ async function aggiungiGreenPoints(punti) {
    "salva-foresta", NON aggiunge altri GP.
 */
 
-
 async function accreditaGreenPointsUnaVolta(
     gameId,
     punti
@@ -563,6 +669,7 @@ async function accreditaGreenPointsUnaVolta(
 
     punti =
         Number(punti);
+
 
     if (
         !Number.isFinite(punti) ||
@@ -607,7 +714,9 @@ async function accreditaGreenPointsUnaVolta(
         );
 
 
-    if (giaAccreditato === "true") {
+    if (
+        giaAccreditato === "true"
+    ) {
 
         console.log(
             "🌱 EcoGame - GP già assegnati:",
@@ -643,7 +752,8 @@ async function accreditaGreenPointsUnaVolta(
 
     /*
        Registriamo l'accredito SOLO
-       se Supabase ha confermato il salvataggio.
+       se Supabase ha confermato
+       il salvataggio.
     */
 
     if (
@@ -672,29 +782,17 @@ async function accreditaGreenPointsUnaVolta(
    Questa funzione calcola i GP secondo
    le regole richieste:
 
-   50 GP = tassa base per aver giocato.
+   50 GP = base
 
    Punteggio < 90:
-       50 GP totali
+       50 GP
 
-   Punteggio da 90 a 94:
-       20 + 50 = 70 GP
+   Punteggio 90-94:
+       70 GP
 
-   Punteggio da 95 a 100:
-       40 + 50 = 90 GP
-
-
-   Esempi:
-
-   89  -> 50 GP
-   90  -> 70 GP
-   92  -> 70 GP
-   94  -> 70 GP
-   95  -> 90 GP
-   97  -> 90 GP
-   100 -> 90 GP
+   Punteggio 95-100:
+       90 GP
 */
-
 
 function calcolaGreenPointsForesta(
     punteggio
@@ -704,7 +802,11 @@ function calcolaGreenPointsForesta(
         Number(punteggio);
 
 
-    if (!Number.isFinite(punteggio)) {
+    if (
+        !Number.isFinite(
+            punteggio
+        )
+    ) {
 
         return 50;
 
@@ -715,7 +817,9 @@ function calcolaGreenPointsForesta(
        Fascia sotto 90.
     */
 
-    if (punteggio < 90) {
+    if (
+        punteggio < 90
+    ) {
 
         return 50;
 
@@ -726,7 +830,9 @@ function calcolaGreenPointsForesta(
        Fascia 90-94.
     */
 
-    if (punteggio < 95) {
+    if (
+        punteggio < 95
+    ) {
 
         return 70;
 
@@ -747,23 +853,10 @@ function calcolaGreenPointsForesta(
 ===================================================== */
 
 /*
-   Il gioco può semplicemente chiamare:
+   Il gioco può chiamare:
 
        await assegnaGreenPointsForesta(punteggio);
-
-   Esempio:
-
-       punteggio = 92
-
-       GP = 70
-
-   Esempio:
-
-       punteggio = 97
-
-       GP = 90
 */
-
 
 async function assegnaGreenPointsForesta(
     punteggio
@@ -780,16 +873,18 @@ async function assegnaGreenPointsForesta(
         punteggio
     );
 
+
     console.log(
         "🌱 Salva la Foresta - GP:",
         greenPoints
     );
 
 
-    return await accreditaGreenPointsUnaVolta(
-        "salva-foresta",
-        greenPoints
-    );
+    return await
+        accreditaGreenPointsUnaVolta(
+            "salva-foresta",
+            greenPoints
+        );
 
 }
 
@@ -807,7 +902,6 @@ async function assegnaGreenPointsForesta(
 
        await mostraGreenPoints("greenPoints");
 */
-
 
 async function mostraGreenPoints(
     elementId
@@ -853,28 +947,38 @@ async function mostraGreenPoints(
    EVENTO AUTH SUPABASE
 ===================================================== */
 
-supabaseClient.auth.onAuthStateChange(
-    function(event, session) {
+if (
+    typeof supabaseClient !==
+    "undefined"
+) {
 
-        window.dispatchEvent(
-            new CustomEvent(
-                "ecoGameAuthChanged",
-                {
-                    detail: {
+    supabaseClient.auth.onAuthStateChange(
+        function(
+            event,
+            session
+        ) {
 
-                        event:
-                            event,
+            window.dispatchEvent(
+                new CustomEvent(
+                    "ecoGameAuthChanged",
+                    {
+                        detail: {
 
-                        session:
-                            session
+                            event:
+                                event,
 
+                            session:
+                                session
+
+                        }
                     }
-                }
-            )
-        );
+                )
+            );
 
-    }
-);
+        }
+    );
+
+}
 
 
 /* =====================================================
