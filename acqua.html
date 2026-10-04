@@ -2,7 +2,9 @@
 <html lang="it">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>💧 Dove finisce l'acqua? - EcoGame</title>
@@ -182,7 +184,7 @@ header {
     font-size: 16px;
 }
 
-.option:hover {
+.option:hover:not(:disabled) {
     background: #21404b;
     border-color: #81d4fa;
     transform: translateY(-2px);
@@ -193,6 +195,10 @@ header {
     font-weight: bold;
     font-size: 19px;
     margin-right: 8px;
+}
+
+.option:disabled {
+    opacity: 0.85;
 }
 
 #feedback {
@@ -296,9 +302,18 @@ header {
         flex-direction: column;
     }
 
+    .intro h1 {
+        font-size: 32px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -316,7 +331,11 @@ header {
             <span id="casoNumero">1</span> / 8
         </div>
 
-        <select class="lingua" id="lingua" onchange="cambiaLingua()">
+        <select
+            class="lingua"
+            id="lingua"
+            onchange="cambiaLingua()"
+        >
             <option value="it">🇮🇹 Italiano</option>
             <option value="en">🇬🇧 English</option>
             <option value="fi">🇫🇮 Suomi</option>
@@ -405,7 +424,10 @@ header {
 
         <div class="case-title" id="titoloCaso"></div>
 
-        <div class="case-description" id="descrizioneCaso"></div>
+        <div
+            class="case-description"
+            id="descrizioneCaso"
+        ></div>
 
 
         <div class="data-box">
@@ -414,7 +436,10 @@ header {
                 📊 Dati dell'indagine
             </h3>
 
-            <div class="data-grid" id="dati"></div>
+            <div
+                class="data-grid"
+                id="dati"
+            ></div>
 
         </div>
 
@@ -424,13 +449,19 @@ header {
         </h3>
 
 
-        <div class="options" id="opzioni"></div>
+        <div
+            class="options"
+            id="opzioni"
+        ></div>
 
 
         <div id="feedback"></div>
 
 
-        <button id="next" onclick="prossimoCaso()">
+        <button
+            id="next"
+            onclick="prossimoCaso()"
+        >
             ➡️ Prossima indagine
         </button>
 
@@ -448,29 +479,34 @@ header {
         </div>
 
         <div class="final-green">
-            🌱 <span id="greenPointsFinali">0</span>
-            <span id="testoGreenFinale">Green Points</span>
+            🌱
+            <span id="greenPointsFinali">0</span>
+            <span id="testoGreenFinale">
+                Green Points
+            </span>
         </div>
 
-        <p class="final-message" id="messaggioFinale"></p>
+        <p
+            class="final-message"
+            id="messaggioFinale"
+        ></p>
+
 
         <button
             class="final-button"
             onclick="ricomincia()"
-            id="bottoneRicomincia">
-
+            id="bottoneRicomincia"
+        >
             🔄 Rifai l'indagine
-
         </button>
 
 
         <button
             class="final-button"
             onclick="tornaGiochi()"
-            id="bottoneGiochi">
-
+            id="bottoneGiochi"
+        >
             🎮 Torna ai giochi
-
         </button>
 
     </div>
@@ -480,7 +516,10 @@ header {
 
 <!-- =====================================================
      ECOGAME.JS
-     Deve essere caricato PRIMA dello script del gioco
+     
+     IMPORTANTE:
+     ecogame.js deve essere nella stessa cartella
+     di questo file HTML.
 ===================================================== -->
 
 <script src="ecogame.js"></script>
@@ -489,29 +528,36 @@ header {
 <script>
 
 /* =========================================================
-   LINGUA
+   TRADUZIONI
 ========================================================= */
 
 const traduzioni = {
 
     it: {
 
-        titolo: "💧 Dove finisce l'acqua?",
+        titolo:
+            "💧 Dove finisce l'acqua?",
 
         intro:
             "Un'indagine scientifica sulle risorse idriche.<br>Analizza i dati, trova gli indizi e individua la causa del problema.",
 
-        caso: "Caso",
+        caso:
+            "Caso",
 
-        risolte: "🔎 Indagini risolte",
+        risolte:
+            "🔎 Indagini risolte",
 
-        punteggio: "🧠 Punteggio",
+        punteggio:
+            "🧠 Punteggio",
 
-        greenPoints: "🌱 Green Points",
+        greenPoints:
+            "🌱 Green Points",
 
-        casoAttuale: "💧 Caso attuale",
+        casoAttuale:
+            "💧 Caso attuale",
 
-        dati: "📊 Dati dell'indagine",
+        dati:
+            "📊 Dati dell'indagine",
 
         domanda:
             "🔎 Quale spiegazione è più compatibile con i dati?",
@@ -546,6 +592,15 @@ const traduzioni = {
         rispostaCorretta:
             "La risposta corretta era:",
 
+        gpSalvati:
+            "Green Points salvati nell'account.",
+
+        gpGiaAssegnati:
+            "Green Points già assegnati per questo caso.",
+
+        gpNonSalvati:
+            "Green Points non salvati nell'account.",
+
         messaggiFinali: {
 
             perfetto:
@@ -567,22 +622,29 @@ const traduzioni = {
 
     en: {
 
-        titolo: "💧 Where Does the Water Go?",
+        titolo:
+            "💧 Where Does the Water Go?",
 
         intro:
             "A scientific investigation into water resources.<br>Analyze the data, find the clues and identify the cause of the problem.",
 
-        caso: "Case",
+        caso:
+            "Case",
 
-        risolte: "🔎 Cases solved",
+        risolte:
+            "🔎 Cases solved",
 
-        punteggio: "🧠 Score",
+        punteggio:
+            "🧠 Score",
 
-        greenPoints: "🌱 Green Points",
+        greenPoints:
+            "🌱 Green Points",
 
-        casoAttuale: "💧 Current case",
+        casoAttuale:
+            "💧 Current case",
 
-        dati: "📊 Investigation data",
+        dati:
+            "📊 Investigation data",
 
         domanda:
             "🔎 Which explanation is most consistent with the data?",
@@ -617,6 +679,15 @@ const traduzioni = {
         rispostaCorretta:
             "The correct answer was:",
 
+        gpSalvati:
+            "Green Points saved to your account.",
+
+        gpGiaAssegnati:
+            "Green Points already awarded for this case.",
+
+        gpNonSalvati:
+            "Green Points could not be saved to your account.",
+
         messaggiFinali: {
 
             perfetto:
@@ -638,22 +709,29 @@ const traduzioni = {
 
     fi: {
 
-        titolo: "💧 Minne vesi päätyy?",
+        titolo:
+            "💧 Minne vesi päätyy?",
 
         intro:
             "Tieteellinen tutkimus vesivaroista.<br>Analysoi tiedot, löydä vihjeet ja selvitä ongelman syy.",
 
-        caso: "Tapaus",
+        caso:
+            "Tapaus",
 
-        risolte: "🔎 Ratkaistut tapaukset",
+        risolte:
+            "🔎 Ratkaistut tapaukset",
 
-        punteggio: "🧠 Pisteet",
+        punteggio:
+            "🧠 Pisteet",
 
-        greenPoints: "🌱 Green Points",
+        greenPoints:
+            "🌱 Green Points",
 
-        casoAttuale: "💧 Nykyinen tapaus",
+        casoAttuale:
+            "💧 Nykyinen tapaus",
 
-        dati: "📊 Tutkimustiedot",
+        dati:
+            "📊 Tutkimustiedot",
 
         domanda:
             "🔎 Mikä selitys sopii parhaiten tietoihin?",
@@ -688,6 +766,15 @@ const traduzioni = {
         rispostaCorretta:
             "Oikea vastaus oli:",
 
+        gpSalvati:
+            "Green Points tallennettu tilillesi.",
+
+        gpGiaAssegnati:
+            "Green Points on jo annettu tästä tapauksesta.",
+
+        gpNonSalvati:
+            "Green Pointseja ei voitu tallentaa tilille.",
+
         messaggiFinali: {
 
             perfetto:
@@ -718,7 +805,8 @@ const casi = {
 it: [
 
 {
-titolo: "🔎 Caso 1 — La perdita invisibile",
+titolo:
+"🔎 Caso 1 — La perdita invisibile",
 
 descrizione:
 "Il consumo registrato dagli abitanti sembra normale, ma l'acquedotto sta prelevando molta più acqua del previsto. Devi individuare dove potrebbe trovarsi il problema.",
@@ -746,7 +834,8 @@ spiegazione:
 },
 
 {
-titolo: "🏠 Caso 2 — Il quartiere che consuma troppo",
+titolo:
+"🏠 Caso 2 — Il quartiere che consuma troppo",
 
 descrizione:
 "Due quartieri hanno popolazione e condizioni climatiche simili. Tuttavia uno consuma quasi il doppio dell'acqua. Analizza i dati.",
@@ -774,7 +863,8 @@ spiegazione:
 },
 
 {
-titolo: "🌾 Caso 3 — I campi assetati",
+titolo:
+"🌾 Caso 3 — I campi assetati",
 
 descrizione:
 "Una zona agricola consuma una quantità d'acqua molto elevata. Non è però sufficiente sapere che l'agricoltura consuma molto: devi capire quale fattore può spiegare l'aumento.",
@@ -802,7 +892,8 @@ spiegazione:
 },
 
 {
-titolo: "🏭 Caso 4 — L'impianto industriale",
+titolo:
+"🏭 Caso 4 — L'impianto industriale",
 
 descrizione:
 "Un impianto industriale segnala un aumento del prelievo idrico. Ma il numero di prodotti realizzati è quasi invariato.",
@@ -830,7 +921,8 @@ spiegazione:
 },
 
 {
-titolo: "🌡️ Caso 5 — La siccità",
+titolo:
+"🌡️ Caso 5 — La siccità",
 
 descrizione:
 "La città ha consumato più acqua durante un'estate eccezionalmente calda. Ma il problema non riguarda soltanto i consumi domestici.",
@@ -858,7 +950,8 @@ spiegazione:
 },
 
 {
-titolo: "🧪 Caso 6 — Acqua potabile o contaminata?",
+titolo:
+"🧪 Caso 6 — Acqua potabile o contaminata?",
 
 descrizione:
 "In una zona agricola viene rilevata una concentrazione anomala di nitrati nell'acqua sotterranea. Devi individuare l'ipotesi più coerente.",
@@ -886,7 +979,8 @@ spiegazione:
 },
 
 {
-titolo: "🗺️ Caso 7 — La zona critica",
+titolo:
+"🗺️ Caso 7 — La zona critica",
 
 descrizione:
 "Una città è stata divisa in quattro zone. Devi stabilire quale richiede un intervento prioritario sulla rete idrica.",
@@ -912,7 +1006,8 @@ spiegazione:
 },
 
 {
-titolo: "🏆 Caso 8 — Il caso finale",
+titolo:
+"🏆 Caso 8 — Il caso finale",
 
 descrizione:
 "Hai ricevuto il rapporto finale della città. Devi individuare quale intervento avrebbe probabilmente l'effetto maggiore sulla riduzione dello spreco idrico.",
@@ -944,7 +1039,8 @@ spiegazione:
 en: [
 
 {
-titolo: "🔎 Case 1 — The Invisible Leak",
+titolo:
+"🔎 Case 1 — The Invisible Leak",
 
 descrizione:
 "Recorded household consumption seems normal, but the water system is drawing much more water than expected. You must identify where the problem could be.",
@@ -972,7 +1068,8 @@ spiegazione:
 },
 
 {
-titolo: "🏠 Case 2 — The Neighborhood That Uses Too Much Water",
+titolo:
+"🏠 Case 2 — The Neighborhood That Uses Too Much Water",
 
 descrizione:
 "Two neighborhoods have similar populations and climate conditions. However, one uses almost twice as much water. Analyze the data.",
@@ -1000,7 +1097,8 @@ spiegazione:
 },
 
 {
-titolo: "🌾 Case 3 — Thirsty Fields",
+titolo:
+"🌾 Case 3 — Thirsty Fields",
 
 descrizione:
 "An agricultural area uses a very large amount of water. However, it is not enough to know that agriculture uses a lot of water: you must identify the factor that could explain the increase.",
@@ -1028,7 +1126,8 @@ spiegazione:
 },
 
 {
-titolo: "🏭 Case 4 — The Industrial Plant",
+titolo:
+"🏭 Case 4 — The Industrial Plant",
 
 descrizione:
 "An industrial plant reports an increase in water withdrawal. However, the number of products manufactured is almost unchanged.",
@@ -1056,7 +1155,8 @@ spiegazione:
 },
 
 {
-titolo: "🌡️ Case 5 — The Drought",
+titolo:
+"🌡️ Case 5 — The Drought",
 
 descrizione:
 "The city used more water during an exceptionally hot summer. But the problem does not only concern household consumption.",
@@ -1084,7 +1184,8 @@ spiegazione:
 },
 
 {
-titolo: "🧪 Case 6 — Drinking Water or Contaminated Water?",
+titolo:
+"🧪 Case 6 — Drinking Water or Contaminated Water?",
 
 descrizione:
 "In an agricultural area, an unusually high concentration of nitrates is detected in groundwater. You must identify the most consistent hypothesis.",
@@ -1112,7 +1213,8 @@ spiegazione:
 },
 
 {
-titolo: "🗺️ Case 7 — The Critical Area",
+titolo:
+"🗺️ Case 7 — The Critical Area",
 
 descrizione:
 "A city has been divided into four areas. You must determine which one requires priority action on the water network.",
@@ -1138,7 +1240,8 @@ spiegazione:
 },
 
 {
-titolo: "🏆 Case 8 — The Final Case",
+titolo:
+"🏆 Case 8 — The Final Case",
 
 descrizione:
 "You have received the city's final report. You must identify which intervention would probably have the greatest effect on reducing water waste.",
@@ -1170,7 +1273,8 @@ spiegazione:
 fi: [
 
 {
-titolo: "🔎 Tapaus 1 — Näkymätön vuoto",
+titolo:
+"🔎 Tapaus 1 — Näkymätön vuoto",
 
 descrizione:
 "Asukkaiden ilmoitettu vedenkulutus näyttää normaalilta, mutta vesijohtoverkkoon otetaan paljon enemmän vettä kuin odotettiin. Sinun on selvitettävä, missä ongelma voisi olla.",
@@ -1198,7 +1302,8 @@ spiegazione:
 },
 
 {
-titolo: "🏠 Tapaus 2 — Liikaa vettä kuluttava kaupunginosa",
+titolo:
+"🏠 Tapaus 2 — Liikaa vettä kuluttava kaupunginosa",
 
 descrizione:
 "Kahdessa kaupunginosassa on samanlainen väestö ja ilmasto-olosuhteet. Toinen kuluttaa kuitenkin lähes kaksi kertaa enemmän vettä. Analysoi tiedot.",
@@ -1226,7 +1331,8 @@ spiegazione:
 },
 
 {
-titolo: "🌾 Tapaus 3 — Janoinen pelto",
+titolo:
+"🌾 Tapaus 3 — Janoinen pelto",
 
 descrizione:
 "Maatalousalue kuluttaa erittäin paljon vettä. Pelkkä tieto maatalouden suuresta vedenkulutuksesta ei kuitenkaan riitä: sinun on selvitettävä, mikä tekijä voi selittää kasvun.",
@@ -1254,7 +1360,8 @@ spiegazione:
 },
 
 {
-titolo: "🏭 Tapaus 4 — Teollisuuslaitos",
+titolo:
+"🏭 Tapaus 4 — Teollisuuslaitos",
 
 descrizione:
 "Teollisuuslaitos ilmoittaa vedenoton kasvaneen. Tuotettujen tuotteiden määrä on kuitenkin lähes ennallaan.",
@@ -1282,7 +1389,8 @@ spiegazione:
 },
 
 {
-titolo: "🌡️ Tapaus 5 — Kuivuus",
+titolo:
+"🌡️ Tapaus 5 — Kuivuus",
 
 descrizione:
 "Kaupunki kulutti enemmän vettä poikkeuksellisen kuuman kesän aikana. Ongelma ei kuitenkaan koske vain kotitalouksien kulutusta.",
@@ -1310,7 +1418,8 @@ spiegazione:
 },
 
 {
-titolo: "🧪 Tapaus 6 — Juomavettä vai saastunutta vettä?",
+titolo:
+"🧪 Tapaus 6 — Juomavettä vai saastunutta vettä?",
 
 descrizione:
 "Maatalousalueella pohjavedestä havaitaan poikkeavan suuri nitraattipitoisuus. Sinun on löydettävä tietojen kanssa parhaiten sopiva hypoteesi.",
@@ -1338,7 +1447,8 @@ spiegazione:
 },
 
 {
-titolo: "🗺️ Tapaus 7 — Kriittinen alue",
+titolo:
+"🗺️ Tapaus 7 — Kriittinen alue",
 
 descrizione:
 "Kaupunki on jaettu neljään alueeseen. Sinun on määritettävä, mikä alue tarvitsee ensisijaisesti toimenpiteitä vesiverkostossa.",
@@ -1364,7 +1474,8 @@ spiegazione:
 },
 
 {
-titolo: "🏆 Tapaus 8 — Lopullinen tapaus",
+titolo:
+"🏆 Tapaus 8 — Lopullinen tapaus",
 
 descrizione:
 "Olet saanut kaupungin loppuraportin. Sinun on määritettävä, millä toimenpiteellä vedenhukan vähentämiseen olisi todennäköisesti suurin vaikutus.",
@@ -1401,24 +1512,29 @@ spiegazione:
 ========================================================= */
 
 let lingua =
-    localStorage.getItem("linguaEcoGame") || "it";
+    localStorage.getItem("ecoGameLingua") || "it";
+
 
 if (!traduzioni[lingua]) {
+
     lingua = "it";
+
 }
 
+
 let caso = 0;
+
 let punteggio = 0;
+
 let risolte = 0;
 
+
 /*
-   Green Points locali del gioco.
+   Questo valore rappresenta il totale reale
+   dei Green Points dell'account.
 
-   Questo valore serve solamente per visualizzare
-   quanti GP sono stati ottenuti durante questa partita.
-
-   Il vero totale dell'account viene gestito da ecogame.js
-   e da Supabase.
+   NON viene salvato localmente come totale definitivo.
+   Viene letto da Supabase tramite ecogame.js.
 */
 
 let greenPoints = 0;
@@ -1427,14 +1543,10 @@ let giaRisposto = false;
 
 
 /* =========================================================
-   CARICA GREEN POINTS DALL'ACCOUNT
+   SINCRONIZZA GREEN POINTS
 ========================================================= */
 
 async function sincronizzaGreenPointsAccount() {
-
-    /*
-       Controlliamo che ecogame.js sia stato caricato.
-    */
 
     if (
         typeof getGreenPoints !== "function"
@@ -1444,7 +1556,7 @@ async function sincronizzaGreenPointsAccount() {
             "EcoGame Acqua - getGreenPoints() non disponibile. Controlla ecogame.js."
         );
 
-        return;
+        return null;
 
     }
 
@@ -1464,14 +1576,10 @@ async function sincronizzaGreenPointsAccount() {
                 "EcoGame Acqua - Impossibile recuperare i Green Points dell'account."
             );
 
-            return;
+            return null;
 
         }
 
-
-        /*
-           Questo è il totale REALE dell'account.
-        */
 
         greenPoints =
             Number(
@@ -1479,16 +1587,35 @@ async function sincronizzaGreenPointsAccount() {
             ) || 0;
 
 
-        document.getElementById(
-            "greenPoints"
-        ).innerText =
-            greenPoints;
+        const elemento =
+            document.getElementById(
+                "greenPoints"
+            );
 
 
-        document.getElementById(
-            "greenPointsFinali"
-        ).innerText =
-            greenPoints;
+        if (elemento) {
+
+            elemento.innerText =
+                greenPoints;
+
+        }
+
+
+        const finale =
+            document.getElementById(
+                "greenPointsFinali"
+            );
+
+
+        if (finale) {
+
+            finale.innerText =
+                greenPoints;
+
+        }
+
+
+        return risultato;
 
 
     } catch (errore) {
@@ -1498,45 +1625,42 @@ async function sincronizzaGreenPointsAccount() {
             errore
         );
 
+        return null;
+
     }
 
 }
 
 
 /* =========================================================
-   AGGIUNGI GREEN POINTS ALL'ACCOUNT
+   ACCREDITA GP DEL CASO CORRENTE
 ========================================================= */
 
 /*
-   Questa è la parte importante.
+   CORREZIONE IMPORTANTE
+   ---------------------
 
-   Quando il giocatore risponde correttamente,
-   NON facciamo più solamente:
+   Prima veniva utilizzato:
 
-       greenPoints += 10;
+       "dove-finisce-acqua"
 
-   ma chiamiamo ecogame.js:
+   per tutti gli 8 casi.
 
-       accreditaGreenPointsUnaVolta(
-           "dove-finisce-acqua",
-           10
-       );
+   Questo significava che dopo il primo +10,
+   gli altri casi venivano considerati già accreditati.
 
-   ecogame.js:
-   - controlla l'utente
-   - legge i GP attuali
-   - aggiunge 10
-   - aggiorna profiles
-   - aggiorna il livello
-   - impedisce il doppio accredito nella stessa sessione
+   Ora utilizziamo:
+
+       "dove-finisce-acqua-caso-1"
+       "dove-finisce-acqua-caso-2"
+       ...
+       "dove-finisce-acqua-caso-8"
+
+   In questo modo ogni caso può assegnare
+   i suoi +10 GP una sola volta per sessione.
 */
 
 async function accreditaGPAcqua() {
-
-    /*
-       Controlliamo che la funzione di ecogame.js
-       sia disponibile.
-    */
 
     if (
         typeof accreditaGreenPointsUnaVolta !== "function"
@@ -1560,19 +1684,26 @@ async function accreditaGPAcqua() {
     }
 
 
+    /*
+       ID UNIVOCO DEL CASO.
+    */
+
+    const gameId =
+        "dove-finisce-acqua-caso-" +
+        (caso + 1);
+
+
     try {
 
         const risultato =
             await accreditaGreenPointsUnaVolta(
-                "dove-finisce-acqua",
+                gameId,
                 10
             );
 
 
         /*
-           Se Supabase ha salvato correttamente
-           i punti, utilizziamo il totale restituito
-           dall'account.
+           Accredito riuscito.
         */
 
         if (
@@ -1586,20 +1717,38 @@ async function accreditaGPAcqua() {
                 ) || 0;
 
 
-            document.getElementById(
-                "greenPoints"
-            ).innerText =
-                greenPoints;
+            const elemento =
+                document.getElementById(
+                    "greenPoints"
+                );
 
 
-            document.getElementById(
-                "greenPointsFinali"
-            ).innerText =
-                greenPoints;
+            if (elemento) {
+
+                elemento.innerText =
+                    greenPoints;
+
+            }
+
+
+            const finale =
+                document.getElementById(
+                    "greenPointsFinali"
+                );
+
+
+            if (finale) {
+
+                finale.innerText =
+                    greenPoints;
+
+            }
 
 
             console.log(
-                "💧 EcoGame Acqua - +10 GP accreditati."
+                "💧 EcoGame Acqua - Caso " +
+                (caso + 1) +
+                " → +10 GP"
             );
 
 
@@ -1615,9 +1764,8 @@ async function accreditaGPAcqua() {
 
 
         /*
-           Se i punti erano già stati accreditati,
-           recuperiamo comunque il totale reale
-           dell'account.
+           Se il caso aveva già ricevuto i GP,
+           aggiorniamo comunque il totale reale.
         */
 
         if (
@@ -1630,16 +1778,6 @@ async function accreditaGPAcqua() {
             return risultato;
 
         }
-
-
-        /*
-           Qualsiasi altro errore.
-        */
-
-        console.warn(
-            "EcoGame Acqua - GP non accreditati:",
-            risultato
-        );
 
 
         return risultato;
@@ -1675,22 +1813,55 @@ async function accreditaGPAcqua() {
 function cambiaLingua() {
 
     const selettore =
-        document.getElementById("lingua");
+        document.getElementById(
+            "lingua"
+        );
 
-    lingua =
+
+    let nuovaLingua =
         selettore.value;
 
-    if (!traduzioni[lingua]) {
-        lingua = "it";
+
+    if (!traduzioni[nuovaLingua]) {
+
+        nuovaLingua = "it";
+
     }
 
+
+    lingua =
+        nuovaLingua;
+
+
+    /*
+       Usiamo la stessa chiave di ecogame.js.
+    */
+
     localStorage.setItem(
-        "linguaEcoGame",
+        "ecoGameLingua",
         lingua
     );
 
+
+    /*
+       Se ecogame.js è disponibile,
+       utilizziamo anche la sua funzione.
+    */
+
+    if (
+        typeof cambiaLinguaComune === "function"
+    ) {
+
+        cambiaLinguaComune(
+            lingua
+        );
+
+    }
+
+
     document.documentElement.lang =
         lingua;
+
 
     applicaTraduzione();
 
@@ -1708,49 +1879,94 @@ function applicaTraduzione() {
     const t =
         traduzioni[lingua];
 
-    document.getElementById("lingua").value =
+
+    document.getElementById(
+        "lingua"
+    ).value =
         lingua;
 
-    document.getElementById("testoCaso").innerText =
+
+    document.getElementById(
+        "testoCaso"
+    ).innerText =
         t.caso;
 
-    document.getElementById("titoloGioco").innerText =
+
+    document.getElementById(
+        "titoloGioco"
+    ).innerText =
         t.titolo;
 
-    document.getElementById("introGioco").innerHTML =
+
+    document.getElementById(
+        "introGioco"
+    ).innerHTML =
         t.intro;
 
-    document.getElementById("statRisolte").innerText =
+
+    document.getElementById(
+        "statRisolte"
+    ).innerText =
         t.risolte;
 
-    document.getElementById("statPunteggio").innerText =
+
+    document.getElementById(
+        "statPunteggio"
+    ).innerText =
         t.punteggio;
 
-    document.getElementById("statGreen").innerText =
+
+    document.getElementById(
+        "statGreen"
+    ).innerText =
         t.greenPoints;
 
-    document.getElementById("statCaso").innerText =
+
+    document.getElementById(
+        "statCaso"
+    ).innerText =
         t.casoAttuale;
 
-    document.getElementById("titoloDati").innerText =
+
+    document.getElementById(
+        "titoloDati"
+    ).innerText =
         t.dati;
 
-    document.getElementById("domanda").innerText =
+
+    document.getElementById(
+        "domanda"
+    ).innerText =
         t.domanda;
 
-    document.getElementById("next").innerText =
+
+    document.getElementById(
+        "next"
+    ).innerText =
         t.prossima;
 
-    document.getElementById("titoloFinale").innerText =
+
+    document.getElementById(
+        "titoloFinale"
+    ).innerText =
         t.finale;
 
-    document.getElementById("bottoneRicomincia").innerText =
+
+    document.getElementById(
+        "bottoneRicomincia"
+    ).innerText =
         t.ricomincia;
 
-    document.getElementById("bottoneGiochi").innerText =
+
+    document.getElementById(
+        "bottoneGiochi"
+    ).innerText =
         t.tornaGiochi;
 
-    document.getElementById("testoGreenFinale").innerText =
+
+    document.getElementById(
+        "testoGreenFinale"
+    ).innerText =
         t.greenPointsPlural;
 
 }
@@ -1764,92 +1980,170 @@ function caricaCaso() {
 
     giaRisposto = false;
 
+
     const listaCasi =
         casi[lingua];
+
 
     const dati =
         listaCasi[caso];
 
+
     if (!dati) {
+
         return;
+
     }
 
-    document.getElementById("casoNumero").innerText =
+
+    document.getElementById(
+        "casoNumero"
+    ).innerText =
         caso + 1;
 
-    document.getElementById("casoStat").innerText =
+
+    document.getElementById(
+        "casoStat"
+    ).innerText =
         caso + 1;
 
-    document.getElementById("titoloCaso").innerText =
+
+    document.getElementById(
+        "titoloCaso"
+    ).innerText =
         dati.titolo;
 
-    document.getElementById("descrizioneCaso").innerText =
+
+    document.getElementById(
+        "descrizioneCaso"
+    ).innerText =
         dati.descrizione;
 
 
     const contenitoreDati =
-        document.getElementById("dati");
+        document.getElementById(
+            "dati"
+        );
 
-    contenitoreDati.innerHTML = "";
+
+    contenitoreDati.innerHTML =
+        "";
 
 
-    dati.dati.forEach(function(elemento) {
+    dati.dati.forEach(
+        function(elemento) {
 
-        const div =
-            document.createElement("div");
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        div.className =
-            "data";
 
-        div.innerText =
-            elemento;
+            div.className =
+                "data";
 
-        contenitoreDati.appendChild(div);
 
-    });
+            div.innerText =
+                elemento;
+
+
+            contenitoreDati.appendChild(
+                div
+            );
+
+        }
+    );
 
 
     const contenitoreOpzioni =
-        document.getElementById("opzioni");
-
-    contenitoreOpzioni.innerHTML = "";
-
-
-    dati.opzioni.forEach(function(elemento, indice) {
-
-        const button =
-            document.createElement("button");
-
-        button.className =
-            "option";
-
-        const lettera =
-            document.createElement("span");
-
-        lettera.innerText =
-            String.fromCharCode(65 + indice);
-
-        button.appendChild(lettera);
-
-        button.appendChild(
-            document.createTextNode(elemento)
+        document.getElementById(
+            "opzioni"
         );
 
-        button.onclick = function() {
 
-            rispondi(indice);
-
-        };
-
-        contenitoreOpzioni.appendChild(button);
-
-    });
+    contenitoreOpzioni.innerHTML =
+        "";
 
 
-    document.getElementById("feedback").style.display =
+    dati.opzioni.forEach(
+        function(
+            elemento,
+            indice
+        ) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "option";
+
+
+            button.type =
+                "button";
+
+
+            const lettera =
+                document.createElement(
+                    "span"
+                );
+
+
+            lettera.innerText =
+                String.fromCharCode(
+                    65 + indice
+                );
+
+
+            button.appendChild(
+                lettera
+            );
+
+
+            button.appendChild(
+                document.createTextNode(
+                    elemento
+                )
+            );
+
+
+            button.onclick =
+                function() {
+
+                    rispondi(
+                        indice
+                    );
+
+                };
+
+
+            contenitoreOpzioni.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+
+    feedback.style.display =
         "none";
 
-    document.getElementById("next").style.display =
+
+    feedback.innerHTML =
+        "";
+
+
+    document.getElementById(
+        "next"
+    ).style.display =
         "none";
 
 }
@@ -1862,41 +2156,55 @@ function caricaCaso() {
 async function rispondi(scelta) {
 
     if (giaRisposto) {
+
         return;
+
     }
 
+
     giaRisposto = true;
+
 
     const dati =
         casi[lingua][caso];
 
+
     const t =
         traduzioni[lingua];
 
+
     const feedback =
-        document.getElementById("feedback");
+        document.getElementById(
+            "feedback"
+        );
+
 
     const buttons =
-        document.querySelectorAll(".option");
+        document.querySelectorAll(
+            ".option"
+        );
 
 
-    buttons.forEach(function(button) {
+    buttons.forEach(
+        function(button) {
 
-        button.style.cursor =
-            "default";
+            button.style.cursor =
+                "default";
 
-        button.disabled =
-            true;
+            button.disabled =
+                true;
 
-    });
+        }
+    );
 
 
-    if (scelta === dati.corretta) {
+    /* =====================================================
+       RISPOSTA CORRETTA
+    ===================================================== */
 
-        /*
-           Punteggio normale:
-           +100
-        */
+    if (
+        scelta === dati.corretta
+    ) {
 
         punteggio += 100;
 
@@ -1904,27 +2212,20 @@ async function rispondi(scelta) {
 
 
         /*
-           Accreditiamo i Green Points
-           direttamente all'account.
-
-           IMPORTANTE:
-           aspettiamo il risultato con await.
+           Aspettiamo che Supabase
+           confermi l'accredito.
         */
 
         const risultatoGP =
             await accreditaGPAcqua();
 
 
-        /*
-           Se l'accredito è andato a buon fine,
-           mostriamo il totale reale dell'account.
-
-           Se invece non è stato possibile,
-           NON inventiamo un totale.
-        */
-
         let testoGP;
 
+
+        /*
+           GP appena accreditati.
+        */
 
         if (
             risultatoGP &&
@@ -1936,30 +2237,55 @@ async function rispondi(scelta) {
                 t.punti +
                 "</strong>" +
                 "<br>" +
-                "<span class='green-badge'>🌱 " +
+                "<span class='green-badge'>" +
+                "🌱 " +
                 greenPoints +
                 " " +
                 t.greenPointsPlural +
-                "</span>";
+                "</span>" +
+                "<br>" +
+                "<small>" +
+                t.gpSalvati +
+                "</small>";
 
-        } else if (
+        }
+
+
+        /*
+           GP già assegnati.
+        */
+
+        else if (
             risultatoGP &&
             risultatoGP.alreadyAdded === true
         ) {
 
             testoGP =
-                "<strong>Green Points già assegnati per questa partita.</strong>" +
+                "<strong>" +
+                t.gpGiaAssegnati +
+                "</strong>" +
                 "<br>" +
-                "<span class='green-badge'>🌱 " +
+                "<span class='green-badge'>" +
+                "🌱 " +
                 greenPoints +
                 " " +
                 t.greenPointsPlural +
                 "</span>";
 
-        } else {
+        }
+
+
+        /*
+           Errore.
+        */
+
+        else {
 
             testoGP =
-                "<span class='green-badge'>🌱 Green Points non salvati nell'account.</span>";
+                "<span class='green-badge'>" +
+                "🌱 " +
+                t.gpNonSalvati +
+                "</span>";
 
         }
 
@@ -1967,10 +2293,12 @@ async function rispondi(scelta) {
         feedback.className =
             "correct";
 
+
         feedback.innerHTML =
             "✅ <strong>" +
             t.corretta +
-            "</strong><br><br>" +
+            "</strong>" +
+            "<br><br>" +
             dati.spiegazione +
             "<br><br>" +
             "<strong>+100 " +
@@ -1979,45 +2307,62 @@ async function rispondi(scelta) {
             "<br>" +
             testoGP;
 
+    }
 
-    } else {
+
+    /* =====================================================
+       RISPOSTA ERRATA
+    ===================================================== */
+
+    else {
 
         feedback.className =
             "wrong";
 
+
         feedback.innerHTML =
             "❌ <strong>" +
             t.errata +
-            "</strong><br><br>" +
+            "</strong>" +
+            "<br><br>" +
             dati.spiegazione +
             "<br><br>" +
             "<strong>" +
             t.rispostaCorretta +
             " " +
-            String.fromCharCode(65 + dati.corretta) +
+            String.fromCharCode(
+                65 + dati.corretta
+            ) +
             "</strong>.";
 
     }
 
 
-    document.getElementById("punteggio").innerText =
+    document.getElementById(
+        "punteggio"
+    ).innerText =
         punteggio;
 
-    document.getElementById("risolte").innerText =
+
+    document.getElementById(
+        "risolte"
+    ).innerText =
         risolte;
 
-    /*
-       Il valore di greenPoints qui è quello
-       sincronizzato con l'account.
-    */
 
-    document.getElementById("greenPoints").innerText =
+    document.getElementById(
+        "greenPoints"
+    ).innerText =
         greenPoints;
+
 
     feedback.style.display =
         "block";
 
-    document.getElementById("next").style.display =
+
+    document.getElementById(
+        "next"
+    ).style.display =
         "block";
 
 }
@@ -2031,13 +2376,17 @@ function prossimoCaso() {
 
     caso++;
 
-    if (caso >= casi[lingua].length) {
+
+    if (
+        caso >= casi[lingua].length
+    ) {
 
         fine();
 
         return;
 
     }
+
 
     caricaCaso();
 
@@ -2051,49 +2400,72 @@ function prossimoCaso() {
 async function fine() {
 
     /*
-       Prima di mostrare il risultato finale
-       sincronizziamo ancora una volta i GP
-       con l'account.
+       Recuperiamo il totale reale
+       prima di mostrare il risultato.
     */
 
     await sincronizzaGreenPointsAccount();
 
 
-    document.getElementById("gioco").style.display =
+    document.getElementById(
+        "gioco"
+    ).style.display =
         "none";
 
-    document.getElementById("finale").style.display =
+
+    document.getElementById(
+        "finale"
+    ).style.display =
         "block";
 
-    document.getElementById("punteggioFinale").innerText =
+
+    document.getElementById(
+        "punteggioFinale"
+    ).innerText =
         punteggio;
 
-    document.getElementById("greenPointsFinali").innerText =
+
+    document.getElementById(
+        "greenPointsFinali"
+    ).innerText =
         greenPoints;
 
 
     const t =
         traduzioni[lingua];
 
+
     let messaggio;
 
 
-    if (punteggio === 800) {
+    if (
+        punteggio === 800
+    ) {
 
         messaggio =
             t.messaggiFinali.perfetto;
 
-    } else if (punteggio >= 600) {
+    }
+
+    else if (
+        punteggio >= 600
+    ) {
 
         messaggio =
             t.messaggiFinali.ottimo;
 
-    } else if (punteggio >= 400) {
+    }
+
+    else if (
+        punteggio >= 400
+    ) {
 
         messaggio =
             t.messaggiFinali.buono;
 
-    } else {
+    }
+
+    else {
 
         messaggio =
             t.messaggiFinali.difficile;
@@ -2101,7 +2473,9 @@ async function fine() {
     }
 
 
-    document.getElementById("messaggioFinale").innerText =
+    document.getElementById(
+        "messaggioFinale"
+    ).innerText =
         messaggio;
 
 }
@@ -2119,39 +2493,49 @@ async function ricomincia() {
 
     risolte = 0;
 
-    /*
-       NON azzeriamo il totale dell'account.
-
-       greenPoints viene ricaricato da Supabase.
-    */
-
-    greenPoints = 0;
-
     giaRisposto = false;
 
 
-    document.getElementById("gioco").style.display =
+    /*
+       NON azzeriamo i Green Points dell'account.
+
+       Il totale viene nuovamente letto
+       da Supabase.
+    */
+
+
+    document.getElementById(
+        "gioco"
+    ).style.display =
         "block";
 
-    document.getElementById("finale").style.display =
+
+    document.getElementById(
+        "finale"
+    ).style.display =
         "none";
 
-    document.getElementById("punteggio").innerText =
+
+    document.getElementById(
+        "punteggio"
+    ).innerText =
         "0";
 
-    document.getElementById("risolte").innerText =
+
+    document.getElementById(
+        "risolte"
+    ).innerText =
         "0";
 
-
-    /*
-       Ricarichiamo i GP reali dell'account.
-    */
 
     await sincronizzaGreenPointsAccount();
 
 
-    document.getElementById("greenPointsFinali").innerText =
+    document.getElementById(
+        "greenPointsFinali"
+    ).innerText =
         greenPoints;
+
 
     caricaCaso();
 
@@ -2171,31 +2555,70 @@ function tornaGiochi() {
 
 
 /* =========================================================
-   AVVIO
+   AVVIO GIOCO
 ========================================================= */
 
 async function avviaGioco() {
 
-    document.getElementById("lingua").value =
-        lingua;
+    /*
+       Prima recuperiamo la lingua condivisa
+       da ecogame.js, se disponibile.
+    */
+
+    if (
+        typeof getLingua === "function"
+    ) {
+
+        const linguaComune =
+            getLingua();
+
+
+        if (
+            traduzioni[linguaComune]
+        ) {
+
+            lingua =
+                linguaComune;
+
+        }
+
+    }
+
+
+    /*
+       Impostiamo lingua HTML.
+    */
 
     document.documentElement.lang =
         lingua;
 
+
+    /*
+       Impostiamo il selettore.
+    */
+
+    document.getElementById(
+        "lingua"
+    ).value =
+        lingua;
+
+
+    /*
+       Applichiamo traduzioni.
+    */
+
     applicaTraduzione();
+
+
+    /*
+       Carichiamo il primo caso.
+    */
 
     caricaCaso();
 
 
     /*
-       Recuperiamo subito i Green Points
-       già presenti nell'account.
-
-       Esempio:
-       account = 350 GP
-
-       entrando nel gioco vedremo subito:
-       🌱 350
+       Recuperiamo i GP REALI dell'account.
     */
 
     await sincronizzaGreenPointsAccount();
@@ -2203,9 +2626,72 @@ async function avviaGioco() {
 }
 
 
-/*
-   Aspettiamo che il DOM sia pronto.
-*/
+/* =========================================================
+   EVENTO CAMBIO LINGUA DA ECOGAME.JS
+========================================================= */
+
+window.addEventListener(
+    "ecoGameLinguaCambiata",
+    function(event) {
+
+        const nuovaLingua =
+            event &&
+            event.detail &&
+            event.detail.lingua;
+
+
+        if (
+            nuovaLingua &&
+            traduzioni[nuovaLingua] &&
+            nuovaLingua !== lingua
+        ) {
+
+            lingua =
+                nuovaLingua;
+
+
+            document.documentElement.lang =
+                lingua;
+
+
+            document.getElementById(
+                "lingua"
+            ).value =
+                lingua;
+
+
+            applicaTraduzione();
+
+            caricaCaso();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EVENTO AUTENTICAZIONE
+========================================================= */
+
+window.addEventListener(
+    "ecoGameAuthChanged",
+    async function() {
+
+        /*
+           Se l'utente fa login/logout,
+           aggiorniamo il valore mostrato.
+        */
+
+        await sincronizzaGreenPointsAccount();
+
+    }
+);
+
+
+/* =========================================================
+   AVVIO QUANDO IL DOM È PRONTO
+========================================================= */
 
 if (
     document.readyState === "loading"
@@ -2216,7 +2702,9 @@ if (
         avviaGioco
     );
 
-} else {
+}
+
+else {
 
     avviaGioco();
 
@@ -2225,4 +2713,5 @@ if (
 </script>
 
 </body>
+
 </html>
