@@ -7,21 +7,7 @@
 
     <title>🐾 Species Rescue - EcoGame</title>
 
-    <!-- =====================================================
-         SUPABASE
-         Deve essere caricato PRIMA di ecogame.js
-    ====================================================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- =====================================================
-         SISTEMA COMUNE ECOGAME
-    ====================================================== -->
-
-    <script src="ecogame.js"></script>
-
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -37,12 +23,9 @@
             background: #17271d;
             border-bottom: 1px solid #3d5544;
             padding: 18px 30px;
-
             display: flex;
             justify-content: space-between;
             align-items: center;
-
-            gap: 15px;
         }
 
         .logo {
@@ -51,38 +34,17 @@
             font-weight: bold;
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .menu,
-        .language-button {
+        .menu {
             color: #c0cec3;
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 8px;
             transition: .2s;
-            border: 1px solid transparent;
-            background: transparent;
-            font-size: 14px;
         }
 
-        .menu:hover,
-        .language-button:hover {
+        .menu:hover {
             background: #26382c;
             color: #a5d6a7;
-        }
-
-        .language-button {
-            border: 1px solid #405746;
-        }
-
-        .language-button.active {
-            background: #294333;
-            color: #a5d6a7;
-            border-color: #66bb6a;
         }
 
         .container {
@@ -267,20 +229,6 @@
             margin: 15px;
         }
 
-        .green-points-result {
-            margin: 20px auto;
-            padding: 15px 20px;
-            max-width: 420px;
-            background: #203328;
-            border: 1px solid #405746;
-            border-radius: 12px;
-            color: #c8e6c9;
-        }
-
-        .green-points-result strong {
-            color: #ffd54f;
-        }
-
         .restart,
         .back {
             padding: 13px 22px;
@@ -296,28 +244,13 @@
             color: white;
         }
 
-        .restart:hover {
-            background: #4caf50;
-        }
-
         .back {
             background: #455a64;
             color: white;
         }
 
-        .back:hover {
-            background: #546e7a;
-        }
-
         .hidden {
             display: none;
-        }
-
-        .language-note {
-            text-align: center;
-            color: #819488;
-            font-size: 13px;
-            margin-top: 15px;
         }
 
         @media(max-width: 650px) {
@@ -328,16 +261,6 @@
 
             .logo {
                 font-size: 20px;
-            }
-
-            .header-right {
-                gap: 4px;
-            }
-
-            .menu,
-            .language-button {
-                padding: 7px 8px;
-                font-size: 12px;
             }
 
             .container {
@@ -368,16 +291,9 @@
             .result {
                 padding: 30px 20px;
             }
-
-            .final-score {
-                font-size: 42px;
-            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
@@ -387,40 +303,14 @@
         🌍 EcoGame
     </div>
 
-    <div class="header-right">
-
-        <button
-            class="language-button"
-            id="langIt"
-            onclick="changeLanguage('it')">
-            🇮🇹 IT
-        </button>
-
-        <button
-            class="language-button"
-            id="langEn"
-            onclick="changeLanguage('en')">
-            🇬🇧 EN
-        </button>
-
-        <button
-            class="language-button"
-            id="langFi"
-            onclick="changeLanguage('fi')">
-            🇫🇮 FI
-        </button>
-
-        <div
-            class="menu"
-            id="gamesMenu"
-            onclick="goToGames()">
-            🎮 Giochi
-        </div>
-
+    <div
+        class="menu"
+        id="gamesMenu"
+        onclick="goToGames()">
+        🎮 Giochi
     </div>
 
 </header>
-
 
 <div class="container">
 
@@ -466,10 +356,6 @@
 
     </div>
 
-
-    <!-- =====================================================
-         GIOCO
-    ====================================================== -->
 
     <div
         class="card"
@@ -520,10 +406,6 @@
     </div>
 
 
-    <!-- =====================================================
-         RISULTATO
-    ====================================================== -->
-
     <div
         class="card hidden"
         id="resultCard">
@@ -547,11 +429,6 @@
                 id="finalScore">
             </div>
 
-            <div
-                class="green-points-result"
-                id="greenPointsResult">
-            </div>
-
             <p id="message"></p>
 
             <button
@@ -572,91 +449,40 @@
 
     </div>
 
-
-    <div
-        class="language-note"
-        id="languageNote">
-    </div>
-
 </div>
 
 
 <script>
 
-/* =========================================================
-   CONFIGURAZIONE GIOCO
-========================================================= */
-
 /*
-    ID UNICO DEL GIOCO.
+========================================================
+LINGUA
+========================================================
 
-    Questo valore viene usato da:
+giochi.html deve salvare:
 
-        accreditaGreenPointsUnaVolta()
+localStorage.setItem("ecoGameLanguage", "it");
+localStorage.setItem("ecoGameLanguage", "en");
+localStorage.setItem("ecoGameLanguage", "fi");
 
-    per impedire che i Green Points vengano
-    riaccreditati semplicemente riavviando il gioco
-    durante la stessa sessione.
+Se non trova una lingua, usa italiano.
 */
 
-const GAME_ID = "species-rescue";
-
-
-/*
-    Punti massimi ottenibili nel gioco.
-
-    10 missioni x 10 punti = 100.
-*/
-
-const MAX_SCORE = 100;
-
-
-/* =========================================================
-   LINGUA
-========================================================= */
-
-/*
-    La lingua viene letta dal sistema comune EcoGame.
-
-    ecogame.js usa:
-
-        ecoGameLingua
-
-    e fornisce:
-
-        getLingua()
-        salvaLingua()
-        cambiaLinguaComune()
-*/
-
-let language =
-    typeof getLingua === "function"
-        ? getLingua()
-        : (
-            localStorage.getItem("ecoGameLingua") || "it"
-        );
+const language =
+    localStorage.getItem("ecoGameLingua") || "it";
 
 
 /*
-    Se per qualche motivo arriva una lingua non supportata,
-    usiamo italiano.
+========================================================
+TRADUZIONI GENERALI
+========================================================
 */
-
-if (!["it", "en", "fi"].includes(language)) {
-    language = "it";
-}
-
-
-/* =========================================================
-   TRADUZIONI INTERFACCIA
-========================================================= */
 
 const translations = {
 
     it: {
 
-        title:
-            "🐾 Species Rescue",
+        title: "🐾 Species Rescue",
 
         subtitle:
             "Proteggi le specie a rischio e scopri cosa ha portato altre specie all'estinzione.",
@@ -710,27 +536,13 @@ const translations = {
             "🔎 C'è ancora molto da scoprire. Riprova e presta attenzione alle spiegazioni.",
 
         imageAlt:
-            "Immagine di",
-
-        greenPointsEarned:
-            "🌱 Green Points ottenuti in questo gioco:",
-
-        greenPointsAlready:
-            "🌱 I Green Points di questo gioco sono già stati accreditati.",
-
-        greenPointsError:
-            "🌱 Non è stato possibile accreditare i Green Points.",
-
-        languageNote:
-            "La lingua scelta viene salvata automaticamente per gli altri giochi EcoGame."
-
+            "Immagine di"
     },
 
 
     en: {
 
-        title:
-            "🐾 Species Rescue",
+        title: "🐾 Species Rescue",
 
         subtitle:
             "Protect endangered species and discover what caused other species to become extinct.",
@@ -784,27 +596,13 @@ const translations = {
             "🔎 There is still much to discover. Try again and pay attention to the explanations.",
 
         imageAlt:
-            "Image of",
-
-        greenPointsEarned:
-            "🌱 Green Points earned in this game:",
-
-        greenPointsAlready:
-            "🌱 The Green Points for this game have already been credited.",
-
-        greenPointsError:
-            "🌱 The Green Points could not be credited.",
-
-        languageNote:
-            "Your language choice is saved automatically for the other EcoGame games."
-
+            "Image of"
     },
 
 
     fi: {
 
-        title:
-            "🐾 Species Rescue",
+        title: "🐾 Species Rescue",
 
         subtitle:
             "Suojele uhanalaisia lajeja ja opi, miksi jotkin lajit ovat kuolleet sukupuuttoon.",
@@ -858,47 +656,34 @@ const translations = {
             "🔎 Opittavaa on vielä paljon. Yritä uudelleen ja kiinnitä huomiota selityksiin.",
 
         imageAlt:
-            "Kuva lajista",
-
-        greenPointsEarned:
-            "🌱 Tässä pelissä ansaitut Green Points -pisteet:",
-
-        greenPointsAlready:
-            "🌱 Tämän pelin Green Points -pisteet on jo hyvitetty.",
-
-        greenPointsError:
-            "🌱 Green Points -pisteiden hyvittäminen epäonnistui.",
-
-        languageNote:
-            "Kielivalintasi tallennetaan automaattisesti myös muihin EcoGame-peleihin."
-
+            "Kuva lajista"
     }
 
 };
 
 
-/* =========================================================
-   TRADUZIONE ATTUALE
-========================================================= */
+/*
+Se per errore arriva una lingua non supportata,
+torniamo all'italiano.
+*/
 
-function getTranslations() {
-
-    return (
-        translations[language] ||
-        translations.it
-    );
-
-}
+const t =
+    translations[language] || translations.it;
 
 
-/* =========================================================
-   MISSIONI
-========================================================= */
+/*
+========================================================
+MISSIONI
+========================================================
+
+Le immagini sono online.
+
+*/
 
 const missions = [
 
     {
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_elephant.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Elephant.jpg",
 
         status: {
             it: "🟠 SPECIE A RISCHIO",
@@ -976,7 +761,7 @@ const missions = [
 
 
     {
-        image: "images/rinoceronte.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Black_Rhinoceros_(15732291925).jpg",
 
         status: {
             it: "🔴 IN PERICOLO CRITICO",
@@ -1054,7 +839,7 @@ const missions = [
 
 
     {
-        image: "images/tigre.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Panthera_tigris_sondaica_01.jpg",
 
         status: {
             it: "🟠 SPECIE MINACCIATA",
@@ -1132,7 +917,7 @@ const missions = [
 
 
     {
-        image: "images/dodo.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Edwards%27_Dodo.jpg",
 
         status: {
             it: "🔴 SPECIE ESTINTA",
@@ -1210,7 +995,7 @@ const missions = [
 
 
     {
-        image: "images/gorilla.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gorilla_Gorilla.jpg",
 
         status: {
             it: "🟢 SPECIE DA PROTEGGERE",
@@ -1288,7 +1073,7 @@ const missions = [
 
 
     {
-        image: "images/orso-polare.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/PolarBear.jpg",
 
         status: {
             it: "🟠 VULNERABILE",
@@ -1366,7 +1151,7 @@ const missions = [
 
 
     {
-        image: "images/tilacino.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Thylacines.jpg",
 
         status: {
             it: "🔴 SPECIE ESTINTA",
@@ -1444,7 +1229,7 @@ const missions = [
 
 
     {
-        image: "images/panda.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Giant_Panda.jpg",
 
         status: {
             it: "🟠 SPECIE MINACCIATA",
@@ -1522,7 +1307,7 @@ const missions = [
 
 
     {
-        image: "images/leone.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_lions.jpg",
 
         status: {
             it: "🟢 SPECIE DA CONSERVARE",
@@ -1600,7 +1385,7 @@ const missions = [
 
 
     {
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_elephant.jpg",
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Elephant.jpg",
 
         status: {
             it: "🏆 MISSIONE FINALE",
@@ -1679,379 +1464,101 @@ const missions = [
 ];
 
 
-/* =========================================================
-   STATO DEL GIOCO
-========================================================= */
+/*
+========================================================
+STATO DEL GIOCO
+========================================================
+*/
 
 let current = 0;
-
 let score = 0;
-
 let saved = 0;
-
 let answered = false;
 
-let greenPointsResult = null;
 
-
-/* =========================================================
-   APPLICA TRADUZIONI
-========================================================= */
+/*
+========================================================
+TESTI INTERFACCIA
+========================================================
+*/
 
 function applyTranslations() {
 
-    const t = getTranslations();
-
-
-    /*
-        Aggiorna lingua HTML
-    */
-
-    document.documentElement.lang =
-        language;
-
-
-    /*
-        Titolo
-    */
+    document.documentElement.lang = language;
 
     document.getElementById("gameTitle").innerText =
         t.title;
 
-
     document.getElementById("gameSubtitle").innerText =
         t.subtitle;
-
-
-    /*
-        Statistiche
-    */
 
     document.getElementById("savedLabel").innerText =
         t.saved;
 
-
     document.getElementById("scoreLabel").innerText =
         t.points;
-
 
     document.getElementById("missionLabel").innerText =
         t.mission;
 
-
-    /*
-        Pulsanti
-    */
-
     document.getElementById("restartButton").innerText =
         t.retry;
-
 
     document.getElementById("backButton").innerText =
         t.back;
 
-
     document.getElementById("gamesMenu").innerText =
         t.back;
 
-
-    /*
-        Nota lingua
-    */
-
-    document.getElementById("languageNote").innerText =
-        t.languageNote;
-
-
-    /*
-        Aggiorna pulsante lingua attivo
-    */
-
-    document.querySelectorAll(".language-button")
-        .forEach(function(button) {
-
-            button.classList.remove("active");
-
-        });
-
-
-    if (language === "it") {
-
-        document
-            .getElementById("langIt")
-            .classList.add("active");
-
-    }
-
-    else if (language === "en") {
-
-        document
-            .getElementById("langEn")
-            .classList.add("active");
-
-    }
-
-    else if (language === "fi") {
-
-        document
-            .getElementById("langFi")
-            .classList.add("active");
-
-    }
-
-
-    /*
-        Se il risultato è già visibile,
-        aggiorniamo anche quello.
-    */
-
-    if (
-        !document
-            .getElementById("resultCard")
-            .classList.contains("hidden")
-    ) {
-
-        updateResultLanguage();
-
-    }
-
-
-    /*
-        Se siamo dentro una missione,
-        aggiorniamo immediatamente tutta la missione.
-    */
-
-    if (
-        current >= 0 &&
-        current < missions.length
-    ) {
-
-        updateCurrentMissionLanguage();
-
-    }
-
 }
 
 
-/* =========================================================
-   CAMBIO LINGUA
-========================================================= */
-
-function changeLanguage(newLanguage) {
-
-    if (
-        ![
-            "it",
-            "en",
-            "fi"
-        ].includes(newLanguage)
-    ) {
-
-        newLanguage = "it";
-
-    }
-
-
-    language =
-        newLanguage;
-
-
-    /*
-        Usa il sistema comune EcoGame.
-
-        Questo salva:
-
-            ecoGameLingua
-
-        e manda anche l'evento:
-
-            ecoGameLinguaCambiata
-    */
-
-    if (
-        typeof cambiaLinguaComune === "function"
-    ) {
-
-        cambiaLinguaComune(
-            newLanguage
-        );
-
-    }
-
-    else {
-
-        localStorage.setItem(
-            "ecoGameLingua",
-            newLanguage
-        );
-
-        document.documentElement.lang =
-            newLanguage;
-
-    }
-
-
-    /*
-        Aggiorna immediatamente
-        la schermata senza ricominciare il gioco.
-    */
-
-    applyTranslations();
-
-}
-
-
-/* =========================================================
-   AGGIORNAMENTO MISSIONE SENZA RESET
-========================================================= */
-
-function updateCurrentMissionLanguage() {
-
-    if (
-        current < 0 ||
-        current >= missions.length
-    ) {
-
-        return;
-
-    }
-
-
-    const mission =
-        missions[current];
-
-
-    const image =
-        document.getElementById("animalImage");
-
-
-    image.alt =
-        getTranslations().imageAlt +
-        " " +
-        mission.name[language];
-
-
-    document.getElementById("status").innerText =
-        mission.status[language];
-
-
-    document.getElementById("animalName").innerText =
-        mission.name[language];
-
-
-    document.getElementById("info").innerText =
-        mission.info[language];
-
-
-    document.getElementById("mission").innerText =
-        mission.mission[language];
-
-
-    /*
-        Aggiorna numero missione
-    */
-
-    document.getElementById("number").innerText =
-        (current + 1) +
-        "/" +
-        missions.length;
-
-
-    /*
-        Se la domanda non è ancora stata risposta,
-        ricrea le opzioni nella nuova lingua.
-    */
-
-    if (!answered) {
-
-        renderOptions();
-
-    }
-
-    else {
-
-        /*
-            Se è già stata data una risposta,
-            manteniamo il feedback ma lo traduciamo.
-        */
-
-        renderAnsweredMission();
-
-    }
-
-
-    /*
-        Pulsante successivo
-    */
-
-    document.getElementById("next").innerText =
-        current === missions.length - 1
-            ? getTranslations().final
-            : getTranslations().next;
-
-}
-
-
-/* =========================================================
-   CARICA MISSIONE
-========================================================= */
+/*
+========================================================
+CARICA MISSIONE
+========================================================
+*/
 
 function loadMission() {
 
     answered = false;
 
-
     const mission =
         missions[current];
 
-
     /*
-        Immagine
-
-        Manteniamo i percorsi originali,
-        compresi:
-
-            gorilla.jpg
-            orso-polare.jpg
-            tilacino.jpg
+    IMMAGINE CORRETTA
     */
 
     const image =
         document.getElementById("animalImage");
 
-
     image.src =
         mission.image;
 
-
     image.alt =
-        getTranslations().imageAlt +
-        " " +
-        mission.name[language];
+        t.imageAlt + " " + mission.name[language];
 
 
     /*
-        Testi
+    TESTI
     */
 
     document.getElementById("status").innerText =
         mission.status[language];
 
-
     document.getElementById("animalName").innerText =
         mission.name[language];
 
-
     document.getElementById("info").innerText =
         mission.info[language];
-
 
     document.getElementById("mission").innerText =
         mission.mission[language];
 
 
     /*
-        Numero missione
+    NUMERO MISSIONE
     */
 
     document.getElementById("number").innerText =
@@ -2061,228 +1568,159 @@ function loadMission() {
 
 
     /*
-        Progress bar
+    PROGRESS BAR
     */
 
     document.getElementById("progress").style.width =
         (
-            ((current + 1) / missions.length) *
-            100
+            ((current + 1) / missions.length) * 100
         ) +
         "%";
 
 
     /*
-        Nascondi feedback
+    NASCONDI FEEDBACK E NEXT
     */
 
     document.getElementById("feedback").style.display =
         "none";
-
-
-    /*
-        Nascondi next
-    */
 
     document.getElementById("next").style.display =
         "none";
 
 
     /*
-        Testo next
+    TESTO NEXT
     */
 
     document.getElementById("next").innerText =
         current === missions.length - 1
-            ? getTranslations().final
-            : getTranslations().next;
+            ? t.final
+            : t.next;
 
 
     /*
-        Crea risposte
-    */
-
-    renderOptions();
-
-}
-
-
-/* =========================================================
-   RENDER RISPOSTE
-========================================================= */
-
-function renderOptions() {
-
-    const mission =
-        missions[current];
-
-
-    const options =
-        document.getElementById("options");
-
-
-    options.innerHTML = "";
-
-
-    mission.options[language]
-        .forEach(
-            function(option, index) {
-
-                const button =
-                    document.createElement("button");
-
-
-                button.type =
-                    "button";
-
-
-                button.className =
-                    "option";
-
-
-                button.innerText =
-                    option;
-
-
-                button.onclick =
-                    function() {
-
-                        checkAnswer(
-                            button,
-                            index
-                        );
-
-                    };
-
-
-                options.appendChild(button);
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   RENDER MISSIONE GIÀ RISPOSTA
-========================================================= */
-
-function renderAnsweredMission() {
-
-    const mission =
-        missions[current];
-
-
-    const feedback =
-        document.getElementById("feedback");
-
-
-    /*
-        Ricrea le opzioni nella nuova lingua
+    CREA RISPOSTE
     */
 
     const options =
         document.getElementById("options");
 
-
     options.innerHTML = "";
 
 
-    mission.options[language]
-        .forEach(
-            function(option, index) {
+    mission.options[language].forEach(
+        function(option, index) {
 
-                const button =
-                    document.createElement("button");
+            const button =
+                document.createElement("button");
 
+            button.type =
+                "button";
 
-                button.type =
-                    "button";
+            button.className =
+                "option";
 
+            button.innerText =
+                option;
 
-                button.className =
-                    "option";
+            button.onclick =
+                function() {
 
-
-                button.innerText =
-                    option;
-
-
-                button.disabled =
-                    true;
-
-
-                /*
-                    Non conosciamo direttamente
-                    la risposta scelta dopo un cambio lingua,
-                    quindi usiamo lo stato salvato.
-                */
-
-                if (
-                    lastAnswerIndex === index
-                ) {
-
-                    if (
-                        lastAnswerCorrect
-                    ) {
-
-                        button.classList.add(
-                            "correct"
-                        );
-
-                    }
-
-                    else {
-
-                        button.classList.add(
-                            "wrong"
-                        );
-
-                    }
-
-                }
-
-
-                if (
-                    index === mission.correct
-                ) {
-
-                    button.classList.add(
-                        "correct"
+                    checkAnswer(
+                        button,
+                        index
                     );
 
-                }
+                };
+
+            options.appendChild(button);
+
+        }
+    );
+
+}
 
 
-                options.appendChild(button);
+/*
+========================================================
+CONTROLLO RISPOSTA
+========================================================
+*/
 
-            }
-        );
+function checkAnswer(selected, index) {
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
+    const mission =
+        missions[current];
+
+    const all =
+        document.querySelectorAll(".option");
 
 
     /*
-        Ricrea il feedback
+    DISABILITA TUTTE LE RISPOSTE
     */
 
-    if (lastAnswerCorrect) {
+    all.forEach(
+        function(button) {
+            button.disabled = true;
+        }
+    );
 
-        feedback.innerHTML =
-            getTranslations().success +
+
+    /*
+    RISPOSTA CORRETTA
+    */
+
+    if (index === mission.correct) {
+
+        selected.classList.add("correct");
+
+        score += mission.points;
+
+        saved++;
+
+
+        document.getElementById("feedback").innerHTML =
+            t.success +
             " <strong>+" +
             mission.points +
             " " +
-            getTranslations().points.toLowerCase() +
+            t.points.toLowerCase() +
             "</strong><br><br>" +
             mission.explanation[language];
 
     }
 
+
+    /*
+    RISPOSTA SBAGLIATA
+    */
+
     else {
 
-        feedback.innerHTML =
-            getTranslations().wrong +
+        selected.classList.add("wrong");
+
+        all[mission.correct].classList.add("correct");
+
+
+        /*
+        Una risposta sbagliata dà 2 punti.
+        */
+
+        score += 2;
+
+
+        document.getElementById("feedback").innerHTML =
+            t.wrong +
             "<br><br>" +
-            getTranslations().correctAnswer +
+            t.correctAnswer +
             " <strong>" +
             mission.options[language][mission.correct] +
             "</strong><br><br>" +
@@ -2291,19 +1729,28 @@ function renderAnsweredMission() {
     }
 
 
-    feedback.style.display =
+    /*
+    AGGIORNA STATISTICHE
+    */
+
+    document.getElementById("score").innerText =
+        score;
+
+    document.getElementById("saved").innerText =
+        saved;
+
+
+    /*
+    MOSTRA FEEDBACK
+    */
+
+    document.getElementById("feedback").style.display =
         "block";
 
 
     /*
-        Next
+    MOSTRA PROSSIMO
     */
-
-    document.getElementById("next").innerText =
-        current === missions.length - 1
-            ? getTranslations().final
-            : getTranslations().next;
-
 
     document.getElementById("next").style.display =
         "block";
@@ -2311,214 +1758,23 @@ function renderAnsweredMission() {
 }
 
 
-/* =========================================================
-   STATO DELL'ULTIMA RISPOSTA
-========================================================= */
-
-let lastAnswerIndex = -1;
-
-let lastAnswerCorrect = false;
-
-
-/* =========================================================
-   CONTROLLO RISPOSTA
-========================================================= */
-
-function checkAnswer(
-    selected,
-    index
-) {
-
-    if (answered) {
-
-        return;
-
-    }
-
-
-    answered = true;
-
-
-    lastAnswerIndex =
-        index;
-
-
-    const mission =
-        missions[current];
-
-
-    const all =
-        document.querySelectorAll(".option");
-
-
-    /*
-        DISABILITA TUTTE LE RISPOSTE
-    */
-
-    all.forEach(
-        function(button) {
-
-            button.disabled =
-                true;
-
-        }
-    );
-
-
-    /*
-        RISPOSTA CORRETTA
-    */
-
-    if (
-        index === mission.correct
-    ) {
-
-        lastAnswerCorrect =
-            true;
-
-
-        selected.classList.add(
-            "correct"
-        );
-
-
-        score +=
-            mission.points;
-
-
-        saved++;
-
-
-        document.getElementById("feedback")
-            .innerHTML =
-                getTranslations().success +
-                " <strong>+" +
-                mission.points +
-                " " +
-                getTranslations().points.toLowerCase() +
-                "</strong><br><br>" +
-                mission.explanation[language];
-
-    }
-
-
-    /*
-        RISPOSTA SBAGLIATA
-    */
-
-    else {
-
-        lastAnswerCorrect =
-            false;
-
-
-        selected.classList.add(
-            "wrong"
-        );
-
-
-        all[mission.correct]
-            .classList.add(
-                "correct"
-            );
-
-
-        /*
-            Una risposta sbagliata dà 2 punti,
-            come nel gioco originale.
-        */
-
-        score +=
-            2;
-
-
-        document.getElementById("feedback")
-            .innerHTML =
-                getTranslations().wrong +
-                "<br><br>" +
-                getTranslations().correctAnswer +
-                " <strong>" +
-                mission.options[language][mission.correct] +
-                "</strong><br><br>" +
-                mission.explanation[language];
-
-    }
-
-
-    /*
-        Aggiorna statistiche
-    */
-
-    document.getElementById("score")
-        .innerText =
-        score;
-
-
-    document.getElementById("saved")
-        .innerText =
-        saved;
-
-
-    /*
-        Mostra feedback
-    */
-
-    document.getElementById("feedback")
-        .style.display =
-        "block";
-
-
-    /*
-        Mostra prossimo
-    */
-
-    document.getElementById("next")
-        .style.display =
-        "block";
-
-
-    document.getElementById("next")
-        .innerText =
-        current === missions.length - 1
-            ? getTranslations().final
-            : getTranslations().next;
-
-}
-
-
-/* =========================================================
-   MISSIONE SUCCESSIVA
-========================================================= */
+/*
+========================================================
+MISSIONE SUCCESSIVA
+========================================================
+*/
 
 function nextMission() {
 
     current++;
 
-
-    if (
-        current < missions.length
-    ) {
-
-        /*
-            Reset stato risposta
-        */
-
-        lastAnswerIndex =
-            -1;
-
-        lastAnswerCorrect =
-            false;
-
+    if (current < missions.length) {
 
         loadMission();
 
-
         window.scrollTo({
-
             top: 0,
-
             behavior: "smooth"
-
         });
 
     }
@@ -2532,275 +1788,48 @@ function nextMission() {
 }
 
 
-/* =========================================================
-   GREEN POINTS
-========================================================= */
-
-async function accreditaGreenPointsFinali() {
-
-    /*
-        Il gioco vale massimo 100 punti.
-
-        Usiamo il punteggio ottenuto come
-        Green Points da accreditare.
-
-        Esempio:
-
-            100/100 -> +100 GP
-            80/100  -> +80 GP
-            52/100  -> +52 GP
-    */
-
-    const puntiDaAccreditare =
-        Math.max(
-            0,
-            Math.min(
-                MAX_SCORE,
-                Math.floor(score)
-            )
-        );
-
-
-    /*
-        Usiamo il sistema comune EcoGame.
-
-        addGamePoints()
-        -> assegnaGreenPointsGioco()
-        -> accreditaGreenPointsUnaVolta()
-    */
-
-    try {
-
-        if (
-            typeof ecoGame !== "undefined" &&
-            typeof ecoGame.addGamePoints === "function"
-        ) {
-
-            greenPointsResult =
-                await ecoGame.addGamePoints(
-                    GAME_ID,
-                    puntiDaAccreditare
-                );
-
-        }
-
-        else if (
-            typeof accreditaGreenPointsUnaVolta === "function"
-        ) {
-
-            greenPointsResult =
-                await accreditaGreenPointsUnaVolta(
-                    GAME_ID,
-                    puntiDaAccreditare
-                );
-
-        }
-
-        else {
-
-            greenPointsResult = {
-
-                success: false,
-
-                pointsAdded: 0,
-
-                error:
-                    "Sistema Green Points non disponibile."
-
-            };
-
-        }
-
-    }
-
-    catch (errore) {
-
-        console.error(
-            "EcoGame Species Rescue: errore Green Points:",
-            errore
-        );
-
-
-        greenPointsResult = {
-
-            success: false,
-
-            pointsAdded: 0,
-
-            error:
-                errore
-
-        };
-
-    }
-
-
-    renderGreenPointsResult();
-
-}
-
-
-/* =========================================================
-   MOSTRA GREEN POINTS
-========================================================= */
-
-function renderGreenPointsResult() {
-
-    const box =
-        document.getElementById(
-            "greenPointsResult"
-        );
-
-
-    const t =
-        getTranslations();
-
-
-    if (
-        !greenPointsResult
-    ) {
-
-        box.innerText =
-            t.greenPointsError;
-
-        return;
-
-    }
-
-
-    /*
-        Green Points accreditati
-    */
-
-    if (
-        greenPointsResult.success
-    ) {
-
-        box.innerHTML =
-            t.greenPointsEarned +
-            " <strong>+" +
-            greenPointsResult.pointsAdded +
-            " GP</strong>";
-
-        return;
-
-    }
-
-
-    /*
-        Punti già accreditati
-    */
-
-    if (
-        greenPointsResult.alreadyAdded
-    ) {
-
-        box.innerText =
-            t.greenPointsAlready;
-
-        return;
-
-    }
-
-
-    /*
-        Errore
-    */
-
-    box.innerText =
-        t.greenPointsError;
-
-}
-
-
-/* =========================================================
-   RISULTATO FINALE
-========================================================= */
-
-async function showResult() {
+/*
+========================================================
+RISULTATO FINALE
+========================================================
+*/
+
+function showResult() {
 
     document.getElementById("gameCard")
         .classList.add("hidden");
-
 
     document.getElementById("resultCard")
         .classList.remove("hidden");
 
 
     /*
-        Massimo 100.
+    Il massimo è 100.
     */
 
     document.getElementById("finalScore")
         .innerText =
-        score + " / " + MAX_SCORE;
-
-
-    updateResultLanguage();
-
-
-    /*
-        Accredita i Green Points.
-
-        IMPORTANTE:
-        la funzione comune impedisce il doppio accredito
-        durante la stessa sessione.
-    */
-
-    await accreditaGreenPointsFinali();
-
-}
-
-
-/* =========================================================
-   AGGIORNA RISULTATO NELLA LINGUA CORRENTE
-========================================================= */
-
-function updateResultLanguage() {
-
-    const t =
-        getTranslations();
-
-
-    document.getElementById("resultTitle")
-        .innerText =
-        t.completed;
-
-
-    document.getElementById("resultObtained")
-        .innerText =
-        t.obtained;
-
-
-    document.getElementById("finalScore")
-        .innerText =
-        score + " / " + MAX_SCORE;
+        score + " / 100";
 
 
     let message;
 
 
-    if (
-        score >= 90
-    ) {
+    if (score >= 90) {
 
         message =
             t.excellent;
 
     }
 
-    else if (
-        score >= 70
-    ) {
+    else if (score >= 70) {
 
         message =
             t.veryGood;
 
     }
 
-    else if (
-        score >= 50
-    ) {
+    else if (score >= 50) {
 
         message =
             t.good;
@@ -2815,96 +1844,57 @@ function updateResultLanguage() {
     }
 
 
+    document.getElementById("resultTitle")
+        .innerText =
+        t.completed;
+
+    document.getElementById("resultObtained")
+        .innerText =
+        t.obtained;
+
     document.getElementById("message")
         .innerText =
         message;
 
-
-    /*
-        Se i Green Points sono già stati elaborati,
-        aggiorna anche il loro testo nella nuova lingua.
-    */
-
-    if (
-        greenPointsResult
-    ) {
-
-        renderGreenPointsResult();
-
-    }
-
 }
 
 
-/* =========================================================
-   RIAVVIA GIOCO
-========================================================= */
+/*
+========================================================
+RIAVVIA
+========================================================
+*/
 
 function restartGame() {
 
-    current =
-        0;
+    current = 0;
 
+    score = 0;
 
-    score =
-        0;
+    saved = 0;
 
-
-    saved =
-        0;
-
-
-    answered =
-        false;
-
-
-    lastAnswerIndex =
-        -1;
-
-
-    lastAnswerCorrect =
-        false;
-
-
-    greenPointsResult =
-        null;
-
-
-    document.getElementById("score")
-        .innerText =
+    document.getElementById("score").innerText =
         "0";
 
-
-    document.getElementById("saved")
-        .innerText =
+    document.getElementById("saved").innerText =
         "0";
-
 
     document.getElementById("gameCard")
         .classList.remove("hidden");
 
-
     document.getElementById("resultCard")
         .classList.add("hidden");
 
-
     loadMission();
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
 
 }
 
 
-/* =========================================================
-   TORNA A GIOCHI
-========================================================= */
+/*
+========================================================
+TORNA A GIOCHI
+========================================================
+*/
 
 function goToGames() {
 
@@ -2914,137 +1904,15 @@ function goToGames() {
 }
 
 
-/* =========================================================
-   CAMBIO LINGUA DA UN ALTRO COMPONENTE ECOGAME
-========================================================= */
-
 /*
-    Se giochi.html o un altro gioco cambia la lingua
-    usando il sistema comune, questo gioco riceve l'evento.
-
-    In questo modo la lingua resta sincronizzata.
+========================================================
+AVVIO
+========================================================
 */
 
-window.addEventListener(
-    "ecoGameLinguaCambiata",
-    function(event) {
+applyTranslations();
 
-        const nuovaLingua =
-            event &&
-            event.detail &&
-            event.detail.lingua;
-
-
-        if (
-            ![
-                "it",
-                "en",
-                "fi"
-            ].includes(nuovaLingua)
-        ) {
-
-            return;
-
-        }
-
-
-        language =
-            nuovaLingua;
-
-
-        applyTranslations();
-
-    }
-);
-
-
-/* =========================================================
-   AVVIO
-========================================================= */
-
-function initSpeciesRescue() {
-
-    /*
-        Leggiamo nuovamente la lingua dal sistema comune.
-
-        Questo è utile se ecogame.js è stato inizializzato
-        prima dello script del gioco.
-    */
-
-    if (
-        typeof getLingua === "function"
-    ) {
-
-        const linguaSalvata =
-            getLingua();
-
-
-        if (
-            [
-                "it",
-                "en",
-                "fi"
-            ].includes(linguaSalvata)
-        ) {
-
-            language =
-                linguaSalvata;
-
-        }
-
-    }
-
-
-    /*
-        Applica lingua
-    */
-
-    applyTranslations();
-
-
-    /*
-        Carica prima missione
-    */
-
-    loadMission();
-
-
-    /*
-        Carica i Green Points dell'account,
-        se disponibili.
-    */
-
-    if (
-        typeof caricaGreenPointsAccount === "function"
-    ) {
-
-        caricaGreenPointsAccount();
-
-    }
-
-}
-
-
-/*
-    Avvio quando il DOM è pronto.
-*/
-
-if (
-    document.readyState === "loading"
-) {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        initSpeciesRescue
-    );
-
-}
-
-else {
-
-    initSpeciesRescue();
-
-}
+loadMission();
 
 </script>
 
