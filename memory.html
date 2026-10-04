@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -9,6 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>🐝 Memory della Biodiversità - EcoGame</title>
+
+<!-- =====================================================
+     ECOGAME - SISTEMA COMUNE
+     Deve essere caricato prima dello script del gioco.
+===================================================== -->
+
+<script src="ecogame.js"></script>
 
 <style>
 
@@ -1559,6 +1565,72 @@ function termina() {
     document.getElementById("finale").style.display =
         "block";
 
+
+    /* =================================================
+       GREEN POINTS
+       50 GP una sola volta per questo gioco.
+       
+       "memory-biodiversita" è l'identificativo univoco
+       del gioco. Anche riavviando la partita,
+       i GP non vengono accreditati nuovamente.
+    ================================================= */
+
+    if (
+        typeof accreditaGreenPointsUnaVolta ===
+        "function"
+    ) {
+
+        accreditaGreenPointsUnaVolta(
+            "memory-biodiversita",
+            50
+        )
+        .then(function(risultato) {
+
+            if (
+                risultato &&
+                risultato.success
+            ) {
+
+                console.log(
+                    "🌱 Memory Biodiversità: 50 Green Points accreditati."
+                );
+
+            } else if (
+                risultato &&
+                risultato.alreadyAdded
+            ) {
+
+                console.log(
+                    "🌱 Memory Biodiversità: Green Points già accreditati."
+                );
+
+            } else {
+
+                console.warn(
+                    "EcoGame: Green Points non accreditati.",
+                    risultato
+                );
+
+            }
+
+        })
+        .catch(function(errore) {
+
+            console.error(
+                "EcoGame: errore accredito Green Points:",
+                errore
+            );
+
+        });
+
+    } else {
+
+        console.error(
+            "EcoGame: accreditaGreenPointsUnaVolta non disponibile."
+        );
+
+    }
+
 }
 
 
@@ -1606,4 +1678,3 @@ nuovaPartita();
 </body>
 
 </html>
-```
