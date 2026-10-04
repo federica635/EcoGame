@@ -435,9 +435,7 @@ header {
             style="display:none"
             onclick="nextQuestion()"
         >
-
             Prossima sfida →
-
         </button>
 
 
@@ -521,24 +519,35 @@ header {
 
 <!-- =====================================================
      SUPABASE JS
-
-     IMPORTANTE:
-     DEVE ESSERE CARICATO PRIMA DI ECOGAME.JS
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <!-- =====================================================
-     ECOGAME.JS
-
-     DEVE ESSERE NELLA STESSA CARTELLA DI CLIMATE.HTML
+     ECOGAME JS
 ===================================================== -->
 
 <script src="ecogame.js"></script>
 
 
 <script>
+
+/* =====================================================
+   CONFIGURAZIONE GIOCO
+===================================================== */
+
+const CLIMATE_GAME_ID =
+    "climate-challenge";
+
+
+/*
+ * Il numero massimo di Green Points ottenibili
+ * con questo gioco è 200.
+ */
+const CLIMATE_MAX_GP =
+    200;
+
 
 /* =====================================================
    LINGUA
@@ -637,7 +646,19 @@ const testi = {
             "⚠️ Green Points non accreditati.",
 
         greenPointsGiaAccreditati:
-            "🌱 Green Points già accreditati."
+            "🌱 Green Points già accreditati per questo account.",
+
+        accountNonAutenticato:
+            "⚠️ Devi essere autenticato per ricevere i Green Points.",
+
+        accountVerifica:
+            "🔄 Verifica dell'account in corso...",
+
+        erroreAccount:
+            "⚠️ Impossibile verificare l'account.",
+
+        accreditati:
+            "🌱 Green Points aggiunti al tuo account."
 
     },
 
@@ -711,7 +732,19 @@ const testi = {
             "⚠️ Green Points were not added.",
 
         greenPointsGiaAccreditati:
-            "🌱 Green Points already credited."
+            "🌱 Green Points already credited for this account.",
+
+        accountNonAutenticato:
+            "⚠️ You must be logged in to receive Green Points.",
+
+        accountVerifica:
+            "🔄 Checking current account...",
+
+        erroreAccount:
+            "⚠️ Unable to verify the current account.",
+
+        accreditati:
+            "🌱 Green Points added to your account."
 
     },
 
@@ -785,7 +818,19 @@ const testi = {
             "⚠️ Green Pointseja ei lisätty.",
 
         greenPointsGiaAccreditati:
-            "🌱 Green Points on jo lisätty."
+            "🌱 Green Points on jo lisätty tälle tilille.",
+
+        accountNonAutenticato:
+            "⚠️ Green Pointsien saaminen edellyttää kirjautumista.",
+
+        accountVerifica:
+            "🔄 Tarkistetaan nykyinen tili...",
+
+        erroreAccount:
+            "⚠️ Nykyistä tiliä ei voitu vahvistaa.",
+
+        accreditati:
+            "🌱 Green Points lisättiin tilillesi."
 
     }
 
@@ -1078,10 +1123,6 @@ explanation:"L'effetto serra naturale è fondamentale per la vita. Il suo raffor
 ],
 
 
-/* =====================================================
-   INGLESE
-===================================================== */
-
 en: [
 
 {
@@ -1356,10 +1397,6 @@ explanation:"The natural greenhouse effect is essential for life. Its strengthen
 
 ],
 
-
-/* =====================================================
-   FINLANDESE
-===================================================== */
 
 fi: [
 
@@ -1718,6 +1755,21 @@ const gameQuestions =
 
 
 /* =====================================================
+   CONTROLLO DOMANDE
+===================================================== */
+
+if (
+    gameQuestions.length !== 20
+) {
+
+    console.error(
+        "Climate: il gioco deve contenere esattamente 20 domande."
+    );
+
+}
+
+
+/* =====================================================
    VARIABILI
 ===================================================== */
 
@@ -1745,15 +1797,15 @@ let greenPointsTotale =
     null;
 
 
+let currentUserId =
+    null;
+
+
 /* =====================================================
    APPLICA TESTI
 ===================================================== */
 
 function applicaTesti() {
-
-    const testiLingua =
-        testi[lingua];
-
 
     document.documentElement.lang =
         lingua;
@@ -1762,61 +1814,61 @@ function applicaTesti() {
     document.getElementById(
         "gameTitle"
     ).innerText =
-        testiLingua.title;
+        T.title;
 
 
     document.getElementById(
         "gameDescription"
     ).innerText =
-        testiLingua.description;
+        T.description;
 
 
     document.querySelector(
         ".menu"
     ).innerText =
-        testiLingua.giochi;
+        T.giochi;
 
 
     document.getElementById(
         "questionLabel"
     ).innerText =
-        testiLingua.domanda;
+        T.domanda;
 
 
     document.getElementById(
         "scoreLabel"
     ).innerText =
-        testiLingua.punti;
+        T.punti;
 
 
     document.getElementById(
         "next"
     ).innerText =
-        testiLingua.prossima;
+        T.prossima;
 
 
     document.getElementById(
         "resultTitle"
     ).innerText =
-        testiLingua.completata;
+        T.completata;
 
 
     document.getElementById(
         "resultObtained"
     ).innerText =
-        testiLingua.ottenuto;
+        T.ottenuto;
 
 
     document.querySelector(
         ".restart"
     ).innerText =
-        testiLingua.riprova;
+        T.riprova;
 
 
     document.querySelector(
         ".back"
     ).innerText =
-        testiLingua.torna;
+        T.torna;
 
 
     aggiornaTestoGreenPoints();
@@ -1830,10 +1882,6 @@ function applicaTesti() {
 
 function aggiornaTestoGreenPoints() {
 
-    const testiLingua =
-        testi[lingua];
-
-
     if (
         greenPointsAccreditati &&
         greenPointsUltimi > 0
@@ -1843,7 +1891,7 @@ function aggiornaTestoGreenPoints() {
             "🌱 +" +
             greenPointsUltimi +
             " " +
-            testiLingua.greenPoints;
+            T.greenPoints;
 
     }
 
@@ -1853,7 +1901,7 @@ function aggiornaTestoGreenPoints() {
     ) {
 
         greenPointsTotal.innerText =
-            testiLingua.greenPointsTotali +
+            T.greenPointsTotali +
             " " +
             greenPointsTotale;
 
@@ -1863,102 +1911,767 @@ function aggiornaTestoGreenPoints() {
 
 
 /* =====================================================
-   CARICA DOMANDA
+   OTTIENI ACCOUNT CORRENTE
 ===================================================== */
 
-function loadQuestion() {
+async function ottieniAccountClimate() {
 
-    answered =
-        false;
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.getUser !==
+        "function"
+    ) {
 
+        console.error(
+            "Climate: ecoGame.getUser non disponibile."
+        );
 
-    feedback.style.display =
-        "none";
-
-
-    next.style.display =
-        "none";
-
-
-    next.innerText =
-        T.prossima;
+        return null;
+    }
 
 
-    const q =
-        gameQuestions[
-            current
-        ];
+    try {
+
+        const user =
+            await window.ecoGame.getUser();
 
 
-    category.innerText =
-        q.category;
+        if (
+            !user ||
+            !user.id
+        ) {
 
-
-    question.innerText =
-        q.question;
-
-
-    scenario.innerText =
-        q.scenario;
-
-
-    answers.innerHTML =
-        "";
-
-
-    q.answers.forEach(
-        function(answer, index) {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "answer";
-
-
-            button.innerText =
-                answer;
-
-
-            button.onclick =
-                function() {
-
-                    checkAnswer(
-                        button,
-                        index
-                    );
-
-                };
-
-
-            answers.appendChild(
-                button
+            console.warn(
+                "Climate: nessun account autenticato."
             );
 
+            currentUserId =
+                null;
+
+            return null;
         }
+
+
+        currentUserId =
+            user.id;
+
+
+        console.log(
+            "🌍 Climate: account corrente:",
+            currentUserId
+        );
+
+
+        return user;
+
+    }
+
+    catch (
+        errore
+    ) {
+
+        console.error(
+            "Climate: errore recupero account:",
+            errore
+        );
+
+        currentUserId =
+            null;
+
+        return null;
+    }
+
+}
+
+
+/* =====================================================
+   CHIAVE ACCREDITO PER ACCOUNT
+===================================================== */
+
+function getClimateAccountKey(
+    userId
+) {
+
+    if (
+        !userId
+    ) {
+
+        return null;
+    }
+
+
+    return (
+        "ecoGameGP_" +
+        CLIMATE_GAME_ID +
+        "_" +
+        userId
     );
 
+}
 
-    questionNumber.innerText =
-        (
-            current + 1
-        ) +
-        "/" +
-        gameQuestions.length;
+
+/* =====================================================
+   VERIFICA SE IL GIOCO È GIÀ STATO ACCREDITATO
+   PER L'ACCOUNT CORRENTE
+===================================================== */
+
+function climateGiaAccreditato(
+    userId
+) {
+
+    const chiave =
+        getClimateAccountKey(
+            userId
+        );
+
+
+    if (
+        !chiave
+    ) {
+
+        return false;
+    }
+
+
+    return (
+        sessionStorage.getItem(
+            chiave
+        ) === "true"
+    );
+
+}
+
+
+/* =====================================================
+   SEGNA GIOCO ACCREDITATO
+===================================================== */
+
+function segnaClimateAccreditato(
+    userId
+) {
+
+    const chiave =
+        getClimateAccountKey(
+            userId
+        );
+
+
+    if (
+        !chiave
+    ) {
+
+        return;
+    }
+
+
+    sessionStorage.setItem(
+        chiave,
+        "true"
+    );
+
+}
+
+
+/* =====================================================
+   CARICA GREEN POINTS ACCOUNT
+===================================================== */
+
+async function caricaGreenPointsClimate() {
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.getGreenPoints !==
+        "function"
+    ) {
+
+        console.error(
+            "Climate: ecoGame.getGreenPoints non disponibile."
+        );
+
+        greenPointsTotal.innerText =
+            T.greenPointsErrore;
+
+        return null;
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.getGreenPoints();
+
+
+        console.log(
+            "Climate: risultato lettura GP:",
+            risultato
+        );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            greenPointsTotale =
+                Number(
+                    risultato.points
+                ) || 0;
+
+
+            greenPointsTotal.innerText =
+                T.greenPointsTotali +
+                " " +
+                greenPointsTotale;
+
+
+            console.log(
+                "🌱 Climate: GP account corrente:",
+                greenPointsTotale
+            );
+
+
+            return risultato;
+
+        }
+
+
+        console.warn(
+            "Climate: impossibile leggere i GP:",
+            risultato
+        );
+
+
+        return risultato;
+
+    }
+
+    catch (
+        errore
+    ) {
+
+        console.error(
+            "Climate: errore caricamento GP:",
+            errore
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   CALCOLO GREEN POINTS
+===================================================== */
+
+function calcolaGreenPointsClimate() {
+
+    /*
+     * Il punteggio del quiz è:
+     *
+     * +10 risposta corretta
+     * -5 risposta errata
+     *
+     * Con 20 domande:
+     *
+     * massimo = 200
+     * minimo teorico = -100
+     *
+     * I Green Points non possono essere negativi.
+     */
+
+    const punteggio =
+        Number(score);
+
+
+    if (
+        !Number.isFinite(
+            punteggio
+        )
+    ) {
+
+        return 0;
+
+    }
+
+
+    const punti =
+        Math.max(
+            0,
+            Math.floor(
+                punteggio
+            )
+        );
+
+
+    return Math.min(
+        CLIMATE_MAX_GP,
+        punti
+    );
+
+}
+
+
+/* =====================================================
+   ACCREDITA GREEN POINTS CLIMATE
+===================================================== */
+
+async function accreditaGreenPointsClimate() {
+
+    if (
+        greenPointsAccreditati
+    ) {
+
+        return {
+
+            success: true,
+
+            alreadyAdded: true,
+
+            pointsAdded: 0,
+
+            totalPoints:
+                greenPointsTotale
+        };
+
+    }
+
+
+    /*
+     * Recuperiamo SEMPRE l'account corrente
+     * direttamente da Supabase tramite ecogame.js.
+     */
+
+    const user =
+        await ottieniAccountClimate();
+
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        greenPointsResult.innerText =
+            T.accountNonAutenticato;
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "Utente non autenticato"
+        };
+
+    }
+
+
+    /*
+     * Se lo stesso account ha già completato
+     * Climate Challenge nella sessione,
+     * non sommiamo nuovamente i GP.
+     */
+
+    if (
+        climateGiaAccreditato(
+            user.id
+        )
+    ) {
+
+        greenPointsAccreditati =
+            true;
+
+
+        greenPointsResult.innerText =
+            T.greenPointsGiaAccreditati;
+
+
+        await caricaGreenPointsClimate();
+
+
+        return {
+
+            success: false,
+
+            alreadyAdded: true,
+
+            pointsAdded: 0,
+
+            totalPoints:
+                greenPointsTotale
+        };
+
+    }
+
+
+    const punti =
+        calcolaGreenPointsClimate();
+
+
+    greenPointsUltimi =
+        punti;
+
+
+    greenPointsResult.innerText =
+        "🌱 +" +
+        punti +
+        " " +
+        T.greenPoints;
+
+
+    /*
+     * Usiamo addGreenPoints() del sistema comune.
+     *
+     * Questa funzione:
+     *
+     * 1. recupera nuovamente user.id;
+     * 2. legge profiles.id = user.id;
+     * 3. legge i GP attuali;
+     * 4. somma i nuovi GP;
+     * 5. aggiorna profiles.green_points;
+     * 6. aggiorna il livello;
+     * 7. restituisce il totale aggiornato.
+     *
+     * In questo modo i GP vengono associati
+     * all'account autenticato in quel momento.
+     */
+
+    if (
+        !window.ecoGame ||
+        typeof window.ecoGame.addGreenPoints !==
+        "function"
+    ) {
+
+        console.error(
+            "Climate: ecoGame.addGreenPoints non disponibile."
+        );
+
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                "ecoGame.addGreenPoints non disponibile"
+        };
+
+    }
+
+
+    try {
+
+        const risultato =
+            await window.ecoGame.addGreenPoints(
+                punti
+            );
+
+
+        console.log(
+            "Climate: risultato accredito Supabase:",
+            risultato
+        );
+
+
+        if (
+            risultato &&
+            risultato.success
+        ) {
+
+            /*
+             * Segniamo l'accredito SOLO dopo
+             * la conferma positiva di Supabase.
+             */
+
+            segnaClimateAccreditato(
+                user.id
+            );
+
+
+            greenPointsAccreditati =
+                true;
+
+
+            greenPointsUltimi =
+                Number(
+                    risultato.pointsAdded
+                ) || punti;
+
+
+            greenPointsTotale =
+                Number(
+                    risultato.totalPoints
+                ) || 0;
+
+
+            greenPointsResult.innerText =
+                "🌱 +" +
+                greenPointsUltimi +
+                " " +
+                T.greenPoints;
+
+
+            greenPointsTotal.innerText =
+                T.greenPointsTotali +
+                " " +
+                greenPointsTotale;
+
+
+            console.log(
+                "🌱 Climate: account:",
+                user.id
+            );
+
+
+            console.log(
+                "🌱 Climate: GP aggiunti:",
+                greenPointsUltimi
+            );
+
+
+            console.log(
+                "🌱 Climate: GP totali:",
+                greenPointsTotale
+            );
+
+
+            return risultato;
+
+        }
+
+
+        /*
+         * Se l'operazione non è andata a buon fine,
+         * NON salviamo il flag di accredito.
+         */
+
+        console.error(
+            "Climate: GP non accreditati:",
+            risultato
+        );
+
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+
+        return risultato;
+
+    }
+
+    catch (
+        errore
+    ) {
+
+        console.error(
+            "Climate: errore Green Points:",
+            errore
+        );
+
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+
+        return {
+
+            success: false,
+
+            pointsAdded: 0,
+
+            error:
+                errore
+        };
+
+    }
+
+}
+
+
+/* =====================================================
+   RISULTATO
+===================================================== */
+
+async function showResult() {
+
+    document
+        .getElementById(
+            "quizCard"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "resultCard"
+        )
+        .classList.remove(
+            "hidden"
+        );
 
 
     progressBar.style.width =
-        (
-            (
-                current /
-                gameQuestions.length
-            ) *
-            100
-        ) +
-        "%";
+        "100%";
+
+
+    const puntiFinali =
+        Math.max(
+            -100,
+            Math.min(
+                200,
+                Number(score) || 0
+            )
+        );
+
+
+    document
+        .getElementById(
+            "finalScore"
+        )
+        .innerText =
+        puntiFinali +
+        " / 200";
+
+
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .innerText =
+        T.completata;
+
+
+    document
+        .getElementById(
+            "resultObtained"
+        )
+        .innerText =
+        T.ottenuto;
+
+
+    document.querySelector(
+        ".restart"
+    ).innerText =
+        T.riprova;
+
+
+    document.querySelector(
+        ".back"
+    ).innerText =
+        T.torna;
+
+
+    let message;
+
+
+    if (
+        score >=
+        170
+    ) {
+
+        message =
+            T.eccellente;
+
+    }
+
+    else if (
+        score >=
+        140
+    ) {
+
+        message =
+            T.ottimo;
+
+    }
+
+    else if (
+        score >=
+        100
+    ) {
+
+        message =
+            T.buona;
+
+    }
+
+    else if (
+        score >=
+        60
+    ) {
+
+        message =
+            T.discreto;
+
+    }
+
+    else {
+
+        message =
+            T.imparare;
+
+    }
+
+
+    document
+        .getElementById(
+            "resultMessage"
+        )
+        .innerText =
+        message;
+
+
+    /*
+     * Prima verifichiamo l'account corrente.
+     */
+
+    greenPointsResult.innerText =
+        T.accountVerifica;
+
+
+    const user =
+        await ottieniAccountClimate();
+
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        greenPointsResult.innerText =
+            T.accountNonAutenticato;
+
+
+        return;
+
+    }
+
+
+    /*
+     * Mostriamo il totale già presente
+     * sull'account prima dell'accredito.
+     */
+
+    await caricaGreenPointsClimate();
+
+
+    /*
+     * Ora aggiungiamo SOLO i GP ottenuti
+     * da questo completamento.
+     */
+
+    await accreditaGreenPointsClimate();
 
 }
 
@@ -2083,6 +2796,15 @@ function checkAnswer(
 
 function nextQuestion() {
 
+    if (
+        !answered
+    ) {
+
+        return;
+
+    }
+
+
     current++;
 
 
@@ -2105,444 +2827,105 @@ function nextQuestion() {
 
 
 /* =====================================================
-   CALCOLO GREEN POINTS
+   CARICA DOMANDA
 ===================================================== */
 
-function calcolaGreenPointsClimate() {
+function loadQuestion() {
 
-    /*
-     * Il Climate Challenge usa il punteggio
-     * finale del quiz come Green Points.
-     *
-     * 20 domande:
-     *
-     * risposta corretta = +10
-     * risposta errata   = -5
-     *
-     * Il massimo è quindi 200 GP.
-     *
-     * Non permettiamo però un risultato
-     * negativo nei Green Points.
-     */
-
-    const punti =
-        Math.max(
-            0,
-            Math.floor(
-                Number(
-                    score
-                )
-            )
-        );
+    answered =
+        false;
 
 
-    return punti;
-
-}
-
-
-/* =====================================================
-   ACCREDITA GREEN POINTS CLIMATE
-===================================================== */
-
-async function accreditaGreenPointsClimate() {
-
-    if (
-        greenPointsAccreditati
-    ) {
-
-        return;
-
-    }
+    feedback.style.display =
+        "none";
 
 
-    const punti =
-        calcolaGreenPointsClimate();
+    next.style.display =
+        "none";
 
 
-    greenPointsUltimi =
-        punti;
+    next.innerText =
+        T.prossima;
 
 
-    greenPointsResult.innerText =
-        "🌱 +" +
-        punti +
-        " " +
-        T.greenPoints;
+    const q =
+        gameQuestions[
+            current
+        ];
 
 
-    /*
-     * Controlliamo che ecogame.js
-     * sia stato caricato correttamente.
-     */
-
-    if (
-        !window.ecoGame ||
-        typeof window.ecoGame.addGamePoints !==
-        "function"
-    ) {
-
-        console.error(
-            "Climate: ecoGame non disponibile."
-        );
+    category.innerText =
+        q.category;
 
 
-        greenPointsResult.innerText =
-            T.greenPointsErrore;
+    question.innerText =
+        q.question;
 
 
-        return;
-
-    }
-
-
-    try {
-
-        const risultato =
-            await window.ecoGame.addGamePoints(
-                "climate-challenge",
-                punti
-            );
+    scenario.innerText =
+        q.scenario;
 
 
-        console.log(
-            "Climate: risultato accredito GP:",
-            risultato
-        );
+    answers.innerHTML =
+        "";
 
 
-        if (
-            risultato &&
-            risultato.success
+    q.answers.forEach(
+        function(
+            answer,
+            index
         ) {
 
-            greenPointsAccreditati =
-                true;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-            greenPointsUltimi =
-                Number(
-                    risultato.pointsAdded
-                ) || punti;
+            button.className =
+                "answer";
 
 
-            greenPointsTotale =
-                Number(
-                    risultato.totalPoints
-                ) || 0;
+            button.innerText =
+                answer;
 
 
-            greenPointsResult.innerText =
-                "🌱 +" +
-                greenPointsUltimi +
-                " " +
-                T.greenPoints;
+            button.onclick =
+                function() {
+
+                    checkAnswer(
+                        button,
+                        index
+                    );
+
+                };
 
 
-            greenPointsTotal.innerText =
-                T.greenPointsTotali +
-                " " +
-                greenPointsTotale;
-
-
-            console.log(
-                "🌱 Climate: GP aggiunti:",
-                greenPointsUltimi
-            );
-
-
-            console.log(
-                "🌱 Climate: GP totali:",
-                greenPointsTotale
+            answers.appendChild(
+                button
             );
 
         }
-
-
-        else if (
-            risultato &&
-            risultato.alreadyAdded
-        ) {
-
-            greenPointsAccreditati =
-                true;
-
-
-            greenPointsResult.innerText =
-                T.greenPointsGiaAccreditati;
-
-
-            /*
-             * Anche quando i punti sono già
-             * stati accreditati rileggiamo
-             * il totale dell'account.
-             */
-
-            await caricaGreenPointsClimate();
-
-        }
-
-
-        else {
-
-            console.error(
-                "Climate: GP non accreditati:",
-                risultato
-            );
-
-
-            greenPointsResult.innerText =
-                T.greenPointsErrore;
-
-        }
-
-    }
-
-
-    catch (
-        errore
-    ) {
-
-        console.error(
-            "Climate: errore Green Points:",
-            errore
-        );
-
-
-        greenPointsResult.innerText =
-            T.greenPointsErrore;
-
-    }
-
-}
-
-
-/* =====================================================
-   CARICA GREEN POINTS ACCOUNT
-===================================================== */
-
-async function caricaGreenPointsClimate() {
-
-    if (
-        !window.ecoGame ||
-        typeof window.ecoGame.getGreenPoints !==
-        "function"
-    ) {
-
-        console.error(
-            "Climate: ecoGame.getGreenPoints non disponibile."
-        );
-
-
-        return null;
-
-    }
-
-
-    try {
-
-        const risultato =
-            await window.ecoGame.getGreenPoints();
-
-
-        console.log(
-            "Climate: risultato lettura GP:",
-            risultato
-        );
-
-
-        if (
-            risultato &&
-            risultato.success
-        ) {
-
-            greenPointsTotale =
-                Number(
-                    risultato.points
-                ) || 0;
-
-
-            greenPointsTotal.innerText =
-                T.greenPointsTotali +
-                " " +
-                greenPointsTotale;
-
-
-            console.log(
-                "🌱 Climate: GP account:",
-                greenPointsTotale
-            );
-
-
-            return risultato;
-
-        }
-
-
-        console.warn(
-            "Climate: impossibile leggere i GP:",
-            risultato
-        );
-
-
-        return risultato;
-
-    }
-
-
-    catch (
-        errore
-    ) {
-
-        console.error(
-            "Climate: errore caricamento GP:",
-            errore
-        );
-
-
-        return null;
-
-    }
-
-}
-
-
-/* =====================================================
-   RISULTATO
-===================================================== */
-
-async function showResult() {
-
-    document
-        .getElementById(
-            "quizCard"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-
-    document
-        .getElementById(
-            "resultCard"
-        )
-        .classList.remove(
-            "hidden"
-        );
+    );
+
+
+    questionNumber.innerText =
+        (
+            current + 1
+        ) +
+        "/" +
+        gameQuestions.length;
 
 
     progressBar.style.width =
-        "100%";
-
-
-    document
-        .getElementById(
-            "finalScore"
-        )
-        .innerText =
-        score +
-        " / 200";
-
-
-    document
-        .getElementById(
-            "resultTitle"
-        )
-        .innerText =
-        T.completata;
-
-
-    document
-        .getElementById(
-            "resultObtained"
-        )
-        .innerText =
-        T.ottenuto;
-
-
-    document.querySelector(
-        ".restart"
-    ).innerText =
-        T.riprova;
-
-
-    document.querySelector(
-        ".back"
-    ).innerText =
-        T.torna;
-
-
-    let message;
-
-
-    if (
-        score >=
-        170
-    ) {
-
-        message =
-            T.eccellente;
-
-    }
-
-    else if (
-        score >=
-        140
-    ) {
-
-        message =
-            T.ottimo;
-
-    }
-
-    else if (
-        score >=
-        100
-    ) {
-
-        message =
-            T.buona;
-
-    }
-
-    else if (
-        score >=
-        60
-    ) {
-
-        message =
-            T.discreto;
-
-    }
-
-    else {
-
-        message =
-            T.imparare;
-
-    }
-
-
-    document
-        .getElementById(
-            "resultMessage"
-        )
-        .innerText =
-        message;
-
-
-    /*
-     * Prima leggiamo il totale attuale.
-     */
-
-    await caricaGreenPointsClimate();
-
-
-    /*
-     * Poi accreditiamo i GP del gioco.
-     */
-
-    await accreditaGreenPointsClimate();
+        (
+            (
+                current /
+                gameQuestions.length
+            ) *
+            100
+        ) +
+        "%";
 
 }
 
@@ -2569,11 +2952,6 @@ window.addEventListener(
             )
         ) {
 
-            /*
-             * Ricarichiamo la pagina con
-             * la nuova lingua salvata.
-             */
-
             localStorage.setItem(
                 "ecoGameLingua",
                 nuovaLingua
@@ -2592,13 +2970,66 @@ window.addEventListener(
    AVVIO
 ===================================================== */
 
-applicaTesti();
+async function avviaClimate() {
+
+    /*
+     * Applichiamo immediatamente la lingua.
+     */
+
+    applicaTesti();
 
 
-caricaGreenPointsClimate();
+    /*
+     * Verifichiamo che ecogame.js sia disponibile.
+     */
+
+    if (
+        !window.ecoGame
+    ) {
+
+        console.error(
+            "Climate: window.ecoGame non disponibile."
+        );
+
+        greenPointsResult.innerText =
+            T.greenPointsErrore;
+
+    }
 
 
-loadQuestion();
+    /*
+     * Recuperiamo l'account corrente.
+     *
+     * Questo NON assegna ancora punti.
+     * Serve solamente a verificare quale
+     * account Supabase è autenticato.
+     */
+
+    await ottieniAccountClimate();
+
+
+    /*
+     * Carichiamo i GP già presenti nell'account.
+     */
+
+    await caricaGreenPointsClimate();
+
+
+    /*
+     * Avviamo il quiz.
+     */
+
+    loadQuestion();
+
+}
+
+
+/*
+ * DOM già disponibile perché questo script
+ * si trova alla fine del body.
+ */
+
+avviaClimate();
 
 </script>
 
