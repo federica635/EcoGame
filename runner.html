@@ -10,6 +10,7 @@
 
 <title>🐝 Eco Bee Runner - EcoGame</title>
 
+
 <style>
 
 * {
@@ -338,6 +339,7 @@ kbd {
 
 </head>
 
+
 <body>
 
 
@@ -453,7 +455,6 @@ kbd {
 
     <div class="obstacles">
 
-
         <div
             class="obstacle"
             id="obstacle"
@@ -468,7 +469,6 @@ kbd {
         >
             📄
         </div>
-
 
     </div>
 
@@ -545,7 +545,6 @@ kbd {
 
     </div>
 
-
 </div>
 
 
@@ -574,8 +573,20 @@ kbd {
 
 
 <!-- =====================================================
+     SUPABASE
+     
+     DEVE ESSERE CARICATO PRIMA DI ECOGAME.JS
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+</script>
+
+
+<!-- =====================================================
      ECOGAME.JS
-     DEVE ESSERE NELLA STESSA CARTELLA DI RUNNER.HTML
+
+     Deve essere nella stessa cartella di runner.html
 ===================================================== -->
 
 <script src="ecogame.js"></script>
@@ -751,7 +762,7 @@ const traduzioni = {
 
 
 /* =====================================================
-   LINGUA
+   LINGUA COMUNE ECOGAME
 ===================================================== */
 
 let linguaCorrente =
@@ -812,10 +823,52 @@ function applicaLingua() {
             }
         );
 
+
+    aggiornaTestoGreenPoints();
+
 }
 
 
-applicaLingua();
+function aggiornaTestoGreenPoints() {
+
+    const risultato =
+        document.getElementById(
+            "greenPointsResult"
+        );
+
+
+    const totale =
+        document.getElementById(
+            "greenPointsTotal"
+        );
+
+
+    if (!risultato || !totale) {
+
+        return;
+
+    }
+
+
+    if (
+        greenPointsAccreditati === false
+    ) {
+
+        risultato.innerText =
+            "🌱 +0 " +
+            traduzioni[
+                linguaCorrente
+            ].greenPoints;
+
+        totale.innerText =
+            traduzioni[
+                linguaCorrente
+            ].greenPointsTotali +
+            " —";
+
+    }
+
+}
 
 
 /* =====================================================
@@ -842,6 +895,7 @@ window.addEventListener(
 
             linguaCorrente =
                 nuovaLingua;
+
 
             applicaLingua();
 
@@ -939,8 +993,7 @@ let secondActive = false;
 
 let lastTime = 0;
 
-let greenPointsAccreditati =
-    false;
+let greenPointsAccreditati = false;
 
 
 let record =
@@ -978,6 +1031,14 @@ recordElement.innerText =
 /* =====================================================
    CALCOLO GREEN POINTS RUNNER
 ===================================================== */
+
+/*
+ * Distanza < 50     = 10 GP
+ * Distanza 50-99    = 20 GP
+ * Distanza 100-199  = 30 GP
+ * Distanza 200-299  = 40 GP
+ * Distanza >= 300   = 50 GP
+ */
 
 function calcolaGreenPointsRunner(
     distanza
@@ -1045,9 +1106,11 @@ async function accreditaGreenPointsRunner() {
     }
 
 
-    greenPointsAccreditati =
-        true;
-
+    /*
+     * NON blocchiamo subito l'operazione.
+     * La blocchiamo solo dopo che abbiamo
+     * ricevuto una risposta dal sistema.
+     */
 
     const punti =
         calcolaGreenPointsRunner(
@@ -1059,23 +1122,21 @@ async function accreditaGreenPointsRunner() {
         "🌱 +" +
         punti +
         " " +
-        traduzioni[linguaCorrente].greenPoints;
+        traduzioni[
+            linguaCorrente
+        ].greenPoints;
 
 
     greenPointsTotal.innerText =
         traduzioni[
             linguaCorrente
         ].greenPointsTotali +
-        " —";
+        " ...";
 
 
-    /*
-     * Questa funzione arriva direttamente
-     * da ecogame.js.
-     *
-     * gameId:
-     * eco-bee-runner
-     */
+    /* =================================================
+       CONTROLLO ECOGAME.JS
+    ================================================= */
 
     if (
         !window.ecoGame ||
@@ -1084,7 +1145,7 @@ async function accreditaGreenPointsRunner() {
     ) {
 
         console.error(
-            "EcoGame: ecogame.js non disponibile."
+            "Runner: ecoGame.addGamePoints non disponibile."
         );
 
 
@@ -1101,6 +1162,24 @@ async function accreditaGreenPointsRunner() {
 
     try {
 
+        console.log(
+            "🐝 Runner: tentativo accredito:",
+            punti,
+            "GP"
+        );
+
+
+        /*
+         * ecoGame.addGamePoints()
+         * utilizza:
+         *
+         * accreditaGreenPointsUnaVolta()
+         *
+         * quindi lo stesso gioco non viene
+         * accreditato due volte nella stessa
+         * sessione del browser.
+         */
+
         const risultato =
             await window.ecoGame.addGamePoints(
                 "eco-bee-runner",
@@ -1108,26 +1187,36 @@ async function accreditaGreenPointsRunner() {
             );
 
 
+        console.log(
+            "🐝 Runner: risposta Green Points:",
+            risultato
+        );
+
+
         if (
             risultato &&
             risultato.success
         ) {
 
-            console.log(
-                "🌱 Runner: GP aggiunti:",
-                risultato.pointsAdded
-            );
+            greenPointsAccreditati =
+                true;
 
 
-            console.log(
-                "🌱 Runner: GP totali:",
-                risultato.totalPoints
-            );
+            const puntiAggiunti =
+                Number(
+                    risultato.pointsAdded
+                ) || punti;
+
+
+            const totale =
+                Number(
+                    risultato.totalPoints
+                ) || 0;
 
 
             greenPointsResult.innerText =
                 "🌱 +" +
-                risultato.pointsAdded +
+                puntiAggiunti +
                 " " +
                 traduzioni[
                     linguaCorrente
@@ -1139,45 +1228,68 @@ async function accreditaGreenPointsRunner() {
                     linguaCorrente
                 ].greenPointsTotali +
                 " " +
-                risultato.totalPoints;
+                totale;
 
-        } else {
 
-            console.warn(
-                "Runner: GP non accreditati:",
-                risultato
+            console.log(
+                "🌱 Runner: GP aggiunti:",
+                puntiAggiunti
             );
 
 
-            /*
-             * Se il sistema dice che i punti
-             * sono già stati assegnati,
-             * non lo consideriamo un errore grave.
-             */
+            console.log(
+                "🌱 Runner: GP totali:",
+                totale
+            );
 
-            if (
-                risultato &&
-                risultato.alreadyAdded
-            ) {
 
-                greenPointsResult.innerText =
-                    "🌱 " +
-                    traduzioni[
-                        linguaCorrente
-                    ].greenPoints +
-                    " già accreditati.";
+            return;
 
-                return;
+        }
 
-            }
+
+        /*
+         * Se sono già stati accreditati,
+         * non è un errore.
+         */
+
+        if (
+            risultato &&
+            risultato.alreadyAdded
+        ) {
+
+            greenPointsAccreditati =
+                true;
 
 
             greenPointsResult.innerText =
+                "🌱 " +
                 traduzioni[
                     linguaCorrente
-                ].greenPointsErrore;
+                ].greenPoints +
+                " già accreditati.";
+
+
+            return;
 
         }
+
+
+        /*
+         * Errore reale.
+         */
+
+        console.warn(
+            "Runner: GP non accreditati:",
+            risultato
+        );
+
+
+        greenPointsResult.innerText =
+            traduzioni[
+                linguaCorrente
+            ].greenPointsErrore;
+
 
     } catch (errore) {
 
@@ -1514,6 +1626,11 @@ function gameLoop(timestamp) {
 
 async function fine() {
 
+    /*
+     * Evita che due collisioni nello stesso
+     * frame chiamino due volte fine().
+     */
+
     if (!gameRunning) {
 
         return;
@@ -1529,7 +1646,9 @@ async function fine() {
         score;
 
 
-    /* RECORD */
+    /* =================================================
+       RECORD
+    ================================================= */
 
     if (
         score >
@@ -1552,13 +1671,36 @@ async function fine() {
     }
 
 
+    /* =================================================
+       MOSTRA GAME OVER
+    ================================================= */
+
     gameover.style.display =
         "flex";
 
 
     /*
-     * Accreditiamo i Green Points
-     * dopo aver mostrato il Game Over.
+     * Mostriamo subito i GP previsti.
+     */
+
+    const puntiPrevisti =
+        calcolaGreenPointsRunner(
+            score
+        );
+
+
+    greenPointsResult.innerText =
+        "🌱 +" +
+        puntiPrevisti +
+        " " +
+        traduzioni[
+            linguaCorrente
+        ].greenPoints;
+
+
+    /*
+     * Poi tentiamo l'accredito reale
+     * su Supabase.
      */
 
     await accreditaGreenPointsRunner();
@@ -1655,6 +1797,10 @@ async function caricaGreenPointsRunner() {
         "function"
     ) {
 
+        console.warn(
+            "Runner: ecoGame.getGreenPoints non disponibile."
+        );
+
         return;
 
     }
@@ -1674,6 +1820,13 @@ async function caricaGreenPointsRunner() {
             console.log(
                 "🌱 Runner: GP account:",
                 risultato.points
+            );
+
+        } else {
+
+            console.warn(
+                "Runner: account non disponibile.",
+                risultato
             );
 
         }
@@ -1697,7 +1850,19 @@ async function caricaGreenPointsRunner() {
 restart();
 
 
-caricaGreenPointsRunner();
+/*
+ * Aspettiamo che il browser abbia caricato
+ * Supabase + ecogame.js.
+ */
+
+setTimeout(
+    function() {
+
+        caricaGreenPointsRunner();
+
+    },
+    300
+);
 
 
 requestAnimationFrame(
@@ -1705,6 +1870,7 @@ requestAnimationFrame(
 );
 
 </script>
+
 
 </body>
 
