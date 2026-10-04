@@ -186,6 +186,20 @@
             font-weight: bold;
         }
 
+        #greenPointsPartita {
+            font-size: 26px;
+            color: #a5d6a7;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        #greenPointsTotali {
+            font-size: 30px;
+            color: #ffd54f;
+            font-weight: bold;
+            margin: 20px;
+        }
+
         #messaggioFinale {
             font-size: 20px;
             color: #d7ead9;
@@ -253,6 +267,10 @@
 
     <p id="punteggioFinale"></p>
 
+    <p id="greenPointsPartita"></p>
+
+    <p id="greenPointsTotali"></p>
+
     <p id="messaggioFinale"></p>
 
     <button id="ricomincia" onclick="ricomincia()">
@@ -293,74 +311,73 @@ document.documentElement.lang = lingua;
    ===================================================== */
 
 /*
-   Il giocatore parte da 50 Green Points.
+   Il gioco assegna:
 
-   IMPORTANTE:
-   I 50 GP vengono aggiunti SOLO se non esiste
-   ancora un valore salvato.
+   50 GP di base
+   +
+   10 GP per ogni risposta corretta
 
-   Quindi NON vengono aggiunti ogni volta che
-   si apre il gioco.
+   I GP vengono aggiunti a quelli già presenti
+   nell'account/localStorage.
 */
 
-const GREEN_POINTS_INIZIALI = 50;
+const GREEN_POINTS_BASE = 50;
 const GREEN_POINTS_PER_CORRECT_ANSWER = 10;
 
 
-/* =====================================================
-   INIZIALIZZA GREEN POINTS
-   ===================================================== */
+/*
+   Legge i GP già presenti nell'account.
+*/
+function leggiGreenPoints() {
 
-function inizializzaGreenPoints() {
-
-    const puntiSalvati =
-        localStorage.getItem("greenPoints");
-
-    if (puntiSalvati === null) {
-
-        localStorage.setItem(
-            "greenPoints",
-            GREEN_POINTS_INIZIALI
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   AGGIUNGI GREEN POINTS
-   ===================================================== */
-
-function aggiungiGreenPoints() {
-
-    inizializzaGreenPoints();
-
-    let greenPoints =
-        parseInt(
-            localStorage.getItem("greenPoints"),
-            10
-        );
-
-    if (isNaN(greenPoints)) {
-        greenPoints = GREEN_POINTS_INIZIALI;
-    }
-
-    greenPoints += GREEN_POINTS_PER_CORRECT_ANSWER;
-
-    localStorage.setItem(
-        "greenPoints",
-        greenPoints
+    return parseInt(
+        localStorage.getItem("greenPoints") || "0",
+        10
     );
 
 }
 
 
-/* =====================================================
-   AVVIO GREEN POINTS
-   ===================================================== */
+/*
+   Salva i nuovi GP.
+*/
+function salvaGreenPoints(valore) {
 
-inizializzaGreenPoints();
+    localStorage.setItem(
+        "greenPoints",
+        valore
+    );
+
+}
+
+
+/*
+   Aggiunge i GP al totale dell'account.
+
+   IMPORTANTE:
+   NON sostituisce i vecchi GP.
+   Li somma.
+*/
+function aggiungiGreenPoints(quantita) {
+
+    const greenPointsAttuali =
+        leggiGreenPoints();
+
+    const nuovoTotale =
+        greenPointsAttuali + quantita;
+
+    salvaGreenPoints(nuovoTotale);
+
+    return nuovoTotale;
+
+}
+
+
+/*
+   Evita che i GP della partita vengano
+   aggiunti più di una volta.
+*/
+let greenPointsAssegnati = false;
 
 
 /* =====================================================
@@ -389,7 +406,7 @@ const testi = {
             "🛡️ Cosa si sarebbe potuto fare?",
 
         corretta:
-            "✅ Risposta corretta! +10 Green Points",
+            "✅ Risposta corretta! +10 GP",
 
         sbagliata:
             "❌ Risposta sbagliata!",
@@ -425,7 +442,13 @@ const testi = {
             "👍 Buon lavoro! Hai imparato diverse cose, ma puoi approfondire ancora.",
 
         continua:
-            "📚 Continua a esplorare: conoscere le cause delle estinzioni aiuta a capire come proteggere le specie."
+            "📚 Continua a esplorare: conoscere le cause delle estinzioni aiuta a capire come proteggere le specie.",
+
+        gpPartita:
+            "💚 Green Points guadagnati in questa partita:",
+
+        gpTotali:
+            "🏆 Green Points totali del tuo account:"
 
     },
 
@@ -450,7 +473,7 @@ const testi = {
             "🛡️ What could have been done?",
 
         corretta:
-            "✅ Correct answer! +10 Green Points",
+            "✅ Correct answer! +10 GP",
 
         sbagliata:
             "❌ Wrong answer!",
@@ -486,7 +509,13 @@ const testi = {
             "👍 Good job! You have learned several things, but there is still more to discover.",
 
         continua:
-            "📚 Keep exploring: understanding the causes of extinction helps us learn how to protect species."
+            "📚 Keep exploring: understanding the causes of extinction helps us learn how to protect species.",
+
+        gpPartita:
+            "💚 Green Points earned in this game:",
+
+        gpTotali:
+            "🏆 Total Green Points in your account:"
 
     },
 
@@ -511,7 +540,7 @@ const testi = {
             "🛡️ Mitä olisi voitu tehdä?",
 
         corretta:
-            "✅ Oikea vastaus! +10 Green Points",
+            "✅ Oikea vastaus! +10 GP",
 
         sbagliata:
             "❌ Väärä vastaus!",
@@ -547,7 +576,13 @@ const testi = {
             "👍 Hyvää työtä! Olet oppinut paljon, mutta voit vielä syventää tietojasi.",
 
         continua:
-            "📚 Jatka tutkimista: sukupuuttojen syiden ymmärtäminen auttaa meitä suojelemaan lajeja."
+            "📚 Jatka tutkimista: sukupuuttojen syiden ymmärtäminen auttaa meitä suojelemaan lajeja.",
+
+        gpPartita:
+            "💚 Tässä pelissä ansaitut Green Points:",
+
+        gpTotali:
+            "🏆 Tilisi Green Points -kokonaismäärä:"
 
     }
 
@@ -1398,13 +1433,6 @@ function controllaRisposta(risposta) {
 
         punteggio++;
 
-        /*
-           QUI vengono aggiunti realmente
-           i 10 Green Points.
-        */
-
-        aggiungiGreenPoints();
-
         document.getElementById("risultato").innerText =
             t.corretta;
 
@@ -1462,7 +1490,7 @@ function prossimaDomanda() {
 
 
 /* =====================================================
-   RISULTATO FINALE
+   RISULTATO FINALE + GREEN POINTS
    ===================================================== */
 
 function mostraRisultatoFinale() {
@@ -1481,10 +1509,68 @@ function mostraRisultatoFinale() {
 
     document.getElementById("punteggioFinale").innerText =
         punteggio +
-        " / 6";
+        " / " +
+        animali.length;
 
 
-    if (punteggio === 6) {
+    /*
+       CALCOLO DEI GREEN POINTS DELLA PARTITA
+
+       50 GP di base
+       +
+       10 GP per ogni risposta corretta
+    */
+
+    const greenPointsPartita =
+        GREEN_POINTS_BASE +
+        (punteggio * GREEN_POINTS_PER_CORRECT_ANSWER);
+
+
+    /*
+       Aggiunge i GP al totale dell'account
+       solamente una volta.
+    */
+
+    if (!greenPointsAssegnati) {
+
+        const totaleGreenPoints =
+            aggiungiGreenPoints(
+                greenPointsPartita
+            );
+
+        greenPointsAssegnati = true;
+
+
+        /*
+           Mostra quanti GP sono stati
+           guadagnati in questa partita.
+        */
+
+        document.getElementById(
+            "greenPointsPartita"
+        ).innerText =
+            t.gpPartita +
+            " " +
+            greenPointsPartita +
+            " GP";
+
+
+        /*
+           Mostra il totale dell'account.
+        */
+
+        document.getElementById(
+            "greenPointsTotali"
+        ).innerText =
+            t.gpTotali +
+            " " +
+            totaleGreenPoints +
+            " GP";
+
+    }
+
+
+    if (punteggio === animali.length) {
 
         document.getElementById("messaggioFinale").innerText =
             t.perfetto;
@@ -1520,12 +1606,11 @@ function ricomincia() {
     punteggio = 0;
 
     /*
-       NOTA:
-       NON azzeriamo greenPoints.
-
-       I Green Points sono un totale generale
-       del giocatore e devono rimanere salvati.
+       Permette di guadagnare nuovamente
+       i GP quando si completa una nuova partita.
     */
+
+    greenPointsAssegnati = false;
 
 
     document.getElementById("finale").style.display =
